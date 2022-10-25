@@ -18,16 +18,11 @@ Let's divide the development process into several steps.
 	
 ## Prototyping the graphical user interface
 
-<<<<<<< HEAD
 - [x] Create a skeleton of the GUI application. No Python backend is required at this stage. All development is done in `Qt QML` based on the generic technic-independent [EasyApp](https://github.com/EasyScience/easyApp) from the [EasyScience](https://github.com/EasyScience) framework.
-=======
-- [ ] Create a skeleton of the GUI application. No Python backend is required at this stage. All development is done in `Qt QML` based on the generic technic-independent [EasyApp](https://github.com/EasyScience/easyApp) from the [EasyScience](https://github.com/EasyScience) framework.
->>>>>>> master
 - [ ] Add all technique-specific GUI elements based on the `Jupyter Notebook` from the previous chapter.
 
 ### How to run and edit the GUI prototype.
 
-<<<<<<< HEAD
 * Create and go to `EasyScience` directory
   ```
   mkdir EasyScience && cd EasyScience
@@ -44,13 +39,6 @@ Let's divide the development process into several steps.
 * Open `project.qmlproject` via `Qt Creator` and select the `.qml` file to edit.
 * Click the `Design` button at the top of the left sidebar of `Qt Creator`. _Note: If this button is disabled, find and click `About plugins...` in the `Qt Creator` menu, scroll down to the `Qt Quick` section and enable `QmlDesigner`._
 * In the `Design` window, click the small `Show Live Preview` button in the top panel of the application. _Note: Showing the entire `main.qml` application window in live mode works best when the open `main.qml` is moved to another monitor and does not overlap with `Qt Creator`.
-=======
-* Download/clone [EasyTextureApp](https://github.com/EasyScience/EasyTextureApp) from GitHub.
-* Install `Qt 5.15.2` (including the `Qt WebEngine` module).
-* Open the application `Qt Creator`.
-* From `Qt Creator` open the project file `project.qmlproject` from the downloaded [EasyTextureApp](https://github.com/EasyScience/EasyTextureApp).
-* Click the `Run project` button.
->>>>>>> master
 
 ## Binding to the Python backend
 
