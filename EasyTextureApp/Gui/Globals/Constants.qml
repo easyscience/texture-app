@@ -52,10 +52,9 @@ QtObject {
 `${appName} is a software for reduction of powder
 diffraction data from textured materials.
 
-${appName} is a collaborative project between the
-Department of Structural Geology and Geodynamics of
-Georg August University of Göttingen, Germany and
-European Spallation Source ERIC, Sweden.`
+${appName} is a collaborative project between
+the Geoscience Center of the University of Göttingen, Germany, and
+the European Spallation Source ERIC, Sweden.`
 
     readonly property string essLogo: logo('ESSlogo.png')
 
