@@ -40,6 +40,8 @@ Let's divide the development process into several steps.
 * Click the `Design` button at the top of the left sidebar of `Qt Creator`. _Note: If this button is disabled, find and click `About plugins...` in the `Qt Creator` menu, scroll down to the `Qt Quick` section and enable `QmlDesigner`._
 * In the `Design` window, click the small `Show Live Preview` button in the top panel of the application. _Note: Showing the entire `main.qml` application window in live mode works best when the open `main.qml` is moved to another monitor and does not overlap with `Qt Creator`.
 
+![](./resources/images/qml_live-view.gif)
+
 ## Binding to the Python backend
 
 To be added later.
