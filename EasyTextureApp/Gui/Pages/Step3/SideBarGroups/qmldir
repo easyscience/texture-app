@@ -1,0 +1,5 @@
+module SideBarGroups
+
+SubStep1 1.0 SubStep1.qml
+SubStep2 1.0 SubStep2.qml
+SubStep3 1.0 SubStep3.qml

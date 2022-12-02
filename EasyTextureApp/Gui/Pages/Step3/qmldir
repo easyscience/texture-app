@@ -1,0 +1,5 @@
+module Step3
+
+MainContentPlotView 1.0 MainContentPlotView.qml
+SideBarAdvanced 1.0 SideBarAdvanced.qml
+SideBarBasic 1.0 SideBarBasic.qml
