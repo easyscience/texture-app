@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style type="text/css">
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    overflow: hidden;
+    font-family: "PT Sans", sans-serif;
+  }
+
+  #plotDiv {
+    width: 100vw;
+    height: 100vh;
+  }
+
+</style>
+
+<body>
+
+  <div id="plotDiv"></div>
+
+  <script>
+
+    // Define initial values
+    var numPoints = 100
+    var xValues = [], yValues = []
+    var xStep = 0.01
+    for (i = 0; i < numPoints; i++) {
+      xValues[i] = i * xStep
+      yValues[i] = Math.random()
+    }
+
+    // Define data
+    var data = [{
+      x: xValues,
+      y: yValues,
+      //mode: "lines"
+      line: {simplify: false},
+    }]
+
+    // Define layout
+    var layout = {
+      autosize: true,
+      xaxis: {
+        title: '2θ (deg)',
+        automargin: true,
+        showgrid: true,
+        zeroline: false,
+        showline: true,
+        mirror: 'ticks',
+      },
+      yaxis: {
+        title: 'Icalc',
+        automargin: true,
+        showgrid: true,
+        zeroline: false,
+        showline: true,
+        mirror: 'ticks',
+      },
+      margin: {
+          l: 43,
+          r: 3,
+          b: 50,
+          t: 40,
+          pad: 0
+        }
+    }
+
+    // Define config
+    var config = {
+      displayModeBar: true,
+      displaylogo: false,
+    }
+
+    // Display using Plotly
+    Plotly.newPlot('plotDiv', data, layout, config)
+
+    // Redraw
+    function redraw() {
+      plotDiv.data[0]['y'] = [15, 13, 17, 10]
+      Plotly.redraw(plotDiv)
+    }
+
+    // Redraw with animation
+    function redraw2() {
+      for (i = 0; i < numPoints; i++) {
+        yValues[i] = Math.random();
+      }
+      Plotly.animate('plotDiv', {
+        data: [{ y: yValues }],
+        traces: [0],
+        layout: {}
+      }, {
+        transition: {
+          duration: 500,
+          easing: 'cubic-in-out'
+        },
+        frame: {
+          duration: 500
+        }
+      })
+    }
+
+  </script>
+
+</body>
+
+</html>

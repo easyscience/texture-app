@@ -27,6 +27,7 @@ EaComponents.SideBarColumn {
     // Sidebar Group
     EaElements.GroupBox {
         title: qsTr("Sub-step 3")
+        collapsed: false
         last: true
 
         Loader { source: 'SideBarGroups/SubStep3.qml' }

@@ -7,5 +7,5 @@ import QtQuick 2.15
 import Gui.Logic 1.0 as ExLogic
 
 Loader {
-    source: 'MainContentComponents/Step2ChartBokeh.qml'
+    source: 'MainContentComponents/Step2ChartPlotly.qml'
 }
