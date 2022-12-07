@@ -11,10 +11,46 @@ import easyApp.Gui.Logic 1.0 as EaLogic
 
 import Gui.Globals 1.0 as ExGlobals
 
-EaElements.SideBarButton {
-    width: 525
+Grid {
+    columns: 2
+    columnSpacing: EaStyle.Sizes.fontPixelSize
 
-    text: "Click to regenerate data"
+    Column {
+        EaElements.Label {
+            enabled: false
+            text: qsTr("Number of points")
+        }
 
-    onClicked: ExGlobals.Variables.plotlyChart.runJavaScript(`redraw2()`)
+        EaElements.Parameter {
+            width: inputFieldWidth()
+            text: '100'
+            onEditingFinished: {
+                ExGlobals.Variables.plotlyChart.runJavaScript(`changeArraySizes(${text})`)
+            }
+        }
+    }
+
+    Column {
+        EaElements.Label {
+            enabled: false
+            text: " "
+        }
+
+        EaElements.SideBarButton {
+            width: inputFieldWidth()
+            text: "Click to regenerate data"
+            onClicked: {
+                ExGlobals.Variables.plotlyChart.runJavaScript(`redrawWithAnimation()`)
+            }
+        }
+    }
+
+    // Logic
+
+    function inputFieldWidth() {
+        return (EaStyle.Sizes.sideBarContentWidth - columnSpacing * (columns - 1)) / columns
+    }
+
 }
+
+
