@@ -34,5 +34,5 @@ QtObject {
     property var summaryTabButton
 
     // Charts
-    property var plotlyChart
+    property var chartViewSimple1dPlotly
 }

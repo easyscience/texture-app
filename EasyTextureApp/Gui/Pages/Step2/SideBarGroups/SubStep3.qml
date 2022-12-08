@@ -23,9 +23,12 @@ Grid {
 
         EaElements.Parameter {
             width: inputFieldWidth()
-            text: '100'
+            Component.onCompleted: text = ExGlobals.Variables.chartViewSimple1dPlotly.xyArraysLength
             onEditingFinished: {
-                ExGlobals.Variables.plotlyChart.runJavaScript(`changeArraySizes(${text})`)
+                ExGlobals.Variables.chartViewSimple1dPlotly.setXYArraysLength(text)
+                ExGlobals.Variables.chartViewSimple1dPlotly.generateXArrayValues()
+                ExGlobals.Variables.chartViewSimple1dPlotly.generateYArrayValues()
+                ExGlobals.Variables.chartViewSimple1dPlotly.redrawPlot()
             }
         }
     }
@@ -40,7 +43,8 @@ Grid {
             width: inputFieldWidth()
             text: "Click to regenerate data"
             onClicked: {
-                ExGlobals.Variables.plotlyChart.runJavaScript(`redrawWithAnimation()`)
+                ExGlobals.Variables.chartViewSimple1dPlotly.generateYArrayValues()
+                ExGlobals.Variables.chartViewSimple1dPlotly.redrawPlotWithYAnimation()
             }
         }
     }
