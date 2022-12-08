@@ -16,6 +16,7 @@ QtObject {
     property bool step1PageEnabled: isDebugMode ? true : false
     property bool step2PageEnabled: isDebugMode ? true : false
     property bool step3PageEnabled: isDebugMode ? true : false
+    property bool step4PageEnabled: isDebugMode ? true : false
     property bool summaryPageEnabled: isDebugMode ? true : false
 
     // //////////////////////////
@@ -31,8 +32,10 @@ QtObject {
     property var step1TabButton
     property var step2TabButton
     property var step3TabButton
+    property var step4TabButton
     property var summaryTabButton
 
     // Charts
     property var chartViewSimple1dPlotly
+    property var chartViewHeatmap2dPlotly
 }
