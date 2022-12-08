@@ -32,4 +32,7 @@ QtObject {
     property var step2TabButton
     property var step3TabButton
     property var summaryTabButton
+
+    // Charts
+    property var chartViewSimple1dPlotly
 }

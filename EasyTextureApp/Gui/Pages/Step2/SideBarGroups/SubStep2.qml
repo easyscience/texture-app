@@ -11,7 +11,6 @@ import easyApp.Gui.Logic 1.0 as EaLogic
 
 import Gui.Globals 1.0 as ExGlobals
 
-
 Grid {
     columns: 2
     columnSpacing: EaStyle.Sizes.fontPixelSize

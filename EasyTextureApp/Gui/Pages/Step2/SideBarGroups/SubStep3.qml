@@ -11,7 +11,6 @@ import easyApp.Gui.Logic 1.0 as EaLogic
 
 import Gui.Globals 1.0 as ExGlobals
 
-
 Grid {
     columns: 2
     columnSpacing: EaStyle.Sizes.fontPixelSize
@@ -19,26 +18,34 @@ Grid {
     Column {
         EaElements.Label {
             enabled: false
-            text: qsTr("Parameter E")
+            text: qsTr("Number of points")
         }
 
         EaElements.Parameter {
             width: inputFieldWidth()
-            units: "%"
-            text: EaLogic.Utils.toFixed(80.2)
+            Component.onCompleted: text = ExGlobals.Variables.chartViewSimple1dPlotly.xyArraysLength
+            onEditingFinished: {
+                ExGlobals.Variables.chartViewSimple1dPlotly.setXYArraysLength(text)
+                ExGlobals.Variables.chartViewSimple1dPlotly.generateXArrayValues()
+                ExGlobals.Variables.chartViewSimple1dPlotly.generateYArrayValues()
+                ExGlobals.Variables.chartViewSimple1dPlotly.redrawPlot()
+            }
         }
     }
 
     Column {
         EaElements.Label {
             enabled: false
-            text: qsTr("Parameter F")
+            text: " "
         }
 
-        EaElements.Parameter {
+        EaElements.SideBarButton {
             width: inputFieldWidth()
-            units: "%"
-            text: EaLogic.Utils.toFixed(13.145)
+            text: "Click to regenerate data"
+            onClicked: {
+                ExGlobals.Variables.chartViewSimple1dPlotly.generateYArrayValues()
+                ExGlobals.Variables.chartViewSimple1dPlotly.redrawPlotWithYAnimation()
+            }
         }
     }
 
@@ -49,3 +56,5 @@ Grid {
     }
 
 }
+
+
