@@ -3,9 +3,7 @@
 // © 2022 Contributors to the EasyTexture project <https://github.com/EasyScience/EasyTextureApp>
 
 import QtQuick 2.15
-import QtQuick.Controls 2.15
 
-import easyApp.Gui.Elements 1.0 as EaElements
 import easyApp.Gui.Charts 1.0 as EaCharts
 
 import Gui.Globals 1.0 as ExGlobals
