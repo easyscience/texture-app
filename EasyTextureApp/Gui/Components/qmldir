@@ -1,0 +1,6 @@
+module Components
+
+ApplicationWindow ApplicationWindow.qml
+StatusBar StatusBar.qml
+GuiTestsController GuiTestsController.qml
+UserTutorialsController UserTutorialsController.qml

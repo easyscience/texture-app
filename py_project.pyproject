@@ -1,0 +1,20 @@
+{
+"files": [    
+    "EasyTextureApp/main.py",
+
+    "EasyTextureApp/Logic/Calculator.py",
+    "EasyTextureApp/Logic/Model.py",
+    "EasyTextureApp/Logic/Experiment.py",
+    "EasyTextureApp/Logic/Fitting.py",
+    "EasyTextureApp/Logic/Parameters.py",
+    "EasyTextureApp/Logic/Summary.py",
+    "EasyTextureApp/Logic/Status.py",
+    "EasyTextureApp/Logic/Project.py",
+    "EasyTextureApp/Logic/PyProxy.py",
+    "EasyTextureApp/Logic/ResourcePaths.py",
+
+    "resources.qrc",
+
+    "EasyTextureApp/Gui/main.qml"
+    ]
+}
