@@ -23,7 +23,7 @@ EaComponents.ContentPage {
     mainView: EaComponents.MainContent {
         tabs: [
             EaElements.TabButton {
-                text: Globals.Proxies.main.experiment.isCreated ?
+                text: Globals.Proxies.main.rawData.isCreated ?
                           qsTr("Fitting") :
                           qsTr("Simulation")
             }

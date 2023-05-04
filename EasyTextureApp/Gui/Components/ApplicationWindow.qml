@@ -65,7 +65,7 @@ EaComponents.ApplicationWindow {
                 appBarCentralTabs.setCurrentIndex(0)
                 Globals.Vars.projectPageEnabled = false
                 Globals.Vars.modelPageEnabled = false
-                Globals.Vars.experimentPageEnabled = false
+                Globals.Vars.rawDataPageEnabled = false
                 Globals.Vars.analysisPageEnabled = false
                 Globals.Vars.summaryPageEnabled = false
             }
@@ -125,16 +125,16 @@ EaComponents.ApplicationWindow {
             Component.onCompleted: Globals.Refs.app.appbar.projectButton = this
         },
 
-        // Experiment tab
+        // RawData tab
         EaElements.AppBarTabButton {
-            enabled: Globals.Vars.experimentPageEnabled
-            fontIcon: "microscope"
-            text: qsTr("Experiment")
-            ToolTip.text: qsTr("Experimental settings and measured data page")
+            enabled: Globals.Vars.rawDataPageEnabled
+            fontIcon: "database"
+            text: qsTr("Raw Data")
+            ToolTip.text: qsTr("Raw Data page")
             onEnabledChanged: enabled ?
-                                  experimentPageLoader.source = 'Pages/Experiment/PageStructure.qml' :
-                                  experimentPageLoader.source = ''
-            Component.onCompleted: Globals.Refs.app.appbar.experimentButton = this
+                                  rawDataPageLoader.source = 'Pages/RawData/PageStructure.qml' :
+                                  rawDataPageLoader.source = ''
+            Component.onCompleted: Globals.Refs.app.appbar.rawDataButton = this
         },
 
         // Model tab
@@ -186,7 +186,7 @@ EaComponents.ApplicationWindow {
     contentArea: [
         Loader { id: homePageLoader },
         Loader { id: projectPageLoader },
-        Loader { id: experimentPageLoader },
+        Loader { id: rawDataPageLoader },
         Loader { id: modelPageLoader },
         Loader { id: analysisPageLoader },
         Loader { id: summaryPageLoader }

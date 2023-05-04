@@ -92,9 +92,9 @@ EaElements.RemoteController {
         rc.mouseClick(Globals.Refs.app.modelPage.addNewModelManuallyButton)
         rc.mouseClick(Globals.Refs.app.modelPage.continueButton)
 
-        // Experiment page
-        rc.mouseClick(Globals.Refs.app.experimentPage.importDataFromLocalDriveButton)
-        rc.mouseClick(Globals.Refs.app.experimentPage.continueButton)
+        // RawData page
+        rc.mouseClick(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton)
+        rc.mouseClick(Globals.Refs.app.rawDataPage.continueButton)
 
         // Analysis page
         rc.mouseClick(Globals.Refs.app.analysisPage.startFittingButton)

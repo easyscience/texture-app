@@ -24,14 +24,14 @@ Row {
         units: qsTr('points')
         validator: IntValidator { bottom: 2; top: 1000001 }
 
-        Component.onCompleted: text = Globals.Proxies.main.experiment.dataSize
+        Component.onCompleted: text = Globals.Proxies.main.rawData.dataSize
     }
 
     EaElements.SideBarButton {
         id: generateDataButton
 
         text: qsTr('Generate data')
-        onClicked: Globals.Proxies.main.experiment.dataSize = parseInt(inputField.text)
+        onClicked: Globals.Proxies.main.rawData.dataSize = parseInt(inputField.text)
     }
 
 }

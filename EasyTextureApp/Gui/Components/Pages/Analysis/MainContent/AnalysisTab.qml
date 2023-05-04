@@ -17,8 +17,8 @@ EaCharts.Plotly1dMeasVsCalc {
     xAxisTitle: "x"
     yAxisTitle: "y"
 
-    xData: Globals.Proxies.main.experiment.xData
-    measuredYData: Globals.Proxies.main.experiment.yData
+    xData: Globals.Proxies.main.rawData.xData
+    measuredYData: Globals.Proxies.main.rawData.yData
     calculatedYData: Globals.Proxies.main.model.yData
 
     Component.onCompleted: Globals.Refs.app.analysisPage.plotView = this

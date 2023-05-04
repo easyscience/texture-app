@@ -15,7 +15,7 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    defaultInfo: Globals.Proxies.main.experiment.isCreated ?
+    defaultInfo: Globals.Proxies.main.rawData.isCreated ?
                      "" :
                      qsTr("No experiments loaded")
 
@@ -46,7 +46,7 @@ EaComponents.ContentPage {
             Loader { source: 'SideBarAdvanced.qml' }
         ]
 
-        continueButton.text: Globals.Proxies.main.experiment.isCreated ?
+        continueButton.text: Globals.Proxies.main.rawData.isCreated ?
                                  qsTr("Continue") :
                                  qsTr("Continue without experiment data")
 
@@ -55,7 +55,7 @@ EaComponents.ContentPage {
             Globals.Refs.app.appbar.modelButton.toggle()
         }
 
-        Component.onCompleted: Globals.Refs.app.experimentPage.continueButton = continueButton
+        Component.onCompleted: Globals.Refs.app.rawDataPage.continueButton = continueButton
     }
 
     Component.onCompleted: print("Experiment page loaded:", this)

@@ -5,15 +5,15 @@
         <file>Gui/Components/Pages/Analysis/PageStructure.qml</file>
         <file>Gui/Components/Pages/Analysis/SideBarAdvanced.qml</file>
         <file>Gui/Components/Pages/Analysis/SideBarBasic.qml</file>
-        <file>Gui/Components/Pages/Experiment/MainContent/DataView1dTab.qml</file>
-        <file>Gui/Components/Pages/Experiment/MainContent/DataView2dTab.qml</file>
-        <file>Gui/Components/Pages/Experiment/MainContent/DataViewScatter3dTab.qml</file>
-        <file>Gui/Components/Pages/Experiment/MainContent/DataViewSurface3dTab.qml</file>
-        <file>Gui/Components/Pages/Experiment/SideBarAdvanced/GenerateDataGroup.qml</file>
-        <file>Gui/Components/Pages/Experiment/SideBarBasic/ExperimentalDataExplorerGroup.qml</file>
-        <file>Gui/Components/Pages/Experiment/PageStructure.qml</file>
-        <file>Gui/Components/Pages/Experiment/SideBarAdvanced.qml</file>
-        <file>Gui/Components/Pages/Experiment/SideBarBasic.qml</file>
+        <file>Gui/Components/Pages/RawData/MainContent/DataView2dTab.qml</file>
+        <file>Gui/Components/Pages/RawData/MainContent/DataViewScatter3dTab.qml</file>
+        <file>Gui/Components/Pages/RawData/MainContent/DataViewSurface3dTab.qml</file>
+        <file>Gui/Components/Pages/RawData/MainContent/DataView1dTab.qml</file>
+        <file>Gui/Components/Pages/RawData/SideBarAdvanced/GenerateDataGroup.qml</file>
+        <file>Gui/Components/Pages/RawData/SideBarBasic/ExperimentalDataExplorerGroup.qml</file>
+        <file>Gui/Components/Pages/RawData/PageStructure.qml</file>
+        <file>Gui/Components/Pages/RawData/SideBarAdvanced.qml</file>
+        <file>Gui/Components/Pages/RawData/SideBarBasic.qml</file>
         <file>Gui/Components/Pages/Home/AboutDialog.qml</file>
         <file>Gui/Components/Pages/Home/Page.qml</file>
         <file>Gui/Components/Pages/Model/MainContent/ModelView1dTab.qml</file>
@@ -41,9 +41,8 @@
         <file>Gui/Globals/Configs.qml</file>
         <file>Gui/Globals/Proxies.qml</file>
         <file>Gui/Globals/qmldir</file>
-        <file>Gui/Globals/References.qml</file>
-        <file>Gui/Globals/Variables.qml</file>
-        <file>Gui/Resources/Logo/App.icns</file>
+        <file>Gui/Globals/Refs.qml</file>
+        <file>Gui/Globals/Vars.qml</file>        <file>Gui/Resources/Logo/App.icns</file>
         <file>Gui/Resources/Logo/App.ico</file>
         <file>Gui/Resources/Logo/App.png</file>
         <file>Gui/Resources/Logo/App.svg</file>
@@ -213,8 +212,6 @@
         <file>../../EasyApp/EasyApp/Gui/Style/Times.qml</file>
         <file>../../EasyApp/EasyApp/Logic/Maintenance/qmldir</file>
         <file>../../EasyApp/EasyApp/Logic/Maintenance/Updater.qml</file>
-        <file>../../EasyApp/EasyApp/Logic/Utils/__pycache__/__init__.cpython-38.pyc</file>
-        <file>../../EasyApp/EasyApp/Logic/Utils/__pycache__/Utils.cpython-38.pyc</file>
         <file>../../EasyApp/EasyApp/Logic/Utils/__init__.py</file>
         <file>../../EasyApp/EasyApp/Logic/Utils/Utils.py</file>
         <file>../../EasyApp/EasyApp/Logic/__init__.py</file>
@@ -222,5 +219,6 @@
         <file>../../EasyApp/EasyApp/Logic/Maintenance.py</file>
         <file>../../EasyApp/EasyApp/Logic/Translate.py</file>
         <file>../../EasyApp/EasyApp/__init__.py</file>
+
     </qresource>
 </RCC>

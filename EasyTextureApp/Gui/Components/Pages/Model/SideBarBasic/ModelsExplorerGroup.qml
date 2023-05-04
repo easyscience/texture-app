@@ -60,9 +60,9 @@ Column {
                 fontIcon: "minus-circle"
                 ToolTip.text: qsTr("Remove this model")
                 onClicked: {
-                    Globals.Proxies.main.experiment.emptyData()
+                    Globals.Proxies.main.rawData.emptyData()
                     Globals.Proxies.main.model.emptyData()
-                    Globals.Vars.experimentPageEnabled = false
+                    Globals.Vars.rawDataPageEnabled = false
                     Globals.Vars.analysisPageEnabled = false
                     Globals.Vars.summaryPageEnabled = false
                 }

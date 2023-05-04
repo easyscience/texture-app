@@ -74,7 +74,7 @@ EaElements.RemoteController {
 
         res.push( rc.compare(Globals.Refs.app.appbar.homeButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.experimentButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.modelButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
@@ -91,7 +91,7 @@ EaElements.RemoteController {
 
         res.push( rc.compare(Globals.Refs.app.appbar.homeButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.appbar.experimentButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.modelButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
@@ -102,32 +102,32 @@ EaElements.RemoteController {
         rc.mouseClick(Globals.Refs.app.projectPage.continueButton)
         //rc.wait(2000)
 
-        // Experiment page
+        // RawData page
 
-        //saveImage(saveImagesDir, 'ExperimentPage.png')
+        //saveImage(saveImagesDir, 'RawDataPage.png')
 
         res.push( rc.compare(Globals.Refs.app.appbar.homeButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.appbar.experimentButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.modelButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
 
-        res.push( rc.compare(Globals.Refs.app.experimentPage.importDataFromLocalDriveButton.text, 'Import data from local drive') )
-        res.push( rc.compare(Globals.Refs.app.experimentPage.importDataFromLocalDriveButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.experimentPage.continueButton.text, 'Continue without experiment data') )
-        res.push( rc.compare(Globals.Refs.app.experimentPage.continueButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton.text, 'Import data from local drive') )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.continueButton.text, 'Continue without experiment data') )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.continueButton.enabled, true) )
 
-        rc.mouseClick(Globals.Refs.app.experimentPage.importDataFromLocalDriveButton)
+        rc.mouseClick(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton)
         rc.wait(2000)
 
-        res.push( rc.compare(Globals.Refs.app.experimentPage.importDataFromLocalDriveButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.experimentPage.continueButton.text, 'Continue') )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.continueButton.text, 'Continue') )
 
-        res.push( rc.compare(Globals.Refs.app.experimentPage.plotView.xData, Globals.Tests.expected.created.experiment.xData) )
-        res.push( rc.compare(Globals.Refs.app.experimentPage.plotView.measuredYData, Globals.Tests.expected.created.experiment.yData) )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
+        res.push( rc.compare(Globals.Refs.app.rawDataPage.plotView.measuredYData, Globals.Tests.expected.created.rawData.yData) )
 
-        rc.mouseClick(Globals.Refs.app.experimentPage.continueButton)
+        rc.mouseClick(Globals.Refs.app.rawDataPage.continueButton)
         //rc.wait(2000)
 
         // Model Page
@@ -136,7 +136,7 @@ EaElements.RemoteController {
 
         res.push( rc.compare(Globals.Refs.app.appbar.homeButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.appbar.experimentButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.modelButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
@@ -152,7 +152,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.modelPage.addNewModelManuallyButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.modelPage.continueButton.enabled, true) )
 
-        res.push( rc.compare(Globals.Refs.app.modelPage.plotView.xData, Globals.Tests.expected.created.experiment.xData) )
+        res.push( rc.compare(Globals.Refs.app.modelPage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
         res.push( rc.compare(Globals.Refs.app.modelPage.plotView.calculatedYData, Globals.Tests.expected.created.model.yData) )
 
         rc.mouseClick(Globals.Refs.app.modelPage.continueButton)
@@ -164,7 +164,7 @@ EaElements.RemoteController {
 
         res.push( rc.compare(Globals.Refs.app.appbar.homeButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.appbar.experimentButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.modelButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
@@ -176,15 +176,15 @@ EaElements.RemoteController {
 
         rc.wait(2000)
 
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.xData, Globals.Tests.expected.created.experiment.xData) )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.measuredYData, Globals.Tests.expected.created.experiment.yData) )
+        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
+        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.measuredYData, Globals.Tests.expected.created.rawData.yData) )
         res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.calculatedYData, Globals.Tests.expected.created.model.yData) )
 
         rc.mouseClick(Globals.Refs.app.analysisPage.startFittingButton)
         rc.wait(2000)
 
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.xData, Globals.Tests.expected.created.experiment.xData) )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.measuredYData, Globals.Tests.expected.created.experiment.yData) )
+        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
+        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.measuredYData, Globals.Tests.expected.created.rawData.yData) )
         res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.calculatedYData, Globals.Tests.expected.fitted.model.yData) )
 
         rc.mouseClick(Globals.Refs.app.analysisPage.continueButton)

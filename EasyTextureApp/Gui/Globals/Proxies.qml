@@ -35,33 +35,33 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 qmlProxy.project.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
                 qmlProxy.project.isCreatedChanged.connect(qmlProxy.project.save)
 
-                // Experiment
+                // RawData
 
-                qmlProxy.experiment.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
+                qmlProxy.rawData.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
 
-                qmlProxy.experiment.isCreatedChanged.connect(function() {
-                    print(`Experiment created: ${qmlProxy.experiment.isCreated}`)
+                qmlProxy.rawData.isCreatedChanged.connect(function() {
+                    print(`Experiment created: ${qmlProxy.rawData.isCreated}`)
                     qmlProxy.parameters.setFittables()
                     qmlProxy.project.setNeedSaveToTrue()
                 })
 
-                qmlProxy.experiment.parameterEdited.connect(function(needSetFittables) {
-                    qmlProxy.experiment.parametersEdited(needSetFittables)
+                qmlProxy.rawData.parameterEdited.connect(function(needSetFittables) {
+                    qmlProxy.rawData.parametersEdited(needSetFittables)
                 })
 
-                qmlProxy.experiment.parametersEdited.connect(function(needSetFittables) {
+                qmlProxy.rawData.parametersEdited.connect(function(needSetFittables) {
                     print(`Experiment parameters changed. Need set fittables: ${needSetFittables}`)
-                    qmlProxy.experiment.parametersChanged()
-                    qmlProxy.experiment.loadData()
+                    qmlProxy.rawData.parametersChanged()
+                    qmlProxy.rawData.loadData()
                     if (needSetFittables) {
                         qmlProxy.parameters.setFittables()
                     }
                     qmlProxy.project.setNeedSaveToTrue()
                 })
 
-                qmlProxy.experiment.dataSizeChanged.connect(function() {
-                    print(`Experiment data size: ${qmlProxy.experiment.dataSize}`)
-                    qmlProxy.experiment.loadData()
+                qmlProxy.rawData.dataSizeChanged.connect(function() {
+                    print(`Experiment data size: ${qmlProxy.rawData.dataSize}`)
+                    qmlProxy.rawData.loadData()
                     if (qmlProxy.model.isCreated) {
                         qmlProxy.model.calculateData()
                     }
@@ -154,14 +154,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     }
                 }
 
-                if (qmlProxy.experiment.isCreated) {
-                    project['experiment'] = {
-                        'name': qmlProxy.experiment.description.name,
-                        'isCreated': qmlProxy.experiment.isCreated,
-                        'parameters': qmlProxy.experiment.parameters,
-                        'dataSize': qmlProxy.experiment.dataSize,
-                        'xData': qmlProxy.experiment.xData,
-                        'yData': qmlProxy.experiment.yData
+                if (qmlProxy.rawData.isCreated) {
+                    project['rawData'] = {
+                        'name': qmlProxy.rawData.description.name,
+                        'isCreated': qmlProxy.rawData.isCreated,
+                        'parameters': qmlProxy.rawData.parameters,
+                        'dataSize': qmlProxy.rawData.dataSize,
+                        'xData': qmlProxy.rawData.xData,
+                        'yData': qmlProxy.rawData.yData
                     }
                 }
 
@@ -194,10 +194,10 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         }
 
         /////////////
-        // Experiment
+        // RawData
         /////////////
 
-        readonly property var experiment: QtObject {
+        readonly property var rawData: QtObject {
             signal parameterEdited(bool needSetFittables)
             signal parametersEdited(bool needSetFittables)
 
@@ -291,7 +291,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             function calculateData() {
                 const slope = parameters.slope.value
                 const yIntercept = parameters.yIntercept.value
-                const xData = qmlProxy.experiment.xData
+                const xData = qmlProxy.rawData.xData
                 yData = Logic.LineCalculator.calculated(xData, slope, yIntercept)
                 isCreated = true
             }
@@ -347,8 +347,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             function edit(group, name, item, value) {
                 const needSetFittables = false
-                if (group === 'experiment') {
-                    qmlProxy.experiment.editParameter(name, item, value, needSetFittables)
+                if (group === 'rawData') {
+                    qmlProxy.rawData.editParameter(name, item, value, needSetFittables)
                 } else if (group === 'model') {
                     qmlProxy.model.editParameter(name, item, value, needSetFittables)
                 }
@@ -356,11 +356,11 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             function setFittables() {
                 let _fittables = []
-                for (let name in qmlProxy.experiment.parameters) {
-                    let param = qmlProxy.experiment.parameters[name]
+                for (let name in qmlProxy.rawData.parameters) {
+                    let param = qmlProxy.rawData.parameters[name]
                     if (param.fittable) {
-                        param.group = 'experiment'
-                        param.parent = qmlProxy.experiment.description.name
+                        param.group = 'rawData'
+                        param.parent = qmlProxy.rawData.description.name
                         param.name = name
                         _fittables.push(param)
                     }

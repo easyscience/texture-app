@@ -45,8 +45,8 @@ EaComponents.ContentPage {
                                  qsTr("Continue without project")
 
         continueButton.onClicked: {            
-            Globals.Vars.experimentPageEnabled = true
-            Globals.Refs.app.appbar.experimentButton.toggle()
+            Globals.Vars.rawDataPageEnabled = true
+            Globals.Refs.app.appbar.rawDataButton.toggle()
         }
 
         Component.onCompleted: Globals.Refs.app.projectPage.continueButton = continueButton

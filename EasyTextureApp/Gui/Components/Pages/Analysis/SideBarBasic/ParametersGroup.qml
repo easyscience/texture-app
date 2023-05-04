@@ -92,7 +92,7 @@ Column {
 
             EaComponents.TableViewCheckBox {
                 id: fitColumn
-                enabled: Globals.Proxies.main.experiment.isCreated
+                enabled: Globals.Proxies.main.rawData.isCreated
                 headerText: qsTr("Fit")
                 checked: model.fit
                 onCheckedChanged: Globals.Proxies.main.parameters.edit(model.group, model.name, 'fit', checked)
@@ -121,7 +121,7 @@ Column {
     // Control buttons below table
 
     EaElements.SideBarButton {
-        enabled: Globals.Proxies.main.experiment.isCreated
+        enabled: Globals.Proxies.main.rawData.isCreated
         wide: true
 
         fontIcon: 'play-circle'
