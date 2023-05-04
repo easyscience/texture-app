@@ -19,7 +19,7 @@ EaComponents.BasicReport {
                         {'x': Globals.Proxies.main.rawData.xData, 'y': Globals.Proxies.main.rawData.yData} :
                         {}
     calculatedXYData: Globals.Proxies.main.summary.isCreated ?
-                          {'x': Globals.Proxies.main.rawData.xData, 'y': Globals.Proxies.main.model.yData} :
+                          {'x': Globals.Proxies.main.rawData.xData, 'y': Globals.Proxies.main.corrections.yData} :
                           {}
 
     Component.onCompleted: Globals.Refs.summaryReportWebEngine = this

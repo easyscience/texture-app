@@ -51,8 +51,8 @@ EaComponents.ContentPage {
                                  qsTr("Continue without experiment data")
 
         continueButton.onClicked: {
-            Globals.Vars.modelPageEnabled = true
-            Globals.Refs.app.appbar.modelButton.toggle()
+            Globals.Vars.correctionsPageEnabled = true
+            Globals.Refs.app.appbar.correctionsButton.toggle()
         }
 
         Component.onCompleted: Globals.Refs.app.rawDataPage.continueButton = continueButton

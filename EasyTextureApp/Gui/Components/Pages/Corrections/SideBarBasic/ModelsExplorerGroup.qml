@@ -26,8 +26,8 @@ Column {
         // Table model
 
         model: EaComponents.JsonListModel {
-            json: Globals.Proxies.main.model.isCreated ?
-                      JSON.stringify([Globals.Proxies.main.model.description]) :
+            json: Globals.Proxies.main.corrections.isCreated ?
+                      JSON.stringify([Globals.Proxies.main.corrections.description]) :
                       ""
             query: "$[*]"
         }
@@ -61,7 +61,7 @@ Column {
                 ToolTip.text: qsTr("Remove this model")
                 onClicked: {
                     Globals.Proxies.main.rawData.emptyData()
-                    Globals.Proxies.main.model.emptyData()
+                    Globals.Proxies.main.corrections.emptyData()
                     Globals.Vars.rawDataPageEnabled = false
                     Globals.Vars.analysisPageEnabled = false
                     Globals.Vars.summaryPageEnabled = false
@@ -84,11 +84,11 @@ Column {
         }
 
         EaElements.SideBarButton {
-            enabled: !Globals.Proxies.main.model.isCreated
+            enabled: !Globals.Proxies.main.corrections.isCreated
             fontIcon: "plus-circle"
             text: qsTr("Add new model manually")
-            onClicked: Globals.Proxies.main.model.calculateData()
-            Component.onCompleted: Globals.Refs.app.modelPage.addNewModelManuallyButton = this
+            onClicked: Globals.Proxies.main.corrections.calculateData()
+            Component.onCompleted: Globals.Refs.app.correctionsPage.addNewModelManuallyButton = this
         }
     }
 

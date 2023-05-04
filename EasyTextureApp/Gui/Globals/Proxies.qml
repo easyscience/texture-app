@@ -62,28 +62,28 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 qmlProxy.rawData.dataSizeChanged.connect(function() {
                     print(`Experiment data size: ${qmlProxy.rawData.dataSize}`)
                     qmlProxy.rawData.loadData()
-                    if (qmlProxy.model.isCreated) {
-                        qmlProxy.model.calculateData()
+                    if (qmlProxy.corrections.isCreated) {
+                        qmlProxy.corrections.calculateData()
                     }
                 })
 
-                // Model
+                // Corrections
 
-                qmlProxy.model.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
+                qmlProxy.corrections.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
 
-                qmlProxy.model.isCreatedChanged.connect(function() {
-                    print(`Model created: ${qmlProxy.model.isCreated}`)
+                qmlProxy.corrections.isCreatedChanged.connect(function() {
+                    print(`Model created: ${qmlProxy.corrections.isCreated}`)
                     qmlProxy.parameters.setFittables()
                     qmlProxy.project.setNeedSaveToTrue()
                 })
 
-                qmlProxy.model.parameterEdited.connect(function(needSetFittables) {
-                    qmlProxy.model.parametersEdited(needSetFittables)
+                qmlProxy.corrections.parameterEdited.connect(function(needSetFittables) {
+                    qmlProxy.corrections.parametersEdited(needSetFittables)
                 })
 
-                qmlProxy.model.parametersEdited.connect(function(needSetFittables) {
-                    qmlProxy.model.parametersChanged()
-                    qmlProxy.model.calculateData()
+                qmlProxy.corrections.parametersEdited.connect(function(needSetFittables) {
+                    qmlProxy.corrections.parametersChanged()
+                    qmlProxy.corrections.calculateData()
                     if (needSetFittables) {
                         qmlProxy.parameters.setFittables()
                     }
@@ -95,7 +95,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 qmlProxy.fitting.fitFinishedChanged.connect(function() {
                     print(`Fit finished: ${qmlProxy.fitting.fitFinished}`)
                     const needSetFittables = true
-                    qmlProxy.model.parametersEdited(needSetFittables)
+                    qmlProxy.corrections.parametersEdited(needSetFittables)
                 })
 
             }
@@ -165,12 +165,12 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     }
                 }
 
-                if (qmlProxy.model.isCreated) {
-                    project['model'] = {
-                        'name': qmlProxy.model.description.name,
-                        'isCreated': qmlProxy.model.isCreated,
-                        'parameters': qmlProxy.model.parameters,
-                        'yData': qmlProxy.model.yData
+                if (qmlProxy.corrections.isCreated) {
+                    project['corrections'] = {
+                        'name': qmlProxy.corrections.description.name,
+                        'isCreated': qmlProxy.corrections.isCreated,
+                        'parameters': qmlProxy.corrections.parameters,
+                        'yData': qmlProxy.corrections.yData
                     }
                 }
 
@@ -254,11 +254,11 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             }
         }
 
-        ////////
-        // Model
-        ////////
+        //////////////
+        // Corrections
+        //////////////
 
-        readonly property var model: QtObject {
+        readonly property var corrections: QtObject {
             signal parameterEdited(bool needSetFittables)
             signal parametersEdited(bool needSetFittables)
 
@@ -326,13 +326,13 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             function fit() {
                 fitFinished = false
-                if (qmlProxy.model.parameters.slope.fit) {
-                    qmlProxy.model.parameters.slope.value = -3.0015
-                    qmlProxy.model.parameters.slope.error = 0.0023
+                if (qmlProxy.corrections.parameters.slope.fit) {
+                    qmlProxy.corrections.parameters.slope.value = -3.0015
+                    qmlProxy.corrections.parameters.slope.error = 0.0023
                 }
-                if (qmlProxy.model.parameters.yIntercept.fit) {
-                    qmlProxy.model.parameters.yIntercept.value = 1.4950
-                    qmlProxy.model.parameters.yIntercept.error = 0.0045
+                if (qmlProxy.corrections.parameters.yIntercept.fit) {
+                    qmlProxy.corrections.parameters.yIntercept.value = 1.4950
+                    qmlProxy.corrections.parameters.yIntercept.error = 0.0045
                 }
                 fitFinished = true
             }
@@ -349,8 +349,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 const needSetFittables = false
                 if (group === 'rawData') {
                     qmlProxy.rawData.editParameter(name, item, value, needSetFittables)
-                } else if (group === 'model') {
-                    qmlProxy.model.editParameter(name, item, value, needSetFittables)
+                } else if (group === 'corrections') {
+                    qmlProxy.corrections.editParameter(name, item, value, needSetFittables)
                 }
             }
 
@@ -365,11 +365,11 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                         _fittables.push(param)
                     }
                 }
-                for (let name in qmlProxy.model.parameters) {
-                    let param = qmlProxy.model.parameters[name]
+                for (let name in qmlProxy.corrections.parameters) {
+                    let param = qmlProxy.corrections.parameters[name]
                     if (param.fittable) {
-                        param.group = 'model'
-                        param.parent = qmlProxy.model.description.name
+                        param.group = 'corrections'
+                        param.parent = qmlProxy.corrections.description.name
                         param.name = name
                         _fittables.push(param)
                     }

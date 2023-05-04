@@ -16,12 +16,6 @@
         <file>Gui/Components/Pages/RawData/SideBarBasic.qml</file>
         <file>Gui/Components/Pages/Home/AboutDialog.qml</file>
         <file>Gui/Components/Pages/Home/Page.qml</file>
-        <file>Gui/Components/Pages/Model/MainContent/ModelView1dTab.qml</file>
-        <file>Gui/Components/Pages/Model/SideBarBasic/ModelParametersGroup.qml</file>
-        <file>Gui/Components/Pages/Model/SideBarBasic/ModelsExplorerGroup.qml</file>
-        <file>Gui/Components/Pages/Model/PageStructure.qml</file>
-        <file>Gui/Components/Pages/Model/SideBarAdvanced.qml</file>
-        <file>Gui/Components/Pages/Model/SideBarBasic.qml</file>
         <file>Gui/Components/Pages/Project/MainContent/DescriptionTab.qml</file>
         <file>Gui/Components/Pages/Project/SideBarAdvanced/ScrollingGroup.qml</file>
         <file>Gui/Components/Pages/Project/SideBarBasic/ExamplesGroup.qml</file>
@@ -42,7 +36,8 @@
         <file>Gui/Globals/Proxies.qml</file>
         <file>Gui/Globals/qmldir</file>
         <file>Gui/Globals/Refs.qml</file>
-        <file>Gui/Globals/Vars.qml</file>        <file>Gui/Resources/Logo/App.icns</file>
+        <file>Gui/Globals/Vars.qml</file>
+        <file>Gui/Resources/Logo/App.icns</file>
         <file>Gui/Resources/Logo/App.ico</file>
         <file>Gui/Resources/Logo/App.png</file>
         <file>Gui/Resources/Logo/App.svg</file>
@@ -219,6 +214,5 @@
         <file>../../EasyApp/EasyApp/Logic/Maintenance.py</file>
         <file>../../EasyApp/EasyApp/Logic/Translate.py</file>
         <file>../../EasyApp/EasyApp/__init__.py</file>
-
     </qresource>
 </RCC>

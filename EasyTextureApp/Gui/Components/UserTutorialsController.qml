@@ -88,9 +88,9 @@ EaElements.RemoteController {
         // Project Page
         rc.mouseClick(Globals.Refs.app.projectPage.continueButton)
 
-        // Model Page
-        rc.mouseClick(Globals.Refs.app.modelPage.addNewModelManuallyButton)
-        rc.mouseClick(Globals.Refs.app.modelPage.continueButton)
+        // Corrections Page
+        rc.mouseClick(Globals.Refs.app.correctionsPage.addNewModelManuallyButton)
+        rc.mouseClick(Globals.Refs.app.correctionsPage.continueButton)
 
         // RawData page
         rc.mouseClick(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton)

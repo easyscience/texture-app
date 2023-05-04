@@ -64,7 +64,7 @@ EaComponents.ApplicationWindow {
             onClicked: {
                 appBarCentralTabs.setCurrentIndex(0)
                 Globals.Vars.projectPageEnabled = false
-                Globals.Vars.modelPageEnabled = false
+                Globals.Vars.correctionsPageEnabled = false
                 Globals.Vars.rawDataPageEnabled = false
                 Globals.Vars.analysisPageEnabled = false
                 Globals.Vars.summaryPageEnabled = false
@@ -137,16 +137,16 @@ EaComponents.ApplicationWindow {
             Component.onCompleted: Globals.Refs.app.appbar.rawDataButton = this
         },
 
-        // Model tab
+        // Corrections tab
         EaElements.AppBarTabButton {
-            enabled: Globals.Vars.modelPageEnabled
-            fontIcon: "gem"
-            text: qsTr("Model")
-            ToolTip.text: qsTr("Model description page")
+            enabled: Globals.Vars.correctionsPageEnabled
+            fontIcon: "hammer"
+            text: qsTr("Corrections")
+            ToolTip.text: qsTr("Corrections page")
             onEnabledChanged: enabled ?
-                                  modelPageLoader.source = 'Pages/Model/PageStructure.qml' :
-                                  modelPageLoader.source = ''
-            Component.onCompleted: Globals.Refs.app.appbar.modelButton = this
+                                  correctionsPageLoader.source = 'Pages/Corrections/PageStructure.qml' :
+                                  correctionsPageLoader.source = ''
+            Component.onCompleted: Globals.Refs.app.appbar.correctionsButton = this
         },
 
         // Analysis tab
@@ -187,7 +187,7 @@ EaComponents.ApplicationWindow {
         Loader { id: homePageLoader },
         Loader { id: projectPageLoader },
         Loader { id: rawDataPageLoader },
-        Loader { id: modelPageLoader },
+        Loader { id: correctionsPageLoader },
         Loader { id: analysisPageLoader },
         Loader { id: summaryPageLoader }
     ]

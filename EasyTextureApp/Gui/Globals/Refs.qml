@@ -15,7 +15,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             'resetStateButton': null,
             'homeButton': null,
             'projectButton': null,
-            'modelButton': null,
+            'correctionsButton': null,
             'rawDataButton': null,
             'analysisButton': null,
             'summaryButton': null
@@ -31,7 +31,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             'importDataFromLocalDriveButton': null,
             'plotView': null
         },
-        'modelPage': {
+        'correctionsPage': {
             'continueButton': null,
             'addNewModelManuallyButton': null,
             'plotView': null

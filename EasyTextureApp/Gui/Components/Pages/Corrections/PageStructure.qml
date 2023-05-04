@@ -15,7 +15,7 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    defaultInfo: Globals.Proxies.main.model.isCreated ?
+    defaultInfo: Globals.Proxies.main.corrections.isCreated ?
                      "" :
                      qsTr("No models added")
 
@@ -40,16 +40,16 @@ EaComponents.ContentPage {
             Loader { source: 'SideBarAdvanced.qml' }
         ]
 
-        continueButton.enabled: Globals.Proxies.main.model.isCreated
+        continueButton.enabled: Globals.Proxies.main.corrections.isCreated
 
         continueButton.onClicked: {
             Globals.Vars.analysisPageEnabled = true
             Globals.Refs.app.appbar.analysisButton.toggle()
         }
 
-        Component.onCompleted: Globals.Refs.app.modelPage.continueButton = continueButton
+        Component.onCompleted: Globals.Refs.app.correctionsPage.continueButton = continueButton
     }
 
-    Component.onCompleted: print("Model page loaded:", this)
-    Component.onDestruction: print("Model page destroyed:", this)
+    Component.onCompleted: print("Corrections page loaded:", this)
+    Component.onDestruction: print("Corrections page destroyed:", this)
 }
