@@ -19,11 +19,6 @@
         <file>Gui/Components/Pages/Project/PageStructure.qml</file>
         <file>Gui/Components/Pages/Project/SideBarAdvanced.qml</file>
         <file>Gui/Components/Pages/Project/SideBarBasic.qml</file>
-        <file>Gui/Components/Pages/Summary/MainContent/Report.qml</file>
-        <file>Gui/Components/Pages/Summary/SideBarBasic/ExportReportGroup.qml</file>
-        <file>Gui/Components/Pages/Summary/PageStructure.qml</file>
-        <file>Gui/Components/Pages/Summary/SideBarAdvanced.qml</file>
-        <file>Gui/Components/Pages/Summary/SideBarBasic.qml</file>
         <file>Gui/Components/ApplicationWindow.qml</file>
         <file>Gui/Components/qmldir</file>
         <file>Gui/Components/StatusBar.qml</file>

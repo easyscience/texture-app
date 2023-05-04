@@ -86,7 +86,7 @@ Column {
         text: qsTr('Save')
         onClicked: {
             if (formatField.currentValue === 'html') {
-                Globals.Proxies.main.summary.saveHtmlReport(reportLocationField.text)
+                Globals.Proxies.main.results.saveHtmlReport(reportLocationField.text)
             } else if (formatField.currentValue === 'pdf') {
                 //Globals.Vars.reportWebView.printToPdf(reportLocationField.text)
             }

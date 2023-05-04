@@ -15,14 +15,14 @@ EaComponents.BasicReport {
     xAxisTitle: "x"
     yAxisTitle: "y"
 
-    measuredXYData: Globals.Proxies.main.summary.isCreated ?
+    measuredXYData: Globals.Proxies.main.results.isCreated ?
                         {'x': Globals.Proxies.main.rawData.xData, 'y': Globals.Proxies.main.rawData.yData} :
                         {}
-    calculatedXYData: Globals.Proxies.main.summary.isCreated ?
+    calculatedXYData: Globals.Proxies.main.results.isCreated ?
                           {'x': Globals.Proxies.main.rawData.xData, 'y': Globals.Proxies.main.corrections.yData} :
                           {}
 
-    Component.onCompleted: Globals.Refs.summaryReportWebEngine = this
+    Component.onCompleted: Globals.Refs.resultsReportWebEngine = this
 
 }
 

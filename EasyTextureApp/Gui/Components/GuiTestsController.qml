@@ -77,7 +77,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.resultsButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.homePage.startButton.text, 'Start') )
         res.push( rc.compare(Globals.Refs.app.homePage.startButton.enabled, true) )
@@ -94,7 +94,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.resultsButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.projectPage.continueButton.text, 'Continue without project') )
         res.push( rc.compare(Globals.Refs.app.projectPage.continueButton.enabled, true) )
@@ -111,7 +111,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.resultsButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton.text, 'Import data from local drive') )
         res.push( rc.compare(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton.enabled, true) )
@@ -139,7 +139,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.resultsButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.correctionsPage.addNewModelManuallyButton.text, 'Add new model manually') )
         res.push( rc.compare(Globals.Refs.app.correctionsPage.addNewModelManuallyButton.enabled, true) )
@@ -167,7 +167,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.resultsButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.explorePage.startFittingButton.text, 'Start fitting') )
         res.push( rc.compare(Globals.Refs.app.explorePage.startFittingButton.enabled, true) )
@@ -190,9 +190,9 @@ EaElements.RemoteController {
         rc.mouseClick(Globals.Refs.app.explorePage.continueButton)
         //rc.wait(2000)
 
-        // Summary page
+        // Results page
 
-        //saveImage(saveImagesDir, 'SummaryPage.png')
+        //saveImage(saveImagesDir, 'ResultsPage.png')
 
         // Complete testing process
 

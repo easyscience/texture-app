@@ -67,7 +67,7 @@ EaComponents.ApplicationWindow {
                 Globals.Vars.correctionsPageEnabled = false
                 Globals.Vars.rawDataPageEnabled = false
                 Globals.Vars.explorePageEnabled = false
-                Globals.Vars.summaryPageEnabled = false
+                Globals.Vars.resultsPageEnabled = false
             }
             Component.onCompleted: Globals.Refs.app.appbar.resetStateButton = this
         }
@@ -161,19 +161,19 @@ EaComponents.ApplicationWindow {
             Component.onCompleted: Globals.Refs.app.appbar.exploreButton = this
         },
 
-        // Summary tab
+        // Results tab
         EaElements.AppBarTabButton {
-            enabled: Globals.Vars.summaryPageEnabled
-            fontIcon: "clipboard-list"
-            text: qsTr("Summary")
-            ToolTip.text: qsTr("Summary of the work done")
+            enabled: Globals.Vars.resultsPageEnabled
+            fontIcon: "calculator"
+            text: qsTr("Results")
+            ToolTip.text: qsTr("Results page")
             onEnabledChanged: enabled ?
-                                  summaryPageLoader.source = 'Pages/Summary/PageStructure.qml' :
-                                  summaryPageLoader.source = ''
+                                  resultsPageLoader.source = 'Pages/Results/PageStructure.qml' :
+                                  resultsPageLoader.source = ''
             onCheckedChanged: checked ?
-                                  Globals.Proxies.main.summary.isCreated = true :
-                                  Globals.Proxies.main.summary.isCreated = false
-            Component.onCompleted: Globals.Refs.app.appbar.summaryButton = this
+                                  Globals.Proxies.main.results.isCreated = true :
+                                  Globals.Proxies.main.results.isCreated = false
+            Component.onCompleted: Globals.Refs.app.appbar.resultsButton = this
         }
 
     ]
@@ -189,7 +189,7 @@ EaComponents.ApplicationWindow {
         Loader { id: rawDataPageLoader },
         Loader { id: correctionsPageLoader },
         Loader { id: explorePageLoader },
-        Loader { id: summaryPageLoader }
+        Loader { id: resultsPageLoader }
     ]
 
     /////////////

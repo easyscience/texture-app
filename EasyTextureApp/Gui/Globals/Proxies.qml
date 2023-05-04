@@ -180,9 +180,9 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     }
                 }
 
-                if (qmlProxy.summary.isCreated) {
-                    project['summary'] = {
-                        'isCreated': qmlProxy.summary.isCreated
+                if (qmlProxy.results.isCreated) {
+                    project['results'] = {
+                        'isCreated': qmlProxy.results.isCreated
                     }
                 }
 
@@ -387,16 +387,16 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         }
 
         //////////
-        // Summary
+        // Results
         //////////
 
-        readonly property var summary: QtObject {
+        readonly property var results: QtObject {
             property bool isCreated: false
 
             // https://stackoverflow.com/questions/17882518/reading-and-writing-files-in-qml-qt
             // https://stackoverflow.com/questions/57351643/how-to-save-dynamically-generated-web-page-in-qwebengineview
             function saveHtmlReport(fileUrl) {
-                const webEngine = Globals.Refs.summaryReportWebEngine
+                const webEngine = Globals.Refs.resultsReportWebEngine
                 webEngine.runJavaScript("document.documentElement.outerHTML",
                                         function(htmlContent) {
                                             const status = EaLogic.Utils.writeFile(fileUrl, htmlContent)

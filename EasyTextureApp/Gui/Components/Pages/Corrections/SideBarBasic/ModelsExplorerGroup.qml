@@ -64,7 +64,7 @@ Column {
                     Globals.Proxies.main.corrections.emptyData()
                     Globals.Vars.rawDataPageEnabled = false
                     Globals.Vars.explorePageEnabled = false
-                    Globals.Vars.summaryPageEnabled = false
+                    Globals.Vars.resultsPageEnabled = false
                 }
             }
 

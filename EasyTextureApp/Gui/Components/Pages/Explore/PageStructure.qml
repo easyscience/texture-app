@@ -46,8 +46,8 @@ EaComponents.ContentPage {
         ]
 
         continueButton.onClicked: {
-            Globals.Vars.summaryPageEnabled = true
-            Globals.Refs.app.appbar.summaryButton.toggle()
+            Globals.Vars.resultsPageEnabled = true
+            Globals.Refs.app.appbar.resultsButton.toggle()
         }
 
         Component.onCompleted: Globals.Refs.app.explorePage.continueButton = continueButton
