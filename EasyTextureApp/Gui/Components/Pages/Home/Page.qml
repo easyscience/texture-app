@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2023 EasyExample contributors
 // SPDX-License-Identifier: BSD-3-Clause
-// © 2023 Contributors to the EasyExample project <https://github.com/EasyScience/EasyExampleApp>
+// © 2023 Contributors to the EasyExample project <https://github.com/EasyScience/EasyTextureApp>
 
 import QtQuick
 import QtQuick.Controls
@@ -114,7 +114,7 @@ Item {
                 }
                 EaElements.Button {
                     text: qsTr("Online documentation")
-                    onClicked: Qt.openUrlExternally("https://github.com/EasyScience/EasyExampleApp")
+                    onClicked: Qt.openUrlExternally("https://github.com/EasyScience/EasyTextureApp")
                 }
                 EaElements.Button {
                     enabled: false

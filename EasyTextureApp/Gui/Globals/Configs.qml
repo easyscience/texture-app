@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2023 EasyExample contributors
 // SPDX-License-Identifier: BSD-3-Clause
-// © 2023 Contributors to the EasyExample project <https://github.com/EasyScience/EasyExampleApp>
+// © 2023 Contributors to the EasyExample project <https://github.com/EasyScience/EasyTextureApp>
 
 pragma Singleton
 
@@ -11,12 +11,12 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
     readonly property var projectConfig: QtObject {
         readonly property var release: QtObject {
-            readonly property string app_name: 'EasyExample'
-            readonly property string app_issues_url: 'https://github.com/EasyScience/EasyExampleApp/issues'
+            readonly property string app_name: 'EasyTexture'
+            readonly property string app_issues_url: 'https://github.com/EasyScience/EasyTextureApp/issues'
         }
         readonly property var tool: QtObject {
             property var poetry: QtObject {
-                readonly property string homepage: 'https://github.com/EasyScience/EasyExampleApp'
+                readonly property string homepage: 'https://github.com/EasyScience/EasyTextureApp'
                 readonly property string version: '0.0.1-alpha.1'
             }
         }
@@ -83,6 +83,6 @@ the European Spallation Source ERIC, Sweden.`
     }
 
     function githubRawContentUrl(branch, file) {
-        return `https://raw.githubusercontent.com/easyScience/EasyExampleApp/${branch}/${file}`
+        return `https://raw.githubusercontent.com/easyScience/EasyTextureApp/${branch}/${file}`
     }
 }
