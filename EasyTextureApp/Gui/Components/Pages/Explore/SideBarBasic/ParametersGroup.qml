@@ -129,7 +129,7 @@ Column {
 
         onClicked: Globals.Proxies.main.fitting.fit()
 
-        Component.onCompleted: Globals.Refs.app.analysisPage.startFittingButton = this
+        Component.onCompleted: Globals.Refs.app.explorePage.startFittingButton = this
     }
 
 }

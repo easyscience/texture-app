@@ -20,7 +20,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
     property bool projectPageEnabled: isDebugMode ? true : false
     property bool correctionsPageEnabled: isDebugMode ? true : false
     property bool rawDataPageEnabled: isDebugMode ? true : false
-    property bool analysisPageEnabled: isDebugMode ? true : false
+    property bool explorePageEnabled: isDebugMode ? true : false
     property bool summaryPageEnabled: isDebugMode ? true : false
 
     // Misc

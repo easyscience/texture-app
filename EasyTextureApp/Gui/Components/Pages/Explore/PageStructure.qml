@@ -50,7 +50,7 @@ EaComponents.ContentPage {
             Globals.Refs.app.appbar.summaryButton.toggle()
         }
 
-        Component.onCompleted: Globals.Refs.app.analysisPage.continueButton = continueButton
+        Component.onCompleted: Globals.Refs.app.explorePage.continueButton = continueButton
     }
 
     Component.onCompleted: print("Analysis page loaded:", this)

@@ -96,9 +96,9 @@ EaElements.RemoteController {
         rc.mouseClick(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton)
         rc.mouseClick(Globals.Refs.app.rawDataPage.continueButton)
 
-        // Analysis page
-        rc.mouseClick(Globals.Refs.app.analysisPage.startFittingButton)
-        rc.mouseClick(Globals.Refs.app.analysisPage.continueButton)
+        // Explore page
+        rc.mouseClick(Globals.Refs.app.explorePage.startFittingButton)
+        rc.mouseClick(Globals.Refs.app.explorePage.continueButton)
 
         completeRunTutorial()
     }

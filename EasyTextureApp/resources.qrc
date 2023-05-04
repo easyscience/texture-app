@@ -1,10 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>Gui/Components/Pages/Analysis/MainContent/AnalysisTab.qml</file>
-        <file>Gui/Components/Pages/Analysis/SideBarBasic/ParametersGroup.qml</file>
-        <file>Gui/Components/Pages/Analysis/PageStructure.qml</file>
-        <file>Gui/Components/Pages/Analysis/SideBarAdvanced.qml</file>
-        <file>Gui/Components/Pages/Analysis/SideBarBasic.qml</file>
         <file>Gui/Components/Pages/RawData/MainContent/DataView2dTab.qml</file>
         <file>Gui/Components/Pages/RawData/MainContent/DataViewScatter3dTab.qml</file>
         <file>Gui/Components/Pages/RawData/MainContent/DataViewSurface3dTab.qml</file>

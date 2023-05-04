@@ -66,7 +66,7 @@ EaComponents.ApplicationWindow {
                 Globals.Vars.projectPageEnabled = false
                 Globals.Vars.correctionsPageEnabled = false
                 Globals.Vars.rawDataPageEnabled = false
-                Globals.Vars.analysisPageEnabled = false
+                Globals.Vars.explorePageEnabled = false
                 Globals.Vars.summaryPageEnabled = false
             }
             Component.onCompleted: Globals.Refs.app.appbar.resetStateButton = this
@@ -149,16 +149,16 @@ EaComponents.ApplicationWindow {
             Component.onCompleted: Globals.Refs.app.appbar.correctionsButton = this
         },
 
-        // Analysis tab
+        // Explore tab
         EaElements.AppBarTabButton {
-            enabled: Globals.Vars.analysisPageEnabled
-            fontIcon: "calculator"
-            text: qsTr("Analysis")
-            ToolTip.text: qsTr("Simulation and fitting page")
+            enabled: Globals.Vars.explorePageEnabled
+            fontIcon: "microscope"
+            text: qsTr("Explore")
+            ToolTip.text: qsTr("Explore page")
             onEnabledChanged: enabled ?
-                                  analysisPageLoader.source = 'Pages/Analysis/PageStructure.qml' :
-                                  analysisPageLoader.source = ''
-            Component.onCompleted: Globals.Refs.app.appbar.analysisButton = this
+                                  explorePageLoader.source = 'Pages/Explore/PageStructure.qml' :
+                                  explorePageLoader.source = ''
+            Component.onCompleted: Globals.Refs.app.appbar.exploreButton = this
         },
 
         // Summary tab
@@ -188,7 +188,7 @@ EaComponents.ApplicationWindow {
         Loader { id: projectPageLoader },
         Loader { id: rawDataPageLoader },
         Loader { id: correctionsPageLoader },
-        Loader { id: analysisPageLoader },
+        Loader { id: explorePageLoader },
         Loader { id: summaryPageLoader }
     ]
 

@@ -43,8 +43,8 @@ EaComponents.ContentPage {
         continueButton.enabled: Globals.Proxies.main.corrections.isCreated
 
         continueButton.onClicked: {
-            Globals.Vars.analysisPageEnabled = true
-            Globals.Refs.app.appbar.analysisButton.toggle()
+            Globals.Vars.explorePageEnabled = true
+            Globals.Refs.app.appbar.exploreButton.toggle()
         }
 
         Component.onCompleted: Globals.Refs.app.correctionsPage.continueButton = continueButton

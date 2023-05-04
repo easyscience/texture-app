@@ -76,7 +76,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.homePage.startButton.text, 'Start') )
@@ -93,7 +93,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.projectPage.continueButton.text, 'Continue without project') )
@@ -110,7 +110,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, false) )
-        res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton.text, 'Import data from local drive') )
@@ -138,7 +138,7 @@ EaElements.RemoteController {
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, false) )
+        res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, false) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
 
         res.push( rc.compare(Globals.Refs.app.correctionsPage.addNewModelManuallyButton.text, 'Add new model manually') )
@@ -158,36 +158,36 @@ EaElements.RemoteController {
         rc.mouseClick(Globals.Refs.app.correctionsPage.continueButton)
         //rc.wait(2000)
 
-        // Analysis page
+        // Explore page
 
-        //saveImage(saveImagesDir, 'AnalysisPage.png')
+        //saveImage(saveImagesDir, 'ExplorePage.png')
 
         res.push( rc.compare(Globals.Refs.app.appbar.homeButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.projectButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.rawDataButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.correctionsButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.appbar.analysisButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.appbar.exploreButton.enabled, true) )
         res.push( rc.compare(Globals.Refs.app.appbar.summaryButton.enabled, false) )
 
-        res.push( rc.compare(Globals.Refs.app.analysisPage.startFittingButton.text, 'Start fitting') )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.startFittingButton.enabled, true) )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.continueButton.text, 'Continue') )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.continueButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.startFittingButton.text, 'Start fitting') )
+        res.push( rc.compare(Globals.Refs.app.explorePage.startFittingButton.enabled, true) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.continueButton.text, 'Continue') )
+        res.push( rc.compare(Globals.Refs.app.explorePage.continueButton.enabled, true) )
 
         rc.wait(2000)
 
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.measuredYData, Globals.Tests.expected.created.rawData.yData) )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.calculatedYData, Globals.Tests.expected.created.corrections.yData) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.plotView.measuredYData, Globals.Tests.expected.created.rawData.yData) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.plotView.calculatedYData, Globals.Tests.expected.created.corrections.yData) )
 
-        rc.mouseClick(Globals.Refs.app.analysisPage.startFittingButton)
+        rc.mouseClick(Globals.Refs.app.explorePage.startFittingButton)
         rc.wait(2000)
 
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.measuredYData, Globals.Tests.expected.created.rawData.yData) )
-        res.push( rc.compare(Globals.Refs.app.analysisPage.plotView.calculatedYData, Globals.Tests.expected.fitted.corrections.yData) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.plotView.xData, Globals.Tests.expected.created.rawData.xData) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.plotView.measuredYData, Globals.Tests.expected.created.rawData.yData) )
+        res.push( rc.compare(Globals.Refs.app.explorePage.plotView.calculatedYData, Globals.Tests.expected.fitted.corrections.yData) )
 
-        rc.mouseClick(Globals.Refs.app.analysisPage.continueButton)
+        rc.mouseClick(Globals.Refs.app.explorePage.continueButton)
         //rc.wait(2000)
 
         // Summary page
