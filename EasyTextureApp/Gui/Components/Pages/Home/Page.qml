@@ -96,6 +96,25 @@ Item {
         // Vertical spacer
         Item { width: 1; height: EaStyle.Sizes.fontPixelSize * 2.5 }
 
+        // Start Button 2 -> LiveView
+        EaElements.SideBarButton {
+            id: startButton2
+
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            fontIcon: "satellite-dish"
+            text: qsTr("Go to Live View")
+            onClicked: {
+                Globals.Vars.liveViewPageEnabled = true
+                Globals.Refs.app.appbar.liveViewButton.toggle()
+            }
+            Component.onCompleted: Globals.Refs.app.homePage.startButton2 = this
+        }
+
+
+        // Vertical spacer
+        Item { width: 1; height: EaStyle.Sizes.fontPixelSize * 2.5 }
+
         // Links
         Row {
             id: links

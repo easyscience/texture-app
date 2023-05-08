@@ -68,6 +68,7 @@ EaComponents.ApplicationWindow {
                 Globals.Vars.rawDataPageEnabled = false
                 Globals.Vars.explorePageEnabled = false
                 Globals.Vars.resultsPageEnabled = false
+                Globals.Vars.liveViewPageEnabled = false
             }
             Component.onCompleted: Globals.Refs.app.appbar.resetStateButton = this
         }
@@ -174,6 +175,27 @@ EaComponents.ApplicationWindow {
                                   Globals.Proxies.main.results.isCreated = true :
                                   Globals.Proxies.main.results.isCreated = false
             Component.onCompleted: Globals.Refs.app.appbar.resultsButton = this
+        },
+
+
+        // Separator tab (separates previous TextureApp tabs from following LiveView tab)
+        EaElements.AppBarTabButton {
+            enabled: false
+            text: "         "
+        },
+
+
+        // Live View tab
+        EaElements.AppBarTabButton {
+            enabled: Globals.Vars.liveViewPageEnabled
+            fontIcon: "satellite-dish"
+            //fontIcon: "signal"
+            text: qsTr("Live View")
+            ToolTip.text: qsTr("Live View page")
+            onEnabledChanged: enabled ?
+                                  liveViewPageLoader.source = 'Pages/LiveView/PageStructure.qml' :
+                                  liveViewPageLoader.source = ''
+            Component.onCompleted: Globals.Refs.app.appbar.liveViewButton = this
         }
 
     ]
@@ -189,7 +211,9 @@ EaComponents.ApplicationWindow {
         Loader { id: rawDataPageLoader },
         Loader { id: correctionsPageLoader },
         Loader { id: explorePageLoader },
-        Loader { id: resultsPageLoader }
+        Loader { id: resultsPageLoader },
+        Loader { id: separatorPageLoader },
+        Loader { id: liveViewPageLoader }
     ]
 
     /////////////

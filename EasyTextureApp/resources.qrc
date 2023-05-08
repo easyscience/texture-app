@@ -204,5 +204,14 @@
         <file>../../EasyApp/EasyApp/Logic/Maintenance.py</file>
         <file>../../EasyApp/EasyApp/Logic/Translate.py</file>
         <file>../../EasyApp/EasyApp/__init__.py</file>
+        <file>Gui/Components/Pages/LiveView/MainContent/DescriptionTab.qml</file>
+        <file>Gui/Components/Pages/LiveView/SideBarAdvanced/ScrollingGroup.qml</file>
+        <file>Gui/Components/Pages/LiveView/SideBarBasic/ExamplesGroup.qml</file>
+        <file>Gui/Components/Pages/LiveView/SideBarBasic/GetStartedGroup.qml</file>
+        <file>Gui/Components/Pages/LiveView/SideBarBasic/ProjectDescriptionDialog.qml</file>
+        <file>Gui/Components/Pages/LiveView/from-project.txt</file>
+        <file>Gui/Components/Pages/LiveView/PageStructure.qml</file>
+        <file>Gui/Components/Pages/LiveView/SideBarAdvanced.qml</file>
+        <file>Gui/Components/Pages/LiveView/SideBarBasic.qml</file>
     </qresource>
 </RCC>
