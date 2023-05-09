@@ -14,7 +14,23 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         enabled: Globals.Proxies.main.project.isCreated
-        title: qsTr("Export report")
+        title: qsTr("gamma-Slice Width")
+        collapsible: false
+
+        Loader { source: 'SideBarBasic/Sub01.qml' }
+    }
+
+    EaElements.GroupBox {
+        enabled: Globals.Proxies.main.project.isCreated
+        title: qsTr("d-Spacing Patterns")
+        collapsible: false
+
+        Loader { source: 'SideBarBasic/Sub02.qml' }
+    }
+
+    EaElements.GroupBox {
+        enabled: Globals.Proxies.main.project.isCreated
+        title: qsTr("Export d-Spacing Data")
         collapsible: false
         last: true
 

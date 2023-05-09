@@ -22,11 +22,13 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("Report") }
+            EaElements.TabButton { text: qsTr("d-Spacing Patterns") },
+            EaElements.TabButton { text: qsTr("2-theta Patterns") }
         ]
 
         items: [
-            Loader { source: 'MainContent/Report.qml' }
+            Loader { source: 'MainContent/Tab_dSpacingPatterns.qml' },
+            Loader { source: 'MainContent/Tab_2thetaPatterns.qml' }
         ]
     }
 

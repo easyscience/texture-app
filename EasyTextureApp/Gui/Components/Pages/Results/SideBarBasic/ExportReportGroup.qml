@@ -44,8 +44,8 @@ Column {
             textRole: "text"
             valueRole: "value"
             model: [
-                { value: 'html', text: qsTr("Interactive HTML") },
-                { value: 'pdf', text: qsTr("Static PDF") }
+                { value: 'maud', text: qsTr("MAUD") },
+                { value: 'txt', text: qsTr("TEXT") }
             ]
             EaElements.Label {
                 id: formatLabel
