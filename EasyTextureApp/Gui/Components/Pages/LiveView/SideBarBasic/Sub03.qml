@@ -4,14 +4,21 @@
 
 import QtQuick
 import QtQuick.Controls
-//import QtQuick.XmlListModel 2.15
 
-import EasyApp.Gui.Globals as EaGlobals
 import EasyApp.Gui.Style as EaStyle
 import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
-import EasyApp.Gui.Logic as EaLogic
 
 import Gui.Globals as Globals
 
+
+
+EaElements.SideBarButton {
+    wide: true
+    //fontIcon:
+    text: qsTr("Select Detector 3D Preview Tab")
+
+    onClicked: {}
+    Component.onCompleted: {}
+}
 

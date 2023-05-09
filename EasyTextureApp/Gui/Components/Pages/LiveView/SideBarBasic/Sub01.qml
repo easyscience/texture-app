@@ -5,11 +5,21 @@
 import QtQuick
 import QtQuick.Controls
 
-import EasyApp.Gui.Globals as EaGlobals
 import EasyApp.Gui.Style as EaStyle
 import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
-import EasyApp.Gui.Logic as EaLogic
 
 import Gui.Globals as Globals
+
+
+
+// Connect button
+EaElements.SideBarButton {
+    wide: true
+    fontIcon: "network-wired" // "handshake"  "network-wired"  "satellite-dish"   "lock"/"unlock"
+    text: qsTr("Connect")
+
+    onClicked: {}
+    Component.onCompleted: {}
+}
 

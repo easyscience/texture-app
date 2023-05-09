@@ -15,17 +15,19 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    defaultInfo: Globals.Proxies.main.liveView.isCreated ?
+    defaultInfo: Globals.Proxies.main.liveView.isCreated ? // TODO
                      "" :
                      qsTr("No Project Created/Opened")
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("Description") }
+            EaElements.TabButton { text: qsTr("Preview: Detector 3D") },
+            EaElements.TabButton { text: qsTr("Preview: 2-theta Rings") }
         ]
 
         items: [
-            Loader { source: 'MainContent/DescriptionTab.qml' }
+            Loader { source: 'MainContent/Tab_3d.qml' },
+            Loader { source: 'MainContent/Tab_2d.qml' }
         ]
     }
 

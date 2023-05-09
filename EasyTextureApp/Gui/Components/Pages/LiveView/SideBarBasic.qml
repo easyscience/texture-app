@@ -13,19 +13,35 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr("Get started")
+        title: qsTr("Connect to Measurement Data")
         collapsible: false
 
-        Loader { source: 'SideBarBasic/GetStartedGroup.qml' }
+        Loader { source: 'SideBarBasic/Sub01.qml' }
     }
 
     EaElements.GroupBox {
-        title: qsTr("Examples")
-        collapsed: true
+        title: qsTr("Statistics")
+        collapsible: true
+
+
+        Loader { source: 'SideBarBasic/Sub02.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("Explore Detector 3D Preview")
+        collapsible: false
+
+        Loader { source: 'SideBarBasic/Sub03.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("Explore 2-theta Rings Preview")
+        collapsible: false
         last: true
 
-        Loader { source: 'SideBarBasic/ExamplesGroup.qml' }
+        Loader { source: 'SideBarBasic/Sub04.qml' }
     }
+
 
 }
 
