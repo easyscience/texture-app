@@ -53,6 +53,6 @@ EaComponents.ContentPage {
         Component.onCompleted: Globals.Refs.app.explorePage.continueButton = continueButton
     }
 
-    Component.onCompleted: print("Analysis page loaded:", this)
-    Component.onDestruction: print("Analysis page destroyed:", this)
+    Component.onCompleted: print("Explore page loaded:", this)
+    Component.onDestruction: print("Explore page destroyed:", this)
 }

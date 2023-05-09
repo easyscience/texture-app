@@ -15,9 +15,9 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    defaultInfo: Globals.Proxies.main.liveView.isCreated ? // TODO
-                     "" :
-                     qsTr("No Project Created/Opened")
+    //defaultInfo: Globals.Proxies.main.liveView.isCreated ? // TODO
+    //                 "" :
+    //                 qsTr("No Project Created/Opened")
 
     mainView: EaComponents.MainContent {
         tabs: [
@@ -45,6 +45,6 @@ EaComponents.ContentPage {
         continueButton.visible: false
     }
 
-    Component.onCompleted: print("Project page loaded:", this)
-    Component.onDestruction: print("Project page destroyed:", this)
+    Component.onCompleted: print("LiveView page loaded:", this)
+    Component.onDestruction: print("LiveView page destroyed:", this)
 }

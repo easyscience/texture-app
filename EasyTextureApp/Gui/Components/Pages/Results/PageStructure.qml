@@ -46,6 +46,6 @@ EaComponents.ContentPage {
         continueButton.visible: false
     }
 
-    Component.onCompleted: print("Summary page loaded:", this)
-    Component.onDestruction: print("Summary page destroyed:", this)
+    Component.onCompleted: print("Results page loaded:", this)
+    Component.onDestruction: print("Results page destroyed:", this)
 }
