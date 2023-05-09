@@ -13,6 +13,22 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
+        title: qsTr("Vanadium Standard")
+        collapsible: false
+
+        Loader { source: 'SideBarBasic/Sub01.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("Data Corrections")
+        collapsible: false
+
+        Loader { source: 'SideBarBasic/Sub02.qml' }
+    }
+
+
+    // from EasyAppExample:
+    EaElements.GroupBox {
         title: qsTr("Models explorer")
         collapsible: false
         last: !Globals.Proxies.main.corrections.isCreated

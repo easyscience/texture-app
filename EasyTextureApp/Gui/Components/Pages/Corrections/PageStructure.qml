@@ -15,17 +15,17 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    defaultInfo: Globals.Proxies.main.corrections.isCreated ?
-                     "" :
-                     qsTr("No models added")
+    //defaultInfo: Globals.Proxies.main.corrections.isCreated ?   // TODO
+    //                 "" :
+    //                 "" //qsTr("No models added")
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("Model view 1D") }
+            EaElements.TabButton { text: qsTr("Preview: Detector 3D") }
         ]
 
         items: [
-            Loader { source: 'MainContent/ModelView1dTab.qml' }
+            Loader { source: 'MainContent/Tab_3dPreview.qml' }
         ]
     }
 
