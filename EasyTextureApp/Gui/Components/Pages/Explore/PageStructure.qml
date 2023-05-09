@@ -22,15 +22,15 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton {
-                text: Globals.Proxies.main.rawData.isCreated ?
-                          qsTr("Fitting") :
-                          qsTr("Simulation")
-            }
+            EaElements.TabButton { text: qsTr("2-theta Rings") },
+            EaElements.TabButton { text: qsTr("2D View") },
+            EaElements.TabButton { text: qsTr("3D View") }
         ]
 
         items: [
-            Loader { source: 'MainContent/AnalysisTab.qml' }
+            Loader { source: 'MainContent/Tab_2theta.qml' },
+            Loader { source: 'MainContent/Tab_2d.qml' },
+            Loader { source: 'MainContent/Tab_3d.qml' }
         ]
     }
 
