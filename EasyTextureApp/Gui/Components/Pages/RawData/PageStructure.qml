@@ -17,21 +17,15 @@ import Gui.Components as Components
 EaComponents.ContentPage {
     defaultInfo: Globals.Proxies.main.rawData.isCreated ?
                      "" :
-                     qsTr("No experiments loaded")
+                     "" //qsTr("No experiments loaded") TODO
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("Data view 1D") },
-            EaElements.TabButton { text: qsTr("Data view 2D") },
-            EaElements.TabButton { text: qsTr("Data view 3D (surface)") },
-            EaElements.TabButton { text: qsTr("Data view 3D (scatter)") }
+            EaElements.TabButton { text: qsTr("Preview: Detector 3D") }
         ]
 
         items: [
-            Loader { source: 'MainContent/DataView1dTab.qml' },
-            Loader { source: 'MainContent/DataView2dTab.qml' },
-            Loader { source: 'MainContent/DataViewSurface3dTab.qml' },
-            Loader { source: 'MainContent/DataViewScatter3dTab.qml' }
+            Loader { source: 'MainContent/Tab_3dPreview.qml' }
         ]
     }
 
@@ -58,6 +52,6 @@ EaComponents.ContentPage {
         Component.onCompleted: Globals.Refs.app.rawDataPage.continueButton = continueButton
     }
 
-    Component.onCompleted: print("Experiment page loaded:", this)
-    Component.onDestruction: print("Experiment page destroyed:", this)
+    Component.onCompleted: print("RawData page loaded:", this)
+    Component.onDestruction: print("RawData page destroyed:", this)
 }

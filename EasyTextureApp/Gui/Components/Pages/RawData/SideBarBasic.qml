@@ -13,11 +13,11 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr("Experimental data explorer")
+        title: qsTr("Measurement File")
         collapsible: false
         last: true
 
-        Loader { source: 'SideBarBasic/ExperimentalDataExplorerGroup.qml' }
+        Loader { source: 'SideBarBasic/Sub01.qml' }
     }
 
 }
