@@ -13,7 +13,7 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        enabled: Globals.Proxies.main.project.isCreated
+        //enabled: Globals.Proxies.main.project.isCreated
         title: qsTr("gamma-Slice Width")
         collapsible: false
 
@@ -21,7 +21,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        enabled: Globals.Proxies.main.project.isCreated
+        //enabled: Globals.Proxies.main.project.isCreated
         title: qsTr("d-Spacing Patterns")
         collapsible: false
 
@@ -29,7 +29,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        enabled: Globals.Proxies.main.project.isCreated
+        //enabled: Globals.Proxies.main.project.isCreated
         title: qsTr("Export d-Spacing Data")
         collapsible: false
         last: true
