@@ -40,7 +40,7 @@ EaComponents.ContentPage {
             Loader { source: 'SideBarAdvanced.qml' }
         ]
 
-        continueButton.enabled: Globals.Proxies.main.corrections.isCreated
+        continueButton.enabled: !Globals.Proxies.main.corrections.applyDataCorrection
 
         continueButton.onClicked: {
             Globals.Vars.explorePageEnabled = true
