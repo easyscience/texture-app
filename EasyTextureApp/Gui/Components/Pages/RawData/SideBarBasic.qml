@@ -18,7 +18,7 @@ EaComponents.SideBarColumn {
         collapsible: false
         last: !Globals.Proxies.main.corrections.isCreated
 
-        Loader { source: 'SideBarBasic/ModelsExplorerGroup.qml' }
+        Loader { source: 'SideBarBasic/MeasurementsExplorerGroup.qml' }
     }
 
 
