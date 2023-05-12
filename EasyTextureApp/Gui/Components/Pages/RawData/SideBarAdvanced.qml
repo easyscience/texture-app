@@ -13,11 +13,9 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr("Experimental data")
-        visible: Globals.Proxies.main.rawData.isCreated
+        title: qsTr("Empty group")
         last: true
-
-        Loader { source: 'SideBarAdvanced/GenerateDataGroup.qml' }
     }
 
 }
+
