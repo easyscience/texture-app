@@ -13,15 +13,38 @@ import EasyApp.Gui.Components as EaComponents
 import Gui.Globals as Globals
 
 
+
 Grid {
     //columns: 2
-    rows: 2
+    rows: 3
     columnSpacing: EaStyle.Sizes.fontPixelSize
     rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
+
+        // EasyApp RadioButton not working
+        RadioButton {
+            topPadding: 0
+            checked: !Globals.Proxies.main.corrections.applyDataCorrection
+            text: qsTr("Use raw data without correction")
+            ToolTip.text: qsTr("Checking this box will continue without applying data correction to the measurement data")
+
+        }
+        // EasyApp RadioButton not working
+        RadioButton {
+            topPadding: 0
+            text: qsTr("Apply data correction")
+            ToolTip.text: qsTr("Checking this box will apply data correction to the measurement data")
+
+            onCheckedChanged: Globals.Proxies.main.corrections.applyDataCorrection = checked
+        }
+
 
     // Location
     Row {
         spacing: EaStyle.Sizes.fontPixelSize * 0.5
+        topPadding: 25
+
+        visible: Globals.Proxies.main.corrections.applyDataCorrection
+
 
         EaElements.Label {
             id: locationLabel

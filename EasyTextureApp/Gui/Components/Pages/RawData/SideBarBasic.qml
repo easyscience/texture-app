@@ -12,12 +12,20 @@ import Gui.Globals as Globals
 
 EaComponents.SideBarColumn {
 
+    // from EasyAppExample:
     EaElements.GroupBox {
         title: qsTr("Measurement File")
         collapsible: false
-        last: true
+        last: !Globals.Proxies.main.corrections.isCreated
 
-        Loader { source: 'SideBarBasic/Sub01.qml' }
+        Loader { source: 'SideBarBasic/ModelsExplorerGroup.qml' }
     }
 
+    EaElements.GroupBox {
+        title: qsTr("Selected model parameters")
+        visible: Globals.Proxies.main.corrections.isCreated
+        last: true
+
+        Loader { source: 'SideBarBasic/ModelParametersGroup.qml' }
+    }
 }

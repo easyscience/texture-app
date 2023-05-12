@@ -262,6 +262,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             signal parameterEdited(bool needSetFittables)
             signal parametersEdited(bool needSetFittables)
 
+            property bool applyDataCorrection: false
+
             property bool isCreated: false
             property var description: {
                     'name': 'Line'
@@ -423,7 +425,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property var asJson: [
                 {
                     name: 'Calculations',
-                    value: 'CrysPy'
+                    value: 'CrysPy' // use global variable e.g in Vars, Proxies
                 },
                 {
                     name: 'Minimization',

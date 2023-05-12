@@ -4,6 +4,7 @@
 
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 import EasyApp.Gui.Globals as EaGlobals
 import EasyApp.Gui.Style as EaStyle
@@ -21,7 +22,7 @@ Column {
 
     EaComponents.TableView {
 
-        defaultInfoText: qsTr("No models loaded")
+        defaultInfoText: qsTr("No measurements loaded")
 
         // Table model
 
@@ -78,18 +79,19 @@ Column {
         spacing: EaStyle.Sizes.fontPixelSize
 
         EaElements.SideBarButton {
-            enabled: false
+            wide: true
+            enabled: true //false //!Globals.Proxies.main.corrections.isCreated
             fontIcon: "upload"
-            text: qsTr("Load new model from file")
-        }
-
-        EaElements.SideBarButton {
-            enabled: !Globals.Proxies.main.corrections.isCreated
-            fontIcon: "plus-circle"
-            text: qsTr("Add new model manually")
-            onClicked: Globals.Proxies.main.corrections.calculateData()
+            text: qsTr("Load measurement file")
+            onClicked: measurementFileDialog.open() //onClicked: Globals.Proxies.main.corrections.calculateData()
             Component.onCompleted: Globals.Refs.app.correctionsPage.addNewModelManuallyButton = this
         }
     }
 
+
+    // Select File dialog
+    FileDialog {
+        id: measurementFileDialog
+        title: qsTr("Choose Measurement File")
+    }
 }

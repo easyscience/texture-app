@@ -42,7 +42,7 @@ EaComponents.ContentPage {
 
         continueButton.text: Globals.Proxies.main.rawData.isCreated ?
                                  qsTr("Continue") :
-                                 qsTr("Continue without experiment data")
+                                 qsTr("Continue (rawData isCreated == false)")
 
         continueButton.onClicked: {
             Globals.Vars.correctionsPageEnabled = true
