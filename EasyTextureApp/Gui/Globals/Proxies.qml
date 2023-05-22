@@ -115,20 +115,25 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property string location: ''
             property string createdDate: ''
             property string image: Qt.resolvedUrl('../Resources/Project/Sine.svg')
-            property var examples: [
+            //
+            property bool isEnabledOpenExistingProject: false
+            property bool isEnabledSaveProjectAs: false
+            property bool isEnabledCloseCurrentProject: false
+
+            property var recentProjects: [
                 {
-                    'name': 'Horizontal line',
-                    'description': 'Straight line, horizontal, PicoScope 2204A',
+                    'name': '2023_05_01_Measurement_01',
+                    'description': 'abc ....',
                     'path': '../Resources/Examples/HorizontalLine/project.json'
                 },
                 {
-                    'name': 'Slanting line 1',
-                    'description': 'Straight line, positive slope, Tektronix 2430A',
+                    'name': '2023_05_01_MeasurementNoCorrections_01',
+                    'description': 'xyz .......... xyz ..... 123 ... abc ... 456 ... 789 ... abc',
                     'path': '../Resources/Examples/SlantingLine1/project.json'
                 },
                 {
-                    'name': 'Slanting line 2',
-                    'description': 'Straight line, negative slope, Siglent SDS1202X-E',
+                    'name': '2023_05_01_MeasurementWithCorrections_02',
+                    'description': '123 ......',
                     'path': '../Resources/Examples/SlantingLine2/project.json'
                 }
             ]
@@ -202,9 +207,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             signal parametersEdited(bool needSetFittables)
 
             property bool isCreated: false
-            property var description: {
+            property bool isMmtFileLoaded: false
+
+            property var description:
+                {
                 'name': 'PicoScope'
-            }
+                }
+
+
             property var parameters: {
                 'xMin': {
                     'value': 0.0,
@@ -265,9 +275,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool applyDataCorrection: false
 
             property bool isCreated: false
-            property var description: {
+            property var description: [
+                {
                     'name': 'Line'
-            }
+                },
+                {
+                    'name': 'Line222'
+                }
+            ]
             property var parameters: {
                 'slope': {
                     'value': 1.0,

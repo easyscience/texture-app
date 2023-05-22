@@ -23,7 +23,7 @@ EaComponents.TableView {
     // Table model
 
     model: EaComponents.JsonListModel {
-        json: JSON.stringify(Globals.Proxies.main.project.examples)
+        json: JSON.stringify(Globals.Proxies.main.project.recentProjects)
         query: "$[*]"
     }
 
@@ -57,7 +57,7 @@ EaComponents.TableView {
         EaComponents.TableViewLabelControl {
             id: descriptionColumn
 
-            width: EaStyle.Sizes.fontPixelSize * 24
+            width: EaStyle.Sizes.fontPixelSize * 14
 
             horizontalAlignment: Text.AlignLeft
 
@@ -71,6 +71,15 @@ EaComponents.TableView {
 
             fontIcon: "upload"
             ToolTip.text: qsTr("Load this example")
+
+            onClicked: {
+                // load project data into main view
+                Globals.Proxies.main.project.name = model.name // projectName
+                Globals.Proxies.main.project.description = model.path //projectDescription
+                Globals.Proxies.main.project.location = "123" //projectLocation
+                Globals.Proxies.main.project.create()
+
+            }
         }
     }
 

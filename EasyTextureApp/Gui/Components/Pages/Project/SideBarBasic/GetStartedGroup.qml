@@ -34,21 +34,21 @@ Grid {
     }
 
     EaElements.SideBarButton {
-        enabled: false
+        enabled: Globals.Proxies.main.project.isEnabledOpenExistingProject
 
         fontIcon: "upload"
         text: qsTr("Open an existing project")
     }
 
     EaElements.SideBarButton {
-        enabled: false
+        enabled: Globals.Proxies.main.project.isEnabledSaveProjectAs
 
         fontIcon: "download"
         text: qsTr("Save project as...")
     }
 
     EaElements.SideBarButton {
-        enabled: false
+        enabled: Globals.Proxies.main.project.isEnabledCloseCurrentProject
 
         fontIcon: "times-circle"
         text: qsTr("Close current project")

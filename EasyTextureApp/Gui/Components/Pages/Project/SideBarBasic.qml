@@ -20,8 +20,8 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr("Examples")
-        collapsed: true
+        title: qsTr("Recent Projets")
+        collapsed: false // TODO: true
         last: true
 
         Loader { source: 'SideBarBasic/ExamplesGroup.qml' }
