@@ -18,25 +18,10 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr("Statistics")
-        collapsible: true
-
-        Loader { source: 'SideBarBasic/Sub02.qml' }
-    }
-
-    EaElements.GroupBox {
         title: qsTr("Select gamma-Slice Width")
         collapsible: false
 
         Loader { source: 'SideBarBasic/Sub03.qml' }
-    }
-
-    EaElements.GroupBox {
-        title: qsTr("Statistics")
-        collapsible: true
-        last: true
-
-        Loader { source: 'SideBarBasic/Sub04.qml' }
     }
 
 }

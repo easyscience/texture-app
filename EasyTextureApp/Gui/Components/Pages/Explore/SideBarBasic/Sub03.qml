@@ -11,39 +11,89 @@ import EasyApp.Gui.Components as EaComponents
 
 import Gui.Globals as Globals
 
-
 Grid {
-    columns: 4
-    columnSpacing: EaStyle.Sizes.fontPixelSize
+    rows: 2
+    rowSpacing: 30
+
+    Row {
+        Grid {
+            columns: 4
+            columnSpacing: EaStyle.Sizes.fontPixelSize
 
 
-    // EasyApp RadioButton not working
-    RadioButton {
-        topPadding: 0
-        checked: true
-        text: "1°"
-        ToolTip.text: qsTr("Select 1° slice")
+            RadioButton {
+                topPadding: 0
+                checked: true
+                text: "1°"
+                ToolTip.text: qsTr("Select 1° slice")
+            }
+
+            RadioButton {
+                topPadding: 0
+                text: "2°"
+                ToolTip.text: qsTr("Select 2° slice")
+            }
+
+            RadioButton {
+                topPadding: 0
+                text: "5°"
+                ToolTip.text: qsTr("Select 5° slice")
+            }
+
+            RadioButton {
+                topPadding: 0
+                text: "10°"
+                ToolTip.text: qsTr("Select 10° slice")
+            }
+
+        }
+
     }
 
-    // EasyApp RadioButton not working
-    RadioButton {
-        topPadding: 0
-        text: "2°"
-        ToolTip.text: qsTr("Select 2° slice")
-    }
+    Row {
 
-    // EasyApp RadioButton not working
-    RadioButton {
-        topPadding: 0
-        text: "5°"
-        ToolTip.text: qsTr("Select 5° slice")
-    }
+        Grid {
+            readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
 
-    // EasyApp RadioButton not working
-    RadioButton {
-        topPadding: 0
-        text: "10°"
-        ToolTip.text: qsTr("Select 10° slice")
+            columns: 2
+            rowSpacing: 0
+            columnSpacing: commonSpacing
+
+            EaElements.Label {
+                enabled: true
+                font.bold: true
+                text: qsTr("Statistics")
+            }
+
+            EaElements.Label {
+                enabled: false
+                text: qsTr(" ")
+            }
+
+            EaElements.Label {
+                text: qsTr("Number of Slices (= Number of Patterns):")
+            }
+            EaElements.Label {
+                text: "xxx"
+            }
+
+            EaElements.Label {
+                text: qsTr("Intensity Width (in gamma-Degree):")
+            }
+            EaElements.Label {
+                text: "xxx"
+            }
+
+            EaElements.Label {
+                text: qsTr("...:")
+            }
+            EaElements.Label {
+                text: "xxx"
+            }
+
+        }
+
+
     }
 
 }

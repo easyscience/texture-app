@@ -16,7 +16,7 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    defaultInfo: Globals.Proxies.main.corrections.isCreated ?
+    defaultInfo: (Globals.Proxies.main.corrections.isCreated || !Globals.Proxies.main.corrections.applyDataCorrection) ?
                      "" :
                      qsTr("No analysis done")
 
