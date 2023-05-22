@@ -403,6 +403,18 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
         }
 
+
+        //////////////
+        // Explore
+        //////////////
+
+        readonly property var explore: QtObject {
+
+            property int twoTheta: 90
+            property int sliceWidth: 1
+
+        }
+
         //////////
         // Results
         //////////
@@ -425,7 +437,9 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         // Status
         /////////
 
-        readonly property var status: QtObject {
+        property var status: QtObject {
+            property var isCreated: false
+
             property string asXml:
                 `<root>
                   <item>
@@ -439,12 +453,12 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 </root>`
             property var asJson: [
                 {
-                    name: 'Calculations',
-                    value: 'CrysPy' // use global variable e.g in Vars, Proxies
+                    name: '2-theta',
+                    value: qmlProxy.explore.twoTheta.toString()
                 },
                 {
-                    name: 'Minimization',
-                    value: 'lmfit'
+                    name: 'Slice-Width',
+                    value: qmlProxy.explore.sliceWidth.toString() // this.isCreated.toString() // main.explore.sliceWidth
                 }
               ]
         }

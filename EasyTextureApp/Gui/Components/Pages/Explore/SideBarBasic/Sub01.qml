@@ -61,9 +61,8 @@ Grid{
             to: 135
             value: 90
             // TODO: tool tip: make it an int (not double)
-            onPressedChanged: {
 
-            }
+            onValueChanged: Globals.Proxies.main.explore.twoTheta = value
         }
 
         EaElements.Label {

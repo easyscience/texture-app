@@ -26,24 +26,42 @@ Grid {
                 checked: true
                 text: "1°"
                 ToolTip.text: qsTr("Select 1° slice")
+
+                onCheckedChanged: {
+                    setRadioStatus(1, text)
+                }
             }
 
             RadioButton {
                 topPadding: 0
                 text: "2°"
                 ToolTip.text: qsTr("Select 2° slice")
+
+                onCheckedChanged: {
+                    setRadioStatus(2, text)
+                }
             }
 
             RadioButton {
                 topPadding: 0
                 text: "5°"
                 ToolTip.text: qsTr("Select 5° slice")
+
+                onCheckedChanged: {
+                    setRadioStatus(5, text)
+                }
+
             }
 
             RadioButton {
                 topPadding: 0
                 text: "10°"
                 ToolTip.text: qsTr("Select 10° slice")
+
+                onCheckedChanged: {
+                    setRadioStatus(10, text)
+                }
+
             }
 
         }
@@ -74,6 +92,7 @@ Grid {
                 text: qsTr("Number of Slices (= Number of Patterns):")
             }
             EaElements.Label {
+                id: numOfSlices
                 text: "xxx"
             }
 
@@ -81,6 +100,7 @@ Grid {
                 text: qsTr("Intensity Width (in gamma-Degree):")
             }
             EaElements.Label {
+                id: intensityWidth
                 text: "xxx"
             }
 
@@ -96,4 +116,28 @@ Grid {
 
     }
 
+    // Logic for Radio Buttons
+    function setRadioStatus(id, labelText) {
+        print("Explore page: setRadioStatus: ", id, " : ", this)
+        numOfSlices.text = labelText
+
+        Globals.Proxies.main.explore.sliceWidth = id
+
+        /*
+        Globals.Proxies.main.status.asJson =
+                [
+                    {
+                        name: '2-theta',
+                        value: 'CrysPy' // use global variable e.g in Vars, Proxies
+                    },
+                    {
+                        name: 'Slice-Width',
+                        value: labelText
+                    }
+                ]
+                */
+    }
 }
+
+
+
