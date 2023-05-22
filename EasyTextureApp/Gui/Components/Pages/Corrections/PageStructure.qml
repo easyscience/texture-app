@@ -15,9 +15,9 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    //defaultInfo: Globals.Proxies.main.corrections.isCreated ?   // TODO
-    //                 "" :
-    //                 "" //qsTr("No models added")
+    defaultInfo: Globals.Proxies.main.corrections.isCreated ?   // TODO
+                     "" :
+                     qsTr("No models added")
 
     mainView: EaComponents.MainContent {
         tabs: [
@@ -41,6 +41,7 @@ EaComponents.ContentPage {
         ]
 
         continueButton.enabled: !Globals.Proxies.main.corrections.applyDataCorrection
+                                || (Globals.Proxies.main.corrections.applyDataCorrection && Globals.Proxies.main.corrections.isCreated)
 
         continueButton.onClicked: {
             Globals.Vars.explorePageEnabled = true

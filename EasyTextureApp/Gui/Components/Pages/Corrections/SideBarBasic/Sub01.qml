@@ -18,7 +18,7 @@ Grid {
     //columns: 2
     rows: 3
     columnSpacing: EaStyle.Sizes.fontPixelSize
-    rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
+    rowSpacing: EaStyle.Sizes.fontPixelSize //* 0.5
 
         // EasyApp RadioButton not working
         RadioButton {
@@ -41,7 +41,7 @@ Grid {
     // Location
     Row {
         spacing: EaStyle.Sizes.fontPixelSize * 0.5
-        topPadding: 25
+        topPadding: 0
 
         visible: Globals.Proxies.main.corrections.applyDataCorrection
 
@@ -86,6 +86,10 @@ Grid {
         title: qsTr("Choose File as Vanadium Standard")
 
         //folder: Globals.Constants.proxy.project.currentProjectPath
+
+        onAccepted: {
+            Globals.Proxies.main.corrections.isCreated = true
+        }
     }
 
 
