@@ -27,7 +27,7 @@ Column {
         // Table model
 
         model: EaComponents.JsonListModel {
-            json: Globals.Proxies.main.corrections.isCreated ?
+            json: Globals.Proxies.main.rawData.isCreated ?
                       JSON.stringify([Globals.Proxies.main.corrections.description]) :
                       ""
             query: "$[*]"
@@ -45,15 +45,16 @@ Column {
 
             EaComponents.TableViewTextInput {
                 horizontalAlignment: Text.AlignLeft
-                width: EaStyle.Sizes.fontPixelSize * 27.9
+                width: EaStyle.Sizes.fontPixelSize * 29 //27.9
                 headerText: qsTr("Name")
                 text: model.name
             }
 
-            EaComponents.TableViewLabel {
+            /*EaComponents.TableViewLabel {
                 headerText: qsTr("Color")
                 backgroundColor: EaStyle.Colors.chartForegrounds[0]
             }
+            */
 
             EaComponents.TableViewButton {
                 id: deleteRowColumn
@@ -83,9 +84,22 @@ Column {
             enabled: true //false //!Globals.Proxies.main.corrections.isCreated
             fontIcon: "upload"
             text: qsTr("Load measurement file")
-            onClicked: measurementFileDialog.open() //onClicked: Globals.Proxies.main.corrections.calculateData()
-            Component.onCompleted: Globals.Refs.app.correctionsPage.addNewModelManuallyButton = this
+            onClicked: {
+                //measurementFileDialog.open()
+                Globals.Proxies.main.rawData.loadData()
+
+                // TODO: show file dialog
+                // and add selected file to model
+            }
+
+            Component.onCompleted: Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton = this
+
+            //Component.onCompleted: {
+            //    Globals.Refs.app.correctionsPage.addNewModelManuallyButton = this
+            //}
         }
+
+
     }
 
 
@@ -93,5 +107,15 @@ Column {
     FileDialog {
         id: measurementFileDialog
         title: qsTr("Choose Measurement File")
+
+        onAccepted: {
+            Globals.Proxies.main.rawData.isMmtFileLoaded = true // TODO
+            Globals.Proxies.main.rawData.isCreated = true
+        }
+
+        onRejected: {
+            Globals.Proxies.main.rawData.isMmtFileLoaded = false // TODO
+            Globals.Proxies.main.rawData.isCreated = false
+        }
     }
 }
