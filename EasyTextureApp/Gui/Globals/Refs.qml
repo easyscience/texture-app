@@ -23,7 +23,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         },
         'homePage': {
             'startButton': null,
-            'startButton2': null
+            'startLiveViewButton': null
         },
         'projectPage': {
             'continueButton': null
@@ -40,7 +40,6 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         },
         'explorePage': {
             'continueButton': null,
-            'startFittingButton': null,
             'plotView': null
         },
         'resultsPage': {

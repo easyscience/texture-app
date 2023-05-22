@@ -98,7 +98,7 @@ Item {
 
         // Start Button 2 -> LiveView
         EaElements.SideBarButton {
-            id: startButton2
+            id: startLiveViewButton
 
             anchors.horizontalCenter: parent.horizontalCenter
 
@@ -108,7 +108,7 @@ Item {
                 Globals.Vars.liveViewPageEnabled = true
                 Globals.Refs.app.appbar.liveViewButton.toggle()
             }
-            Component.onCompleted: Globals.Refs.app.homePage.startButton2 = this
+            Component.onCompleted: Globals.Refs.app.homePage.startLiveViewButton = this
         }
 
 
