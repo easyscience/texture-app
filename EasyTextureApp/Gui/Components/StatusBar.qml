@@ -14,17 +14,14 @@ import Gui.Globals as Globals
 
 
 EaElements.StatusBar {
-    visible: EaGlobals.Variables.appBarCurrentIndex !== 0
+    visible: {
+        // default:
+        // EaGlobals.Variables.appBarCurrentIndex !== 0
 
-    /*
-    model: XmlListModel {
-        xml: Globals.Proxies.main.status.asXml
-        query: "/root/item"
-
-        XmlRole { name: "label"; query: "label/string()" }
-        XmlRole { name: "value"; query: "value/string()" }
+        EaGlobals.Variables.appBarCurrentIndex === EaGlobals.Variables.AppBarIndexEnum.ExplorePageIndex
+        || EaGlobals.Variables.appBarCurrentIndex === EaGlobals.Variables.AppBarIndexEnum.ResultsPageIndex
     }
-    */
+
 
     model: EaComponents.JsonListModel {
         json: JSON.stringify(Globals.Proxies.main.status.asJson)
