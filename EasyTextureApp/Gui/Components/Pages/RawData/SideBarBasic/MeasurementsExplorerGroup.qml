@@ -111,6 +111,8 @@ Column {
         onAccepted: {
             Globals.Proxies.main.rawData.isMmtFileLoaded = true // TODO
             Globals.Proxies.main.rawData.isCreated = true
+
+            Globals.Proxies.main.project.needSave = true
         }
 
         onRejected: {

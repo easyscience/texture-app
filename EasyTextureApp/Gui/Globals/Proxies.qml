@@ -115,14 +115,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
                 if (qmlProxy.rawData.isCreated) {
                     project['rawData'] = {
-                        'name': qmlProxy.rawData.description.name,
+                        //'name': qmlProxy.rawData.description.name,
                         'isCreated': qmlProxy.rawData.isCreated,
                     }
                 }
 
                 if (qmlProxy.corrections.isCreated) {
                     project['corrections'] = {
-                        'name': qmlProxy.corrections.description.name,
+                        //'name': qmlProxy.corrections.description.name,
                         'isCreated': qmlProxy.corrections.isCreated,
                     }
                 }
