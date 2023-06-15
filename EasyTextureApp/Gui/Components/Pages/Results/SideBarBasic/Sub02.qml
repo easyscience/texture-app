@@ -33,6 +33,15 @@ Grid{
             EaElements.Label {
                 text: slider.value.toFixed(0) // TODO: putthis info on the TAB
             }
+
+            EaElements.Label {
+                text: qsTr("gamma-Slice Range: ")
+            }
+
+            EaElements.Label {
+                text: getGammaSliceRange()
+            }
+
         }
 
     }
@@ -58,8 +67,8 @@ Grid{
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
             from: 1
-            to: 330
-            value: 150
+            to: 360 / Globals.Proxies.main.explore.sliceWidth
+            value: (360 / Globals.Proxies.main.explore.sliceWidth ) / 2
             // TODO: tool tip: make it an int (not double)
             onPressedChanged: {
 
@@ -70,6 +79,22 @@ Grid{
             id: sliderToLabel
             text: slider.to.toFixed(0)
         }
+
+    }
+
+
+    // Logic for Radio Buttons
+    function getGammaSliceRange() {
+
+        var currSliceNo = slider.value.toFixed(0) - 1
+
+        var sliceWidth = Globals.Proxies.main.explore.sliceWidth
+
+        var gammaSliceA = currSliceNo * sliceWidth
+        var gammaSliceB = gammaSliceA + sliceWidth
+
+        var gammaRange = gammaSliceA.toString() + "° - " + gammaSliceB.toString() + "°"
+        return gammaRange
 
     }
 
