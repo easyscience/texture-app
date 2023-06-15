@@ -85,7 +85,7 @@ Column {
             fontIcon: "upload"
             text: qsTr("Load measurement file")
             onClicked: {
-                //measurementFileDialog.open()
+                measurementFileDialog.open()
                 Globals.Proxies.main.rawData.loadData()
 
                 // TODO: show file dialog
@@ -110,9 +110,12 @@ Column {
 
         onAccepted: {
             Globals.Proxies.main.rawData.isMmtFileLoaded = true // TODO
-            Globals.Proxies.main.rawData.isCreated = true
+            Globals.Proxies.main.rawData.isCreated = false //trigger refresh
 
             Globals.Proxies.main.project.needSave = true
+
+            Globals.Proxies.main.corrections.description.push({"name": selectedFile })
+            Globals.Proxies.main.rawData.isCreated = true //trigger refresh
         }
 
         onRejected: {
