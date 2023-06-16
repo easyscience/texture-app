@@ -63,10 +63,10 @@ Column {
                 ToolTip.text: qsTr("Remove this model")
                 onClicked: {
                     Globals.Proxies.main.rawData.emptyData()
-                    Globals.Proxies.main.corrections.emptyData()
-                    Globals.Vars.rawDataPageEnabled = false
-                    Globals.Vars.explorePageEnabled = false
-                    Globals.Vars.resultsPageEnabled = false
+                    //Globals.Proxies.main.corrections.emptyData()
+                    //Globals.Vars.rawDataPageEnabled = false
+                    //Globals.Vars.explorePageEnabled = false
+                    //Globals.Vars.resultsPageEnabled = false
                 }
             }
 

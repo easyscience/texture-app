@@ -36,9 +36,10 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 qmlProxy.project.isCreatedChanged.connect(qmlProxy.project.save)
 
                 // RawData
+                qmlProxy.rawData.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
 
                 qmlProxy.rawData.isCreatedChanged.connect(function() {
-                    print(`Experiment created: ${qmlProxy.rawData.isCreated}`)
+                    print(`Raw data created: ${qmlProxy.rawData.isCreated}`)
                     qmlProxy.project.setNeedSaveToTrue()
                 })
 
@@ -48,7 +49,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 qmlProxy.corrections.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
 
                 qmlProxy.corrections.isCreatedChanged.connect(function() {
-                    print(`Model created: ${qmlProxy.corrections.isCreated}`)
+                    print(`Corrections created: ${qmlProxy.corrections.isCreated}`)
                     qmlProxy.project.setNeedSaveToTrue()
                 })
 
@@ -115,14 +116,18 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
                 if (qmlProxy.rawData.isCreated) {
                     project['rawData'] = {
-                        //'name': qmlProxy.rawData.description.name,
+                        'name': qmlProxy.rawData.description.name,
                         'isCreated': qmlProxy.rawData.isCreated,
+                        //'parameters': qmlProxy.rawData.parameters,
+                        'dataSize': qmlProxy.rawData.dataSize,
+                        'xData': qmlProxy.rawData.xData,
+                        'yData': qmlProxy.rawData.yData
                     }
                 }
 
                 if (qmlProxy.corrections.isCreated) {
                     project['corrections'] = {
-                        //'name': qmlProxy.corrections.description.name,
+                        'name': qmlProxy.corrections.description.name,
                         'isCreated': qmlProxy.corrections.isCreated,
                     }
                 }
@@ -156,7 +161,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             function loadData() {
                 const length = dataSize
-                const slope = -3.0
+                const slope = 0.0
                 const yIntercept = 1.5
                 xData = Array.from({ length: length }, (_, i) => i / (length - 1))
                 yData = Logic.LineCalculator.pseudoMeasured(xData, slope, yIntercept)
@@ -164,9 +169,10 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             }            
 
             function emptyData() {
+                xData = []
+                yData = []
                 isCreated = false
             }
-
         }
 
         //////////////

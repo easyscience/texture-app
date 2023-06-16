@@ -17,7 +17,7 @@ import Gui.Components as Components
 EaComponents.ContentPage {
     defaultInfo: Globals.Proxies.main.rawData.isCreated ?
                      "" :
-                     "" //qsTr("No experiments loaded") TODO
+                     qsTr("No experiments loaded")
 
     mainView: EaComponents.MainContent {
         tabs: [
