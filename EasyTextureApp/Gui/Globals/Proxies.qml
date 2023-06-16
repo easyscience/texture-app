@@ -150,8 +150,16 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool isCreated: false
             property bool isMmtFileLoaded: false
 
+            property int dataSize: 300
+            property var xData: []
+            property var yData: []
 
             function loadData() {
+                const length = dataSize
+                const slope = -3.0
+                const yIntercept = 1.5
+                xData = Array.from({ length: length }, (_, i) => i / (length - 1))
+                yData = Logic.LineCalculator.pseudoMeasured(xData, slope, yIntercept)
                 isCreated = true
             }            
 
