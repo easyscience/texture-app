@@ -21,10 +21,12 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
+            EaElements.TabButton { text: qsTr("Preview: Detector 1D") },
             EaElements.TabButton { text: qsTr("Preview: Detector 3D") }
         ]
 
         items: [
+            Loader { source: 'MainContent/Tab_1dPreview.qml' },
             Loader { source: 'MainContent/Tab_3dPreview.qml' }
         ]
     }
