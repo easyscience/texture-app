@@ -46,7 +46,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
                 // Corrections
 
-                qmlProxy.corrections.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
+                //qmlProxy.corrections.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
 
                 qmlProxy.corrections.isCreatedChanged.connect(function() {
                     print(`Corrections created: ${qmlProxy.corrections.isCreated}`)
