@@ -186,15 +186,6 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool applyDataCorrection: false
 
             property bool isCreated: false
-            property var description: [
-                {
-                    'name': 'Line'
-                },
-                {
-                    'name': 'Line222'
-                }
-            ]
-
 
             function emptyData() {
                 isCreated = false

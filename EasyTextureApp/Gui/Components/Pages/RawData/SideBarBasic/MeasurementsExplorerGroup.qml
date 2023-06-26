@@ -21,6 +21,7 @@ Column {
     // Table
 
     EaComponents.TableView {
+        id: myTableView
 
         defaultInfoText: qsTr("No measurements loaded")
 
@@ -28,7 +29,7 @@ Column {
 
         model: EaComponents.JsonListModel {
             json: Globals.Proxies.main.rawData.isCreated ?
-                      JSON.stringify([Globals.Proxies.main.corrections.description]) :
+                      JSON.stringify([Globals.Proxies.main.rawData.rawFiles]) :
                       ""
             query: "$[*]"
         }
@@ -62,12 +63,22 @@ Column {
                 fontIcon: "minus-circle"
                 ToolTip.text: qsTr("Remove this model")
                 onClicked: {
-                    Globals.Proxies.main.rawData.emptyData()
+                    Globals.Proxies.main.rawData.isCreated = false
+                    //Globals.Proxies.main.rawData.rawFiles.pop()
+                    var idx = myTableView.currentIndex
+                    Globals.Proxies.main.rawData.rawFiles.splice(idx, 1)
+                    console.debug("Current TableView row deleted by index: " + idx)
+                    Globals.Proxies.main.rawData.isCreated = true
+
                     //Globals.Proxies.main.corrections.emptyData()
                     //Globals.Vars.rawDataPageEnabled = false
                     //Globals.Vars.explorePageEnabled = false
                     //Globals.Vars.resultsPageEnabled = false
+
                 }
+
+
+
             }
 
         }
@@ -114,7 +125,7 @@ Column {
 
             Globals.Proxies.main.project.needSave = true
 
-            Globals.Proxies.main.corrections.description.push({"name": selectedFile })
+            Globals.Proxies.main.rawData.rawFiles.push({"name": selectedFile })
             Globals.Proxies.main.rawData.isCreated = true //trigger refresh
         }
 
