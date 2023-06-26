@@ -18,6 +18,7 @@ EaElements.StatusBar {
         // default:
         // EaGlobals.Variables.appBarCurrentIndex !== 0
 
+        // define which pages show the status bar:
         EaGlobals.Variables.appBarCurrentIndex === EaGlobals.Variables.AppBarIndexEnum.ExplorePageIndex
         || EaGlobals.Variables.appBarCurrentIndex === EaGlobals.Variables.AppBarIndexEnum.ResultsPageIndex
     }
