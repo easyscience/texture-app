@@ -65,6 +65,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property bool isCreated: false
             property bool needSave: false
+            //
             property string name: 'Default project'
             property string description: 'Default project description'
             property string location: ''
@@ -183,9 +184,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             signal parameterEdited(bool needSetFittables)
             signal parametersEdited(bool needSetFittables)
 
-            property bool applyDataCorrection: false
-
             property bool isCreated: false
+            property bool applyDataCorrection: false
 
             function emptyData() {
                 isCreated = false
@@ -242,6 +242,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     <value>lmfit</value>
                   </item>
                 </root>`
+
+            // assign key-value pairs for the status bar:
             property var asJson: [
                 {
                     name: '2-theta',
@@ -249,10 +251,12 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 },
                 {
                     name: 'Slice-Width',
-                    value: qmlProxy.explore.sliceWidth.toString() // this.isCreated.toString() // main.explore.sliceWidth
+                    value: qmlProxy.explore.sliceWidth.toString()
                 }
               ]
         }
+
+
 
         ///////////
         // Plotting

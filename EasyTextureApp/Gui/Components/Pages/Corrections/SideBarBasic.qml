@@ -19,13 +19,4 @@ EaComponents.SideBarColumn {
         Loader { source: 'SideBarBasic/Sub01.qml' }
     }
 
-    /*
-    EaElements.GroupBox {
-        title: qsTr("Data Corrections")
-        collapsible: false
-
-        Loader { source: 'SideBarBasic/Sub02.qml' }
-    }
-*/
-
 }
