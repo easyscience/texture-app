@@ -31,7 +31,7 @@ Grid{
                 text: qsTr("2-theta = ")
             }
             EaElements.Label {
-                text: slider.value.toFixed(0) // TODO: putthis info on the TAB
+                text: slider.value.toFixed(0)
             }
         }
 
@@ -60,7 +60,9 @@ Grid{
             from: 45
             to: 135
             value: 90
-            // TODO: tool tip: make it an int (not double)
+
+            // TODO: tool tip:
+            // make it an int (not double)
 
             onValueChanged: Globals.Proxies.main.explore.twoTheta = value
         }

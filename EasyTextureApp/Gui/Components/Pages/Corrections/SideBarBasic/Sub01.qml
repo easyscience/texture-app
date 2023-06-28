@@ -62,7 +62,7 @@ Grid {
             horizontalAlignment: TextInput.AlignLeft
 
             placeholderText: qsTr("Enter Vanadium file here")
-            text: vanadiumFileDialog.selectedFile
+            text: Globals.Proxies.main.corrections.correctionFileName
 
             EaElements.ToolButton {
                 id: chooseButton
@@ -88,7 +88,14 @@ Grid {
         //folder: Globals.Constants.proxy.project.currentProjectPath
 
         onAccepted: {
-            Globals.Proxies.main.corrections.isCreated = true
+            //Globals.Proxies.main.corrections.isCreated = true
+            Globals.Proxies.main.corrections.isCorrectionFileAssigned = true
+            Globals.Proxies.main.corrections.correctionFileName = selectedFile
+        }
+
+        onRejected: {
+            Globals.Proxies.main.corrections.isCorrectionFileAssigned = false
+            Globals.Proxies.main.corrections.correctionFileName = ""
         }
     }
 

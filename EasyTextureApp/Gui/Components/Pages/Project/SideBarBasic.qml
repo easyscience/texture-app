@@ -21,7 +21,7 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         title: qsTr("Recent Projets")
-        collapsed: false // TODO: true
+        collapsed: false
         last: true
 
         Loader { source: 'SideBarBasic/ExamplesGroup.qml' }

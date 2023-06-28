@@ -17,7 +17,7 @@ import Gui.Components as Components
 EaComponents.ContentPage {
     defaultInfo: Globals.Proxies.main.rawData.isCreated ?
                      "" :
-                     qsTr("No experiments loaded")
+                     qsTr("No measurement files loaded")
 
     mainView: EaComponents.MainContent {
         tabs: [
@@ -42,9 +42,11 @@ EaComponents.ContentPage {
             Loader { source: 'SideBarAdvanced.qml' }
         ]
 
-        continueButton.text: Globals.Proxies.main.rawData.isCreated ?
-                                 qsTr("Continue") :
-                                 qsTr("Continue (rawData isCreated == false)")
+        // debug:
+        //continueButton.text: Globals.Proxies.main.rawData.isCreated ?
+        //                         qsTr("Continue") :
+        //                         qsTr("Continue (rawData isCreated == false)")
+        continueButton.enabled: Globals.Proxies.main.rawData.isCreated
 
         continueButton.onClicked: {
             Globals.Vars.correctionsPageEnabled = true

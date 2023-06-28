@@ -103,6 +103,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 isCreated = true
             }
 
+            // TODO
             function save() {
                 let project = {}
 
@@ -154,7 +155,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         readonly property var rawData: QtObject {
 
             property bool isCreated: false
-            property bool isMmtFileLoaded: false
+            property bool isMmtFileAssigned: false
 
             property int dataSize: 300
             property var xData: []
@@ -184,8 +185,10 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             signal parameterEdited(bool needSetFittables)
             signal parametersEdited(bool needSetFittables)
 
-            property bool isCreated: false
+            property bool isCreated: !applyDataCorrection || isCorrectionFileAssigned
             property bool applyDataCorrection: false
+            property bool isCorrectionFileAssigned : false
+            property string correctionFileName
 
             function emptyData() {
                 isCreated = false
