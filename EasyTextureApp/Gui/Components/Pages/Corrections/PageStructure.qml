@@ -15,9 +15,9 @@ import Gui.Components as Components
 
 
 EaComponents.ContentPage {
-    defaultInfo: Globals.Proxies.main.corrections.isCreated ?   // TODO
+    defaultInfo: Globals.Proxies.main.corrections.isCreated ?
                      "" :
-                     qsTr("No models added")
+                     qsTr("Correction file to be loaded")
 
     mainView: EaComponents.MainContent {
         tabs: [

@@ -31,7 +31,7 @@ Grid{
                 text: qsTr("Slice/Pattern Number: ")
             }
             EaElements.Label {
-                text: slider.value.toFixed(0) // TODO: putthis info on the TAB
+                text: slider.value.toFixed(0)
             }
 
             EaElements.Label {
@@ -69,7 +69,10 @@ Grid{
             from: 1
             to: 360 / Globals.Proxies.main.explore.sliceWidth
             value: (360 / Globals.Proxies.main.explore.sliceWidth ) / 2
-            // TODO: tool tip: make it an int (not double)
+
+            // TODO: tool tip:
+            // make it an int (not double)
+
             onPressedChanged: {
 
             }

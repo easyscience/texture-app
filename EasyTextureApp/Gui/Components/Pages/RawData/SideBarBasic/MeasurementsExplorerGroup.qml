@@ -64,11 +64,11 @@ Column {
                 ToolTip.text: qsTr("Remove this model")
                 onClicked: {
                     Globals.Proxies.main.rawData.isCreated = false
-                    //Globals.Proxies.main.rawData.rawFiles.pop()
                     var idx = myTableView.currentIndex
                     Globals.Proxies.main.rawData.rawFiles.splice(idx, 1)
                     console.debug("Current TableView row deleted by index: " + idx)
-                    Globals.Proxies.main.rawData.isCreated = true
+
+                    Globals.Proxies.main.rawData.isCreated = (Globals.Proxies.main.rawData.rawFiles.length > 0)
 
                     //Globals.Proxies.main.corrections.emptyData()
                     //Globals.Vars.rawDataPageEnabled = false
@@ -97,17 +97,11 @@ Column {
             text: qsTr("Load measurement file")
             onClicked: {
                 measurementFileDialog.open()
-                Globals.Proxies.main.rawData.loadData()
-
-                // TODO: show file dialog
-                // and add selected file to model
+                //Globals.Proxies.main.rawData.loadData()
             }
 
             Component.onCompleted: Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton = this
 
-            //Component.onCompleted: {
-            //    Globals.Refs.app.correctionsPage.addNewModelManuallyButton = this
-            //}
         }
 
 
@@ -120,7 +114,7 @@ Column {
         title: qsTr("Choose Measurement File")
 
         onAccepted: {
-            Globals.Proxies.main.rawData.isMmtFileLoaded = true // TODO
+            Globals.Proxies.main.rawData.isMmtFileAssigned = true
             Globals.Proxies.main.rawData.isCreated = false //trigger refresh
 
             Globals.Proxies.main.project.needSave = true
@@ -130,8 +124,8 @@ Column {
         }
 
         onRejected: {
-            Globals.Proxies.main.rawData.isMmtFileLoaded = false // TODO
-            Globals.Proxies.main.rawData.isCreated = false
+            Globals.Proxies.main.rawData.isMmtFileAssigned = false
+            //Globals.Proxies.main.rawData.isCreated = false
         }
     }
 }
