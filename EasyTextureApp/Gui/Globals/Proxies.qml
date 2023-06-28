@@ -157,6 +157,9 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool isCreated: false
             property bool isMmtFileAssigned: false
 
+            property var rawFiles: [
+            ]
+
             property int dataSize: 300
             property var xData: []
             property var yData: []
