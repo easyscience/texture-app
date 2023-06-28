@@ -123,19 +123,6 @@ Grid {
 
         Globals.Proxies.main.explore.sliceWidth = id
 
-        /*
-        Globals.Proxies.main.status.asJson =
-                [
-                    {
-                        name: '2-theta',
-                        value: 'CrysPy' // use global variable e.g in Vars, Proxies
-                    },
-                    {
-                        name: 'Slice-Width',
-                        value: labelText
-                    }
-                ]
-                */
     }
 }
 
