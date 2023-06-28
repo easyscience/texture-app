@@ -22,12 +22,16 @@ EaComponents.ContentPage {
     mainView: EaComponents.MainContent {
         tabs: [
             EaElements.TabButton { text: qsTr("Preview: Detector 1D") },
-            EaElements.TabButton { text: qsTr("Preview: Detector 3D") }
+            EaElements.TabButton { text: qsTr("Preview: Detector 2D") },
+            EaElements.TabButton { text: qsTr("Preview: Detector 3D Scatter Plot") },
+            EaElements.TabButton { text: qsTr("Preview: Detector 3D Surface Plot") }
         ]
 
         items: [
             Loader { source: 'MainContent/Tab_1dPreview.qml' },
-            Loader { source: 'MainContent/Tab_3dPreview.qml' }
+            Loader { source: 'MainContent/Tab_2dPreview.qml' },
+            Loader { source: 'MainContent/Tab_3dPreviewScatter.qml' },
+            Loader { source: 'MainContent/Tab_3dPreviewSurface.qml' }
         ]
     }
 
