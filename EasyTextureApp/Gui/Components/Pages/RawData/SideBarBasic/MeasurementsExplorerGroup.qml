@@ -97,7 +97,6 @@ Column {
             text: qsTr("Load measurement file")
             onClicked: {
                 measurementFileDialog.open()
-                //Globals.Proxies.main.rawData.loadData()
             }
 
             Component.onCompleted: Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton = this
@@ -121,6 +120,7 @@ Column {
 
             Globals.Proxies.main.rawData.rawFiles.push({"name": selectedFile })
             Globals.Proxies.main.rawData.isCreated = true //trigger refresh
+            Globals.Proxies.main.rawData.loadData()
         }
 
         onRejected: {

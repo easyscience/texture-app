@@ -160,7 +160,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property var rawFiles: [
             ]
 
-            property int dataSize: 300
+            property int dataSize: 10
             property var xData: []
             property var yData: []
 
