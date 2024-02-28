@@ -21,17 +21,17 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("Preview: Detector 1D") },
-            EaElements.TabButton { text: qsTr("Preview: Detector 2D") },
-            EaElements.TabButton { text: qsTr("Preview: Detector 3D Scatter Plot") },
-            EaElements.TabButton { text: qsTr("Preview: Detector 3D Surface Plot") }
+            EaElements.TabButton { text: qsTr("Preview: 3D Scatter") },
+            EaElements.TabButton { text: qsTr("Preview: 2D Gamma-TwoTheta") },
+            EaElements.TabButton { text: qsTr("Preview: 2D TwoTheta Rings") },
+            EaElements.TabButton { text: qsTr("Preview: 1D Gamma Dependence at TwoTheta") }
         ]
 
         items: [
-            Loader { source: 'MainContent/Tab_1dPreview.qml' },
-            Loader { source: 'MainContent/Tab_2dPreview.qml' },
             Loader { source: 'MainContent/Tab_3dPreviewScatter.qml' },
-            Loader { source: 'MainContent/Tab_3dPreviewSurface.qml' }
+            Loader { source: 'MainContent/Tab_2dPreviewGammaTwoTheta.qml' },
+            Loader { source: 'MainContent/Tab_2dPreviewTwoThetaRings.qml' },
+            Loader { source: 'MainContent/Tab_1dPreview.qml' }
         ]
     }
 
