@@ -21,5 +21,27 @@ EaComponents.SideBarColumn {
         Loader { source: 'SideBarBasic/MeasurementsExplorerGroup.qml' }
     }
 
+    EaElements.GroupBox {
+        title: qsTr("3D Binning Parameters")
+        collapsible: false
+        visible: Globals.Proxies.main.rawData.is3DtabSelected && Globals.Proxies.main.rawData.isCreated
 
+        Loader { source: 'SideBarBasic/Binning3D.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("2D Binning Parameters")
+        collapsible: false
+        visible: Globals.Proxies.main.rawData.is2DtabSelected && Globals.Proxies.main.rawData.isCreated
+
+        Loader { source: 'SideBarBasic/Binning2D.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("1D Binning Parameters")
+        collapsible: false
+        visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
+
+        Loader { source: 'SideBarBasic/Binning1D.qml' }
+    }
 }

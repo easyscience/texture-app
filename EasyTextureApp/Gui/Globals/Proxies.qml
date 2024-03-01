@@ -156,6 +156,9 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property bool isCreated: false
             property bool isMmtFileAssigned: false
+            property bool is1DtabSelected: false
+            property bool is2DtabSelected: false
+            property bool is3DtabSelected: true
 
             property var rawFiles: [
             ]
@@ -168,7 +171,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 const length = dataSize
                 const slope = 0.0
                 const yIntercept = 1.5
-                xData = Array.from({ length: length }, (_, i) => i / (length - 1))
+                xData = Array.from({ length: length }, (_, i) => i+1)
+                //xData = Array.from({ length: length }, (_, i) => i / (length - 1))//[0.1,0.15,0.2,0.25,0.3,0.35,0.4]//Array.from({ length: length }, (_, i) => i / (length - 1))
                 yData = Logic.LineCalculator.pseudoMeasured(xData, slope, yIntercept)
                 isCreated = true
             }            

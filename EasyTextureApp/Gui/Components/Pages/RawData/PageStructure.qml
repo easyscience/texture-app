@@ -21,10 +21,38 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("Preview: 3D Scatter") },
-            EaElements.TabButton { text: qsTr("Preview: 2D Gamma-TwoTheta") },
-            EaElements.TabButton { text: qsTr("Preview: 2D TwoTheta Rings") },
-            EaElements.TabButton { text: qsTr("Preview: 1D Gamma Dependence at TwoTheta") }
+            EaElements.TabButton {
+                text: qsTr("Preview: 3D Scatter")
+                onClicked: {
+                    Globals.Proxies.main.rawData.is3DtabSelected = true
+                    Globals.Proxies.main.rawData.is2DtabSelected = false
+                    Globals.Proxies.main.rawData.is1DtabSelected = false
+                }
+            },
+            EaElements.TabButton {
+                text: qsTr("Preview: 2D Gamma-TwoTheta")
+                onClicked: {
+                    Globals.Proxies.main.rawData.is2DtabSelected = true
+                    Globals.Proxies.main.rawData.is3DtabSelected = false
+                    Globals.Proxies.main.rawData.is1DtabSelected = false
+                }
+            },
+            EaElements.TabButton {
+                text: qsTr("Preview: 2D TwoTheta Rings")
+                onClicked: {
+                    Globals.Proxies.main.rawData.is2DtabSelected = true
+                    Globals.Proxies.main.rawData.is3DtabSelected = false
+                    Globals.Proxies.main.rawData.is1DtabSelected = false
+                }
+            },
+            EaElements.TabButton {
+                text: qsTr("Preview: 1D Gamma Dependence at TwoTheta")
+                onClicked: {
+                    Globals.Proxies.main.rawData.is1DtabSelected = true
+                    Globals.Proxies.main.rawData.is2DtabSelected = false
+                    Globals.Proxies.main.rawData.is3DtabSelected = false
+                }
+            }
         ]
 
         items: [
