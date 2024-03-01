@@ -9,8 +9,8 @@ import EasyApp.Gui.Charts as EaCharts
 
 EaCharts.Plotly3dScatter {
 
-    xAxisTitle: "New x-axis"
-    yAxisTitle: "New y-axis"
-    zAxisTitle: "New z-axis"
+    xAxisTitle: "x, mm"
+    yAxisTitle: "y, mm"
+    zAxisTitle: "z, mm"
 
 }
