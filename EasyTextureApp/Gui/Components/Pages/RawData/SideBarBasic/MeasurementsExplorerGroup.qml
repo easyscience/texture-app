@@ -99,13 +99,19 @@ Column {
                 measurementFileDialog.open()
             }
 
-            Component.onCompleted: Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton = this
+            Component.onCompleted: {
+                Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton = this
+            }
 
         }
 
 
     }
 
+    function getFilename(str)
+    {
+        return (str.slice(str.lastIndexOf("/")+1))
+    }
 
     // Select File dialog
     FileDialog {
@@ -118,7 +124,7 @@ Column {
 
             Globals.Proxies.main.project.needSave = true
 
-            Globals.Proxies.main.rawData.rawFiles.push({"name": selectedFile })
+            Globals.Proxies.main.rawData.rawFiles.push({"name": getFilename(selectedFile.toString())})
             Globals.Proxies.main.rawData.isCreated = true //trigger refresh
             Globals.Proxies.main.rawData.loadData()
         }
