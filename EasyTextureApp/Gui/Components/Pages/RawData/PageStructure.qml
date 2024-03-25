@@ -22,7 +22,7 @@ EaComponents.ContentPage {
     mainView: EaComponents.MainContent {
         tabs: [
             EaElements.TabButton {
-                text: qsTr("Preview: 3D Scatter")
+                text: qsTr("3D View: Detector Inner Surface")
                 onClicked: {
                     Globals.Proxies.main.rawData.is3DtabSelected = true
                     Globals.Proxies.main.rawData.is2DtabSelected = false
@@ -30,7 +30,7 @@ EaComponents.ContentPage {
                 }
             },
             EaElements.TabButton {
-                text: qsTr("Preview: 2D Gamma-TwoTheta")
+                text: qsTr("2D View: γ-2θ")
                 onClicked: {
                     Globals.Proxies.main.rawData.is2DtabSelected = true
                     Globals.Proxies.main.rawData.is3DtabSelected = false
@@ -38,7 +38,7 @@ EaComponents.ContentPage {
                 }
             },
             EaElements.TabButton {
-                text: qsTr("Preview: 2D TwoTheta Rings")
+                text: qsTr("2D View: 2θ Rings")
                 onClicked: {
                     Globals.Proxies.main.rawData.is2DtabSelected = true
                     Globals.Proxies.main.rawData.is3DtabSelected = false
@@ -46,7 +46,7 @@ EaComponents.ContentPage {
                 }
             },
             EaElements.TabButton {
-                text: qsTr("Preview: 1D Gamma Dependence at TwoTheta")
+                text: qsTr("1D View: γ(2θ)")
                 onClicked: {
                     Globals.Proxies.main.rawData.is1DtabSelected = true
                     Globals.Proxies.main.rawData.is2DtabSelected = false
