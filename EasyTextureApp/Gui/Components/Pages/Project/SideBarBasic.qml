@@ -20,7 +20,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr("Recent Projets")
+        title: qsTr("Recent Projects")
         collapsed: false
         last: true
 
