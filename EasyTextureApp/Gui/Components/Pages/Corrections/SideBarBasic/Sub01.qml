@@ -30,10 +30,17 @@ Grid {
         }
         // EasyApp RadioButton not working
         RadioButton {
+            id: applyDataCorrection
             topPadding: 0
             text: qsTr("Apply data correction")
             ToolTip.text: qsTr("Checking this box will apply data correction to the measurement data")
-
+            enabled: false
+            contentItem: Text {
+                text: applyDataCorrection.text
+                color: "grey"
+                leftPadding: applyDataCorrection.indicator.width + applyDataCorrection.spacing
+                verticalAlignment: Text.AlignVCenter
+            }
             onCheckedChanged: Globals.Proxies.main.corrections.applyDataCorrection = checked
         }
 
