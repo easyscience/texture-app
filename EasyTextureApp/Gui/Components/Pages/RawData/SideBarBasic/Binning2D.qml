@@ -13,9 +13,9 @@ import Gui.Globals as Globals
 
 
 Grid {
-    rows: 2
+    rows: 1
     columnSpacing: EaStyle.Sizes.fontPixelSize
-    rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
+    //rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
 
     // Location
     Row {
@@ -23,38 +23,44 @@ Grid {
             columns: 2
             columnSpacing: EaStyle.Sizes.fontPixelSize
 
+            Column {
+                width: 1/2 * EaStyle.Sizes.sideBarContentWidth
 
-            EaElements.Label {
-                enabled: true
-                text: qsTr("2θ bin size, deg")
+                Row {
+                    spacing: EaStyle.Sizes.fontPixelSize
+
+                    EaElements.Label {
+                        enabled: true
+                        text: qsTr("2θ bin size")
+                    }
+
+                    ComboBox {
+                        //values for two_theta_bin_width_2D
+                        currentIndex: 2
+                        model: ["0.1°", "0.25°", "0.5°", "0.75°", "1°", "2°", "5°", "10°"]
+                    }
+                }
             }
 
-            ComboBox {
-                //values for two_theta_bin_width_2D
-                currentIndex: 2
-                model: ["0.1°", "0.25°", "0.5°", "0.75°", "1°", "2°", "5°", "10°"]
+            Column {
+                width: 1/2 * EaStyle.Sizes.sideBarContentWidth
+
+                Row {
+                    spacing: EaStyle.Sizes.fontPixelSize
+
+                    EaElements.Label {
+                        enabled: true
+                        text: qsTr("γ bin size")
+                    }
+
+                    ComboBox {
+                        //values for gamma_bin_width_2D
+                        model: ["1°", "2°", "5°", "10°"]
+                    }
+                }
             }
         }
     }
-
-    Row {
-        Grid {
-            columns: 2
-            columnSpacing: 23 //EaStyle.Sizes.fontPixelSize
-
-
-            EaElements.Label {
-                enabled: true
-                text: qsTr("γ bin size, deg")
-            }
-
-            ComboBox {
-                //values for gamma_bin_width_2D
-                model: ["1°", "2°", "5°", "10°"]
-            }
-        }
-    }
-
 
     // Select File dialog
     FileDialog {
