@@ -12,7 +12,7 @@ import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
 import EasyApp.Gui.Logic as EaLogic
 
-import Gui.Globals as Globals
+import Gui.Globals as Globals //this line is confusing, because it still points to folder inside EasyTextureApp
 
 
 Column {
@@ -44,11 +44,14 @@ Column {
                 text: model.index + 1
             }
 
-            EaComponents.TableViewTextInput {
+            EaComponents.TableViewLabelControl {
+                id: tableViewLine
                 horizontalAlignment: Text.AlignLeft
-                width: EaStyle.Sizes.fontPixelSize * 29 //27.9
+                width: EaStyle.Sizes.fontPixelSize * 29
                 headerText: qsTr("Name")
                 text: model.name
+                ToolTip.visible: EaGlobals.Variables.showToolTips && text !== "" && tableViewLine.hovered
+                ToolTip.text: model.fullpath
             }
 
             /*EaComponents.TableViewLabel {
@@ -124,7 +127,10 @@ Column {
 
             Globals.Proxies.main.project.needSave = true
 
-            Globals.Proxies.main.rawData.rawFiles.push({"name": getFilename(selectedFile.toString())})
+            Globals.Proxies.main.rawData.rawFiles.push({
+                "name": getFilename(selectedFile.toString()),
+                "fullpath": selectedFile.toString()
+            })
             Globals.Proxies.main.rawData.isCreated = true //trigger refresh
             Globals.Proxies.main.rawData.loadData()
         }
