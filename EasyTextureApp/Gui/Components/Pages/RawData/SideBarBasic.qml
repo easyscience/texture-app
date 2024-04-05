@@ -18,7 +18,7 @@ EaComponents.SideBarColumn {
         collapsible: false
         last: !Globals.Proxies.main.corrections.isCreated
 
-        Loader { source: 'SideBarBasic/MeasurementsExplorerGroup.qml' }
+        Loader {source: 'SideBarBasic/MeasurementsExplorerGroup.qml'}
     }
 
     EaElements.GroupBox {
@@ -26,15 +26,23 @@ EaComponents.SideBarColumn {
         collapsible: false
         visible: Globals.Proxies.main.rawData.is3DtabSelected && Globals.Proxies.main.rawData.isCreated
 
-        Loader { source: 'SideBarBasic/Binning3D.qml' }
+        Loader {source: 'SideBarBasic/Binning3D.qml'}
     }
 
     EaElements.GroupBox {
         title: qsTr("2D Binning Parameters")
         collapsible: false
-        visible: Globals.Proxies.main.rawData.is2DtabSelected && Globals.Proxies.main.rawData.isCreated
+        visible: (Globals.Proxies.main.rawData.is2DtabSelected || Globals.Proxies.main.rawData.is2DthetaRingsTabSelected) && Globals.Proxies.main.rawData.isCreated
 
-        Loader { source: 'SideBarBasic/Binning2D.qml' }
+        Loader {source: 'SideBarBasic/Binning2D.qml'}
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("2θ Rings Slider")
+        collapsible: false
+        visible: Globals.Proxies.main.rawData.is2DthetaRingsTabSelected && Globals.Proxies.main.rawData.isCreated
+
+        Loader {source: 'SideBarBasic/TwoThetaSlider2D.qml'}
     }
 
     EaElements.GroupBox {
@@ -42,6 +50,14 @@ EaComponents.SideBarColumn {
         collapsible: false
         visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
 
-        Loader { source: 'SideBarBasic/Binning1D.qml' }
+        Loader {source: 'SideBarBasic/Binning1D.qml'}
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("2θ Slider 1D")
+        collapsible: false
+        visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
+
+        Loader {source: 'SideBarBasic/TwoThetaSlider1D.qml'}
     }
 }

@@ -26,6 +26,7 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.Proxies.main.rawData.is3DtabSelected = true
                     Globals.Proxies.main.rawData.is2DtabSelected = false
+                    Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = false
                     Globals.Proxies.main.rawData.is1DtabSelected = false
                 }
             },
@@ -34,14 +35,16 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.Proxies.main.rawData.is2DtabSelected = true
                     Globals.Proxies.main.rawData.is3DtabSelected = false
+                    Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = false
                     Globals.Proxies.main.rawData.is1DtabSelected = false
                 }
             },
             EaElements.TabButton {
                 text: qsTr("2D View: 2θ Rings")
                 onClicked: {
-                    Globals.Proxies.main.rawData.is2DtabSelected = true
+                    Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = true
                     Globals.Proxies.main.rawData.is3DtabSelected = false
+                    Globals.Proxies.main.rawData.is2DtabSelected = false
                     Globals.Proxies.main.rawData.is1DtabSelected = false
                 }
             },
@@ -50,6 +53,7 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.Proxies.main.rawData.is1DtabSelected = true
                     Globals.Proxies.main.rawData.is2DtabSelected = false
+                    Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = false
                     Globals.Proxies.main.rawData.is3DtabSelected = false
                 }
             }
