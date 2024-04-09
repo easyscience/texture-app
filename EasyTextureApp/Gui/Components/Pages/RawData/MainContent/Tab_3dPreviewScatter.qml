@@ -6,8 +6,9 @@ import QtQuick
 
 import EasyApp.Gui.Charts as EaCharts
 
+import Gui.Charts as Charts
 
-EaCharts.Plotly3dScatterOK {
+Charts.Plotly3dScatterOK {
 
     xAxisTitle: "x, mm"
     yAxisTitle: "y, mm"

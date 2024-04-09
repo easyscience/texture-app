@@ -8,8 +8,9 @@ import QtQuick.Controls 2.15
 import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
+import Gui.Charts as Charts
 
-EaCharts.Plotly1dOK {
+Charts.Plotly1dOK {
 
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 

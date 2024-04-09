@@ -6,8 +6,9 @@ import QtQuick
 
 import EasyApp.Gui.Charts as EaCharts
 
+import Gui.Charts as Charts
 
-EaCharts.Plotly2dTwoThetaRingsOK {
+Charts.Plotly2dTwoThetaRingsOK {
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
     xAxisTitle: "x, mm"
