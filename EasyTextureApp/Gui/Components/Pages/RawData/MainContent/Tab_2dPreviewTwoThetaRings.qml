@@ -7,9 +7,11 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 
-EaCharts.Plotly2dHeatmap {
+EaCharts.Plotly2dTwoThetaRingsOK {
+    //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
-    xAxisTitle: "New x-axis"
-    yAxisTitle: "New y-axis"
+    xAxisTitle: "x, mm"
+    yAxisTitle: "y, mm"
 
+    minTT: 70
 }

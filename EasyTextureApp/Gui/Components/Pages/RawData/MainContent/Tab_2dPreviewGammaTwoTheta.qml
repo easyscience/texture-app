@@ -7,9 +7,9 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 
-EaCharts.Plotly2dHeatmap {
+EaCharts.Plotly2dGammaTwoThetaOK {
 
-    xAxisTitle: "New x-axis"
-    yAxisTitle: "New y-axis"
+    xAxisTitle: "2\u03b8, deg"
+    yAxisTitle: "\u03b3, deg"
 
 }

@@ -7,6 +7,14 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 
+EaCharts.Plotly3dScatterOK {
+
+    xAxisTitle: "x, mm"
+    yAxisTitle: "y, mm"
+    zAxisTitle: "z, mm"
+
+}
+/*
 EaCharts.Plotly3dScatter {
 
     xAxisTitle: "x, mm"
@@ -14,3 +22,4 @@ EaCharts.Plotly3dScatter {
     zAxisTitle: "z, mm"
 
 }
+*/

@@ -9,7 +9,20 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
 
+EaCharts.Plotly1dOK {
 
+    //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
+
+    xAxisTitle: "\u03b3, deg"
+    yAxisTitle: "Counts"
+
+    //xData: Globals.Proxies.main.rawData.xData
+    //measuredYData: Globals.Proxies.main.rawData.yData
+
+    //Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
+
+}
+/*
 EaCharts.Plotly1dMeasVsCalc {
 
     useWebGL: Globals.Proxies.main.plotting.useWebGL1d
@@ -23,3 +36,4 @@ EaCharts.Plotly1dMeasVsCalc {
     Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
 
 }
+*/
