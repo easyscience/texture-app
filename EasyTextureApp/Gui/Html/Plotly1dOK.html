@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+  <script src="plotly-2.18.0.min.js"></script>
+
+  <style type="text/css">
+
+    @font-face {
+      font-family: ChartFont;
+      src:url("PTSans-Regular.ttf");
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: 'ChartFont';
+    }
+
+    #plotContainer {
+      height: 100%;
+      width: 100%;
+      padding: 14px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #plotDiv {
+      width: 100%;
+      height: 100%;
+    }
+
+    div.plotly-notifier { /* Plotly notifier element */
+      visibility: hidden;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id='plotContainer'>
+    <div id='plotDiv'></div>
+  </div>
+
+  <script>
+    let myDiv = document.getElementById('plotDiv')
+
+    // Load data from JSON file
+    var request1D = new XMLHttpRequest();
+    request1D.open("GET", "/home/koshchii/GitRepos/github/PowTexPy/data_reduction/user_voxels_1D_sorted_by_gamma.json", false);
+    request1D.send(null)
+    var data1D = JSON.parse(request1D.responseText); //this is a dict of objects
+
+    function handleSliderChange(e) {
+        let sliderName =e.slider.name
+        let stepLabel = e.step.label
+        if (sliderName == "a")
+        {
+            console.log("a=", stepLabel)
+        }
+        else if (sliderName == "b")
+        {
+            console.log("b=", stepLabel)
+        }
+    }
+
+    function getIndxByValue(object, value) {
+      return Object.keys(object).filter(indx => object[indx] === value);
+    }
+
+    function getValueByIndex(valueArray, indxArray) {
+      return indxArray.map(indx => valueArray[indx]);
+    }
+
+    function onlyUnique(value, index, array) {
+      return array.indexOf(value) === index;
+    }
+
+    function getData(animationTT) {
+      let trace
+      let animationTwoThetaIndices = getIndxByValue(twoTheta1D, animationTT)
+      let animationTwoThetaArray = getValueByIndex(twoTheta1D, animationTwoThetaIndices)
+      let animationProjCount = getValueByIndex(projCount1D, animationTwoThetaIndices)
+      let animationGamma = getValueByIndex(gamma1D, animationTwoThetaIndices)
+
+      let customArray1D = [animationTwoThetaArray, animationGamma, animationProjCount]
+      let customData1D = customArray1D[0].map((_, colIndex) => customArray1D.map(row => row[colIndex]))
+
+      trace = {
+        x: animationGamma,
+        y: animationProjCount,
+        customdata: customData1D,
+      }
+
+      return trace;
+    }
+
+    ///////
+    // Data
+    ///////
+
+    //let x1D = Object.values(data1D["voxel_x [mm]"])
+    //let y1D = Object.values(data1D["voxel_y [mm]"])
+    //let z1D = Object.values(data1D["voxel_z [mm]"])
+    let twoTheta1D = Object.values(data1D["two_theta [deg]"])
+    let gamma1D = Object.values(data1D["user gamma [deg]"])
+    let projCount1D = Object.values(data1D["proj_count"])
+
+    let uniqueTwoTheta = twoTheta1D.filter(onlyUnique)
+    let animationTwoTheta = 45.5
+    let animationTwoThetaIndices = getIndxByValue(twoTheta1D, animationTwoTheta)
+    let animationTwoThetaArray = getValueByIndex(twoTheta1D, animationTwoThetaIndices)
+    let animationProjCount = getValueByIndex(projCount1D, animationTwoThetaIndices)
+    let animationGamma = getValueByIndex(gamma1D, animationTwoThetaIndices)
+
+    let customArray1D = [animationTwoThetaArray, animationGamma, animationProjCount]
+    // transpose of customArray1D
+    let customData1D = customArray1D[0].map((_, colIndex) => customArray1D.map(row => row[colIndex]))
+
+    /////////
+    // Plotly
+    /////////
+
+    // PowTex data trace
+    // Create the main traces, one for each twotheta
+    let plotTraces = []
+    plotTraces.push({
+      name: '', //animationTwoTheta,
+      x: animationGamma,
+      y: animationProjCount,
+      customdata: customData1D,
+      hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                     '\u03b3: %{customdata[1]}\u00B0<br>'+
+                     'counts: %{customdata[2]}',
+      mode: 'lines+markers',
+    });
+
+    // Plot layout
+    let sliderSteps = []
+    for (i = 0; i < uniqueTwoTheta.length; i++) {
+      sliderSteps.push({
+        method: 'animate',
+        label: uniqueTwoTheta[i],
+        args: [[uniqueTwoTheta[i]], {
+          mode: 'immediate',
+          transition: {duration: 20},
+          frame: {duration: 20, redraw: true}
+        }]
+      });
+    }
+
+    let plotLayout = {
+        //autosize: true,
+        xaxis: {
+          title: 'γ, deg',
+          autorange: true,
+        },
+        yaxis: {
+          title: 'Counts',
+          autorange: true,
+        },
+        // Finally, add the slider and use `pad` to position it
+        // nicely next to the buttons.
+        sliders: [{
+          pad: {l: 20, t: 55},
+          currentvalue: {
+            visible: true,
+            prefix: '2θ: ',
+            suffix: '\u00B0',
+            xanchor: 'right',
+            font: {size: 12, color: '#666'}
+          },
+          // sliderSteps are created above
+          steps: sliderSteps
+        }]
+    }
+
+    // Plot config
+    let plotConfig = {
+      displayModeBar: true,
+      displaylogo: false,
+    }
+
+    // Plot frames
+    let plotFrames = []
+    for (i = 0; i < uniqueTwoTheta.length; i++) {
+      plotFrames.push({
+        name: uniqueTwoTheta[i],
+        data: [getData(uniqueTwoTheta[i])],
+      })
+    }
+
+    // Create plot
+    //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+    // use template below to use frames
+    Plotly.newPlot('plotDiv', {
+      data: plotTraces,
+      layout: plotLayout,
+      config: plotConfig,
+      frames: plotFrames,
+    })
+
+    //Plotly.relayout(myDiv, myDiv.layout.yaxis.autorange=true)
+
+    /////////////////////////////////////////
+    // Functionality to be accesable from QML
+    /////////////////////////////////////////
+/*
+    // need to be called before setChartColors to init axis.titlefont
+    function setChartSizes(sizes) {
+      plotLayout.legend.font.size = sizes.fontPixelSize
+
+      plotLayout.xaxis.tickfont.size = sizes.fontPixelSize
+      plotLayout.yaxis.tickfont.size = sizes.fontPixelSize
+
+      if (typeof plotLayout.xaxis.titlefont !== 'undefined') {
+        plotLayout.xaxis.titlefont.size = sizes.fontPixelSize
+      } else {
+        plotLayout.xaxis.titlefont = { 'size': sizes.fontPixelSize }
+      }
+      if (typeof plotLayout.yaxis.titlefont !== 'undefined') {
+        plotLayout.yaxis.titlefont.size = sizes.fontPixelSize
+      } else {
+        plotLayout.yaxis.titlefont = { 'size': sizes.fontPixelSize }
+      }
+
+      measuredTrace.marker.size = sizes.measuredScatterSize
+      measuredTrace.line.width = sizes.measuredLineWidth
+      calculatedTrace.line.width = sizes.calculatedLineWidth
+
+      return('setChartSizes is finished.')
+    }
+
+    function setChartColors(colors) {
+      document.getElementById('plotContainer').style.backgroundColor = colors.chartBackground
+
+      plotLayout.paper_bgcolor = colors.chartBackground
+      plotLayout.plot_bgcolor = colors.chartPlotAreaBackground
+      plotLayout.legend.bgcolor = colors.chartBackground + 'cc'  // add transparency
+      //plotLayout.legend.bordercolor = colors.chartGrid
+      plotLayout.legend.font.color = colors.chartForeground
+
+      plotLayout.xaxis.linecolor = colors.chartAxis
+      plotLayout.yaxis.linecolor = colors.chartAxis
+      plotLayout.xaxis.gridcolor = colors.chartGrid
+      plotLayout.yaxis.gridcolor = colors.chartGrid
+
+      if (typeof plotLayout.xaxis.titlefont !== 'undefined') {
+        plotLayout.xaxis.titlefont.color = colors.chartForeground
+      } else {
+        plotLayout.xaxis.title.font.color = colors.chartForeground
+      }
+      if (typeof plotLayout.yaxis.titlefont !== 'undefined') {
+        plotLayout.yaxis.titlefont.color = colors.chartForeground
+      } else {
+        plotLayout.yaxis.title.font.color = colors.chartForeground
+      }
+
+      plotLayout.xaxis.tickfont.color = colors.chartForeground
+      plotLayout.yaxis.tickfont.color = colors.chartForeground
+
+      measuredTrace.marker.color = colors.measuredScatter
+      measuredTrace.line.color = colors.measuredLine
+      calculatedTrace.line.color = colors.calculatedLine
+
+      return('setChartColors is finished.')
+    }
+*/
+    //Plotly.restyle('plotDiv', {opacity: 0.5})
+
+    function relayoutPlot() {
+      Plotly.relayout('plotDiv', layout)
+    }
+
+    function redrawPlot() {
+      Plotly.redraw('plotDiv')
+    }
+/*
+    function redrawPlotWithNewCalculatedYData(newData) {
+      Plotly.restyle('plotDiv', {y:[newData]}, [1])
+    }
+
+    function toggleUseWebGL(useWebGL) {
+      if (useWebGL) {
+        measuredTrace.type = 'scattergl'
+        calculatedTrace.type = 'scattergl'
+      } else {
+        measuredTrace.type = 'scatter'
+        calculatedTrace.type = 'scatter'
+      }
+      return('toggleUseWebGL is finished.')
+    }
+*/
+    function setXAxisTitle(newTitle) {
+      plotLayout.xaxis.title = newTitle
+    }
+
+    function setYAxisTitle(newTitle) {
+      plotLayout.yaxis.title = newTitle
+    }
+/*
+    function emptyData() {
+      measuredTrace.x = []
+      measuredTrace.y = []
+      calculatedTrace.x = []
+      calculatedTrace.y = []
+      return('emptyData is finished')
+    }
+
+    function setXData(newData) {
+      measuredTrace.x = newData
+      calculatedTrace.x = newData
+      return('setXData is finished')
+    }
+
+    function setMeasuredYData(newData) {
+      measuredTrace.y = newData
+      return('setMeasuredYData is finished')
+  }
+
+    function setCalculatedYData(newData) {
+      calculatedTrace.y = newData
+    }
+
+    ///////
+    // Misc
+    ///////
+
+    window.addEventListener("resize", relayoutPlot)
+*/
+  </script>
+
+</body>
+
+</html>
