@@ -58,7 +58,7 @@
   <script>
     // Load data from JSON file
     var request3D = new XMLHttpRequest();
-    request3D.open("GET", "/home/koshchii/GitRepos/github/PowTexPy/data_reduction/user_voxels_3D.json", false);
+    request3D.open("GET", "user_voxels_3D.json", false);
     request3D.send(null)
     var data3D = JSON.parse(request3D.responseText);
 

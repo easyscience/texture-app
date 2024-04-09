@@ -65,7 +65,7 @@
 
     // Load data from JSON file
     var request1D = new XMLHttpRequest();
-    request1D.open("GET", "/home/koshchii/GitRepos/github/PowTexPy/data_reduction/user_voxels_1D_sorted_by_gamma.json", false);
+    request1D.open("GET", "user_voxels_1D_sorted_by_gamma.json", false);
     request1D.send(null)
     var data1D = JSON.parse(request1D.responseText); //this is a dict of objects
 
