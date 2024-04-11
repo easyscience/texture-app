@@ -21,13 +21,13 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("Preview: Detector 3D") },
-            EaElements.TabButton { text: qsTr("Preview: 2-theta Rings") }
+            EaElements.TabButton { text: qsTr("3D View") },
+            EaElements.TabButton { text: qsTr("2D View: 2θ Rings") }
         ]
 
         items: [
-            Loader { source: 'MainContent/Tab_3d.qml' },
-            Loader { source: 'MainContent/Tab_2d.qml' }
+            Loader { source: 'MainContent/LiveTab3D.qml' },
+            Loader { source: 'MainContent/LiveTab2DTwoThetaRings.qml' }
         ]
     }
 
