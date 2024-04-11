@@ -19,16 +19,6 @@ EaComponents.ContentPage {
                      "" :
                      qsTr("Correction file to be loaded")
 
-    mainView: EaComponents.MainContent {
-        tabs: [
-            EaElements.TabButton { text: qsTr("Preview: Detector 3D") }
-        ]
-
-        items: [
-            Loader { source: 'MainContent/Tab_3dPreview.qml' }
-        ]
-    }
-
     sideBar: EaComponents.SideBar {
         tabs: [
             EaElements.TabButton { text: qsTr("Basic controls") },
