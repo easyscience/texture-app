@@ -1,6 +1,6 @@
 module Charts
 
-Plotly1dOK 1.0 Plotly1dOK.qml
-Plotly2dGammaTwoThetaOK 1.0 Plotly2dGammaTwoThetaOK.qml
-Plotly2dTwoThetaRingsOK 1.0 Plotly2dTwoThetaRingsOK.qml
-Plotly3dScatterOK 1.0 Plotly3dScatterOK.qml
+Plotly1D 1.0 Plotly1D.qml
+Plotly2DGammaTwoTheta 1.0 Plotly2DGammaTwoTheta.qml
+Plotly2DTwoThetaRings 1.0 Plotly2DTwoThetaRings.qml
+Plotly3DScatter 1.0 Plotly3DScatter.qml

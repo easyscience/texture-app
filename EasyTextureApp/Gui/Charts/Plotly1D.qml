@@ -28,7 +28,7 @@ WebEngineView {
 
     backgroundColor: EaStyle.Colors.chartBackground
 
-    url: Qt.resolvedUrl("../Html/Plotly1dOK.html")
+    url: Qt.resolvedUrl("../Html/RawDataView/Plotly1dRaw.html")
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -107,7 +107,7 @@ WebEngineView {
     // Logic
 
     function setChartSizes() {
-        print('setChartSizes is started')
+        //print('setChartSizes is started')
         const sizes = {
             'fontPixelSize': EaStyle.Sizes.fontPixelSize,
             'measuredLineWidth': EaStyle.Sizes.measuredLineWidth,
@@ -119,7 +119,7 @@ WebEngineView {
     }
 
     function setChartColors() {
-        print('setChartColors is started')
+        //print('setChartColors is started')
         const colors = {
             'chartBackground': String(EaStyle.Colors.chartBackground),
             'chartPlotAreaBackground': String(EaStyle.Colors.chartPlotAreaBackground),
@@ -145,35 +145,35 @@ WebEngineView {
     }
 
     function toggleUseWebGL() {
-        print(`toggleUseWebGL is started: '${useWebGL}'`)
+        //print(`toggleUseWebGL is started: '${useWebGL}'`)
         runJavaScript(`toggleUseWebGL(${JSON.stringify(useWebGL)})`,
                       function(result) { print(result) })
     }
 
     function setXAxisTitle() {
-        print(`setXAxisTitle is started: '${xAxisTitle}'`)
+        //print(`setXAxisTitle is started: '${xAxisTitle}'`)
         runJavaScript(`setXAxisTitle(${JSON.stringify(xAxisTitle)})`)
     }
 
     function setYAxisTitle() {
-        print(`setYAxisTitle is started: '${yAxisTitle}'`)
+        //print(`setYAxisTitle is started: '${yAxisTitle}'`)
         runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
     }
 
     function emptyData() {
-        print(`emptyData is started`)
+        //print(`emptyData is started`)
         runJavaScript(`emptyData()`,
                       function(result) { print(result) })
     }
 
     function setXData() {
-        print(`setXData is started: ${xData.length} points`)
+        //print(`setXData is started: ${xData.length} points`)
         runJavaScript(`setXData(${JSON.stringify(xData)})`,
                       function(result) { print(result) })
     }
 
     function setMeasuredYData() {
-        print(`setMeasuredYData is started: ${measuredYData.length} points`)
+        //print(`setMeasuredYData is started: ${measuredYData.length} points`)
         runJavaScript(`setMeasuredYData(${JSON.stringify(measuredYData)})`)
     }
 

@@ -8,18 +8,17 @@ WebEngineView {
     property bool loadSucceededStatus: false
     property string xAxisTitle: ''
     property string yAxisTitle: ''
-    property string zAxisTitle: ''
+    property real minTT: getMinTT()
 
     width: parent.width
     height: parent.height
 
-    url:  Qt.resolvedUrl('../Html/Plotly3dScatterOK.html')
+    url:  Qt.resolvedUrl('../Html/RawDataView/Plotly2dTwoThetaRingsRaw.html')
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             setXAxisTitle(xAxisTitle)
             setYAxisTitle(yAxisTitle)
-            setZAxisTitle(zAxisTitle)
             redrawPlot()
         }
     }
@@ -46,13 +45,6 @@ WebEngineView {
         }
     }
 
-    onZAxisTitleChanged: {
-        if (loadSucceededStatus) {
-            setZAxisTitle(newTitle)
-            redrawPlot()
-        }
-    }
-
     // Logic
 
     function redrawPlot() {
@@ -67,8 +59,8 @@ WebEngineView {
         runJavaScript(`setYAxisTitle(${JSON.stringify(newTitle)})`)
     }
 
-    function setZAxisTitle(newTitle) {
-        runJavaScript(`setZAxisTitle(${JSON.stringify(newTitle)})`)
+    function getMinTT() {
+        chartView.runJavaScript(`getMinTT()`)
     }
 
 }

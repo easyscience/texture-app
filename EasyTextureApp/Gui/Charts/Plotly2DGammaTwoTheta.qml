@@ -12,7 +12,7 @@ WebEngineView {
     width: parent.width
     height: parent.height
 
-    url:  Qt.resolvedUrl('../Html/Plotly2dGammaTwoThetaOK.html')
+    url:  Qt.resolvedUrl('../Html/RawDataView/Plotly2dGammaTwoThetaRaw.html')
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
