@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Charts as Charts
 
-Charts.Plotly2dGammaTwoThetaOK {
+Charts.Plotly2DGammaTwoTheta {
 
     xAxisTitle: "2\u03b8, deg"
     yAxisTitle: "\u03b3, deg"

@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Charts as Charts
 
-Charts.Plotly2dTwoThetaRingsOK {
+Charts.Plotly2DTwoThetaRings {
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
     xAxisTitle: "x, mm"

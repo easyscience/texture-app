@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+  <script src="plotly-2.18.0.min.js"></script>
+
+  <style type="text/css">
+
+    :root {
+      --fontPixelSize:14;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      font-size: calc(var(--fontPixelSize) * 1px);
+    }
+
+    #plotContainer {
+      height: 100%;
+      width: 100%;
+      padding: calc(var(--fontPixelSize) * 1px);;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #plotDiv {
+      width: 100%;
+      height: 100%;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id='plotContainer'>
+    <div id='plotDiv'></div>
+  </div>
+
+  <script>
+    let myDiv = document.getElementById('plotDiv')
+
+    // Load data from JSON file
+    var request2D = new XMLHttpRequest();
+    request2D.open("GET", "../../Data/RawDataView/user_voxels_2D.json", false);
+    request2D.send(null)
+    var data2D = JSON.parse(request2D.responseText);
+
+    function getIndxByValue(object, value) {
+      return Object.keys(object).filter(indx => object[indx] === value);
+    }
+
+    function getValueByIndex(valueArray, indxArray) {
+      return indxArray.map(indx => valueArray[indx]);
+    }
+
+    function onlyUnique(value, index, array) {
+      return array.indexOf(value) === index;
+    }
+
+    function getData(animationTT) {
+      let trace
+      let animationTwoThetaIndices = getIndxByValue(twoTheta2D, animationTT)
+      let animationTwoThetaArray = getValueByIndex(twoTheta2D, animationTwoThetaIndices)
+      let animationProjCount = getValueByIndex(projCount2D, animationTwoThetaIndices)
+      let animationGamma = getValueByIndex(gamma2D, animationTwoThetaIndices)
+      let animationX = getValueByIndex(x2D, animationTwoThetaIndices)
+      let animationY = getValueByIndex(y2D, animationTwoThetaIndices)
+
+      let customArray2D = [animationTwoThetaArray, animationGamma, animationProjCount]
+      let customData2D = customArray2D[0].map((_, colIndex) => customArray2D.map(row => row[colIndex]))
+
+      trace = {
+        x: animationX,
+        y: animationY,
+        customdata: customData2D,
+        marker: {color: animationProjCount},
+      }
+
+      return trace;
+    }
+
+    ///////
+    // Data
+    ///////
+
+    let x2D = Object.values(data2D["voxel_x [mm]"])
+    let y2D = Object.values(data2D["voxel_y [mm]"])
+    //let z2D = Object.values(data2D["voxel_z [mm]"])
+    let twoTheta2D = Object.values(data2D["two_theta [deg]"])
+    let gamma2D = Object.values(data2D["user gamma [deg]"])
+    let projCount2D = Object.values(data2D["proj_count"])
+
+    let uniqueTwoTheta = twoTheta2D.filter(onlyUnique)
+    let animationTwoTheta = 45.5
+    let animationTwoThetaIndices = getIndxByValue(twoTheta2D, animationTwoTheta)
+    let animationTwoThetaArray = getValueByIndex(twoTheta2D, animationTwoThetaIndices)
+    let animationProjCount = getValueByIndex(projCount2D, animationTwoThetaIndices)
+    let animationGamma = getValueByIndex(gamma2D, animationTwoThetaIndices)
+    let animationX = getValueByIndex(x2D, animationTwoThetaIndices)
+    let animationY = getValueByIndex(y2D, animationTwoThetaIndices)
+
+    let customArray2D = [animationTwoThetaArray, animationGamma, animationProjCount]
+    // transpose of customArray2D
+    let customData2D = customArray2D[0].map((_, colIndex) => customArray2D.map(row => row[colIndex]))
+
+    /////////
+    // Plotly
+    /////////
+
+    // PowTex data trace
+    // Create the main traces, one for each twotheta
+    let plotTraces = []
+    plotTraces.push({
+      name: '',
+      x: animationX,
+      y: animationY,
+      customdata: customData2D,
+      hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                     '\u03b3: %{customdata[1]}\u00B0<br>'+
+                     'counts: %{customdata[2]}',
+      mode: 'markers',
+      marker: {
+        symbol: 'circle',
+        color: animationProjCount,
+        size: 5,
+        showscale: true,
+        colorbar: {title: {text: 'Counts'}},
+        colorscale: [
+          ['0.0', 'white'],
+          ['0.25', 'blue'],
+          ['0.5', 'purple'],
+          ['0.75', 'orange'],
+          ['1.0', 'red'],
+        ],
+      },
+    });
+
+    // Plot layout
+    let sliderSteps = []
+    for (i = 0; i < uniqueTwoTheta.length; i++) {
+      sliderSteps.push({
+        method: 'animate',
+        label: uniqueTwoTheta[i],
+        args: [[uniqueTwoTheta[i]], {
+          mode: 'immediate',
+          transition: {duration: 20},
+          frame: {duration: 20, redraw: true}
+        }]
+      });
+    }
+
+    let plotLayout = {
+      //width: 650,
+      //height: 650,
+      //autosize: true,
+      plot_bgcolor: 'aliceblue', //'gainsboro', //'snow', //'whitesmoke', //'ghostwhite',
+      //margin: {l: 43, r: 210, b: 160, t: 60, pad: 0},
+      //showlegend: false,
+      xaxis: {
+        autorange: true,
+        zeroline: false,
+      },
+      yaxis: {
+        autorange: true,
+        zeroline: false,
+      },
+      // Finally, add the slider and use `pad` to position it
+      // nicely next to the buttons.
+      sliders: [{
+        pad: {l: 20, t: 55},
+        currentvalue: {
+          visible: true,
+          prefix: '2θ: ',
+          suffix: '\u00B0',
+          xanchor: 'right',
+          font: {size: 12, color: '#666'}
+        },
+        // sliderSteps are created above
+        steps: sliderSteps
+      }]
+    }
+
+    // Plot config
+    let plotConfig = {
+      displayModeBar: true,
+      displaylogo: false,
+    }
+
+    // Plot frames
+    let plotFrames = []
+    for (i = 0; i < uniqueTwoTheta.length; i++) {
+      plotFrames.push({
+        name: uniqueTwoTheta[i],
+        data: [getData(uniqueTwoTheta[i])],
+      })
+    }
+
+    // Create plot
+    //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+    Plotly.newPlot('plotDiv', {
+      data: plotTraces,
+      layout: plotLayout,
+      config: plotConfig,
+      frames: plotFrames,
+    })
+
+    //Plotly.relayout(myDiv, myDiv.layout.title=plotFrames[0].data.toString())
+
+    /////////////////////////////////////////
+    // Functionality to be accesable from QML
+    /////////////////////////////////////////
+
+    function redrawPlot() {
+      Plotly.redraw('plotDiv')
+    }
+
+    function setXAxisTitle(newTitle) {
+      plotLayout.xaxis.title = newTitle
+    }
+
+    function setYAxisTitle(newTitle) {
+      plotLayout.yaxis.title = newTitle
+    }
+
+    function getMinTT(){
+      return Math.min(...uniqueTwoTheta)
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+  <script src="plotly-2.18.0.min.js"></script>
+
+  <style type="text/css">
+
+    :root {
+      --fontPixelSize:14;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      font-size: calc(var(--fontPixelSize) * 1px);
+    }
+
+    #plotContainer {
+      height: 100%;
+      width: 100%;
+      padding: calc(var(--fontPixelSize) * 1px);;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #plotDiv {
+      width: 100%;
+      height: 100%;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id='plotContainer'>
+    <div id='plotDiv'></div>
+  </div>
+
+  <script>
+    // Load data from JSON file
+    var request3D = new XMLHttpRequest();
+    request3D.open("GET", "../../Data/LiveDataView/user_voxels_3D_live_3.json", false);
+    request3D.send(null)
+    var data3D = JSON.parse(request3D.responseText);
+
+    ///////
+    // Data
+    ///////
+
+    let x3D = Object.values(data3D["voxel_x [mm]"])
+    let y3D = Object.values(data3D["voxel_y [mm]"])
+    let z3D = Object.values(data3D["voxel_z [mm]"])
+    let twoTheta3D = Object.values(data3D["two_theta [deg]"])
+    let gamma3D = Object.values(data3D["user gamma [deg]"])
+    let projCount3D = Object.values(data3D["proj_count"])
+
+    let customArray3D = [twoTheta3D, gamma3D, z3D, projCount3D]
+    // transpose of customArray3D
+    let customData3D = customArray3D[0].map((_, colIndex) => customArray3D.map(row => row[colIndex]))
+
+    let powtexData3D = {
+      x: x3D,
+      y: y3D,
+      z: z3D,
+      customdata: customData3D,
+    }
+
+    /////////
+    // Plotly
+    /////////
+
+    // Default trace
+    let powtexTraces = []
+    powtexTraces.push({
+      x: powtexData3D.x,
+      y: powtexData3D.y,
+      z: powtexData3D.z,
+      name: '', // it is needed to remove "trace 0" next to the hover
+      customdata: powtexData3D.customdata,
+      hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                     '\u03b3: %{customdata[1]}\u00B0<br>'+
+                     'z: %{customdata[2]:.3f} mm<br>'+
+                     'counts: %{customdata[3]}',
+      type: 'scatter3d',
+      mode: 'markers',
+      marker: {
+        symbol: 'circle',
+        color: projCount3D,
+        size: 2,
+        showscale: true,
+        colorbar: {x: 1, y:0.45, len: 1, title: {text: 'Counts'}},
+        colorscale: [
+          ['0.0', 'white'],
+          ['0.25', 'blue'],
+          ['0.5', 'purple'],
+          ['0.75', 'orange'],
+          ['1.0', 'red'],
+        ],
+      },
+    })
+
+    // Plot dataset
+    let plotTraces = [...powtexTraces]
+
+    // Plot layout
+    let plotLayout = {
+      //width: 600,
+      //height: 600,
+      autosize: true,
+      margin: {t: 75, l: 0, b: 75, r: 100},
+      scene: {
+        xaxis: {
+          title: {
+            font: {
+              size: 18,
+            }
+          },
+          autorange: true,
+          zeroline: false,
+          showticklabels: true,
+        },
+        yaxis: {
+          title: {
+            font: {
+              size: 18,
+            }
+          },
+          autorange: true,
+          zeroline: false,
+          showticklabels: true,
+        },
+        zaxis: {
+          title: {
+            font: {
+              size: 18,
+            }
+          },
+          autorange: true,
+          zeroline: false,
+          showticklabels: true,
+        },
+        camera: {
+          center: {
+            x: 0,
+            y: 0,
+            z: 0
+          },
+          eye: {
+            x: 0.25,
+            y: 0.75,
+            z: -1.75
+          },
+          up: {
+            x: 0,
+            y: 1,
+            z: 0
+          }
+        }
+      },
+    }
+
+    // Plot config
+    let plotConfig = {
+      displayModeBar: true,
+      displaylogo: false,
+    }
+
+    // Create plot
+    Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+
+    /////////////////////////////////////////
+    // Functionality to be accesable from QML
+    /////////////////////////////////////////
+
+    function redrawPlot() {
+      Plotly.redraw('plotDiv')
+    }
+
+    function setXAxisTitle(newTitle) {
+      plotLayout.scene.xaxis.title = newTitle
+    }
+
+    function setYAxisTitle(newTitle) {
+      plotLayout.scene.yaxis.title = newTitle
+    }
+
+    function setZAxisTitle(newTitle) {
+      plotLayout.scene.zaxis.title = newTitle
+    }
+
+  </script>
+</body>
+
+</html>

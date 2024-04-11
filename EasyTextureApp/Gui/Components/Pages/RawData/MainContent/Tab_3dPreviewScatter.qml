@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Charts as Charts
 
-Charts.Plotly3dScatterOK {
+Charts.Plotly3DScatter {
 
     xAxisTitle: "x, mm"
     yAxisTitle: "y, mm"
