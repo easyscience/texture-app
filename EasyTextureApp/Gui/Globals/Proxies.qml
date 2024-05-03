@@ -162,6 +162,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool is3DtabSelected: true
 
             property var rawFiles: []
+            property string currentRawFile: ''
             property real twoTheta: 45.5
             property real thetaRingsMinTT: 50.1
 

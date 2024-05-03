@@ -2,8 +2,10 @@ import QtQuick
 import QtQuick.Controls
 import QtWebEngine
 
+import EasyApp.Gui.Logic as EaLogic
 import EasyApp.Gui.Style as EaStyle
 
+import Gui.Globals as Globals
 
 WebEngineView {
     id: chartView
@@ -23,6 +25,8 @@ WebEngineView {
 
     property bool useWebGL: false
 
+    property string currentRawFile: Globals.Proxies.main.rawData.currentRawFile
+
     width: parent.width
     height: parent.height
 
@@ -32,18 +36,18 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            toggleUseWebGL()
+            //toggleUseWebGL()
 
-            setChartSizes()
-            setChartColors()
+            //setChartSizes()
+            //setChartColors()
 
-            setXAxisTitle()
-            setYAxisTitle()
+            //setXAxisTitle()
+            //setYAxisTitle()
 
-            emptyData()
-            setXData()
-            setMeasuredYData()
-            setCalculatedYData()
+            //emptyData()
+            //setXData()
+            //setMeasuredYData()
+            //setCalculatedYData()
 
             visible = true
         }
@@ -101,6 +105,13 @@ WebEngineView {
     onUseWebGLChanged: {
         if (loadSucceededStatus) {
             toggleUseWebGL()
+        }
+    }
+
+    onCurrentRawFileChanged: {
+        if (loadSucceededStatus) {
+            setData()
+            redrawPlot()
         }
     }
 
@@ -167,7 +178,7 @@ WebEngineView {
     }
 
     function setXData() {
-        //print(`setXData is started: ${xData.length} points`)
+        print(`setXData is started: ${xData.length} points`)
         runJavaScript(`setXData(${JSON.stringify(xData)})`,
                       function(result) { print(result) })
     }
@@ -180,5 +191,19 @@ WebEngineView {
     function setCalculatedYData() {
         runJavaScript(`setCalculatedYData(${JSON.stringify(calculatedYData)})`)
     }
+
+    function setData() {
+        const path = EaLogic.Utils.urlToLocalFile(currentRawFile)
+        print(`setData started: ${path}`)
+        runJavaScript(`setData(${JSON.stringify(path)})`,
+                      function(result) { print(result) })
+    }
+
+    function setData_() {
+        print(`setData started: ${currentRawFile}`)
+        runJavaScript('qwe()',
+                      function(result) { print(result) })
+    }
+
 
 }

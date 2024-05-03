@@ -131,6 +131,7 @@ Column {
                 "name": getFilename(selectedFile.toString()),
                 "fullpath": selectedFile.toString()
             })
+            Globals.Proxies.main.rawData.currentRawFile = selectedFile.toString()
             Globals.Proxies.main.rawData.isCreated = true //trigger refresh
             //Globals.Proxies.main.rawData.loadData()
         }

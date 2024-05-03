@@ -223,6 +223,28 @@
     /////////////////////////////////////////
     // Functionality to be accesable from QML
     /////////////////////////////////////////
+
+    function setData(path) {
+        // NEED refactoring the whoal javascript section to have
+        // simple functions for loading data, updating datasets
+
+        let request = new XMLHttpRequest()
+        request.open("GET", path, false)
+        request.send(null)
+        data1D = JSON.parse(request1D.responseText)
+
+        twoTheta1D = Object.values(data1D["two_theta [deg]"])
+        gamma1D = Object.values(data1D["user gamma [deg]"])
+        projCount1D = Object.values(data1D["proj_count"])
+
+        // ... updating datasets ...
+
+        Plotly.redraw('plotDiv')
+
+        return(`setData finished: ${path}`)
+    }
+
+
 /*
     // need to be called before setChartColors to init axis.titlefont
     function setChartSizes(sizes) {
