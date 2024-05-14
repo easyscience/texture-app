@@ -16,6 +16,7 @@ WebEngineView {
 
     property string xAxisTitle: ''
     property string yAxisTitle: ''
+    property string dataFile: '/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/EasyTextureApp/Gui/Data/RawDataView/user_voxels_1D_sorted_by_gamma_4.json'
 
     property var xData: []
     property var measuredYData: []
@@ -34,20 +35,25 @@ WebEngineView {
 
     url: Qt.resolvedUrl("../Html/RawDataView/Plotly1dRaw.html")
 
+    onDataFileChanged: {
+        setHTMLData()
+    }
+
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            //toggleUseWebGL()
+            toggleUseWebGL()
 
-            //setChartSizes()
-            //setChartColors()
+            setChartSizes()
+            setChartColors()
 
-            //setXAxisTitle()
-            //setYAxisTitle()
+            setXAxisTitle()
+            setYAxisTitle()
 
-            //emptyData()
-            //setXData()
-            //setMeasuredYData()
-            //setCalculatedYData()
+            emptyData()
+            setXData()
+            setMeasuredYData()
+            setCalculatedYData()
+            setHTMLData()
 
             visible = true
         }
@@ -108,12 +114,12 @@ WebEngineView {
         }
     }
 
-    onCurrentRawFileChanged: {
+    /*onCurrentRawFileChanged: {
         if (loadSucceededStatus) {
             setData()
             redrawPlot()
         }
-    }
+    }*/
 
     // Logic
 
@@ -192,18 +198,9 @@ WebEngineView {
         runJavaScript(`setCalculatedYData(${JSON.stringify(calculatedYData)})`)
     }
 
-    function setData() {
-        const path = EaLogic.Utils.urlToLocalFile(currentRawFile)
-        print(`setData started: ${path}`)
-        runJavaScript(`setData(${JSON.stringify(path)})`,
-                      function(result) { print(result) })
+    function setHTMLData() {
+        print('INSETFILENAME: ', dataFile)
+        runJavaScript(`setData(${JSON.stringify(dataFile)})`)
     }
-
-    function setData_() {
-        print(`setData started: ${currentRawFile}`)
-        runJavaScript('qwe()',
-                      function(result) { print(result) })
-    }
-
 
 }
