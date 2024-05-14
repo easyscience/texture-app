@@ -36,7 +36,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 qmlProxy.project.isCreatedChanged.connect(qmlProxy.project.save)
 
                 // RawData
-                qmlProxy.rawData.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
+                //qmlProxy.rawData.descriptionChanged.connect(qmlProxy.project.setNeedSaveToTrue)
 
                 qmlProxy.rawData.isCreatedChanged.connect(function() {
                     print(`Raw data created: ${qmlProxy.rawData.isCreated}`)
@@ -160,11 +160,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool is2DtabSelected: false
             property bool is2DthetaRingsTabSelected: false
             property bool is3DtabSelected: true
+            property bool updateSliderParameters: false
 
             property var rawFiles: []
             property string currentRawFile: ''
             property real twoTheta: 45.5
+            property real twoThetaSliderValue: 45
             property real thetaRingsMinTT: 50.1
+            property real slider1DStep: 0.5
 
             property int dataSize: 10
             property var xData: []
@@ -195,7 +198,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             signal parameterEdited(bool needSetFittables)
             signal parametersEdited(bool needSetFittables)
 
-            property bool isCreated: !applyDataCorrection || isCorrectionFileAssigned
+            property bool isCreated: isCorrectionFileAssigned
             property bool applyDataCorrection: false
             property bool isCorrectionFileAssigned: false
             property string correctionFileName
@@ -225,6 +228,12 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
         readonly property var results: QtObject {
             property bool isCreated: false
+
+            function emptyData() {
+                xData = []
+                yData = []
+                isCreated = false
+            }
 
             // https://stackoverflow.com/questions/17882518/reading-and-writing-files-in-qml-qt
             // https://stackoverflow.com/questions/57351643/how-to-save-dynamically-generated-web-page-in-qwebengineview
