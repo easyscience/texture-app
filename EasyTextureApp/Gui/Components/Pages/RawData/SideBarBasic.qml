@@ -46,6 +46,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
+        id: binning1D
         title: qsTr("1D Binning Parameters")
         collapsible: false
         visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
@@ -54,10 +55,21 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
+        id: slider1D
         title: qsTr("2θ Slider 1D")
         collapsible: false
         visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
 
         Loader {source: 'SideBarBasic/TwoThetaSlider1D.qml'}
+        //Component.onCompleted: {print('HEREEEEE', slider1D)}
     }
+
+    /*
+    Connections{
+        target: binning1D
+        function onMySignal(){
+            slider1D.slider.from = 46
+        }
+    }
+    */
 }

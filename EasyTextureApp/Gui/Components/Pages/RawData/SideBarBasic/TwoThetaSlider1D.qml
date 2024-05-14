@@ -13,16 +13,18 @@ import Gui.Globals as Globals
 
 
 Grid {
-    rows: 4
+    //id: slider1DGrid
+    rows: 2
     columnSpacing: EaStyle.Sizes.fontPixelSize
     rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
+    property alias sliderValue: slider.value
 
     // Location
     Row {
+        id: twoThetaRow
 
         Grid {
             readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
-
 
             columns: 2
             rowSpacing: 10
@@ -32,28 +34,33 @@ Grid {
                 //font.bold: true
                 text: qsTr("2θ: ")
             }
+
             EaElements.Label {
                 text: slider.value.toFixed(2) + "°"
             }
+
         }
 
     }
 
-
     Row {
-        id: slideRow
+        id: sliderRow
 
         width: EaStyle.Sizes.sideBarContentWidth
         height: 50 //parent.height
 
         spacing: 10
 
-
         EaElements.Label {
             id: sliderFromLabel
-            text: slider.from.toFixed(0)
+            text: slider.from.toFixed(1)
         }
 
+        /*
+        function resetSlider() {
+            print("RESET CALLEd")
+        }
+        */
 
         // Slider
         EaElements.Slider {
@@ -61,23 +68,43 @@ Grid {
             width: EaStyle.Sizes.sideBarContentWidth
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
-            from: 45
-            to: 135
+            from: 45.5 //+ Globals.Proxies.main.rawData.slider1DStep
+            to: 134.5 // the last beam center to be computed based on the selected binning width
+            stepSize: Globals.Proxies.main.rawData.slider1DStep
+            //value: twoThetaSlider1DGrid.sliderValue
+            //stepSize: qmlProxy.explore.sliceWidth.toString()
             //value: 50
 
             // TODO: tool tip:
             // make it an int (not double)
             //onHandleChanged: {slider.handle.update()}
             onValueChanged: {
-                Globals.Proxies.main.rawData.twoTheta = value.toFixed(2)
+                Globals.Proxies.main.rawData.twoThetaSliderValue = slider.value.toFixed(1)
+                //print("inside:", slider.value)
+                //slider1DGrid.sliderValue = slider.value
+                //print("TESTTTT:", Globals.Proxies.main.rawData.twoThetaSliderValue)
                 //slider.handle.ToolTip.text = value.toFixed(2)
             }
+
+            //function resetSlider(){
+            //    slider.from = 45.5
+            //}
+            //Connections {
+            //    target: Binning1D.cb
+
+            //    target: Globals.Proxies.main.rawData.updateSliderParameters
+            //   slider.from: Globals.Proxies.main.rawData.updateSliderParameters ? 45.5
+            //}
             //Component.onCompleted: slider.handle.ToolTip.text ="AAA"
         }
 
         EaElements.Label {
             id: sliderToLabel
-            text: slider.to.toFixed(0)
+            text: slider.to.toFixed(1)
         }
+
     }
+    Component.onCompleted: print("INSIDE:", sliderValue)
+
 }
+
