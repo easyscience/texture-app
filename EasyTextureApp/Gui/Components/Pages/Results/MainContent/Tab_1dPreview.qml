@@ -5,15 +5,17 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import EasyApp.Gui.Charts as EaCharts
+
 import Gui.Globals as Globals
 import Gui.Charts as Charts
 
-Charts.Plotly1DBarPlot {
+Charts.Plotly1D {
 
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
     xAxisTitle: "\u03b3, deg"
-    //yAxisTitle: "Counts"
+    yAxisTitle: "Counts"
 
     //xData: Globals.Proxies.main.rawData.xData
     //measuredYData: Globals.Proxies.main.rawData.yData
@@ -21,3 +23,18 @@ Charts.Plotly1DBarPlot {
     //Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
 
 }
+/*
+EaCharts.Plotly1dMeasVsCalc {
+
+    useWebGL: Globals.Proxies.main.plotting.useWebGL1d
+
+    xAxisTitle: "x"
+    yAxisTitle: "y"
+
+    xData: Globals.Proxies.main.rawData.xData
+    measuredYData: Globals.Proxies.main.rawData.yData
+
+    Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
+
+}
+*/
