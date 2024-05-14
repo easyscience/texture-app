@@ -63,24 +63,118 @@
   <script>
     let myDiv = document.getElementById('plotDiv')
 
-    // Load data from JSON file
-    var request1D = new XMLHttpRequest();
-    request1D.open("GET", "../../Data/RawDataView/user_voxels_1D_sorted_by_gamma.json", false);
-    request1D.send(null)
-    var data1D = JSON.parse(request1D.responseText); //this is a dict of objects
+    // default file with data to set up the plot
+    var data1D = getDataFromJson("../../Data/RawDataView/user_voxels_1D_sorted_by_gamma_1.json")
 
-    function handleSliderChange(e) {
-        let sliderName =e.slider.name
-        let stepLabel = e.step.label
-        if (sliderName == "a")
-        {
-            console.log("a=", stepLabel)
-        }
-        else if (sliderName == "b")
-        {
-            console.log("b=", stepLabel)
-        }
+    function getDataFromJson(filename){
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        data = JSON.parse(request.responseText)
+        return data
     }
+
+    function setData(filename){
+        data1D = getDataFromJson(filename)
+
+        twoTheta1D = Object.values(data1D["two_theta [deg]"])
+        gamma1D = Object.values(data1D["user gamma [deg]"])
+        projCount1D = Object.values(data1D["proj_count"])
+
+        plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D)
+        uniqueTwoTheta1D = twoTheta1D.filter(onlyUnique)
+        plotLayout = setPlotLayout(uniqueTwoTheta1D)
+        plotConfig = setPlotConfig()
+        plotFrames = setPlotFrames(uniqueTwoTheta1D, twoTheta1D, projCount1D, gamma1D)
+
+        Plotly.newPlot('plotDiv', {
+          data: plotTraces,
+          layout: plotLayout,
+          config: plotConfig,
+          frames: plotFrames,
+        })
+        return(`setData finished: ${path}`)
+    }
+
+    function setPlotTraces(twoTheta, projCount, gamma){
+        let trace = []
+        trace.push({
+          name: '', //animationTwoTheta,
+          x: getAnimationTrace(45.5, twoTheta, projCount, gamma).x, //animationGamma,
+          y: getAnimationTrace(45.5, twoTheta, projCount, gamma1D).y, //animationProjCount,
+          customdata: getAnimationTrace(45.5, twoTheta, projCount, gamma).customdata, //customData1D,
+          hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                         '\u03b3: %{customdata[1]}\u00B0<br>'+
+                         'counts: %{customdata[2]}',
+          mode: 'lines+markers',
+        });
+        return trace
+    }
+
+
+    function setPlotLayout(uniqueTwoTheta){
+        //let uniqueTwoTheta = twoTheta.filter(onlyUnique)
+        let sliderSteps = []
+        for (i = 0; i < uniqueTwoTheta.length; i++) {
+          sliderSteps.push({
+            method: 'animate',
+            label: uniqueTwoTheta[i],
+            args: [[uniqueTwoTheta[i]], {
+              mode: 'immediate',
+              transition: {duration: 20},
+              frame: {duration: 20, redraw: true}
+            }]
+          });
+        }
+
+        let layout = {
+            //autosize: true,
+            xaxis: {
+              title: 'γ, deg',
+              autorange: true,
+            },
+            yaxis: {
+              title: 'Counts',
+              autorange: true,
+            },
+            // Finally, add the slider and use `pad` to position it
+            // nicely next to the buttons.
+            sliders: [{
+              pad: {l: 20, t: 55},
+              currentvalue: {
+                visible: true,
+                prefix: '2θ: ',
+                suffix: '\u00B0',
+                xanchor: 'right',
+                font: {size: 12, color: '#666'}
+              },
+              // sliderSteps are created above
+              steps: sliderSteps
+            }]
+        }
+        return layout
+    }
+
+    function setPlotConfig(){
+        let config = {
+            displayModeBar: true,
+            displaylogo: false,
+        }
+        return config
+    }
+
+
+    function setPlotFrames(uniqueTwoTheta, twoTheta, projCount, gamma){
+       let frames = []
+       for (i = 0; i < uniqueTwoTheta.length; i++) {
+         frames.push({
+           name: uniqueTwoTheta[i],
+           data: [getAnimationTrace(uniqueTwoTheta[i], twoTheta, projCount, gamma)],
+         })
+       }
+       return frames
+    }
+
 
     function getIndxByValue(object, value) {
       return Object.keys(object).filter(indx => object[indx] === value);
@@ -94,20 +188,21 @@
       return array.indexOf(value) === index;
     }
 
-    function getData(animationTT) {
+    function getAnimationTrace(animationTwoTheta, twoTheta, projCount, gamma) {
       let trace
-      let animationTwoThetaIndices = getIndxByValue(twoTheta1D, animationTT)
-      let animationTwoThetaArray = getValueByIndex(twoTheta1D, animationTwoThetaIndices)
-      let animationProjCount = getValueByIndex(projCount1D, animationTwoThetaIndices)
-      let animationGamma = getValueByIndex(gamma1D, animationTwoThetaIndices)
+      let animationTwoThetaIndices = getIndxByValue(twoTheta, animationTwoTheta)
+      let animationTwoThetaArray = getValueByIndex(twoTheta, animationTwoThetaIndices)
+      let animationProjCount = getValueByIndex(projCount, animationTwoThetaIndices)
+      let animationGamma = getValueByIndex(gamma, animationTwoThetaIndices)
 
-      let customArray1D = [animationTwoThetaArray, animationGamma, animationProjCount]
-      let customData1D = customArray1D[0].map((_, colIndex) => customArray1D.map(row => row[colIndex]))
+      let customArray = [animationTwoThetaArray, animationGamma, animationProjCount]
+      let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
 
       trace = {
         x: animationGamma,
         y: animationProjCount,
-        customdata: customData1D,
+        customdata: customData,
+        mode: 'lines+markers',
       }
 
       return trace;
@@ -117,23 +212,9 @@
     // Data
     ///////
 
-    //let x1D = Object.values(data1D["voxel_x [mm]"])
-    //let y1D = Object.values(data1D["voxel_y [mm]"])
-    //let z1D = Object.values(data1D["voxel_z [mm]"])
     let twoTheta1D = Object.values(data1D["two_theta [deg]"])
     let gamma1D = Object.values(data1D["user gamma [deg]"])
     let projCount1D = Object.values(data1D["proj_count"])
-
-    let uniqueTwoTheta = twoTheta1D.filter(onlyUnique)
-    let animationTwoTheta = 45.5
-    let animationTwoThetaIndices = getIndxByValue(twoTheta1D, animationTwoTheta)
-    let animationTwoThetaArray = getValueByIndex(twoTheta1D, animationTwoThetaIndices)
-    let animationProjCount = getValueByIndex(projCount1D, animationTwoThetaIndices)
-    let animationGamma = getValueByIndex(gamma1D, animationTwoThetaIndices)
-
-    let customArray1D = [animationTwoThetaArray, animationGamma, animationProjCount]
-    // transpose of customArray1D
-    let customData1D = customArray1D[0].map((_, colIndex) => customArray1D.map(row => row[colIndex]))
 
     /////////
     // Plotly
@@ -141,72 +222,20 @@
 
     // PowTex data trace
     // Create the main traces, one for each twotheta
-    let plotTraces = []
-    plotTraces.push({
-      name: '', //animationTwoTheta,
-      x: animationGamma,
-      y: animationProjCount,
-      customdata: customData1D,
-      hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
-                     '\u03b3: %{customdata[1]}\u00B0<br>'+
-                     'counts: %{customdata[2]}',
-      mode: 'lines+markers',
-    });
+    let plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D)
+
 
     // Plot layout
-    let sliderSteps = []
-    for (i = 0; i < uniqueTwoTheta.length; i++) {
-      sliderSteps.push({
-        method: 'animate',
-        label: uniqueTwoTheta[i],
-        args: [[uniqueTwoTheta[i]], {
-          mode: 'immediate',
-          transition: {duration: 20},
-          frame: {duration: 20, redraw: true}
-        }]
-      });
-    }
+    let uniqueTwoTheta1D = twoTheta1D.filter(onlyUnique)
+    let plotLayout = setPlotLayout(uniqueTwoTheta1D)
 
-    let plotLayout = {
-        //autosize: true,
-        xaxis: {
-          title: 'γ, deg',
-          autorange: true,
-        },
-        yaxis: {
-          title: 'Counts',
-          autorange: true,
-        },
-        // Finally, add the slider and use `pad` to position it
-        // nicely next to the buttons.
-        sliders: [{
-          pad: {l: 20, t: 55},
-          currentvalue: {
-            visible: true,
-            prefix: '2θ: ',
-            suffix: '\u00B0',
-            xanchor: 'right',
-            font: {size: 12, color: '#666'}
-          },
-          // sliderSteps are created above
-          steps: sliderSteps
-        }]
-    }
 
     // Plot config
-    let plotConfig = {
-      displayModeBar: true,
-      displaylogo: false,
-    }
+    let plotConfig = setPlotConfig()
+
 
     // Plot frames
-    let plotFrames = []
-    for (i = 0; i < uniqueTwoTheta.length; i++) {
-      plotFrames.push({
-        name: uniqueTwoTheta[i],
-        data: [getData(uniqueTwoTheta[i])],
-      })
-    }
+    let plotFrames = setPlotFrames(uniqueTwoTheta1D, twoTheta1D, projCount1D, gamma1D)
 
     // Create plot
     //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
@@ -224,7 +253,7 @@
     // Functionality to be accesable from QML
     /////////////////////////////////////////
 
-    function setData(path) {
+    /*function setData(path) {
         // NEED refactoring the whoal javascript section to have
         // simple functions for loading data, updating datasets
 
@@ -242,7 +271,7 @@
         Plotly.redraw('plotDiv')
 
         return(`setData finished: ${path}`)
-    }
+    }*/
 
 
 /*
