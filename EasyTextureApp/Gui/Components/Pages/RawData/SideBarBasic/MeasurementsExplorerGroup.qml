@@ -12,7 +12,7 @@ import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
 import EasyApp.Gui.Logic as EaLogic
 
-import Gui.Globals as Globals //this line is confusing, because it still points to folder inside EasyTextureApp
+import Gui.Globals as Globals
 
 
 Column {
@@ -131,7 +131,9 @@ Column {
                 "name": getFilename(selectedFile.toString()),
                 "fullpath": selectedFile.toString()
             })
-            Globals.Proxies.main.rawData.currentRawFile = selectedFile.toString()
+            Globals.Proxies.main.rawData.selectedRawFile = selectedFile.toString()
+            Globals.Proxies.main.rawData.selectedFileName = getFilename(selectedFile.toString())
+
             Globals.Proxies.main.rawData.isCreated = true //trigger refresh
             //Globals.Proxies.main.rawData.loadData()
         }

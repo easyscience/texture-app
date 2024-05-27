@@ -45,14 +45,18 @@ Grid {
                         onCurrentIndexChanged: {
                             //onBinningChanged:
                             //slider.resetSlider()
-                            TwoThetaSlider1D.resetSlider()
+                            Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
+                            Globals.Proxies.main.rawData.updateBinned()
+
+                            //TwoThetaSlider1D.resetSlider()
+                            //Globals.Proxies.main.rawData.updateSliderParameters = true
+                            //Globals.Proxies.main.rawData.slider1DStep = parseFloat(cb.textAt(cb.currentIndex))
+
                             //TwoThetaSlider1D.sliderValue = 45.5
                             //print("TESTTTT:", TwoThetaSlider1D.sliderValue)
                             //print("TESTTTT:", parseFloat(cb.textAt(cb.currentIndex)))
                             //binningChanged()
-                            Globals.Proxies.main.rawData.updateSliderParameters = true
                             //slider.from: 90
-                            Globals.Proxies.main.rawData.slider1DStep = parseFloat(cb.textAt(cb.currentIndex))
                         }
 
                         //    Globals.Proxies.main.rawData.slider1DStep = parseFloat(cb.currentText)}
@@ -75,8 +79,13 @@ Grid {
 
                     ComboBox {
                         //values for gamma_bin_width_1D
-                        model: ["1°", "2°"]
                         // model: ["1°", "2°", "5°", "10°"]// default value should be 1
+                        model: ["1°", "2°"]
+                        currentIndex: 0
+                        onCurrentIndexChanged: {
+                            Globals.Proxies.main.rawData.gammaIndex = currentIndex
+                            Globals.Proxies.main.rawData.updateBinned()
+                        }
                     }
                 }
             }

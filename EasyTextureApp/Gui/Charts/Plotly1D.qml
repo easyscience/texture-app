@@ -16,7 +16,7 @@ WebEngineView {
 
     property string xAxisTitle: ''
     property string yAxisTitle: ''
-    property string dataFile: '/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/EasyTextureApp/Gui/Data/RawDataView/user_voxels_1D_sorted_by_gamma_4.json'
+    property string dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
 
     property var xData: []
     property var measuredYData: []
@@ -25,8 +25,6 @@ WebEngineView {
     property int theme: EaStyle.Colors.theme
 
     property bool useWebGL: false
-
-    property string currentRawFile: Globals.Proxies.main.rawData.currentRawFile
 
     width: parent.width
     height: parent.height
@@ -41,18 +39,21 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            toggleUseWebGL()
+            //toggleUseWebGL()
 
-            setChartSizes()
-            setChartColors()
+            //setChartSizes()
+            //setChartColors()
 
             setXAxisTitle()
             setYAxisTitle()
 
-            emptyData()
-            setXData()
-            setMeasuredYData()
-            setCalculatedYData()
+            //emptyData()
+            //setXData()
+            //setMeasuredYData()
+            //setCalculatedYData()
+            //setData()
+            //redrawPlot()
+
             setHTMLData()
 
             visible = true
@@ -113,13 +114,6 @@ WebEngineView {
             toggleUseWebGL()
         }
     }
-
-    /*onCurrentRawFileChanged: {
-        if (loadSucceededStatus) {
-            setData()
-            redrawPlot()
-        }
-    }*/
 
     // Logic
 
@@ -199,7 +193,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        print('INSETFILENAME: ', dataFile)
+        //print('INSETFILENAME: ', dataFile)
         runJavaScript(`setData(${JSON.stringify(dataFile)})`)
     }
 

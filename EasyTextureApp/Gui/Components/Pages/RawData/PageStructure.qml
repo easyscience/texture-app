@@ -24,6 +24,7 @@ EaComponents.ContentPage {
             EaElements.TabButton {
                 text: qsTr("3D View: Detector Inner Surface")
                 onClicked: {
+                    Globals.Proxies.main.rawData.selectedTabIndex = 1
                     Globals.Proxies.main.rawData.is3DtabSelected = true
                     Globals.Proxies.main.rawData.is2DtabSelected = false
                     Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = false
@@ -33,6 +34,7 @@ EaComponents.ContentPage {
             EaElements.TabButton {
                 text: qsTr("2D View: γ-2θ")
                 onClicked: {
+                    Globals.Proxies.main.rawData.selectedTabIndex = 2
                     Globals.Proxies.main.rawData.is2DtabSelected = true
                     Globals.Proxies.main.rawData.is3DtabSelected = false
                     Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = false
@@ -42,6 +44,7 @@ EaComponents.ContentPage {
             EaElements.TabButton {
                 text: qsTr("2D View: 2θ Rings")
                 onClicked: {
+                    Globals.Proxies.main.rawData.selectedTabIndex = 3
                     Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = true
                     Globals.Proxies.main.rawData.is3DtabSelected = false
                     Globals.Proxies.main.rawData.is2DtabSelected = false
@@ -51,6 +54,7 @@ EaComponents.ContentPage {
             EaElements.TabButton {
                 text: qsTr("1D View: γ(2θ)")
                 onClicked: {
+                    Globals.Proxies.main.rawData.selectedTabIndex = 4
                     Globals.Proxies.main.rawData.is1DtabSelected = true
                     Globals.Proxies.main.rawData.is2DtabSelected = false
                     Globals.Proxies.main.rawData.is2DthetaRingsTabSelected = false

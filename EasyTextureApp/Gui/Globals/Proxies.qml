@@ -163,15 +163,37 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool updateSliderParameters: false
 
             property var rawFiles: []
-            property string currentRawFile: ''
+            property string selectedRawFile: ''
+            property string selectedFileName: ''
+            property string dataPath: ''
             property real twoTheta: 45.5
             property real twoThetaSliderValue: 45
             property real thetaRingsMinTT: 50.1
             property real slider1DStep: 0.5
 
+            property int twoThetaIndex: 0
+            property int gammaIndex: 0
+            property int selectedBinningIndex: 0
+            // selected tab index: 1: 3D view, 2: 2D(gamma-two theta), 3: 2D(two theta rings), 4: 1D view
+            property int selectedTabIndex: 1
+
             property int dataSize: 10
             property var xData: []
             property var yData: []
+
+            function updateBinned(){
+                // updates datafile for loading based on selected binning
+                //print("Tsb indx", selectedTabIndex)
+                selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
+                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                if (selectedTabIndex==4) {
+                    selectedFileName = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
+                }
+                if (selectedTabIndex==1) {
+                    selectedFileName = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
+                }
+                selectedRawFile = dataPath + selectedFileName
+            }
 
             function loadData() {
                 const length = dataSize
