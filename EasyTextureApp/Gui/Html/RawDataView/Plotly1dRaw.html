@@ -66,6 +66,52 @@
     // default file with data to set up the plot
     var data1D = getDataFromJson("../../Data/RawDataView/user_voxels_1D_sorted_by_gamma_1.json")
 
+
+    ///////
+    // Data
+    ///////
+
+    let twoTheta1D = Object.values(data1D["two_theta [deg]"])
+    let gamma1D = Object.values(data1D["user gamma [deg]"])
+    let projCount1D = Object.values(data1D["proj_count"])
+
+    /////////
+    // Plotly
+    /////////
+
+    // PowTex data trace
+    // Create the main traces, one for each twotheta
+    let plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D)
+
+
+    // Plot layout
+    let uniqueTwoTheta1D = twoTheta1D.filter(onlyUnique)
+    let plotLayout = setPlotLayout(uniqueTwoTheta1D)
+
+
+    // Plot config
+    let plotConfig = setPlotConfig()
+
+
+    // Plot frames
+    let plotFrames = setPlotFrames(uniqueTwoTheta1D, twoTheta1D, projCount1D, gamma1D)
+
+    // Create plot
+    //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+    // use template below to use frames
+    Plotly.newPlot('plotDiv', {
+      data: plotTraces,
+      layout: plotLayout,
+      config: plotConfig,
+      frames: plotFrames,
+    })
+
+    //Plotly.relayout(myDiv, myDiv.layout.yaxis.autorange=true)
+
+    /////////////////////////////////////////
+    // Functions
+    /////////////////////////////////////////
+
     function getDataFromJson(filename){
         let request = new XMLHttpRequest()
         request.open("GET", filename, false)
@@ -207,47 +253,6 @@
 
       return trace;
     }
-
-    ///////
-    // Data
-    ///////
-
-    let twoTheta1D = Object.values(data1D["two_theta [deg]"])
-    let gamma1D = Object.values(data1D["user gamma [deg]"])
-    let projCount1D = Object.values(data1D["proj_count"])
-
-    /////////
-    // Plotly
-    /////////
-
-    // PowTex data trace
-    // Create the main traces, one for each twotheta
-    let plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D)
-
-
-    // Plot layout
-    let uniqueTwoTheta1D = twoTheta1D.filter(onlyUnique)
-    let plotLayout = setPlotLayout(uniqueTwoTheta1D)
-
-
-    // Plot config
-    let plotConfig = setPlotConfig()
-
-
-    // Plot frames
-    let plotFrames = setPlotFrames(uniqueTwoTheta1D, twoTheta1D, projCount1D, gamma1D)
-
-    // Create plot
-    //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
-    // use template below to use frames
-    Plotly.newPlot('plotDiv', {
-      data: plotTraces,
-      layout: plotLayout,
-      config: plotConfig,
-      frames: plotFrames,
-    })
-
-    //Plotly.relayout(myDiv, myDiv.layout.yaxis.autorange=true)
 
     /////////////////////////////////////////
     // Functionality to be accesable from QML
