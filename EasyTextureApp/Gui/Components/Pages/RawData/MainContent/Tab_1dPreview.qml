@@ -23,18 +23,4 @@ Charts.Plotly1D {
     //Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
 
 }
-/*
-EaCharts.Plotly1dMeasVsCalc {
 
-    useWebGL: Globals.Proxies.main.plotting.useWebGL1d
-
-    xAxisTitle: "x"
-    yAxisTitle: "y"
-
-    xData: Globals.Proxies.main.rawData.xData
-    measuredYData: Globals.Proxies.main.rawData.yData
-
-    Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
-
-}
-*/

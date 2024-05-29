@@ -44,7 +44,7 @@ WebEngineView {
 
             emptyData()
             redrawPlot()
-            setXData()
+            //setXData()
             //setMeasuredYData()
             //setCalculatedYData()
 
