@@ -96,6 +96,7 @@
     // Plot frames
     let plotFrames = setPlotFrames(uniqueTwoTheta1D, twoTheta1D, projCount1D, gamma1D)
 
+
     // Create plot
     //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
     // use template below to use frames
@@ -147,7 +148,7 @@
         trace.push({
           name: '', //animationTwoTheta,
           x: getAnimationTrace(45.5, twoTheta, projCount, gamma).x, //animationGamma,
-          y: getAnimationTrace(45.5, twoTheta, projCount, gamma1D).y, //animationProjCount,
+          y: getAnimationTrace(45.5, twoTheta, projCount, gamma).y, //animationProjCount,
           customdata: getAnimationTrace(45.5, twoTheta, projCount, gamma).customdata, //customData1D,
           hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
                          '\u03b3: %{customdata[1]}\u00B0<br>'+

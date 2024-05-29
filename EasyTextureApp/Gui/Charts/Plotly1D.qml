@@ -26,6 +26,8 @@ WebEngineView {
 
     property bool useWebGL: false
 
+    property real sliderValue: Globals.Proxies.main.rawData.twoThetaSliderValue
+
     width: parent.width
     height: parent.height
 
@@ -64,6 +66,12 @@ WebEngineView {
         loadSucceededStatus = false
         if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
             loadSucceededStatus = true
+        }
+    }
+
+    onSliderValueChanged: {
+        if (loadSucceededStatus) {
+            redrawFrame()
         }
     }
 
@@ -159,6 +167,11 @@ WebEngineView {
         //print(`toggleUseWebGL is started: '${useWebGL}'`)
         runJavaScript(`toggleUseWebGL(${JSON.stringify(useWebGL)})`,
                       function(result) { print(result) })
+    }
+
+    function redrawFrame() {
+        //print(`redrawFrame is started: `)
+        runJavaScript(`redrawFrame(${JSON.stringify(sliderValue)})`)
     }
 
     function setXAxisTitle() {

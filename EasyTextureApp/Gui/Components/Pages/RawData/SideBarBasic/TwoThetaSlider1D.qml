@@ -13,7 +13,6 @@ import Gui.Globals as Globals
 
 
 Grid {
-    //id: slider1DGrid
     rows: 2
     columnSpacing: EaStyle.Sizes.fontPixelSize
     rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
@@ -56,11 +55,6 @@ Grid {
             text: slider.from.toFixed(1)
         }
 
-        /*
-        function resetSlider() {
-            print("RESET CALLEd")
-        }
-        */
 
         // Slider
         EaElements.Slider {
@@ -71,31 +65,15 @@ Grid {
             from: 45.5 //+ Globals.Proxies.main.rawData.slider1DStep
             to: 134.5 // the last beam center to be computed based on the selected binning width
             stepSize: Globals.Proxies.main.rawData.slider1DStep
-            //value: twoThetaSlider1DGrid.sliderValue
             //stepSize: qmlProxy.explore.sliceWidth.toString()
             //value: 50
 
             // TODO: tool tip:
             // make it an int (not double)
-            //onHandleChanged: {slider.handle.update()}
             onValueChanged: {
                 Globals.Proxies.main.rawData.twoThetaSliderValue = slider.value.toFixed(1)
-                //print("inside:", slider.value)
-                //slider1DGrid.sliderValue = slider.value
-                //print("TESTTTT:", Globals.Proxies.main.rawData.twoThetaSliderValue)
-                //slider.handle.ToolTip.text = value.toFixed(2)
+                //print("SLIDER VALUE:", slider.value)
             }
-
-            //function resetSlider(){
-            //    slider.from = 45.5
-            //}
-            //Connections {
-            //    target: Binning1D.cb
-
-            //    target: Globals.Proxies.main.rawData.updateSliderParameters
-            //   slider.from: Globals.Proxies.main.rawData.updateSliderParameters ? 45.5
-            //}
-            //Component.onCompleted: slider.handle.ToolTip.text ="AAA"
         }
 
         EaElements.Label {
@@ -104,7 +82,6 @@ Grid {
         }
 
     }
-    Component.onCompleted: print("INSIDE:", sliderValue)
 
 }
 

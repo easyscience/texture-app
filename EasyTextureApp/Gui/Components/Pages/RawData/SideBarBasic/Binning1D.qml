@@ -12,6 +12,8 @@ import EasyApp.Gui.Elements as EaElements
 import Gui.Globals as Globals
 
 Grid {
+    signal indxChanged()
+
     rows: 1
     columnSpacing: EaStyle.Sizes.fontPixelSize
     //rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
@@ -35,31 +37,18 @@ Grid {
 
 
                     ComboBox {
-                        //TwoThetaSlider1D {id: test}
-                        //signal BinningChanged()
-                        id: cb
+                        id: ttBinning1D
                         //values for two_theta_bin_width_1D
                         currentIndex: 0
                         model: ["0.5°", "1°"]
-                        //signal comboValueChanged(bool ch)
                         onCurrentIndexChanged: {
-                            //onBinningChanged:
-                            //slider.resetSlider()
                             Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
                             Globals.Proxies.main.rawData.updateBinned()
-
-                            //TwoThetaSlider1D.resetSlider()
-                            //Globals.Proxies.main.rawData.updateSliderParameters = true
-                            //Globals.Proxies.main.rawData.slider1DStep = parseFloat(cb.textAt(cb.currentIndex))
-
-                            //TwoThetaSlider1D.sliderValue = 45.5
-                            //print("TESTTTT:", TwoThetaSlider1D.sliderValue)
-                            //print("TESTTTT:", parseFloat(cb.textAt(cb.currentIndex)))
-                            //binningChanged()
-                            //slider.from: 90
+                            Globals.Proxies.main.rawData.slider1DStep = parseFloat(ttBinning1D.textAt(ttBinning1D.currentIndex))
+                            Globals.Proxies.main.rawData.twoThetaSliderValue = 45.5
+                            indxChanged()
                         }
 
-                        //    Globals.Proxies.main.rawData.slider1DStep = parseFloat(cb.currentText)}
                         // currentIndex: 2
                         // model: ["0.1°", "0.25°", "0.5°", "0.75°", "1°", "2°", "5°", "10°"] // default value should be 0.5
                     }

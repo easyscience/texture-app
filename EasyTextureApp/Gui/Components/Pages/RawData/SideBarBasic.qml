@@ -46,12 +46,23 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        id: binning1D
+        id: binning1DGroupBox
         title: qsTr("1D Binning Parameters")
         collapsible: false
         visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
 
-        Loader {source: 'SideBarBasic/Binning1D.qml'}
+        Loader {
+            id: binning1DGroupBoxLoader
+            source: 'SideBarBasic/Binning1D.qml'
+        }
+
+        Connections {
+            target: binning1DGroupBoxLoader.item
+            // once indxChanged signal from groupbox is received -> change slider value in slider1D group box
+            function onIndxChanged() {
+                slider1DGroupBoxLoader.item.sliderValue = 45.5
+            }
+        }
     }
 
     EaElements.GroupBox {
@@ -60,16 +71,9 @@ EaComponents.SideBarColumn {
         collapsible: false
         visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
 
-        Loader {source: 'SideBarBasic/TwoThetaSlider1D.qml'}
-        //Component.onCompleted: {print('HEREEEEE', slider1D)}
-    }
-
-    /*
-    Connections{
-        target: binning1D
-        function onMySignal(){
-            slider1D.slider.from = 46
+        Loader {
+            id: slider1DGroupBoxLoader
+            source: 'SideBarBasic/TwoThetaSlider1D.qml'
         }
     }
-    */
 }
