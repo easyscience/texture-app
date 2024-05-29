@@ -168,6 +168,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property string dataPath: ''
             property real twoTheta: 45.5
             property real twoThetaSliderValue: 45.5
+            property real twoThetaRingsSliderValue: 45.5
+
             property real thetaRingsMinTT: 50.1
             property real slider1DStep: 0.5
 

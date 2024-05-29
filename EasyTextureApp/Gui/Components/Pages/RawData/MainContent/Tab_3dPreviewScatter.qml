@@ -15,12 +15,3 @@ Charts.Plotly3DScatter {
     zAxisTitle: "z, mm"
 
 }
-/*
-EaCharts.Plotly3dScatter {
-
-    xAxisTitle: "x, mm"
-    yAxisTitle: "y, mm"
-    zAxisTitle: "z, mm"
-
-}
-*/

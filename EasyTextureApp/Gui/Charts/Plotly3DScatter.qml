@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtWebEngine
 
+import Gui.Globals as Globals
+
 WebEngineView {
     id: chartView
 
@@ -9,46 +11,51 @@ WebEngineView {
     property string xAxisTitle: ''
     property string yAxisTitle: ''
     property string zAxisTitle: ''
+    property string dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
 
     width: parent.width
     height: parent.height
 
     url:  Qt.resolvedUrl('../Html/RawDataView/Plotly3dScatterRaw.html')
 
+    onDataFileChanged: {
+        setHTMLData()
+    }
+
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle(xAxisTitle)
-            setYAxisTitle(yAxisTitle)
-            setZAxisTitle(zAxisTitle)
-            redrawPlot()
+            setXAxisTitle()
+            setYAxisTitle()
+            setZAxisTitle()
+            //redrawPlot()
+            setHTMLData()
         }
     }
 
-    onLoadingChanged: {
-        // Bug "loadRequest" is not declared - https://bugreports.qt.io/browse/QTBUG-84746
-        //if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
-        if (loadProgress === 100) {
-            loadSucceededStatus = true
-        }
+    onLoadingChanged:  (loadRequest) => {
+       loadSucceededStatus = false
+       if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
+           loadSucceededStatus = true
+       }
     }
 
     onXAxisTitleChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle(newTitle)
+            setXAxisTitle()
             redrawPlot()
         }
     }
 
     onYAxisTitleChanged: {
         if (loadSucceededStatus) {
-            setYAxisTitle(newTitle)
+            setYAxisTitle()
             redrawPlot()
         }
     }
 
     onZAxisTitleChanged: {
         if (loadSucceededStatus) {
-            setZAxisTitle(newTitle)
+            setZAxisTitle()
             redrawPlot()
         }
     }
@@ -59,16 +66,21 @@ WebEngineView {
         chartView.runJavaScript(`redrawPlot()`)
     }
 
-    function setXAxisTitle(newTitle) {
-        runJavaScript(`setXAxisTitle(${JSON.stringify(newTitle)})`)
+    function setXAxisTitle() {
+        runJavaScript(`setXAxisTitle(${JSON.stringify(xAxisTitle)})`)
     }
 
-    function setYAxisTitle(newTitle) {
-        runJavaScript(`setYAxisTitle(${JSON.stringify(newTitle)})`)
+    function setYAxisTitle() {
+        runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
     }
 
-    function setZAxisTitle(newTitle) {
-        runJavaScript(`setZAxisTitle(${JSON.stringify(newTitle)})`)
+    function setZAxisTitle() {
+        runJavaScript(`setZAxisTitle(${JSON.stringify(zAxisTitle)})`)
+    }
+
+    function setHTMLData() {
+        //print('INSETFILENAME: ', dataFile)
+        runJavaScript(`setData3D(${JSON.stringify(dataFile)})`)
     }
 
 }
