@@ -41,6 +41,12 @@ WebEngineView {
         }
     }
 
+    onSliderValueChanged: {
+        if (loadSucceededStatus) {
+            redrawFrame()
+        }
+    }
+
     onXAxisTitleChanged: {
         if (loadSucceededStatus) {
             setXAxisTitle(newTitle)
@@ -71,6 +77,11 @@ WebEngineView {
 
     function getMinTT() {
         chartView.runJavaScript(`getMinTT()`)
+    }
+
+    function redrawFrame() {
+        //print(`redrawFrame is started: `)
+        runJavaScript(`redrawFrame(${JSON.stringify(sliderValue)})`)
     }
 
     function setHTMLData() {

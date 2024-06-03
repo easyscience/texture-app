@@ -30,19 +30,35 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
+        id: binning2DGroupBox
         title: qsTr("2D Binning Parameters")
         collapsible: false
         visible: (Globals.Proxies.main.rawData.is2DtabSelected || Globals.Proxies.main.rawData.is2DthetaRingsTabSelected) && Globals.Proxies.main.rawData.isCreated
 
-        Loader {source: 'SideBarBasic/Binning2D.qml'}
+        Loader {
+            id: binning2DGroupBoxLoader
+            source: 'SideBarBasic/Binning2D.qml'
+        }
+
+        Connections {
+            target: binning2DGroupBoxLoader.item
+            // once indxChanged signal from groupbox is received -> change slider value in slider1D group box
+            function onIndxChanged() {
+                slider2DGroupBoxLoader.item.sliderValue = 45.5
+            }
+        }
     }
 
     EaElements.GroupBox {
+        id: slider2D
         title: qsTr("2θ Rings Slider")
         collapsible: false
         visible: Globals.Proxies.main.rawData.is2DthetaRingsTabSelected && Globals.Proxies.main.rawData.isCreated
 
-        Loader {source: 'SideBarBasic/TwoThetaSlider2D.qml'}
+        Loader {
+            id: slider2DGroupBoxLoader
+            source: 'SideBarBasic/TwoThetaSlider2D.qml'
+        }
     }
 
     EaElements.GroupBox {

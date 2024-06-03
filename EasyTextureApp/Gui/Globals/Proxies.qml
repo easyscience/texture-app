@@ -172,6 +172,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property real thetaRingsMinTT: 50.1
             property real slider1DStep: 0.5
+            property real slider2DStep: 0.5
 
             property int twoThetaIndex: 0
             property int gammaIndex: 0

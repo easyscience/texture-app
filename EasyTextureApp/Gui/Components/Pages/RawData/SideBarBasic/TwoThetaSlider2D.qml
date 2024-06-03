@@ -16,6 +16,7 @@ Grid {
     rows: 4
     columnSpacing: EaStyle.Sizes.fontPixelSize
     rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
+    property alias sliderValue: slider.value
 
     // Location
     Row {
@@ -51,7 +52,7 @@ Grid {
 
         EaElements.Label {
             id: sliderFromLabel
-            text: slider.from.toFixed(0)
+            text: slider.from.toFixed(1)
         }
 
 
@@ -61,15 +62,17 @@ Grid {
             width: EaStyle.Sizes.sideBarContentWidth
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
-            from: 45
-            to: 135
+            from: 45.5
+            to: 134.5
+            stepSize: Globals.Proxies.main.rawData.slider2DStep
             //value: 50
 
             // TODO: tool tip:
             // make it an int (not double)
             //onHandleChanged: {slider.handle.update()}
             onValueChanged: {
-                Globals.Proxies.main.rawData.twoTheta = value.toFixed(2)
+                //Globals.Proxies.main.rawData.twoTheta = value.toFixed(2)
+                Globals.Proxies.main.rawData.twoThetaRingsSliderValue = slider.value.toFixed(1)
                 //slider.handle.ToolTip.text = value.toFixed(2)
             }
             //Component.onCompleted: slider.handle.ToolTip.text ="AAA"
@@ -77,7 +80,7 @@ Grid {
 
         EaElements.Label {
             id: sliderToLabel
-            text: slider.to.toFixed(0)
+            text: slider.to.toFixed(1)
         }
     }
 }

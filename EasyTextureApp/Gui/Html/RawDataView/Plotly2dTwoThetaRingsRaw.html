@@ -82,18 +82,6 @@
 
     // Plot layout
     let uniqueTwoTheta2D = twoTheta2D.filter(onlyUnique)
-    let sliderSteps = []
-    for (i = 0; i < uniqueTwoTheta2D.length; i++) {
-      sliderSteps.push({
-        method: 'animate',
-        label: uniqueTwoTheta2D[i],
-        args: [[uniqueTwoTheta2D[i]], {
-          mode: 'immediate',
-          transition: {duration: 20},
-          frame: {duration: 20, redraw: true}
-        }]
-      });
-    }
     let plotLayout = setPlotLayout(uniqueTwoTheta2D)
 
 
@@ -208,8 +196,6 @@
                 xanchor: 'right',
                 font: {size: 12, color: '#666'}
               },
-              // sliderSteps are created above
-              steps: sliderSteps
             }]
         }
         return layout
@@ -270,6 +256,14 @@
 
     function redrawPlot() {
       Plotly.redraw('plotDiv')
+    }
+
+    function redrawFrame(sliderValue){
+      Plotly.animate('plotDiv', [sliderValue], {
+        mode: 'immediate',
+        transition: { duration: 0 },
+        frame: { duration: 0, redraw: false }
+      });
     }
 
     function setXAxisTitle(newTitle) {

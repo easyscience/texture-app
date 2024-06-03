@@ -13,6 +13,8 @@ import Gui.Globals as Globals
 
 
 Grid {
+    signal indxChanged()
+
     rows: 1
     columnSpacing: EaStyle.Sizes.fontPixelSize
     //rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
@@ -35,6 +37,7 @@ Grid {
                     }
 
                     ComboBox {
+                        id: ttBinning2D
                         //values for two_theta_bin_width_2D
                         // currentIndex: 2
                         // model: ["0.1°", "0.25°", "0.5°", "0.75°", "1°", "2°", "5°", "10°"]
@@ -43,6 +46,9 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
                             Globals.Proxies.main.rawData.updateBinned()
+                            Globals.Proxies.main.rawData.slider2DStep = parseFloat(ttBinning2D.textAt(ttBinning2D.currentIndex))
+                            Globals.Proxies.main.rawData.twoThetaRingsSliderValue = 45.5
+                            indxChanged()
                         }
                     }
                 }
