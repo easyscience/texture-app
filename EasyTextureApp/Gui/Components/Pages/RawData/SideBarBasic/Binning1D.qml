@@ -39,7 +39,7 @@ Grid {
                     ComboBox {
                         id: ttBinning1D
                         //values for two_theta_bin_width_1D
-                        currentIndex: 0
+                        currentIndex: Globals.Proxies.main.rawData.twoThetaIndex
                         model: ["0.5°", "1°"]
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
@@ -70,7 +70,7 @@ Grid {
                         //values for gamma_bin_width_1D
                         // model: ["1°", "2°", "5°", "10°"]// default value should be 1
                         model: ["1°", "2°"]
-                        currentIndex: 0
+                        currentIndex: Globals.Proxies.main.rawData.gammaIndex
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.gammaIndex = currentIndex
                             Globals.Proxies.main.rawData.updateBinned()

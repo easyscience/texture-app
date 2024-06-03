@@ -191,6 +191,9 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 if (selectedTabIndex==4) {
                     selectedFileName = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
                 }
+                if (selectedTabIndex==2 || selectedTabIndex==3) {
+                    selectedFileName = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
+                }
                 if (selectedTabIndex==1) {
                     selectedFileName = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
                 }
