@@ -7,10 +7,11 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Charts as Charts
+import Gui.Globals as Globals
 
 Charts.Plotly2DGammaTwoTheta {
+    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
 
     xAxisTitle: "2\u03b8, deg"
     yAxisTitle: "\u03b3, deg"
-
 }

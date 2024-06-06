@@ -7,8 +7,10 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Charts as Charts
+import Gui.Globals as Globals
 
 Charts.Plotly3DScatter {
+    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
 
     xAxisTitle: "x, mm"
     yAxisTitle: "y, mm"

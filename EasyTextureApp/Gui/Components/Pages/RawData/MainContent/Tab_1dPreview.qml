@@ -11,7 +11,8 @@ import Gui.Globals as Globals
 import Gui.Charts as Charts
 
 Charts.Plotly1D {
-
+    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    sliderValue: Globals.Proxies.main.rawData.twoThetaSliderValue
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
     xAxisTitle: "\u03b3, deg"
@@ -21,6 +22,5 @@ Charts.Plotly1D {
     //measuredYData: Globals.Proxies.main.rawData.yData
 
     //Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
-
 }
 

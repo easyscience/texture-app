@@ -176,9 +176,9 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property int twoThetaIndex: 0
             property int gammaIndex: 0
-            property int selectedBinningIndex //: 0
+            property int selectedBinningIndex: 0
             // selected tab index: 1: 3D view, 2: 2D(gamma-two theta), 3: 2D(two theta rings), 4: 1D view
-            property int selectedTabIndex //: 1
+            property int selectedTabIndex: 1
 
             property int dataSize: 10
             property var xData: []
@@ -247,6 +247,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property int twoTheta: 90
             property int sliceWidth: 1
+
 
         }
 
