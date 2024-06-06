@@ -16,7 +16,7 @@ WebEngineView {
 
     property string xAxisTitle: ''
     property string yAxisTitle: ''
-    property string dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    property string dataFile: ''
 
     property var xData: []
     property var measuredYData: []
@@ -26,7 +26,7 @@ WebEngineView {
 
     property bool useWebGL: false
 
-    property real sliderValue: Globals.Proxies.main.rawData.twoThetaSliderValue
+    property real sliderValue
 
     width: parent.width
     height: parent.height
@@ -36,7 +36,9 @@ WebEngineView {
     url: Qt.resolvedUrl("../Html/RawDataView/Plotly1dRaw.html")
 
     onDataFileChanged: {
-        setHTMLData()
+        if (loadSucceededStatus) {
+            setHTMLData()
+        }
     }
 
     onLoadSucceededStatusChanged: {

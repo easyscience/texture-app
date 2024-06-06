@@ -11,7 +11,7 @@ WebEngineView {
     property string xAxisTitle: ''
     property string yAxisTitle: ''
     property string zAxisTitle: ''
-    property string dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    property string dataFile: ''
 
     width: parent.width
     height: parent.height
@@ -19,7 +19,9 @@ WebEngineView {
     url:  Qt.resolvedUrl('../Html/RawDataView/Plotly3dScatterRaw.html')
 
     onDataFileChanged: {
-        setHTMLData()
+        if (loadSucceededStatus) {
+            setHTMLData()
+        }
     }
 
     onLoadSucceededStatusChanged: {

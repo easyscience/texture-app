@@ -15,7 +15,7 @@ WebEngineView {
 
     property string xAxisTitle: ''
     property string yAxisTitle: ''
-    property string dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    property string dataFile: ''
 
     property int theme: EaStyle.Colors.theme
     property bool useWebGL: false
@@ -29,7 +29,9 @@ WebEngineView {
     url:  Qt.resolvedUrl('../Html/RawDataView/Plotly2dGammaTwoThetaRaw.html')
 
     onDataFileChanged: {
-        setHTMLData()
+        if (loadSucceededStatus) {
+            setHTMLData()
+        }
     }
 
     onLoadSucceededStatusChanged: {
