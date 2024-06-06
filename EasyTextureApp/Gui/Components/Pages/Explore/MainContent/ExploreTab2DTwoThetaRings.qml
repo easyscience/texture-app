@@ -7,14 +7,14 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Charts as Charts
+import Gui.Globals as Globals
 
 Charts.Plotly2DTwoThetaRings {
+    dataFile: qsTr(Globals.Proxies.main.explore.selectedExploreFile)
+    sliderValue: Globals.Proxies.main.explore.twoThetaSliderValue
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
-    url:  Qt.resolvedUrl('../../../../Html/RawDataView/Plotly2dTwoThetaRingsRaw.html')
 
 
     xAxisTitle: "x, mm"
     yAxisTitle: "y, mm"
-
-    minTT: 70
 }

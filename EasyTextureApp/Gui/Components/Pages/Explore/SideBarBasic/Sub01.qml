@@ -15,6 +15,7 @@ import Gui.Globals as Globals
 Grid{
     rows: 3
     rowSpacing: 30
+    property alias sliderValue: slider.value
 
     Row {
 
@@ -28,10 +29,10 @@ Grid{
 
             EaElements.Label {
                 //font.bold: true
-                text: qsTr("2-theta = ")
+                text: qsTr("2θ = ")
             }
             EaElements.Label {
-                text: slider.value.toFixed(0)
+                text: slider.value.toFixed(2)
             }
         }
 
@@ -48,7 +49,7 @@ Grid{
 
         EaElements.Label {
             id: sliderFromLabel
-            text: slider.from.toFixed(0)
+            text: slider.from.toFixed(2)
         }
 
         // Slider
@@ -57,19 +58,20 @@ Grid{
             width: EaStyle.Sizes.sideBarContentWidth
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
-            from: 45
-            to: 135
-            value: 90
+            from: 45.5
+            to: 134.5
+            stepSize: Globals.Proxies.main.explore.twoThetaSliderStep
+            //value: 90
 
             // TODO: tool tip:
             // make it an int (not double)
 
-            onValueChanged: Globals.Proxies.main.explore.twoTheta = value
+            onValueChanged: Globals.Proxies.main.explore.twoThetaSliderValue = value.toFixed(1)
         }
 
         EaElements.Label {
             id: sliderToLabel
-            text: slider.to.toFixed(0)
+            text: slider.to.toFixed(2)
         }
 
     }

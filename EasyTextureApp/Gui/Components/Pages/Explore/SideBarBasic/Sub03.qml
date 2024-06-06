@@ -29,6 +29,7 @@ Grid {
 
                 onCheckedChanged: {
                     setRadioStatus(1, text)
+                    Globals.Proxies.main.explore.updateBinning()
                 }
             }
 
@@ -39,13 +40,21 @@ Grid {
 
                 onCheckedChanged: {
                     setRadioStatus(2, text)
+                    Globals.Proxies.main.explore.updateBinning()
                 }
             }
 
             RadioButton {
+                id: fiveDegreeButton
                 topPadding: 0
                 text: "5°"
                 ToolTip.text: qsTr("Select 5° slice")
+                enabled: false
+                contentItem: Text {
+                    text: fiveDegreeButton.text
+                    color: "grey"
+                    leftPadding: fiveDegreeButton.indicator.width + fiveDegreeButton.spacing
+                }
 
                 onCheckedChanged: {
                     setRadioStatus(5, text)
@@ -54,9 +63,16 @@ Grid {
             }
 
             RadioButton {
+                id: tenDegreeButton
                 topPadding: 0
                 text: "10°"
                 ToolTip.text: qsTr("Select 10° slice")
+                enabled: false
+                contentItem: Text {
+                    text: tenDegreeButton.text
+                    color: "grey"
+                    leftPadding: tenDegreeButton.indicator.width + tenDegreeButton.spacing
+                }
 
                 onCheckedChanged: {
                     setRadioStatus(10, text)
@@ -118,10 +134,10 @@ Grid {
 
     // Logic for Radio Buttons
     function setRadioStatus(id, labelText) {
-        print("Explore page: setRadioStatus: ", id, " : ", this)
+        //print("Explore page: setRadioStatus: ", id, " : ", this)
         numOfSlices.text = labelText
 
-        Globals.Proxies.main.explore.sliceWidth = id
+        Globals.Proxies.main.explore.gammaSliceWidth = id
 
     }
 }
