@@ -38,7 +38,7 @@ Grid {
                         //values for two_theta_bin_width_3D
                         // currentIndex: 2
                         // model: ["0.1°", "0.25°", "0.5°", "0.75°", "1°", "2°", "5°", "10°"]
-                        currentIndex: Globals.Proxies.main.rawData.twoThetaIndex
+                        //currentIndex: 0 //Globals.Proxies.main.rawData.twoThetaIndex
                         model: ["0.5°", "1°"]
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
@@ -63,7 +63,7 @@ Grid {
                         //values for gamma_bin_width_3D
                         // model: ["1°", "2°", "5°", "10°"]
                         model: ["1°", "2°"]
-                        currentIndex: Globals.Proxies.main.rawData.gammaIndex
+                        //currentIndex: 0 //Globals.Proxies.main.rawData.gammaIndex
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.gammaIndex = currentIndex
                             Globals.Proxies.main.rawData.updateBinned()
