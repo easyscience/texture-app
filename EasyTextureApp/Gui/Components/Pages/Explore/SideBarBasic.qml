@@ -14,14 +14,14 @@ EaComponents.SideBarColumn {
         title: qsTr("Select 2-theta Ring")
         collapsible: false
 
-        Loader { source: 'SideBarBasic/Sub01.qml' }
+        Loader { source: 'SideBarBasic/TwoThetaSlider.qml' }
     }
 
     EaElements.GroupBox {
         title: qsTr("Select gamma-Slice Width")
         collapsible: false
 
-        Loader { source: 'SideBarBasic/Sub03.qml' }
+        Loader { source: 'SideBarBasic/GammaSliceSelector.qml' }
     }
 
 }
