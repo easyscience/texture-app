@@ -14,11 +14,10 @@ WebEngineView {
 
     property string xAxisTitle: ''
     property string yAxisTitle: ''
-    property string jsonFilename: ''
+    property string dataFile: ''
 
     property var xData: []
-    //property var measuredYData: []
-    //property var calculatedYData: []
+    property real sliderValue
 
     property int theme: EaStyle.Colors.theme
 
@@ -31,27 +30,24 @@ WebEngineView {
 
     url: Qt.resolvedUrl("../Html/ResultsView/Plotly1dBarPlot.html")
 
+    onDataFileChanged: {
+        if (loadSucceededStatus) {
+            setHTMLData()
+        }
+    }
+
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             //toggleUseWebGL()
-
             //setChartSizes()
             //setChartColors()
-            //loadJsonFile()
 
             setXAxisTitle()
             setYAxisTitle()
-
-            emptyData()
             redrawPlot()
-            //setXData()
-            //setMeasuredYData()
-            //setCalculatedYData()
+            setHTMLData()
 
             visible = true
-
-            setJsonFilename()
-
         }
     }
 
@@ -59,6 +55,12 @@ WebEngineView {
         loadSucceededStatus = false
         if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
             loadSucceededStatus = true
+        }
+    }
+
+    onSliderValueChanged: {
+        if (loadSucceededStatus) {
+            redrawFrame()
         }
     }
 
@@ -81,22 +83,7 @@ WebEngineView {
             setXData()
         }
     }
-    /*
-    onMeasuredYDataChanged: {
-        if (loadSucceededStatus) {
-            setMeasuredYData()
-            redrawPlot()
-        }
-    }
 
-    onCalculatedYDataChanged: {
-        if (loadSucceededStatus) {
-            //setCalculatedYData()
-            //redrawPlot()
-            redrawPlotWithNewCalculatedYData()
-        }
-    }
-    */
     onThemeChanged: {
         if (loadSucceededStatus) {
             setChartColors()
@@ -146,10 +133,6 @@ WebEngineView {
         runJavaScript(`redrawPlot()`)
     }
 
-    function redrawPlotWithNewCalculatedYData() {
-        runJavaScript(`redrawPlotWithNewCalculatedYData(${JSON.stringify(calculatedYData)})`)
-    }
-
     function toggleUseWebGL() {
         //print(`toggleUseWebGL is started: '${useWebGL}'`)
         runJavaScript(`toggleUseWebGL(${JSON.stringify(useWebGL)})`,
@@ -165,11 +148,7 @@ WebEngineView {
         //print(`setYAxisTitle is started: '${yAxisTitle}'`)
         runJavaScript(`setYAxisTitle(${JSON.stringify(yAxisTitle)})`)
     }
-    /*
-    function loadJsonFile() {
-        runJavaScript(`loadJsonFile(${JSON.stringify(jsonFilename)})`)
-    }
-    */
+
     function emptyData() {
         print(`emptyData HERE is started`)
         runJavaScript(`emptyData()`)
@@ -185,12 +164,9 @@ WebEngineView {
                       function(result) { print(result) })
     }
 
-    function setJsonFilename(){
-        print('started update')
-        //const fileName = {'jsonFilename': "../../Data/ResultsView/user_voxels_two_theta_pattern.json"}
-        //runJavaScript(`setDataFilename(${JSON.stringify(fileName)})`, function(fileName) { print(result) })
-        runJavaScript(`setJsonFilenameHTML(${JSON.stringify(jsonFilename)})`, function(result) { print(result) })
-        print('finish update')
+    function setHTMLData() {
+        //print('INSETFILENAME: ', dataFile)
+        runJavaScript(`setData(${JSON.stringify(dataFile)})`)
     }
 /*
     function setMeasuredYData() {

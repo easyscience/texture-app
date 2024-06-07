@@ -62,19 +62,102 @@
 
   <script>
     let myDiv = document.getElementById('plotDiv')
-    // Load data from JSON file
-    var request1D = new XMLHttpRequest();
-    var dPatternData = loadJson("../../Data/ResultsView/user_voxels_d_pattern.json")
-    //var twoThetaPatternData = loadJson("../../Data/ResultsView/user_voxels_two_theta_pattern.json")
 
-    //request1D.open("GET", "../../Data/ResultsView/user_voxels_d_pattern.json", false);
-    //request1D.send(null)
-    //var data1D = JSON.parse(request1D.responseText); //this is a dict of objects
+    var dPatternData = getDataFromJson("../../Data/ResultsView/user_voxels_d_pattern.json")
 
-    function loadJson(filename) {
-        request1D.open("GET", filename, false);
-        request1D.send(null)
-        return(JSON.parse(request1D.responseText)) //this is a dict of objects
+    ///////
+    // Data
+    ///////
+
+    let dSpacing1D = Object.values(dPatternData["d-spacing [A]"])
+    let gamma1D = Object.values(dPatternData["user gamma [deg]"])
+    let projCount1D = Object.values(dPatternData["proj_counts"])
+    let sliceIndex1D = Object.values(dPatternData["user gamma slice index"])
+
+    /////////
+    // Plotly
+    /////////
+
+    let plotTraces = setPlotTraces(dSpacing1D, projCount1D, gamma1D, sliceIndex1D)
+
+    // Plot layout
+    let uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
+    let sliderSteps = []
+    for (i = 0; i < uniqueSliceIndex.length; i++) {
+      sliderSteps.push({
+        method: 'animate',
+        label: uniqueSliceIndex[i],
+        args: [[uniqueSliceIndex[i]], {
+          mode: 'immediate',
+          transition: {duration: 20},
+          frame: {duration: 20, redraw: true}
+        }]
+      });
+    }
+    let plotLayout = setPlotLayout(uniqueSliceIndex)
+
+    // Plot config
+    let plotConfig = setPlotConfig()
+
+
+    // Plot frames
+    let plotFrames = setPlotFrames(uniqueSliceIndex, dSpacing1D, projCount1D, gamma1D, sliceIndex1D)
+
+    // Create plot
+    // use template below to use frames
+    Plotly.newPlot('plotDiv', {
+      data: plotTraces,
+      layout: plotLayout,
+      config: plotConfig,
+      frames: plotFrames,
+    })
+
+    //Plotly.relayout(myDiv, myDiv.layout.yaxis.autorange=true)
+
+    /////////////////////////////////////////
+    // Functions
+    /////////////////////////////////////////
+
+    function getDataFromJson(filename){
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        data = JSON.parse(request.responseText)
+        return data
+    }
+
+    function setPlotTraces(dSpacing, projCount, gamma, sliceIndex){
+        let trace = []
+        trace.push({
+          name: '',
+          x: getAnimationTrace(1, dSpacing, projCount, gamma, sliceIndex).x,
+          y: getAnimationTrace(1, dSpacing, projCount, gamma, sliceIndex).y,
+          customdata: getAnimationTrace(1, dSpacing, projCount, gamma, sliceIndex).customdata,
+          hovertemplate: 'Counts: %{customdata[1]}<br>'+
+                         'd: %{customdata[2]:.3f} Å',
+          type: 'bar'
+        });
+        return trace
+    }
+
+    function getAnimationTrace(animationSliceIndex, dSpacing, projCount, gamma, sliceIndex) {
+      let trace
+
+      let animationSliceIndices = getIndxByValue(sliceIndex, animationSliceIndex)
+      let animationdSpacingArray = getValueByIndex(dSpacing, animationSliceIndices)
+      let animationProjCount = getValueByIndex(projCount, animationSliceIndices)
+      let animationGamma = getValueByIndex(gamma, animationSliceIndices)
+
+      let customArray = [animationSliceIndices, animationProjCount, animationdSpacingArray]
+      let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
+
+      trace = {
+        x: animationdSpacingArray,
+        y: animationProjCount,
+        customdata: customData,
+      }
+
+      return trace;
     }
 
     function getIndxByValue(object, value) {
@@ -89,140 +172,88 @@
       return array.indexOf(value) === index;
     }
 
-    function getDPatternTrace(sliceIndexAnimation) {
-      let dPatternTrace
-
-      let animationSliceIndices = getIndxByValue(sliceIndex, sliceIndexAnimation)
-      let animationdSpacingArray = getValueByIndex(dSpacing, animationSliceIndices)
-      let animationProjCount = getValueByIndex(projCount, animationSliceIndices)
-      let animationGamma = getValueByIndex(gamma, animationSliceIndices)
-
-      let customArray1D = [animationSliceIndices, animationProjCount,  animationdSpacingArray]
-      let customData1D = customArray1D[0].map((_, colIndex) => customArray1D.map(row => row[colIndex]))
-
-      dPatternTrace = {
-        x: animationdSpacingArray,
-        y: animationProjCount,
-        customdata: customData1D,
-      }
-
-      return dPatternTrace;
+    function setPlotLayout(uniqueTwoTheta){
+        let layout = {
+            //autosize: true,
+            xaxis: {
+              title: 'd, Å',
+              autorange: true,
+            },
+            yaxis: {
+              title: 'Counts',
+              autorange: true,
+            },
+            // Finally, add the slider and use `pad` to position it
+            // nicely next to the buttons.
+            sliders: [{
+              pad: {l: 20, t: 55},
+              currentvalue: {
+                visible: true,
+                prefix: 'Slice: ',
+                //suffix: '\u00B0',
+                xanchor: 'right',
+                font: {size: 12, color: '#666'}
+              },
+              // sliderSteps are created above
+              steps: sliderSteps
+            }]
+        }
+        return layout
     }
 
-    ///////
-    // Data
-    ///////
-
-    let dSpacing = Object.values(dPatternData["d-spacing [A]"])
-    //let twoTheta = Object.values(twoThetaPatternData["two_theta [deg]"])
-
-    let gamma = Object.values(dPatternData["user gamma [deg]"])
-    //let gammaTwoThetaPattern = Object.values(twoThetaPatternData["user gamma [deg]"])
-
-    let projCount = Object.values(dPatternData["proj_counts"])
-    //let projCountTwoThetaPattern = Object.values(twoThetaPatternData["proj_counts"])
-
-    let sliceIndex = Object.values(dPatternData["user gamma slice index"])
-    //let sliceIndexTwoThetaPattern = Object.values(twoThetaPatternData["user gamma slice index"])
-
-
-    //let uniqueSliceIndexTwoThetaPattern = sliceIndexTwoThetaPattern.filter(onlyUnique)
-
-    let animationSliceIndex = 1
-    let animationSliceIndices = getIndxByValue(sliceIndex, animationSliceIndex)
-    let animationdSpacingArray = getValueByIndex(dSpacing, animationSliceIndices)
-    let animationProjCount = getValueByIndex(projCount, animationSliceIndices)
-    let animationGamma = getValueByIndex(gamma, animationSliceIndices)
-
-
-    let customArray1D = [animationSliceIndices, animationProjCount, animationdSpacingArray]
-    // transpose of customArray1D
-    let customData1D = customArray1D[0].map((_, colIndex) => customArray1D.map(row => row[colIndex]))
-
-    /////////
-    // Plotly
-    /////////
-
-    // PowTex data trace
-    // Create the main traces, one for each twotheta
-    let plotTraces = []
-    plotTraces.push({
-      name: '',
-      x: animationdSpacingArray,
-      y: animationProjCount,
-      customdata: customData1D,
-      hovertemplate: 'Counts: %{customdata[1]}<br>'+
-                     'd: %{customdata[2]:.3f} Å',
-      type: 'bar',
-    });
-
-    // Plot layout
-    let uniqueSliceIndex = sliceIndex.filter(onlyUnique)
-    let sliderSteps = []
-    for (i = 0; i < uniqueSliceIndex.length; i++) {
-      sliderSteps.push({
-        method: 'animate',
-        label: uniqueSliceIndex[i],
-        args: [[uniqueSliceIndex[i]], {
-          mode: 'immediate',
-          transition: {duration: 20},
-          frame: {duration: 20, redraw: true}
-        }]
-      });
+    function setPlotConfig(){
+        let config = {
+            displayModeBar: true,
+            displaylogo: false,
+        }
+        return config
     }
 
-    let plotLayout = {
-        //autosize: true,
-        xaxis: {
-          title: 'd, Å',
-          autorange: true,
-        },
-        yaxis: {
-          title: 'Counts',
-          autorange: true,
-        },
-        // Finally, add the slider and use `pad` to position it
-        // nicely next to the buttons.
-        sliders: [{
-          pad: {l: 20, t: 55},
-          currentvalue: {
-            visible: true,
-            prefix: 'Slice: ',
-            //suffix: '\u00B0',
-            xanchor: 'right',
-            font: {size: 12, color: '#666'}
-          },
-          // sliderSteps are created above
-          steps: sliderSteps
-        }]
+    function setPlotFrames(uniqueSliceIndex, dSpacing, projCount, gamma, sliceIndex){
+       let frames = []
+       for (i = 0; i < uniqueSliceIndex.length; i++) {
+         frames.push({
+           name: uniqueSliceIndex[i],
+           data: [getAnimationTrace(uniqueSliceIndex[i], dSpacing, projCount, gamma, sliceIndex)],
+         })
+       }
+       return frames
     }
 
-    // Plot config
-    let plotConfig = {
-      displayModeBar: true,
-      displaylogo: false,
+    function setData(filename){
+        dPatternData = getDataFromJson(filename)
+
+        dSpacing1D = Object.values(dPatternData["d-spacing [A]"])
+        gamma1D = Object.values(dPatternData["user gamma [deg]"])
+        projCount1D = Object.values(dPatternData["proj_counts"])
+        sliceIndex1D = Object.values(dPatternData["user gamma slice index"])
+
+        plotTraces = setPlotTraces(dSpacing1D, projCount1D, gamma1D, sliceIndex1D)
+        uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
+        sliderSteps = []
+        for (i = 0; i < uniqueSliceIndex.length; i++) {
+          sliderSteps.push({
+            method: 'animate',
+            label: uniqueSliceIndex[i],
+            args: [[uniqueSliceIndex[i]], {
+              mode: 'immediate',
+              transition: {duration: 20},
+              frame: {duration: 20, redraw: true}
+            }]
+          });
+        }
+        plotLayout = setPlotLayout(uniqueSliceIndex)
+        plotConfig = setPlotConfig()
+        plotFrames = setPlotFrames(uniqueSliceIndex, dSpacing1D, projCount1D, gamma1D, sliceIndex1D)
+
+        Plotly.newPlot('plotDiv', {
+          data: plotTraces,
+          layout: plotLayout,
+          config: plotConfig,
+          frames: plotFrames,
+        })
+        return(`setData finished: ${path}`)
     }
-
-    // Plot frames
-    let plotFrames = []
-    for (i = 0; i < uniqueSliceIndex.length; i++) {
-      plotFrames.push({
-        name: uniqueSliceIndex[i],
-        data: [getDPatternTrace(uniqueSliceIndex[i])],
-      })
-    }
-
-    // Create plot
-    //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
-    // use template below to use frames
-    Plotly.newPlot('plotDiv', {
-      data: plotTraces,
-      layout: plotLayout,
-      config: plotConfig,
-      frames: plotFrames,
-    })
-
-    //Plotly.relayout(myDiv, myDiv.layout.yaxis.autorange=true)
 
     /////////////////////////////////////////
     // Functionality to be accesable from QML
@@ -297,11 +328,6 @@
     function redrawPlot() {
       Plotly.redraw('plotDiv')
     }
-/*
-    function redrawPlotWithNewCalculatedYData(newData) {
-      Plotly.restyle('plotDiv', {y:[newData]}, [1])
-    }
-*/
 
     function toggleUseWebGL(useWebGL) {
       if (useWebGL) {
@@ -322,24 +348,10 @@
       plotLayout.yaxis.title = newTitle
     }
 
-    function setJsonFilenameHTML(fileName){
-      //alert('in loadJson:' + fileName)
-      //let tempFilename = fileName
-      testVar = fileName
-      //alert('inloadJSON: ' + testVar)
-      //counter = counter + 1
-      //plotTraces.x = []
-    }
-
-
     function emptyData() {
       plotTraces.x = []
       plotTraces.y = []
       plotFrames = []
-      //calculatedTrace.x = []
-      //calculatedTrace.y = []
-      //console.log("emptyData in html")
-      //return('test:') //, myDiv.data1D)
       //return('emptyData HERE is finished')
     }
 /*

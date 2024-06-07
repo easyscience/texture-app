@@ -9,7 +9,8 @@ import Gui.Globals as Globals
 import Gui.Charts as Charts
 
 Charts.Plotly1DBarPlot {
-
+    dataFile: qsTr(Globals.Proxies.main.results.selectedResultsFile)
+    //sliderValue: Globals.Proxies.main.results.twoThetaSliderValue
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
     xAxisTitle: "d, Å"

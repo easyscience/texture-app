@@ -267,6 +267,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
         readonly property var results: QtObject {
             property bool isCreated: false
+            property string selectedResultsFile: Qt.resolvedUrl("./../Data/ResultsView/user_voxels_d_pattern.json")
 
             function emptyData() {
                 xData = []

@@ -67,8 +67,8 @@ Grid{
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
             from: 1
-            to: 360 / Globals.Proxies.main.explore.sliceWidth
-            value: (360 / Globals.Proxies.main.explore.sliceWidth ) / 2
+            to: 360 / Globals.Proxies.main.explore.gammaSliceWidth
+            value: (360 / Globals.Proxies.main.explore.gammaSliceWidth ) / 2
 
             // TODO: tool tip:
             // make it an int (not double)
@@ -91,10 +91,10 @@ Grid{
 
         var currSliceNo = slider.value.toFixed(0) - 1
 
-        var sliceWidth = Globals.Proxies.main.explore.sliceWidth
+        var gammaSliceWidth = Globals.Proxies.main.explore.gammaSliceWidth
 
-        var gammaSliceA = currSliceNo * sliceWidth
-        var gammaSliceB = gammaSliceA + sliceWidth
+        var gammaSliceA = currSliceNo * gammaSliceWidth
+        var gammaSliceB = gammaSliceA + gammaSliceWidth
 
         var gammaRange = gammaSliceA.toString() + "° - " + gammaSliceB.toString() + "°"
         return gammaRange
