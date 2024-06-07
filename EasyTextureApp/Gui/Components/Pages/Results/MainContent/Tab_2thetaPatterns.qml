@@ -8,12 +8,12 @@ import QtQuick.Controls 2.15
 import Gui.Globals as Globals
 import Gui.Charts as Charts
 
-Charts.Plotly1DBarPlot {
-
+Charts.Plotly1DTwoThetaBarPlot{
+    dataFile: qsTr(Globals.Proxies.main.results.selectedResultsTwoThetaFile)
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
     xAxisTitle: "\u03b3, deg"
-    //yAxisTitle: "Counts"
+    yAxisTitle: "Counts"
 
     //xData: Globals.Proxies.main.rawData.xData
     //measuredYData: Globals.Proxies.main.rawData.yData
