@@ -10,16 +10,14 @@ import Gui.Charts as Charts
 
 Charts.Plotly1DBarPlot {
     dataFile: qsTr(Globals.Proxies.main.results.selectedResultsFile)
-    //sliderValue: Globals.Proxies.main.results.twoThetaSliderValue
+    sliderValue: Globals.Proxies.main.results.sliderValue
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
-    xAxisTitle: "d, Å"
-    yAxisTitle: "Counts"
-    //jsonFilename: "../../Data/ResultsView/user_voxels_two_theta_pattern.json"
+    //xAxisTitle: "d, Å"
+    //yAxisTitle: "Counts"
 
     //xData: Globals.Proxies.main.rawData.xData
     //measuredYData: Globals.Proxies.main.rawData.yData
 
-    //Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
-
+    //Component.onCompleted: Globals.Proxies.main.results.sliderMaxValue = numberOfSlices
 }

@@ -267,9 +267,15 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
         readonly property var results: QtObject {
             property bool isCreated: false
-            property string selectedResultsFile: Qt.resolvedUrl("./../Data/ResultsView/user_voxels_d_pattern.json")
-            property string selectedResultsTwoThetaFile: Qt.resolvedUrl("./../Data/ResultsView/user_voxels_two_theta_pattern.json")
+            property bool isTwoThetaSelected: false
+            property real gw: qmlProxy.explore.gammaSliceWidth
+            property string selectedResultsFile: (gw==1) ? Qt.resolvedUrl("./../Data/ResultsView/user_voxels_d_pattern_1.json") : Qt.resolvedUrl("./../Data/ResultsView/user_voxels_d_pattern_2.json")
+            property string selectedResultsTwoThetaFile: (gw==1) ? Qt.resolvedUrl("./../Data/ResultsView/user_voxels_two_theta_pattern_1.json") : Qt.resolvedUrl("./../Data/ResultsView/user_voxels_two_theta_pattern_2.json")
 
+            property int sliderValue
+            property int sliderMaxValue
+
+            //Component.onCompleted: print("COMPLETED")
             function emptyData() {
                 xData = []
                 yData = []

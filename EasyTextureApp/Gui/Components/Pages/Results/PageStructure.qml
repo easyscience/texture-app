@@ -22,8 +22,18 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("d-Spacing Patterns") },
-            EaElements.TabButton { text: qsTr("2-theta Patterns") }
+            EaElements.TabButton {
+                text: qsTr("d-Spacing Patterns")
+                onClicked: {
+                    Globals.Proxies.main.results.isTwoThetaSelected = false
+                }
+            },
+            EaElements.TabButton {
+                text: qsTr("2-theta Patterns")
+                onClicked: {
+                    Globals.Proxies.main.results.isTwoThetaSelected = true
+                }
+            }
         ]
 
         items: [

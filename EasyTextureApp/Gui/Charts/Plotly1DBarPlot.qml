@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtWebEngine
 
 import EasyApp.Gui.Style as EaStyle
-
+import Gui.Globals as Globals
 
 WebEngineView {
     id: chartView
@@ -164,9 +164,15 @@ WebEngineView {
                       function(result) { print(result) })
     }
 
+    function redrawFrame() {
+        //print(`redrawFrame is started: `)
+        runJavaScript(`redrawFrame(${JSON.stringify(sliderValue)})`)
+    }
+
     function setHTMLData() {
-        //print('INSETFILENAME: ', dataFile)
-        runJavaScript(`setData(${JSON.stringify(dataFile)})`)
+        runJavaScript(`setData(${JSON.stringify(dataFile)})`, function(result) {
+            Globals.Proxies.main.results.sliderMaxValue = result
+        })
     }
 /*
     function setMeasuredYData() {

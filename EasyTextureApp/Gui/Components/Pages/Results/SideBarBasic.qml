@@ -14,10 +14,10 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         //enabled: Globals.Proxies.main.project.isCreated
-        title: qsTr("d-Spacing Patterns")
+        title: (Globals.Proxies.main.results.isTwoThetaSelected) ? qsTr("2\u03b8 Patterns") : qsTr("d-Spacing Patterns")
         collapsible: false
 
-        Loader { source: 'SideBarBasic/Sub02.qml' }
+        Loader { source: 'SideBarBasic/dSpacingBox.qml' }
     }
 
     EaElements.GroupBox {

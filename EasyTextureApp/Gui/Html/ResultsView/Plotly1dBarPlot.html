@@ -82,18 +82,6 @@
 
     // Plot layout
     let uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
-    let sliderSteps = []
-    for (i = 0; i < uniqueSliceIndex.length; i++) {
-      sliderSteps.push({
-        method: 'animate',
-        label: uniqueSliceIndex[i],
-        args: [[uniqueSliceIndex[i]], {
-          mode: 'immediate',
-          transition: {duration: 20},
-          frame: {duration: 20, redraw: true}
-        }]
-      });
-    }
     let plotLayout = setPlotLayout(uniqueSliceIndex)
 
     // Plot config
@@ -194,8 +182,6 @@
                 xanchor: 'right',
                 font: {size: 12, color: '#666'}
               },
-              // sliderSteps are created above
-              steps: sliderSteps
             }]
         }
         return layout
@@ -230,18 +216,6 @@
 
         plotTraces = setPlotTraces(dSpacing1D, projCount1D, gamma1D, sliceIndex1D)
         uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
-        sliderSteps = []
-        for (i = 0; i < uniqueSliceIndex.length; i++) {
-          sliderSteps.push({
-            method: 'animate',
-            label: uniqueSliceIndex[i],
-            args: [[uniqueSliceIndex[i]], {
-              mode: 'immediate',
-              transition: {duration: 20},
-              frame: {duration: 20, redraw: true}
-            }]
-          });
-        }
         plotLayout = setPlotLayout(uniqueSliceIndex)
         plotConfig = setPlotConfig()
         plotFrames = setPlotFrames(uniqueSliceIndex, dSpacing1D, projCount1D, gamma1D, sliceIndex1D)
@@ -252,7 +226,10 @@
           config: plotConfig,
           frames: plotFrames,
         })
-        return(`setData finished: ${path}`)
+
+        maxIndx = Math.max(...uniqueSliceIndex)
+        return maxIndx
+        //return(`setData finished: ${path}`)
     }
 
     /////////////////////////////////////////
@@ -338,6 +315,14 @@
         calculatedTrace.type = 'scatter'
       }
       return('toggleUseWebGL is finished.')
+    }
+
+    function redrawFrame(sliderValue){
+      Plotly.animate('plotDiv', [sliderValue], {
+        mode: 'immediate',
+        transition: { duration: 0 },
+        frame: { duration: 0, redraw: false }
+      });
     }
 
     function setXAxisTitle(newTitle) {

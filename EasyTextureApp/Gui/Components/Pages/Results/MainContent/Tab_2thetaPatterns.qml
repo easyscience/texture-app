@@ -10,10 +10,11 @@ import Gui.Charts as Charts
 
 Charts.Plotly1DTwoThetaBarPlot{
     dataFile: qsTr(Globals.Proxies.main.results.selectedResultsTwoThetaFile)
+    sliderValue: Globals.Proxies.main.results.sliderValue
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
-    xAxisTitle: "\u03b3, deg"
-    yAxisTitle: "Counts"
+    //xAxisTitle: "2\u03b8, deg"
+    //yAxisTitle: "Counts"
 
     //xData: Globals.Proxies.main.rawData.xData
     //measuredYData: Globals.Proxies.main.rawData.yData

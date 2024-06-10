@@ -82,18 +82,6 @@
 
     // Plot layout
     let uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
-    let sliderSteps = []
-    for (i = 0; i < uniqueSliceIndex.length; i++) {
-      sliderSteps.push({
-        method: 'animate',
-        label: uniqueSliceIndex[i],
-        args: [[uniqueSliceIndex[i]], {
-          mode: 'immediate',
-          transition: {duration: 20},
-          frame: {duration: 20, redraw: true}
-        }]
-      });
-    }
     let plotLayout = setPlotLayout(uniqueSliceIndex)
 
     // Plot config
@@ -134,7 +122,7 @@
           y: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).y,
           customdata: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).customdata,
           hovertemplate: 'Counts: %{customdata[1]}<br>'+
-                         '2tet: %{customdata[2]:.3f} deg',
+                         '2\u03b8: %{customdata[2]:.3f} deg',
           type: 'bar'
         });
         return trace
@@ -176,7 +164,7 @@
         let layout = {
             //autosize: true,
             xaxis: {
-              title: 'd, Å',
+              title: '2\u03b8, deg',
               autorange: true,
             },
             yaxis: {
@@ -194,8 +182,6 @@
                 xanchor: 'right',
                 font: {size: 12, color: '#666'}
               },
-              // sliderSteps are created above
-              steps: sliderSteps
             }]
         }
         return layout
@@ -223,25 +209,13 @@
     function setData(filename){
         twoThetaPatternData = getDataFromJson(filename)
 
-        twoTheta1D = Object.values(twoThetaPatternData["d-spacing [A]"])
+        twoTheta1D = Object.values(twoThetaPatternData["two_theta [deg]"])
         gamma1D = Object.values(twoThetaPatternData["user gamma [deg]"])
         projCount1D = Object.values(twoThetaPatternData["proj_counts"])
         sliceIndex1D = Object.values(twoThetaPatternData["user gamma slice index"])
 
         plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
         uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
-        sliderSteps = []
-        for (i = 0; i < uniqueSliceIndex.length; i++) {
-          sliderSteps.push({
-            method: 'animate',
-            label: uniqueSliceIndex[i],
-            args: [[uniqueSliceIndex[i]], {
-              mode: 'immediate',
-              transition: {duration: 20},
-              frame: {duration: 20, redraw: true}
-            }]
-          });
-        }
         plotLayout = setPlotLayout(uniqueSliceIndex)
         plotConfig = setPlotConfig()
         plotFrames = setPlotFrames(uniqueSliceIndex, twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
@@ -252,6 +226,7 @@
           config: plotConfig,
           frames: plotFrames,
         })
+
         return(`setData finished: ${path}`)
     }
 
@@ -338,6 +313,14 @@
         calculatedTrace.type = 'scatter'
       }
       return('toggleUseWebGL is finished.')
+    }
+
+    function redrawFrame(sliderValue){
+      Plotly.animate('plotDiv', [sliderValue], {
+        mode: 'immediate',
+        transition: { duration: 0 },
+        frame: { duration: 0, redraw: false }
+      });
     }
 
     function setXAxisTitle(newTitle) {

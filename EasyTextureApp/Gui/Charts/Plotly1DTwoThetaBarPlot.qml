@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtWebEngine
 
 import EasyApp.Gui.Style as EaStyle
-
+import Gui.Globals as Globals
 
 WebEngineView {
     id: chartView
@@ -18,6 +18,7 @@ WebEngineView {
 
     property var xData: []
     property real sliderValue
+    //property real numberOfSlices
 
     property int theme: EaStyle.Colors.theme
 
@@ -162,6 +163,11 @@ WebEngineView {
         //print(`setXData is started: ${xData.length} points`)
         runJavaScript(`setXData(${JSON.stringify(xData)})`,
                       function(result) { print(result) })
+    }
+
+    function redrawFrame() {
+        //print(`redrawFrame is started: `)
+        runJavaScript(`redrawFrame(${JSON.stringify(sliderValue)})`)
     }
 
     function setHTMLData() {
