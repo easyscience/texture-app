@@ -16,7 +16,20 @@ WebEngineView {
     width: parent.width
     height: parent.height
 
-    url:  Qt.resolvedUrl('../Html/RawDataView/Plotly3dScatterRaw.html')
+    url: Qt.resolvedUrl('../Html/RawDataView/Plotly3dScatterRaw.html')
+
+    property int currentFile3DIndex: 0
+    property var files3D: [Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_3D_live_1.json"), Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_3D_live_2.json"), Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_3D_live_3.json")]
+
+    Timer {
+        id: switchTimer3D
+        interval: 3000  // 3 seconds
+        repeat: true
+        running: Globals.Proxies.main.liveView.isLiveViewSelected && Globals.Proxies.main.liveView.is3DTabSelected
+        onTriggered: {
+            chartView.dataFile = next3DFile()
+        }
+    }
 
     onDataFileChanged: {
         if (loadSucceededStatus) {
@@ -81,8 +94,13 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        //print('INSETFILENAME: ', dataFile)
+        print('INSETFILENAME: ', dataFile)
         runJavaScript(`setData3D(${JSON.stringify(dataFile)})`)
+    }
+
+    function next3DFile() {
+        currentFile3DIndex = (currentFile3DIndex + 1) % files3D.length
+        return files3D[currentFile3DIndex]
     }
 
 }

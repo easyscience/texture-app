@@ -7,14 +7,13 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Charts as Charts
+import Gui.Globals as Globals
 
 Charts.Plotly2DTwoThetaRings {
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
     url:  Qt.resolvedUrl('../../../../Html/LiveDataView/Plotly2dTwoThetaRingsLive.html')
-
+    sliderValue: Globals.Proxies.main.liveView.twoThetaSliderValue
 
     xAxisTitle: "x, mm"
     yAxisTitle: "y, mm"
-
-    minTT: 70
 }

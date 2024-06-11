@@ -65,7 +65,6 @@ Grid {
             from: 45.5 //+ Globals.Proxies.main.rawData.slider1DStep
             to: 134.5 // the last beam center to be computed based on the selected binning width
             stepSize: Globals.Proxies.main.rawData.slider1DStep
-            //stepSize: qmlProxy.explore.sliceWidth.toString()
             //value: 50
 
             // TODO: tool tip:

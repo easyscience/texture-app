@@ -98,6 +98,7 @@ Item {
 
         // Start Button 2 -> LiveView
         EaElements.SideBarButton {
+
             id: startLiveViewButton
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -105,9 +106,11 @@ Item {
             fontIcon: "satellite-dish"
             text: qsTr("Go to Live View")
             onClicked: {
+                clicked ? Globals.Proxies.main.liveView.isLiveViewSelected = true : Globals.Proxies.main.liveView.isLiveViewSelected = false
                 Globals.Vars.liveViewPageEnabled = true
                 Globals.Refs.app.appbar.liveViewButton.toggle()
             }
+
             Component.onCompleted: Globals.Refs.app.homePage.startLiveViewButton = this
         }
 

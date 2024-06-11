@@ -14,14 +14,5 @@ Charts.Plotly3DScatter {
     xAxisTitle: "x, mm"
     yAxisTitle: "y, mm"
     zAxisTitle: "z, mm"
-
 }
-/*
-EaCharts.Plotly3dScatter {
 
-    xAxisTitle: "x, mm"
-    yAxisTitle: "y, mm"
-    zAxisTitle: "z, mm"
-
-}
-*/

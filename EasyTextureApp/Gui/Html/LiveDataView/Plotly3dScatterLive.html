@@ -57,10 +57,7 @@
 
   <script>
     // Load data from JSON file
-    var request3D = new XMLHttpRequest();
-    request3D.open("GET", "../../Data/LiveDataView/user_voxels_3D_live_3.json", false);
-    request3D.send(null)
-    var data3D = JSON.parse(request3D.responseText);
+    var data3D = getDataFromJson("../../Data/LiveDataView/user_voxels_3D_live_1.json")
 
     ///////
     // Data
@@ -73,110 +70,19 @@
     let gamma3D = Object.values(data3D["user gamma [deg]"])
     let projCount3D = Object.values(data3D["proj_count"])
 
-    let customArray3D = [twoTheta3D, gamma3D, z3D, projCount3D]
-    // transpose of customArray3D
-    let customData3D = customArray3D[0].map((_, colIndex) => customArray3D.map(row => row[colIndex]))
-
-    let powtexData3D = {
-      x: x3D,
-      y: y3D,
-      z: z3D,
-      customdata: customData3D,
-    }
-
     /////////
     // Plotly
     /////////
 
-    // Default trace
-    let powtexTraces = []
-    powtexTraces.push({
-      x: powtexData3D.x,
-      y: powtexData3D.y,
-      z: powtexData3D.z,
-      name: '', // it is needed to remove "trace 0" next to the hover
-      customdata: powtexData3D.customdata,
-      hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
-                     '\u03b3: %{customdata[1]}\u00B0<br>'+
-                     'z: %{customdata[2]:.3f} mm<br>'+
-                     'counts: %{customdata[3]}',
-      type: 'scatter3d',
-      mode: 'markers',
-      marker: {
-        symbol: 'circle',
-        color: projCount3D,
-        size: 2,
-        showscale: true,
-        colorbar: {x: 1, y:0.45, len: 1, title: {text: 'Counts'}},
-        colorscale: 'Portland',
-      },
-    })
-
-    // Plot dataset
-    let plotTraces = [...powtexTraces]
+    let plotTraces = setPlotTraces(twoTheta3D, projCount3D, gamma3D, x3D, y3D, z3D)
 
     // Plot layout
-    let plotLayout = {
-      //width: 600,
-      //height: 600,
-      autosize: true,
-      margin: {t: 75, l: 0, b: 75, r: 100},
-      scene: {
-        xaxis: {
-          title: {
-            font: {
-              size: 18,
-            }
-          },
-          autorange: true,
-          zeroline: false,
-          showticklabels: true,
-        },
-        yaxis: {
-          title: {
-            font: {
-              size: 18,
-            }
-          },
-          autorange: true,
-          zeroline: false,
-          showticklabels: true,
-        },
-        zaxis: {
-          title: {
-            font: {
-              size: 18,
-            }
-          },
-          autorange: true,
-          zeroline: false,
-          showticklabels: true,
-        },
-        camera: {
-          center: {
-            x: 0,
-            y: 0,
-            z: 0
-          },
-          eye: {
-            x: 0.25,
-            y: 0.75,
-            z: -1.75
-          },
-          up: {
-            x: 0,
-            y: 1,
-            z: 0
-          }
-        }
-      },
-    }
+    let plotLayout = setPlotLayout()
+
 
     // Plot config
-    let plotConfig = {
-      displayModeBar: true,
-      displaylogo: false,
-    }
+    let plotConfig = setPlotConfig()
+
 
     // Create plot
     Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
@@ -184,6 +90,115 @@
     /////////////////////////////////////////
     // Functionality to be accesable from QML
     /////////////////////////////////////////
+
+    function getDataFromJson(filename){
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        data = JSON.parse(request.responseText)
+        return data
+    }
+
+    function setPlotTraces(twoTheta, projCount, gamma, x, y, z){
+        let trace = []
+
+        let customArray = [twoTheta, gamma, z, projCount]
+        let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
+
+        trace.push({
+          name: '',
+          x: x,
+          y: y,
+          z: z,
+          customdata: customData,
+          hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                         '\u03b3: %{customdata[1]}\u00B0<br>'+
+                         'z: %{customdata[2]:.3f} mm<br>'+
+                         'counts: %{customdata[3]}',
+          type: 'scatter3d',
+          mode: 'markers',
+          marker: {
+              symbol: 'circle',
+              color: projCount,
+              size: 2,
+              showscale: true,
+              colorbar: {x: 1, y: 0.45, len: 1, title: {text: 'Counts'}},
+              colorscale: 'Portland',
+          },
+        });
+
+        return trace
+    }
+
+    function setPlotLayout(){
+        let layout = {
+            //width: 600,
+            //height: 600,
+            autosize: true,
+            margin: {t: 75, l: 0, b: 75, r: 100},
+            scene: {
+              xaxis: {
+                title: {
+                  text: 'x, mm',
+                  font: {
+                    size: 14,
+                  }
+                },
+                autorange: true,
+                zeroline: false,
+                showticklabels: true,
+              },
+              yaxis: {
+                title: {
+                  text: 'y, mm',
+                  font: {
+                    size: 14,
+                  }
+                },
+                autorange: true,
+                zeroline: false,
+                showticklabels: true,
+              },
+              zaxis: {
+                title: {
+                  text: "z, mm",
+                  font: {
+                    size: 14,
+                  }
+                },
+                autorange: true,
+                zeroline: false,
+                showticklabels: true,
+              },
+              camera: {
+                center: {
+                  x: 0,
+                  y: 0,
+                  z: 0
+                },
+                eye: {
+                  x: 0.25,
+                  y: 0.75,
+                  z: -1.75
+                },
+                up: {
+                  x: 0,
+                  y: 1,
+                  z: 0
+                }
+              }
+            },
+        }
+        return layout
+    }
+
+    function setPlotConfig(){
+        let config = {
+            displayModeBar: true,
+            displaylogo: false,
+        }
+        return config
+    }
 
     function redrawPlot() {
       Plotly.redraw('plotDiv')
@@ -201,6 +216,27 @@
       plotLayout.scene.zaxis.title = newTitle
     }
 
+    function setData3D(filename){
+        data3D = getDataFromJson(filename)
+
+        twoTheta3D = Object.values(data3D["two_theta [deg]"])
+        gamma3D = Object.values(data3D["user gamma [deg]"])
+        projCount3D = Object.values(data3D["proj_count"])
+        x3D = Object.values(data3D["voxel_x [mm]"])
+        y3D = Object.values(data3D["voxel_y [mm]"])
+        z3D = Object.values(data3D["voxel_z [mm]"])
+
+        plotTraces = setPlotTraces(twoTheta3D, projCount3D, gamma3D, x3D, y3D, z3D)
+        plotLayout = setPlotLayout()
+        plotConfig = setPlotConfig()
+
+        Plotly.newPlot('plotDiv', {
+          data: plotTraces,
+          layout: plotLayout,
+          config: plotConfig,
+        })
+        return(`setData3D finished: ${filename}`)
+    }
   </script>
 </body>
 

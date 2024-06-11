@@ -192,9 +192,15 @@ EaComponents.ApplicationWindow {
             //fontIcon: "signal"
             text: qsTr("Live View")
             ToolTip.text: qsTr("Live View page")
+
+            onClicked: clicked ?
+                                  Globals.Proxies.main.liveView.isLiveViewSelected = true :
+                                  Globals.Proxies.main.liveView.isLiveViewSelected = false
+
             onEnabledChanged: enabled ?
                                   liveViewPageLoader.source = 'Pages/LiveView/PageStructure.qml' :
                                   liveViewPageLoader.source = ''
+
             Component.onCompleted: Globals.Refs.app.appbar.liveViewButton = this
         }
 

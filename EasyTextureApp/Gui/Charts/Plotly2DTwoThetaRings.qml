@@ -19,6 +19,19 @@ WebEngineView {
 
     url:  Qt.resolvedUrl('../Html/RawDataView/Plotly2dTwoThetaRingsRaw.html')
 
+    property int currentFile2DIndex: 0
+    property var files2D: [Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_2D_live_1.json"), Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_2D_live_2.json"), Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_2D_live_3.json")]
+
+    Timer {
+        id: switchTimer2D
+        interval: 3000  // 3 seconds
+        repeat: true
+        running: Globals.Proxies.main.liveView.isLiveViewSelected && !Globals.Proxies.main.liveView.is3DTabSelected
+        onTriggered: {
+            chartView.dataFile = next2DFile()
+        }
+    }
+
     onDataFileChanged: {
         if (loadSucceededStatus) {
             setHTMLData()
@@ -85,8 +98,12 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        //print('INSETFILENAME: ', dataFile)
+        print('INSETFILENAME: ', dataFile)
         runJavaScript(`set2dThetaRingsData(${JSON.stringify(dataFile)})`)
     }
 
+    function next2DFile() {
+        currentFile2DIndex = (currentFile2DIndex + 1) % files2D.length
+        return files2D[currentFile2DIndex]
+    }
 }

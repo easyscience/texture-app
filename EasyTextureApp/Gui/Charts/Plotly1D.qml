@@ -172,7 +172,7 @@ WebEngineView {
     }
 
     function redrawFrame() {
-        //print(`redrawFrame is started: `)
+        print(`redrawFrame is started: `)
         runJavaScript(`redrawFrame(${JSON.stringify(sliderValue)})`)
     }
 
@@ -208,7 +208,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        //print('INSETFILENAME: ', dataFile)
+        print('INSETFILENAME: ', dataFile)
         runJavaScript(`setData(${JSON.stringify(dataFile)})`)
     }
 

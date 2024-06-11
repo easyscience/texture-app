@@ -35,9 +35,9 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr("Explore 2-theta Rings Preview")
+        title: qsTr("Explore 2θ Rings Preview")
         collapsible: false
-        last: true
+        visible: !Globals.Proxies.main.liveView.is3DTabSelected
 
         Loader { source: 'SideBarBasic/Sub04.qml' }
     }

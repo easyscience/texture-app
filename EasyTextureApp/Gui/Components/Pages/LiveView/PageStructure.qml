@@ -21,8 +21,19 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("3D View") },
-            EaElements.TabButton { text: qsTr("2D View: 2θ Rings") }
+            EaElements.TabButton {
+                text: qsTr("3D View")
+                onClicked: {
+                    Globals.Proxies.main.liveView.is3DTabSelected = true
+                }
+
+            },
+            EaElements.TabButton {
+                text: qsTr("2D View: 2θ Rings")
+                onClicked: {
+                    Globals.Proxies.main.liveView.is3DTabSelected = false
+                }
+            }
         ]
 
         items: [

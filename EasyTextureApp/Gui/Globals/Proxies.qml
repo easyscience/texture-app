@@ -293,6 +293,33 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             }
         }
 
+        //////////////
+        // Live View
+        //////////////
+
+        readonly property var liveView: QtObject {
+
+            property bool isLiveViewSelected: false
+            property bool is3DTabSelected: true
+            property real twoThetaSliderValue: 45.5
+            property real sliderStep: 1.0
+
+            /*property int twoTheta: 90
+            property int gammaSliceWidth: 1
+            property string exploreDataPath: ''
+            property string exploreFileName: ''
+            property string selectedExploreFile: ''
+
+            property real twoThetaSliderValue: 45.5
+            property real twoThetaSliderStep: 0.5
+
+            function updateBinning(){
+                exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                exploreFileName = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
+                selectedExploreFile = exploreDataPath + exploreFileName
+            }*/
+        }
+
         /////////
         // Status
         /////////
