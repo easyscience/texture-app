@@ -129,6 +129,8 @@
           marker: {
             symbol: 'circle',
             color: projCount,
+            cmin: Math.min(...projCount),
+            cmax: Math.max(...projCount),
             size: 5,
             showscale: true,
             colorbar: {title: {text: 'Counts'}},
@@ -159,6 +161,8 @@
         marker: {
           symbol: 'circle',
           color: animationProjCount,
+          cmin: Math.min(...animationProjCount),
+          cmax: Math.max(...animationProjCount),
           size: 5,
           showscale: true,
           colorbar: {title: {text: 'Counts'}},
@@ -187,18 +191,6 @@
               autorange: true,
               zeroline: false,
             },
-            // Finally, add the slider and use `pad` to position it
-            // nicely next to the buttons.
-            sliders: [{
-              pad: {l: 20, t: 55},
-              currentvalue: {
-                visible: true,
-                prefix: '2θ: ',
-                suffix: '\u00B0',
-                xanchor: 'right',
-                font: {size: 12, color: '#666'}
-              },
-            }]
         }
         return layout
     }
@@ -222,28 +214,6 @@
        return frames
     }
 
-    function getData(animationTT) {
-      let trace
-      let animationTwoThetaIndices = getIndxByValue(twoTheta2D, animationTT)
-      let animationTwoThetaArray = getValueByIndex(twoTheta2D, animationTwoThetaIndices)
-      let animationProjCount = getValueByIndex(projCount2D, animationTwoThetaIndices)
-      let animationGamma = getValueByIndex(gamma2D, animationTwoThetaIndices)
-      let animationX = getValueByIndex(x2D, animationTwoThetaIndices)
-      let animationY = getValueByIndex(y2D, animationTwoThetaIndices)
-
-      let customArray2D = [animationTwoThetaArray, animationGamma, animationProjCount]
-      let customData2D = customArray2D[0].map((_, colIndex) => customArray2D.map(row => row[colIndex]))
-
-      trace = {
-        x: animationX,
-        y: animationY,
-        customdata: customData2D,
-        marker: {color: animationProjCount},
-      }
-
-      return trace;
-    }
-
     function getIndxByValue(object, value) {
       return Object.keys(object).filter(indx => object[indx] === value);
     }
@@ -264,7 +234,10 @@
       Plotly.animate('plotDiv', [sliderValue], {
         mode: 'immediate',
         transition: { duration: 0 },
-        frame: { duration: 0, redraw: false }
+        frame: {
+            duration: 0,
+            redraw: true
+        }
       });
     }
 
@@ -295,13 +268,19 @@
         plotConfig = setPlotConfig()
         plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D, x2D, y2D)
 
+        //maxProjCount = Math.max(...projCount2D)
+        //return maxProjCount
+
+        //let dict = {'Total': {'max': Math.max(...projCount2D), 'min': Math.min(...projCount2D)}}
+        //plotLayout.yaxis.title = dict.Total.min
+
         Plotly.newPlot('plotDiv', {
           data: plotTraces,
           layout: plotLayout,
           config: plotConfig,
           frames: plotFrames,
         })
-        return(`setData finished: ${path}`)
+        return(`set2dThetaRingsData finished: ${path}`)
     }
 
   </script>
