@@ -41,10 +41,12 @@ Grid {
                         //values for two_theta_bin_width_2D
                         // currentIndex: 2
                         // model: ["0.1°", "0.25°", "0.5°", "0.75°", "1°", "2°", "5°", "10°"]
-                        currentIndex: 0 //Globals.Proxies.main.rawData.twoThetaIndex
+                        //currentIndex: 0 //Globals.Proxies.main.rawData.twoThetaIndex
+                        currentIndex: Globals.Proxies.main.rawData.twoThetaIndex
                         model: ["0.5°", "1°"]
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
+                            print("CURRENT 2D TT INDX", currentIndex)
                             Globals.Proxies.main.rawData.updateBinned()
                             Globals.Proxies.main.rawData.slider2DStep = parseFloat(ttBinning2D.textAt(ttBinning2D.currentIndex))
                             Globals.Proxies.main.rawData.twoThetaRingsSliderValue = 45.5
@@ -69,9 +71,11 @@ Grid {
                         //values for gamma_bin_width_2D
                         // model: ["1°", "2°", "5°", "10°"]
                         model: ["1°", "2°"]
-                        currentIndex: 0 // Globals.Proxies.main.rawData.gammaIndex
+                        //currentIndex: 0 // Globals.Proxies.main.rawData.gammaIndex
+                        currentIndex: Globals.Proxies.main.rawData.gammaIndex
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.gammaIndex = currentIndex
+                            print("CURRENT 2D GAMMA INDX", currentIndex)
                             Globals.Proxies.main.rawData.updateBinned()
                         }
                     }
