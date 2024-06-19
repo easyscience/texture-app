@@ -15,6 +15,6 @@ Charts.Plotly2DTwoThetaRings {
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
 
-    xAxisTitle: "x, mm"
-    yAxisTitle: "y, mm"
+    //xAxisTitle: "x, mm"
+    yAxisTitle: "AAAAAA"
 }

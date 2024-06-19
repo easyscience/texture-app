@@ -11,14 +11,14 @@ import EasyApp.Gui.Components as EaComponents
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr("Select 2-theta Ring")
+        title: qsTr("Select 2θ Ring")
         collapsible: false
 
         Loader { source: 'SideBarBasic/TwoThetaSlider.qml' }
     }
 
     EaElements.GroupBox {
-        title: qsTr("Select gamma-Slice Width")
+        title: qsTr("Select γ-Slice Width")
         collapsible: false
 
         Loader { source: 'SideBarBasic/GammaSliceSelector.qml' }
