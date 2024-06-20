@@ -78,19 +78,19 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property var recentProjects: [
                 {
-                    'name': '2023_05_01_Measurement_01',
-                    'description': 'abc ....',
-                    'path': '../Resources/Examples/HorizontalLine/project.json'
+                    'name': 'Bio-Sample (POWTEX)',
+                    'description': 'neutron, powder, simulation, POWTEX@MLZ',
+                    'path': '../Examples/Bio-sample/biosample_snippet.json'
                 },
                 {
-                    'name': '2023_05_01_MeasurementNoCorrections_01',
-                    'description': 'xyz .......... xyz ..... 123 ... abc ... 456 ... 789 ... abc',
-                    'path': '../Resources/Examples/SlantingLine1/project.json'
+                    'name': 'NaCl-Sample (POWTEX)',
+                    'description': 'neutron, powder, simulation, POWTEX@MLZ',
+                    'path': '../Resources/Examples/NaCl-sample/nacl.json'
                 },
                 {
-                    'name': '2023_05_01_MeasurementWithCorrections_02',
-                    'description': '123 ......',
-                    'path': '../Resources/Examples/SlantingLine2/project.json'
+                    'name': 'Powder-Sample (POWTEX)',
+                    'description': 'neutron, powder, simulation, POWTEX@MLZ',
+                    'path': '../Resources/Examples/Powder-sample/powder-example.json'
                 }
             ]
 
@@ -245,11 +245,11 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
         readonly property var explore: QtObject {
 
-            property int twoTheta: 90
+            //property int twoTheta: 90
             property int gammaSliceWidth: 1
             property string exploreDataPath: ''
             property string exploreFileName: ''
-            property string selectedExploreFile: ''
+            property string selectedExploreFile: Qt.resolvedUrl("./../Data/RawDataView/user_voxels_2D_1.json")
 
             property real twoThetaSliderValue: 45.5
             property real twoThetaSliderStep: 0.5
@@ -274,6 +274,15 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property int sliderValue
             property int sliderMaxValue
+
+            property real totalCountMin: -1.0
+            property real totalCountMax: -1.0
+            property real totalCountSum: -1.0
+
+            property real twoThetaRingCountMin: -1.0
+            property real twoThetaRingCountMax: -1.0
+            property real twoThetaRingCountSum: -1.0
+
 
             //Component.onCompleted: print("COMPLETED")
             function emptyData() {
@@ -342,8 +351,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             // assign key-value pairs for the status bar:
             property var asJson: [
                 {
-                    name: '2-theta',
-                    value: qmlProxy.explore.twoTheta.toString()
+                    name: '2θ',
+                    value: qmlProxy.explore.twoThetaSliderValue.toString()
                 },
                 {
                     name: 'Slice-Width',

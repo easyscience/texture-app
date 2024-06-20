@@ -75,8 +75,8 @@ EaComponents.TableView {
             onClicked: {
                 // load project data into main view
                 Globals.Proxies.main.project.name = model.name // projectName
-                Globals.Proxies.main.project.description = model.path //projectDescription
-                Globals.Proxies.main.project.location = "123" //projectLocation
+                Globals.Proxies.main.project.description = model.description //projectDescription
+                Globals.Proxies.main.project.location = model.path //projectLocation
                 Globals.Proxies.main.project.create()
 
             }
