@@ -247,6 +247,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             //property int twoTheta: 90
             property int gammaSliceWidth: 1
+
             property string exploreDataPath: ''
             property string exploreFileName: ''
             property string selectedExploreFile: Qt.resolvedUrl("./../Data/RawDataView/user_voxels_2D_1.json")
@@ -257,10 +258,12 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property real totalCountMin: -1.0
             property real totalCountMax: -1.0
             property real totalCountSum: -1.0
+            property int numberOfGammaSlices: 270
 
             property real twoThetaRingCountMin: -1.0
             property real twoThetaRingCountMax: -1.0
             property real twoThetaRingCountSum: -1.0
+            property int maxIntensityWidth: -1.0
 
             function updateBinning(){
                 exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")

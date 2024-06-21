@@ -22,7 +22,6 @@ Grid{
         Grid {
             readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
 
-
             columns: 2
             rowSpacing: 10
             //columnSpacing: commonSpacing
@@ -95,7 +94,7 @@ Grid{
 
                 EaElements.Label {
                     enabled: false
-                    text: qsTr("Current 2-theta Ring")
+                    text: qsTr("Current 2θ Ring")
                 }
 
                 //Grid
@@ -107,29 +106,37 @@ Grid{
                     columnSpacing: commonSpacing
 
                     EaElements.Label {
-                        font.bold: true
-                        text: qsTr("Count Max:")
-                    }
-                    EaElements.Label {
-                        text: "xxx"
-                    }
-
-                    EaElements.Label {
                         visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
                         font.bold: true
                         text: qsTr("Count Min:")
                     }
                     EaElements.Label {
-                        text: "xxx"
+                        text: Globals.Proxies.main.explore.twoThetaRingCountMin
                     }
 
+                    EaElements.Label {
+                        font.bold: true
+                        text: qsTr("Count Max:")
+                    }
+                    EaElements.Label {
+                        text: Globals.Proxies.main.explore.twoThetaRingCountMax
+                    }
 
                     EaElements.Label {
                         font.bold: true
                         text: qsTr("Count Sum:")
                     }
                     EaElements.Label {
-                        text: "xxx"
+                        text: Globals.Proxies.main.explore.twoThetaRingCountSum
+                    }
+
+                    EaElements.Label {
+                        font.bold: true
+                        text: qsTr("Intensity Width (in γ°):")
+                    }
+                    EaElements.Label {
+                        id: intensityWidth
+                        text: Globals.Proxies.main.explore.maxIntensityWidth
                     }
 
                 } // Grid
@@ -157,29 +164,36 @@ Grid{
                     columnSpacing: commonSpacing
 
                     EaElements.Label {
-                        font.bold: true
-                        text: qsTr("Count Max:")
-                    }
-                    EaElements.Label {
-                        text: "xxx"
-                    }
-
-                    EaElements.Label {
                         visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
                         font.bold: true
                         text: qsTr("Count Min:")
                     }
                     EaElements.Label {
-                        text: "xxx"
+                        text: Globals.Proxies.main.explore.totalCountMin
                     }
 
+                    EaElements.Label {
+                        font.bold: true
+                        text: qsTr("Count Max:")
+                    }
+                    EaElements.Label {
+                        text: Globals.Proxies.main.explore.totalCountMax
+                    }
 
                     EaElements.Label {
                         font.bold: true
                         text: qsTr("Count Sum:")
                     }
                     EaElements.Label {
-                        text: "xxx"
+                        text: Globals.Proxies.main.explore.totalCountSum
+                    }
+
+                    EaElements.Label {
+                        font.bold: true
+                        text: qsTr("Number of Slices/Patterns:")
+                    }
+                    EaElements.Label {
+                        text: Globals.Proxies.main.explore.numberOfGammaSlices //.sliderMaxValue
                     }
 
                 } // Grid close

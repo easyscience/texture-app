@@ -20,35 +20,33 @@ Grid {
             columns: 4
             columnSpacing: EaStyle.Sizes.fontPixelSize
 
-
             RadioButton {
+                id: oneDegreeButton
                 topPadding: 0
                 checked: true
                 text: "1°"
-                ToolTip.text: qsTr("Select 1° slice")
 
-                onCheckedChanged: {
-                    setRadioStatus(1, text)
-                    Globals.Proxies.main.explore.updateBinning()
+                onClicked: {
+                    setExploreParameters(parseInt(text.slice(0, -1)))
                 }
+
             }
 
             RadioButton {
+                id: twoDegreeButton
                 topPadding: 0
                 text: "2°"
-                ToolTip.text: qsTr("Select 2° slice")
 
-                onCheckedChanged: {
-                    setRadioStatus(2, text)
-                    Globals.Proxies.main.explore.updateBinning()
+                onClicked: {
+                    setExploreParameters(parseInt(text.slice(0, -1)))
                 }
+
             }
 
             RadioButton {
                 id: fiveDegreeButton
                 topPadding: 0
                 text: "5°"
-                ToolTip.text: qsTr("Select 5° slice")
                 enabled: false
                 contentItem: Text {
                     text: fiveDegreeButton.text
@@ -56,8 +54,8 @@ Grid {
                     leftPadding: fiveDegreeButton.indicator.width + fiveDegreeButton.spacing
                 }
 
-                onCheckedChanged: {
-                    setRadioStatus(5, text)
+                onClicked: {
+                    setExploreParameters(parseInt(text.slice(0, -1)))
                 }
 
             }
@@ -66,7 +64,6 @@ Grid {
                 id: tenDegreeButton
                 topPadding: 0
                 text: "10°"
-                ToolTip.text: qsTr("Select 10° slice")
                 enabled: false
                 contentItem: Text {
                     text: tenDegreeButton.text
@@ -74,73 +71,17 @@ Grid {
                     leftPadding: tenDegreeButton.indicator.width + tenDegreeButton.spacing
                 }
 
-                onCheckedChanged: {
-                    setRadioStatus(10, text)
+                onClicked: {
+                    setExploreParameters(parseInt(text.slice(0, -1)))
                 }
-
             }
-
         }
-
     }
 
-    Row {
-
-        Grid {
-            readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
-
-            columns: 2
-            rowSpacing: 0
-            columnSpacing: commonSpacing
-
-            EaElements.Label {
-                enabled: true
-                font.bold: true
-                text: qsTr("Statistics")
-            }
-
-            EaElements.Label {
-                enabled: false
-                text: qsTr(" ")
-            }
-
-            EaElements.Label {
-                text: qsTr("Number of Slices (= Number of Patterns):")
-            }
-            EaElements.Label {
-                id: numOfSlices
-                text: "xxx"
-            }
-
-            EaElements.Label {
-                text: qsTr("Intensity Width (in gamma-Degree):")
-            }
-            EaElements.Label {
-                id: intensityWidth
-                text: "xxx"
-            }
-
-            EaElements.Label {
-                text: qsTr("...:")
-            }
-            EaElements.Label {
-                text: "xxx"
-            }
-
-        }
-
-
-    }
-
-    // Logic for Radio Buttons
-    function setRadioStatus(id, labelText) {
-        //print("Explore page: setRadioStatus: ", id, " : ", this)
-        numOfSlices.text = labelText
-
-        Globals.Proxies.main.explore.gammaSliceWidth = id
-
+    // Logic for gamma slices
+    function setExploreParameters(width) {
+        Globals.Proxies.main.explore.gammaSliceWidth = width
+        Globals.Proxies.main.explore.numberOfGammaSlices = 270 / width
+        Globals.Proxies.main.explore.updateBinning()
     }
 }
-
-
-

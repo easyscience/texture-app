@@ -31,7 +31,7 @@ EaElements.StatusBar {
         if (currentPageIndex == 7){
             statusBarModel.json = JSON.stringify(Globals.Proxies.main.status.liveViewStatusBar)
         }
-        else if (currentPageIndex > 3){
+        else if (currentPageIndex > 4){
             statusBarModel.json = JSON.stringify(Globals.Proxies.main.status.twoThetaRingsStatusBar)
         }
         else

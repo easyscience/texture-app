@@ -28,7 +28,7 @@ Grid{
             //columnSpacing: commonSpacing
 
             EaElements.Label {
-                text: qsTr("gamma-Slice Range: ")
+                text: qsTr("γ-Slice Range: ")
             }
 
             EaElements.Label {
