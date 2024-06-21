@@ -349,16 +349,38 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 </root>`
 
             // assign key-value pairs for the status bar:
-            property var asJson: [
+            property var projectStatusBar: [
                 {
-                    name: '2θ',
+                    name: "Sample",
+                    value: qmlProxy.project.name.toString()
+                },
+                {
+                    name: "Location",
+                    value: qmlProxy.project.location.toString()
+                }
+            ]
+
+            property var twoThetaRingsStatusBar: [
+                {
+                    name: "2θ",
                     value: qmlProxy.explore.twoThetaSliderValue.toString()
                 },
                 {
-                    name: 'Slice-Width',
+                    name: "Slice-Width",
                     value: qmlProxy.explore.gammaSliceWidth.toString()
                 }
-              ]
+            ]
+
+            property var liveViewStatusBar: [
+                {
+                    name: "LiveView1",
+                    value: "?", //qmlProxy.project.name.toString()
+                },
+                {
+                    name: "LiveView2",
+                    value: "??",//qmlProxy.project.location.toString()
+                }
+            ]
         }
 
 

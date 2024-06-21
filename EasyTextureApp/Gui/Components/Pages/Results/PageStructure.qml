@@ -29,7 +29,7 @@ EaComponents.ContentPage {
                 }
             },
             EaElements.TabButton {
-                text: qsTr("2-theta Patterns")
+                text: qsTr("2θ Patterns")
                 onClicked: {
                     Globals.Proxies.main.results.isTwoThetaSelected = true
                 }

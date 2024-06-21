@@ -14,21 +14,29 @@ import Gui.Globals as Globals
 
 
 EaElements.StatusBar {
-    visible: {
-        // default:
-        // EaGlobals.Variables.appBarCurrentIndex !== 0
+    property int currentPageIndex: EaGlobals.Variables.appBarCurrentIndex
 
-        // define which pages show the status bar:
-        EaGlobals.Variables.appBarCurrentIndex === PageIndex.PageIndexEnum.ExplorePageIndex
-        || EaGlobals.Variables.appBarCurrentIndex === PageIndex.PageIndexEnum.ResultsPageIndex
+    visible: {
+        // default
+        currentPageIndex !== 0
     }
 
-
     model: EaComponents.JsonListModel {
-        json: JSON.stringify(Globals.Proxies.main.status.asJson)
+        id: statusBarModel
+        json: ""
         query: "$[*]"
     }
 
+    onCurrentPageIndexChanged: {
+        if (currentPageIndex == 7){
+            statusBarModel.json = JSON.stringify(Globals.Proxies.main.status.liveViewStatusBar)
+        }
+        else if (currentPageIndex > 3){
+            statusBarModel.json = JSON.stringify(Globals.Proxies.main.status.twoThetaRingsStatusBar)
+        }
+        else
+        {
+            statusBarModel.json = JSON.stringify(Globals.Proxies.main.status.projectStatusBar)
+        }
+    }
 }
-
-
