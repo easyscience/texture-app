@@ -254,6 +254,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property real twoThetaSliderValue: 45.5
             property real twoThetaSliderStep: 0.5
 
+            property real totalCountMin: -1.0
+            property real totalCountMax: -1.0
+            property real totalCountSum: -1.0
+
+            property real twoThetaRingCountMin: -1.0
+            property real twoThetaRingCountMax: -1.0
+            property real twoThetaRingCountSum: -1.0
+
             function updateBinning(){
                 exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
                 exploreFileName = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
@@ -274,14 +282,6 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             property int sliderValue
             property int sliderMaxValue
-
-            property real totalCountMin: -1.0
-            property real totalCountMax: -1.0
-            property real totalCountSum: -1.0
-
-            property real twoThetaRingCountMin: -1.0
-            property real twoThetaRingCountMax: -1.0
-            property real twoThetaRingCountSum: -1.0
 
 
             //Component.onCompleted: print("COMPLETED")

@@ -268,20 +268,48 @@
         plotConfig = setPlotConfig()
         plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D, x2D, y2D)
 
-        //maxProjCount = Math.max(...projCount2D)
-        //return maxProjCount
-
-        //let dict = {'Total': {'max': Math.max(...projCount2D), 'min': Math.min(...projCount2D)}}
-        //plotLayout.yaxis.title = dict.Total.min
-
         Plotly.newPlot('plotDiv', {
           data: plotTraces,
           layout: plotLayout,
           config: plotConfig,
           frames: plotFrames,
         })
+
         return(`set2dThetaRingsData finished: ${path}`)
     }
+
+    function getStatisticsWholeDataset(filename){
+        let data2D = getDataFromJson(filename)
+        let projCountList = Object.values(data2D["proj_count"])
+
+        let totalCountsSum = projCountList.reduce((partialSum, a) => partialSum + a, 0);
+        let totalStatisticsDict = {
+            'max': Math.max(...projCountList),
+            'min': Math.min(...projCountList),
+            'sum': totalCountsSum
+        }
+
+        return totalStatisticsDict
+    }
+
+    function getStatisticsCurrentRing(filename, sliderValue){
+        let data2D = getDataFromJson(filename)
+        let twoThetaList = Object.values(data2D["two_theta [deg]"])
+        let projCountList = Object.values(data2D["proj_count"])
+
+        let animationTwoThetaIndices = getIndxByValue(twoThetaList, sliderValue)
+        let animationProjCount = getValueByIndex(projCountList, animationTwoThetaIndices)
+
+        let ringCountsSum = animationProjCount.reduce((partialSum, a) => partialSum + a, 0);
+        let ringStatisticsDict = {
+            'max': Math.max(...animationProjCount),
+            'min': Math.min(...animationProjCount),
+            'sum': ringCountsSum
+        }
+
+        return ringStatisticsDict
+    }
+
 
   </script>
 
