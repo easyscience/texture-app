@@ -40,7 +40,7 @@ Grid {
         text: qsTr("Open an existing project")
     }
 
-    EaElements.SideBarButton {
+    /*EaElements.SideBarButton {
         enabled: Globals.Proxies.main.project.isEnabledSaveProjectAs
 
         fontIcon: "download"
@@ -52,7 +52,7 @@ Grid {
 
         fontIcon: "times-circle"
         text: qsTr("Close current project")
-    }
+    }*/
 
 }
 
