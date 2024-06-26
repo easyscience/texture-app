@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file>Gui/Elements/StatusBar.qml</file>
+        <file>Gui/Elements/StatusBarItem.qml</file>
+        <file>Gui/Elements/qmldir</file>
         <file>Gui/Components/Pages/RawData/MainContent/DataView2dTab.qml</file>
         <file>Gui/Components/Pages/RawData/MainContent/DataViewScatter3dTab.qml</file>
         <file>Gui/Components/Pages/RawData/MainContent/DataViewSurface3dTab.qml</file>
@@ -21,7 +24,7 @@
         <file>Gui/Components/Pages/Project/SideBarBasic.qml</file>
         <file>Gui/Components/ApplicationWindow.qml</file>
         <file>Gui/Components/qmldir</file>
-        <file>Gui/Components/StatusBar.qml</file>
+        <file>Gui/Components/StatusBarTexture.qml</file>
         <file>Gui/Globals/Configs.qml</file>
         <file>Gui/Globals/Proxies.qml</file>
         <file>Gui/Globals/qmldir</file>

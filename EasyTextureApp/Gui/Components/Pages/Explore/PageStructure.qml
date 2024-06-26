@@ -51,6 +51,10 @@ EaComponents.ContentPage {
         Component.onCompleted: Globals.Refs.app.explorePage.continueButton = continueButton
     }
 
-    Component.onCompleted: print("Explore page loaded:", this)
+    Component.onCompleted: {
+        print("Explore page loaded:", this)
+        Globals.Proxies.main.explore.gammaSliceWidth = 1
+    }
+
     Component.onDestruction: print("Explore page destroyed:", this)
 }

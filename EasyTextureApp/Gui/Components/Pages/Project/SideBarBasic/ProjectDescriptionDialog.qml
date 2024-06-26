@@ -23,8 +23,8 @@ EaComponents.ProjectDescriptionDialog {
     }
 
     Component.onCompleted: {
-        projectName = Globals.Proxies.main.project.name
-        projectDescription = Globals.Proxies.main.project.description
+        projectName = 'DefaultProject'
+        projectDescription = 'Default project description'
         projectLocation = Globals.Proxies.main.project.location
     }
 }

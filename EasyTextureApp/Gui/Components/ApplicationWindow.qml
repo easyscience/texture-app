@@ -226,7 +226,10 @@ EaComponents.ApplicationWindow {
     // STATUS BAR
     /////////////
 
-    statusBar: Components.StatusBar {}
+    statusBar: [
+        Components.StatusBarTexture {},
+        Components.StatusBarTextureLive {}
+    ]
 
     ////////////
     // GUI TESTS

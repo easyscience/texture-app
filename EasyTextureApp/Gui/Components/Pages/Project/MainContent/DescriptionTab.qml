@@ -61,7 +61,7 @@ Rectangle {
 
             EaElements.Label {
                 font.bold: true
-                text: qsTr("Created:")
+                text: qsTr("Last modified:")
             }
             EaElements.Label {
                 text: Globals.Proxies.main.project.createdDate

@@ -66,8 +66,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool isCreated: false
             property bool needSave: false
             //
-            property string name: 'Default project'
-            property string description: 'Default project description'
+            property string name: ''
+            property string description: ''
             property string location: ''
             property string createdDate: ''
             property string image: Qt.resolvedUrl('../Resources/Project/Sine.svg')
@@ -93,6 +93,11 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     'path': '../Resources/Examples/Powder-sample/powder-example.json'
                 }
             ]
+
+
+            onNameChanged: {
+                qmlProxy.status.project = name
+            }
 
             function setNeedSaveToTrue() {
                 needSave = true
@@ -201,6 +206,10 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 selectedRawFile = dataPath + selectedFileName
             }
 
+            onSelectedFileNameChanged: {
+                qmlProxy.status.selectedRawDataFile = selectedFileName
+            }
+
             function loadData() {
                 const length = dataSize
                 const slope = 0.0
@@ -246,13 +255,13 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         readonly property var explore: QtObject {
 
             //property int twoTheta: 90
-            property int gammaSliceWidth: 1
+            property int gammaSliceWidth
 
             property string exploreDataPath: ''
             property string exploreFileName: ''
             property string selectedExploreFile: Qt.resolvedUrl("./../Data/RawDataView/user_voxels_2D_1.json")
 
-            property real twoThetaSliderValue: 45.5
+            property real twoThetaSliderValue
             property real twoThetaSliderStep: 0.5
 
             property real totalCountMin: -1.0
@@ -269,6 +278,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
                 exploreFileName = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
                 selectedExploreFile = exploreDataPath + exploreFileName
+            }
+
+            onTwoThetaSliderValueChanged: {
+                qmlProxy.status.selectedTwoTheta = twoThetaSliderValue
+            }
+
+            onGammaSliceWidthChanged: {
+                qmlProxy.status.selectedGammaSliceWidth = gammaSliceWidth
             }
         }
 
@@ -338,52 +355,10 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
         property var status: QtObject {
             property bool isCreated: false
-
-            property string asXml:
-                `<root>
-                  <item>
-                    <name>Calculations</name>
-                    <value>CrysPy</value>
-                  </item>
-                  <item>
-                    <name>Minimization</name>
-                    <value>lmfit</value>
-                  </item>
-                </root>`
-
-            // assign key-value pairs for the status bar:
-            property var projectStatusBar: [
-                {
-                    name: "Sample",
-                    value: qmlProxy.project.name.toString()
-                },
-                {
-                    name: "Location",
-                    value: qmlProxy.project.location.toString()
-                }
-            ]
-
-            property var twoThetaRingsStatusBar: [
-                {
-                    name: "2θ",
-                    value: qmlProxy.explore.twoThetaSliderValue.toString()
-                },
-                {
-                    name: "Slice-Width",
-                    value: qmlProxy.explore.gammaSliceWidth.toString()
-                }
-            ]
-
-            property var liveViewStatusBar: [
-                {
-                    name: "LiveView1",
-                    value: "?", //qmlProxy.project.name.toString()
-                },
-                {
-                    name: "LiveView2",
-                    value: "??",//qmlProxy.project.location.toString()
-                }
-            ]
+            property string project: 'Undefined'
+            property string selectedRawDataFile: ''
+            property string selectedTwoTheta: ''
+            property string selectedGammaSliceWidth: ''
         }
 
 
