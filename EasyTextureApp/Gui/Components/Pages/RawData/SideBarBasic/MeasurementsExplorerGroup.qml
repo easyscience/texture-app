@@ -72,7 +72,9 @@ Column {
                     console.debug("Current TableView row deleted by index: " + idx)
 
                     Globals.Proxies.main.rawData.isCreated = (Globals.Proxies.main.rawData.rawFiles.length > 0)
-
+                    if (!Globals.Proxies.main.rawData.isCreated){
+                        Globals.Proxies.main.rawData.selectedFileName = ''
+                    }
                     //Globals.Proxies.main.corrections.emptyData()
                     //Globals.Vars.rawDataPageEnabled = false
                     //Globals.Vars.explorePageEnabled = false
@@ -133,16 +135,19 @@ Column {
                 "name": getFilename(selectedFile.toString()),
                 "fullpath": selectedFile.toString()
             })
+
             Globals.Proxies.main.rawData.selectedRawFile = selectedFile.toString()
             Globals.Proxies.main.rawData.selectedFileName = getFilename(selectedFile.toString())
 
             Globals.Proxies.main.rawData.isCreated = true //trigger refresh
+
+            Globals.Proxies.main.rawData.loadOneTwoThreeD()
             //Globals.Proxies.main.rawData.loadData()
         }
 
         onRejected: {
             Globals.Proxies.main.rawData.isMmtFileAssigned = false
-            //Globals.Proxies.main.rawData.isCreated = false
+            Globals.Proxies.main.rawData.isCreated = false
         }
     }
 }
