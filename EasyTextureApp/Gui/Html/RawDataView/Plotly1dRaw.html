@@ -140,7 +140,7 @@
           config: plotConfig,
           frames: plotFrames,
         })
-        return(`setData finished: ${path}`)
+        return(`setData finished: ${filename}`)
     }
 
     function setPlotTraces(twoTheta, projCount, gamma){
@@ -193,7 +193,6 @@
         return config
     }
 
-
     function setPlotFrames(uniqueTwoTheta, twoTheta, projCount, gamma){
        let frames = []
        for (i = 0; i < uniqueTwoTheta.length; i++) {
@@ -204,7 +203,6 @@
        }
        return frames
     }
-
 
     function getIndxByValue(object, value) {
       return Object.keys(object).filter(indx => object[indx] === value);
@@ -331,8 +329,11 @@
     function redrawFrame(sliderValue){
       Plotly.animate('plotDiv', [sliderValue], {
         mode: 'immediate',
-        transition: { duration: 0 },
-        frame: { duration: 0, redraw: false }
+        transition: { duration: 10 },
+        frame: {
+            duration: 10,
+            redraw: true
+        }
       });
     }
 

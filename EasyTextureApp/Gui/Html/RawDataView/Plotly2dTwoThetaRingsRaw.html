@@ -233,9 +233,9 @@
     function redrawFrame(sliderValue){
       Plotly.animate('plotDiv', [sliderValue], {
         mode: 'immediate',
-        transition: { duration: 0 },
+        transition: { duration: 100 },
         frame: {
-            duration: 0,
+            duration: 100,
             redraw: true
         }
       });
@@ -275,7 +275,7 @@
           frames: plotFrames,
         })
 
-        return(`set2dThetaRingsData finished: ${path}`)
+        return(`set2dThetaRingsData finished: ${filename}`)
     }
 
     function getStatisticsWholeDataset(filename){
