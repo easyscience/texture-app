@@ -119,6 +119,8 @@ Column {
     // Select File dialog
     FileDialog {
         id: measurementFileDialog
+        fileMode: FileDialog.OpenFile
+        nameFilters: [ "JSON files (*.json)"]
         title: qsTr("Choose Measurement File")
 
         onAccepted: {
