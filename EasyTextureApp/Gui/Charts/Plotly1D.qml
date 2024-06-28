@@ -10,21 +10,19 @@ import Gui.Globals as Globals
 WebEngineView {
     id: chartView
 
-    visible: false
-
     property bool loadSucceededStatus: false
 
     property string xAxisTitle: ''
     property string yAxisTitle: ''
     property string dataFile: ''
 
-    property var xData: []
+    /*property var xData: []
     property var measuredYData: []
-    property var calculatedYData: []
+    property var calculatedYData: []*/
 
     property int theme: EaStyle.Colors.theme
 
-    property bool useWebGL: false
+    //property bool useWebGL: false
 
     property real sliderValue
 
@@ -38,18 +36,18 @@ WebEngineView {
     onDataFileChanged: {
         if (loadSucceededStatus) {
             setHTMLData()
+            //print("1D setHTMLData Finished")
         }
     }
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             //toggleUseWebGL()
-
             //setChartSizes()
             //setChartColors()
 
-            setXAxisTitle()
-            setYAxisTitle()
+            //setXAxisTitle()
+            //setYAxisTitle()
 
             //emptyData()
             //setXData()
@@ -58,9 +56,7 @@ WebEngineView {
             //setData()
             //redrawPlot()
 
-            setHTMLData()
-
-            visible = true
+            //setHTMLData()
         }
     }
 
@@ -73,6 +69,7 @@ WebEngineView {
 
     onSliderValueChanged: {
         if (loadSucceededStatus) {
+            //print('IN SLIDER CHANGED 1D')
             redrawFrame()
         }
     }
@@ -91,26 +88,26 @@ WebEngineView {
         }
     }
 
-    onXDataChanged: {
+    /*onXDataChanged: {
         if (loadSucceededStatus) {
             setXData()
         }
-    }
+    }*/
 
-    onMeasuredYDataChanged: {
+    /*onMeasuredYDataChanged: {
         if (loadSucceededStatus) {
             setMeasuredYData()
             redrawPlot()
         }
-    }
+    }*/
 
-    onCalculatedYDataChanged: {
+    /*onCalculatedYDataChanged: {
         if (loadSucceededStatus) {
             //setCalculatedYData()
             //redrawPlot()
             redrawPlotWithNewCalculatedYData()
         }
-    }
+    }*/
 
     onThemeChanged: {
         if (loadSucceededStatus) {
@@ -119,11 +116,11 @@ WebEngineView {
         }
     }
 
-    onUseWebGLChanged: {
+    /*onUseWebGLChanged: {
         if (loadSucceededStatus) {
             toggleUseWebGL()
         }
-    }
+    }*/
 
     // Logic
 
@@ -172,12 +169,12 @@ WebEngineView {
     }
 
     function redrawFrame() {
-        print(`redrawFrame is started: `)
+        //print(`redrawFrame is started: `)
         runJavaScript(`redrawFrame(${JSON.stringify(sliderValue)})`)
     }
 
     function setXAxisTitle() {
-        //print(`setXAxisTitle is started: '${xAxisTitle}'`)
+        print(`setXAxisTitle is started: '${xAxisTitle}'`)
         runJavaScript(`setXAxisTitle(${JSON.stringify(xAxisTitle)})`)
     }
 
@@ -208,7 +205,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        print('INSETFILENAME: ', dataFile)
+        //print('IN setHTMLData Plotly1D: ', dataFile)
         runJavaScript(`setData(${JSON.stringify(dataFile)})`)
     }
 

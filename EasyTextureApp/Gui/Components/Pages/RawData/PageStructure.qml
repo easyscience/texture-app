@@ -21,6 +21,7 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
+
             EaElements.TabButton {
                 text: qsTr("3D View: Detector Inner Surface")
                 onClicked: {
@@ -31,6 +32,7 @@ EaComponents.ContentPage {
                     Globals.Proxies.main.rawData.is1DtabSelected = false
                 }
             },
+
             EaElements.TabButton {
                 text: qsTr("2D View: γ-2θ")
                 onClicked: {
@@ -41,6 +43,7 @@ EaComponents.ContentPage {
                     Globals.Proxies.main.rawData.is1DtabSelected = false
                 }
             },
+
             EaElements.TabButton {
                 text: qsTr("2D View: 2θ Rings")
                 onClicked: {
@@ -51,6 +54,7 @@ EaComponents.ContentPage {
                     Globals.Proxies.main.rawData.is1DtabSelected = false
                 }
             },
+
             EaElements.TabButton {
                 text: qsTr("1D View: γ(2θ)")
                 onClicked: {

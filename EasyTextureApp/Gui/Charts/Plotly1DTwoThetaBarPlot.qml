@@ -8,8 +8,6 @@ import Gui.Globals as Globals
 WebEngineView {
     id: chartView
 
-    visible: false
-
     property bool loadSucceededStatus: false
 
     property string xAxisTitle: ''
@@ -47,8 +45,6 @@ WebEngineView {
             setYAxisTitle()
             redrawPlot()
             setHTMLData()
-
-            visible = true
         }
     }
 

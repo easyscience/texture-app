@@ -39,18 +39,18 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle()
-            setYAxisTitle()
-            setZAxisTitle()
+            //setXAxisTitle()
+            //setYAxisTitle()
+            //setZAxisTitle()
             //redrawPlot()
-            setHTMLData()
+            //setHTMLData()
         }
     }
 
     onLoadingChanged:  (loadRequest) => {
        loadSucceededStatus = false
        if (loadRequest.status === WebEngineView.LoadSucceededStatus) {
-           loadSucceededStatus = true
+            loadSucceededStatus = true
        }
     }
 
@@ -94,7 +94,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        print('INSETFILENAME: ', dataFile)
+        //print('IN setHTMLData 3DScatter: ', dataFile)
         runJavaScript(`setData3D(${JSON.stringify(dataFile)})`)
     }
 

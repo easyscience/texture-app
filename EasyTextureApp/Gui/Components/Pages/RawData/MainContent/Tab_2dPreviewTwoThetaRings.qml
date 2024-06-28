@@ -11,9 +11,11 @@ import Gui.Globals as Globals
 
 Charts.Plotly2DTwoThetaRings {
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
-    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    //dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile2D)
+
     sliderValue: Globals.Proxies.main.rawData.twoThetaRingsSliderValue
 
-    xAxisTitle: "x, mm"
-    yAxisTitle: "y, mm"
+    //xAxisTitle: "x, mm"
+    //yAxisTitle: "y, mm"
 }

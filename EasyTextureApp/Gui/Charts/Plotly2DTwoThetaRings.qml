@@ -46,11 +46,11 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle()
-            setYAxisTitle()
+            //setXAxisTitle()
+            //setYAxisTitle()
             //redrawPlot()
-            setHTMLData()
-            setExploreTotalStat()
+            //setHTMLData()
+            //setExploreTotalStat()
         }
     }
 
@@ -64,7 +64,9 @@ WebEngineView {
     onSliderValueChanged: {
         if (loadSucceededStatus) {
             redrawFrame()
-            setExploreRingStat()
+            if (Globals.Vars.explorePageEnabled){
+                setExploreRingStat()
+            }
         }
     }
 
@@ -102,7 +104,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        print('INSETFILENAME HERE: ', dataFile)
+        //print('IN setHTMLData 2D Rings: ', dataFile)
         runJavaScript(`set2dThetaRingsData(${JSON.stringify(dataFile)})`)
     }
 

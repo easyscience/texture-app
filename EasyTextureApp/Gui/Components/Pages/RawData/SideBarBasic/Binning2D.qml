@@ -47,10 +47,11 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
                             print("CURRENT 2D TT INDX", currentIndex)
-                            Globals.Proxies.main.rawData.updateBinned()
-                            Globals.Proxies.main.rawData.slider2DStep = parseFloat(ttBinning2D.textAt(ttBinning2D.currentIndex))
-                            Globals.Proxies.main.rawData.twoThetaRingsSliderValue = 45.5
                             indxChanged()
+                            if (Globals.Proxies.main.rawData.isCreated) {
+                                Globals.Proxies.main.rawData.slider2DStep = parseFloat(ttBinning2D.textAt(ttBinning2D.currentIndex))
+                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
+                            }
                         }
                     }
                 }
@@ -76,7 +77,9 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.gammaIndex = currentIndex
                             print("CURRENT 2D GAMMA INDX", currentIndex)
-                            Globals.Proxies.main.rawData.updateBinned()
+                            if (Globals.Proxies.main.rawData.isCreated) {
+                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
+                            }
                         }
                     }
                 }

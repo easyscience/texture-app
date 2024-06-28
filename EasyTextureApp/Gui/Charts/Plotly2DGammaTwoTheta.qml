@@ -9,8 +9,6 @@ import Gui.Globals as Globals
 WebEngineView {
     id: chartView
 
-    visible: false
-
     property bool loadSucceededStatus: false
 
     property string xAxisTitle: ''
@@ -18,7 +16,7 @@ WebEngineView {
     property string dataFile: ''
 
     property int theme: EaStyle.Colors.theme
-    property bool useWebGL: false
+    //property bool useWebGL: false
 
 
     width: parent.width
@@ -36,10 +34,9 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            setXAxisTitle()
-            setYAxisTitle()
-            setHTMLData()
-            visible = true
+            //setXAxisTitle()
+            //setYAxisTitle()
+            //setHTMLData()
         }
     }
 
@@ -71,11 +68,11 @@ WebEngineView {
         }
     }
 
-    onUseWebGLChanged: {
+    /*onUseWebGLChanged: {
         if (loadSucceededStatus) {
             toggleUseWebGL()
         }
-    }
+    }*/
 
     // Logic
     function setChartColors() {
@@ -115,7 +112,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        //print('INSETFILENAME: ', dataFile)
+        //print('IN setHTMLData 2D gamma-TT: ', dataFile)
         runJavaScript(`set2dGamaTwoThetaData(${JSON.stringify(dataFile)})`)
     }
 }

@@ -13,8 +13,4 @@ Charts.Plotly2DTwoThetaRings {
     dataFile: qsTr(Globals.Proxies.main.explore.selectedExploreFile)
     sliderValue: Globals.Proxies.main.explore.twoThetaSliderValue
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
-
-
-    //xAxisTitle: "x, mm"
-    yAxisTitle: "AAAAAA"
 }

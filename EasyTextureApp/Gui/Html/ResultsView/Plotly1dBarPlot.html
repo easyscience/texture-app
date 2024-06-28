@@ -320,8 +320,8 @@
     function redrawFrame(sliderValue){
       Plotly.animate('plotDiv', [sliderValue], {
         mode: 'immediate',
-        transition: { duration: 0 },
-        frame: { duration: 0, redraw: false }
+        transition: { duration: 100 },
+        frame: { duration: 0, redraw: true }
       });
     }
 

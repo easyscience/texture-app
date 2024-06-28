@@ -10,10 +10,10 @@ import Gui.Charts as Charts
 import Gui.Globals as Globals
 
 Charts.Plotly3DScatter {
-    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    //dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile3D)
 
-    xAxisTitle: "x, mm"
-    yAxisTitle: "y, mm"
-    zAxisTitle: "z, mm"
-
+    //xAxisTitle: "x, mm"
+    //yAxisTitle: "y, mm"
+    //zAxisTitle: "z, mm"
 }

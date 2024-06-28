@@ -164,7 +164,6 @@
       plotLayout.yaxis.title = newTitle
     }
 
-
     function set2dGamaTwoThetaData(filename){
         data2D = getDataFromJson(filename)
 
@@ -181,6 +180,7 @@
           layout: plotLayout,
           config: plotConfig,
         })
+
         return(`set2dGamaTwoThetaData finished: ${filename}`)
     }
 

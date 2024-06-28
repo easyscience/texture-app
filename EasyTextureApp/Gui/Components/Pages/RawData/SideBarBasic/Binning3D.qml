@@ -44,7 +44,9 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
                             print("CURRENT 3D TT INDX", currentIndex)
-                            Globals.Proxies.main.rawData.updateBinned()
+                            if (Globals.Proxies.main.rawData.isCreated) {
+                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
+                            }
                         }
                     }
                 }
@@ -70,7 +72,9 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.Proxies.main.rawData.gammaIndex = currentIndex
                             print("CURRENT 3D GAMMA INDX", currentIndex)
-                            Globals.Proxies.main.rawData.updateBinned()
+                            if (Globals.Proxies.main.rawData.isCreated) {
+                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
+                            }
                         }
                     }
                 }

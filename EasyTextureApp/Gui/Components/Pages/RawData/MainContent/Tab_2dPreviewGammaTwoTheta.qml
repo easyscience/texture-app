@@ -10,8 +10,9 @@ import Gui.Charts as Charts
 import Gui.Globals as Globals
 
 Charts.Plotly2DGammaTwoTheta {
-    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    //dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
+    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile2D)
 
-    xAxisTitle: "2\u03b8, deg"
-    yAxisTitle: "\u03b3, deg"
+    //xAxisTitle: "2\u03b8, deg"
+    //yAxisTitle: "\u03b3, deg"
 }

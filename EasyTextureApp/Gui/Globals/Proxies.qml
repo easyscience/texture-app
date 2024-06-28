@@ -167,9 +167,19 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property bool is3DtabSelected: true
             property bool updateSliderParameters: false
 
-            property var rawFiles: []
+            //Full paths
             property string selectedRawFile: ''
+            property string selectedRawFile1D: ''
+            property string selectedRawFile2D: ''
+            property string selectedRawFile3D: ''
+
+            //Just filenames
             property string selectedFileName: ''
+            property string selectedFileName1D: ''
+            property string selectedFileName2D: ''
+            property string selectedFileName3D: ''
+
+            property var rawFiles: []
             property string dataPath: ''
             property real twoTheta: 45.5
             property real twoThetaSliderValue: 45.5
@@ -179,15 +189,69 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property real slider1DStep: 0.5
             property real slider2DStep: 0.5
 
-            property int twoThetaIndex: 0
-            property int gammaIndex: 0
-            property int selectedBinningIndex: 0
+            property int twoThetaIndex //: 0
+            property int gammaIndex//: 0
+            property int selectedBinningIndex//: 0
             // selected tab index: 1: 3D view, 2: 2D(gamma-two theta), 3: 2D(two theta rings), 4: 1D view
-            property int selectedTabIndex: 1
+            property int selectedTabIndex//: 1
 
-            property int dataSize: 10
+            /*property int dataSize: 10
             property var xData: []
-            property var yData: []
+            property var yData: []*/
+
+            function loadOneTwoThreeD() {
+                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+
+                selectedFileName1D = "user_voxels_1D_sorted_by_gamma_1.json"
+                selectedFileName2D = "user_voxels_2D_1.json"
+                selectedFileName3D = "user_voxels_3D_1.json"
+
+                selectedRawFile1D = dataPath + selectedFileName1D
+                selectedRawFile2D = dataPath + selectedFileName2D
+                selectedRawFile3D = dataPath + selectedFileName3D
+            }
+
+            function updateOneTwoThreeDBinning() {
+                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
+
+                selectedFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
+                selectedFileName2D = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
+                selectedFileName3D = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
+
+                selectedRawFile1D = dataPath + selectedFileName1D
+                selectedRawFile2D = dataPath + selectedFileName2D
+                selectedRawFile3D = dataPath + selectedFileName3D
+            }
+
+            /*
+            function loadFile1D(){
+                print("IN LOAD FILE 1D")
+                selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
+                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+
+                selectedFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
+                selectedRawFile1D = dataPath + selectedFileName1D
+            }
+
+            function loadFile2D(){
+                print("IN LOAD FILE 2D")
+                selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
+                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+
+                selectedFileName2D = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
+                selectedRawFile2D = dataPath + selectedFileName2D
+            }
+
+            function loadFile3D(){
+                print("IN LOAD FILE 3D")
+                selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
+                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+
+                selectedFileName3D = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
+                selectedRawFile3D = dataPath + selectedFileName3D
+
+            }*/
 
             function updateBinned(){
                 // updates datafile for loading based on selected binning
@@ -209,16 +273,6 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             onSelectedFileNameChanged: {
                 qmlProxy.status.selectedRawDataFile = selectedFileName
             }
-
-            function loadData() {
-                const length = dataSize
-                const slope = 0.0
-                const yIntercept = 1.5
-                //xData = Array.from({ length: length }, (_, i) => i+1)
-                //xData = Array.from({ length: length }, (_, i) => i / (length - 1))//[0.1,0.15,0.2,0.25,0.3,0.35,0.4]//Array.from({ length: length }, (_, i) => i / (length - 1))
-                //yData = Logic.LineCalculator.pseudoMeasured(xData, slope, yIntercept)
-                isCreated = true
-            }            
 
             function emptyData() {
                 xData = []

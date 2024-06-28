@@ -8,20 +8,17 @@ import Gui.Globals as Globals
 WebEngineView {
     id: chartView
 
-    visible: false
-
     property bool loadSucceededStatus: false
 
     property string xAxisTitle: ''
     property string yAxisTitle: ''
     property string dataFile: ''
 
-    property var xData: []
     property real sliderValue
 
     property int theme: EaStyle.Colors.theme
 
-    property bool useWebGL: false
+    //property bool useWebGL: false
 
     width: parent.width
     height: parent.height
@@ -42,12 +39,10 @@ WebEngineView {
             //setChartSizes()
             //setChartColors()
 
-            setXAxisTitle()
-            setYAxisTitle()
-            redrawPlot()
-            setHTMLData()
-
-            visible = true
+            //setXAxisTitle()
+            //setYAxisTitle()
+            //redrawPlot()
+            //setHTMLData()
         }
     }
 
@@ -78,11 +73,11 @@ WebEngineView {
         }
     }
 
-    onXDataChanged: {
+    /*onXDataChanged: {
         if (loadSucceededStatus) {
             setXData()
         }
-    }
+    }*/
 
     onThemeChanged: {
         if (loadSucceededStatus) {
@@ -91,11 +86,11 @@ WebEngineView {
         }
     }
 
-    onUseWebGLChanged: {
+    /*onUseWebGLChanged: {
         if (loadSucceededStatus) {
             toggleUseWebGL()
         }
-    }
+    }*/
 
     // Logic
 
