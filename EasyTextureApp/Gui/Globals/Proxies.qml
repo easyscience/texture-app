@@ -253,7 +253,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             }*/
 
-            function updateBinned(){
+            /*function updateBinned(){
                 // updates datafile for loading based on selected binning
                 //print("Tsb indx", selectedTabIndex)
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
@@ -268,7 +268,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     selectedFileName = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
                 }
                 selectedRawFile = dataPath + selectedFileName
-            }
+            }*/
 
             onSelectedFileNameChanged: {
                 qmlProxy.status.selectedRawDataFile = selectedFileName
@@ -315,18 +315,18 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property string exploreFileName: ''
             property string selectedExploreFile: Qt.resolvedUrl("./../Data/RawDataView/user_voxels_2D_1.json")
 
-            property real twoThetaSliderValue
+            property real twoThetaSliderValue: 45.5
             property real twoThetaSliderStep: 0.5
 
-            property real totalCountMin: -1.0
-            property real totalCountMax: -1.0
-            property real totalCountSum: -1.0
+            property real totalCountMin//: -1.0
+            property real totalCountMax//: -1.0
+            property real totalCountSum//: -1.0
             property int numberOfGammaSlices: 270
 
-            property real twoThetaRingCountMin: -1.0
-            property real twoThetaRingCountMax: -1.0
-            property real twoThetaRingCountSum: -1.0
-            property int maxIntensityWidth: -1.0
+            property real twoThetaRingCountMin//: -1.0
+            property real twoThetaRingCountMax//: -1.0
+            property real twoThetaRingCountSum//: -1.0
+            property int maxIntensityWidth//: -1.0
 
             function updateBinning(){
                 exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")

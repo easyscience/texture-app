@@ -46,6 +46,9 @@ WebEngineView {
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
+            if (Globals.Vars.explorePageEnabled){
+                setExploreRingStat()
+            }
             //setXAxisTitle()
             //setYAxisTitle()
             //redrawPlot()

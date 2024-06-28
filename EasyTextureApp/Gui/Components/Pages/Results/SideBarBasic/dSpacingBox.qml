@@ -68,7 +68,7 @@ Grid{
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
             from: 1
-            to: Globals.Proxies.main.results.sliderMaxValue
+            to: Globals.Proxies.main.explore.numberOfGammaSlices
             stepSize: 1
 
             //value: (360 / Globals.Proxies.main.explore.gammaSliceWidth ) / 2
@@ -92,7 +92,7 @@ Grid{
 
         var currSliceNo = slider.value.toFixed(0)  - 1
 
-        var gammaSliceWidth = 360 / Globals.Proxies.main.results.sliderMaxValue
+        var gammaSliceWidth = Globals.Proxies.main.explore.gammaSliceWidth
 
         var gammaSliceA = currSliceNo * gammaSliceWidth
         var gammaSliceB = gammaSliceA + gammaSliceWidth

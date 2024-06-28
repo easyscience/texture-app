@@ -22,6 +22,6 @@ Charts.Plotly1D {
     //xData: Globals.Proxies.main.rawData.xData
     //measuredYData: Globals.Proxies.main.rawData.yData
 
-    Component.onCompleted: print('COMPL yvalue', yAxisTitle)//Globals.Refs.app.rawDataPage.plotView = this
+    //Component.onCompleted: Globals.Refs.app.rawDataPage.plotView = this
 }
 
