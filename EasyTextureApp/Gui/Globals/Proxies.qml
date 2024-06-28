@@ -312,8 +312,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property int gammaSliceWidth
 
             property string exploreDataPath: ''
+
             property string exploreFileName: ''
-            property string selectedExploreFile: Qt.resolvedUrl("./../Data/RawDataView/user_voxels_2D_1.json")
+            property string exploreFileName1D: ''
+            property string exploreFileName2D: ''
+
+            property string selectedExploreFile: ''
+            property string selectedExploreFile1D: ''
+            property string selectedExploreFile2D: ''
 
             property real twoThetaSliderValue: 45.5
             property real twoThetaSliderStep: 0.5
@@ -328,10 +334,24 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property real twoThetaRingCountSum//: -1.0
             property int maxIntensityWidth//: -1.0
 
+            function loadOneTwoD() {
+                exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+
+                exploreFileName1D = "user_voxels_1D_sorted_by_gamma_1.json"
+                exploreFileName2D = "user_voxels_2D_1.json"
+
+                selectedExploreFile1D = exploreDataPath + exploreFileName1D
+                selectedExploreFile2D = exploreDataPath + exploreFileName2D
+            }
+
             function updateBinning(){
                 exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
-                exploreFileName = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
-                selectedExploreFile = exploreDataPath + exploreFileName
+
+                exploreFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(gammaSliceWidth)
+                exploreFileName2D = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
+
+                selectedExploreFile1D= exploreDataPath + exploreFileName1D
+                selectedExploreFile2D = exploreDataPath + exploreFileName2D
             }
 
             onTwoThetaSliderValueChanged: {

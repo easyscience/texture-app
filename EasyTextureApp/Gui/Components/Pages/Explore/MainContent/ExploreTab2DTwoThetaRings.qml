@@ -10,7 +10,7 @@ import Gui.Charts as Charts
 import Gui.Globals as Globals
 
 Charts.Plotly2DTwoThetaRings {
-    dataFile: qsTr(Globals.Proxies.main.explore.selectedExploreFile)
+    dataFile: qsTr(Globals.Proxies.main.explore.selectedExploreFile2D)
     sliderValue: Globals.Proxies.main.explore.twoThetaSliderValue
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 }

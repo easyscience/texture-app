@@ -22,13 +22,13 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr("2θ Rings") }
-            //EaElements.TabButton { text: qsTr("3D View") }
+            EaElements.TabButton { text: qsTr("2D View: 2θ Rings") },
+            EaElements.TabButton { text: qsTr("1D View: γ(2θ)") }
         ]
 
         items: [
-            Loader { source: 'MainContent/ExploreTab2DTwoThetaRings.qml' }
-            //Loader { source: 'MainContent/Tab_3d.qml' }
+            Loader { source: 'MainContent/ExploreTab2DTwoThetaRings.qml' },
+            Loader { source: 'MainContent/ExploreTab1D.qml' }
         ]
     }
 
