@@ -14,17 +14,26 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         title: qsTr("Get started")
-        collapsible: false
+        //collapsible: false
+        collapsed: false
 
         Loader { source: 'SideBarBasic/GetStartedGroup.qml' }
     }
 
     EaElements.GroupBox {
-        title: qsTr("Recent Projects")
+        title: qsTr("Examples")
         collapsed: false
         last: true
 
-        Loader { source: 'SideBarBasic/ExamplesGroup.qml' }
+        Loader { source: 'SideBarBasic/Examples.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr("Recent Projects")
+        collapsed: true
+        last: true
+
+        Loader { source: 'SideBarBasic/RecentProjects.qml' }
     }
 
 }

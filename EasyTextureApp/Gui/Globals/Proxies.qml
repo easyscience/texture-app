@@ -70,13 +70,14 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property string description: ''
             property string location: ''
             property string createdDate: ''
+            property string recentProjects: ''
             property string image: Qt.resolvedUrl('../Resources/Project/Sine.svg')
             //
             property bool isEnabledOpenExistingProject: false
             property bool isEnabledSaveProjectAs: false
             property bool isEnabledCloseCurrentProject: false
 
-            property var recentProjects: [
+            property var examples: [
                 {
                     'name': 'Bio-Sample (POWTEX)',
                     'description': 'neutron, powder, simulation, POWTEX@MLZ',

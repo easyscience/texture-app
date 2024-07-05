@@ -17,8 +17,9 @@ import Gui.Globals as Globals
 EaComponents.TableView {
     id: tableView
 
-    maxRowCountShow: 9
-    defaultInfoText: qsTr("No Examples Available")
+
+    maxRowCountShow: 6
+    defaultInfoText: qsTr("No recent projects found")
 
     // Table model
 
@@ -27,6 +28,7 @@ EaComponents.TableView {
         query: "$[*]"
     }
 
+    /*
     // Table rows
 
     delegate: EaComponents.TableViewDelegate {
@@ -81,6 +83,6 @@ EaComponents.TableView {
 
             }
         }
-    }
+    }*/
 
 }
