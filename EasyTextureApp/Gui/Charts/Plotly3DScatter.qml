@@ -19,7 +19,11 @@ WebEngineView {
     url: Qt.resolvedUrl('../Html/RawDataView/Plotly3dScatterRaw.html')
 
     property int currentFile3DIndex: 0
-    property var files3D: [Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_3D_live_1.json"), Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_3D_live_2.json"), Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_3D_live_3.json")]
+    property var files3D: [
+        Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/LiveDataView/user_voxels_3D_live_1.json"),
+        Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/LiveDataView/user_voxels_3D_live_2.json"),
+        Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/LiveDataView/user_voxels_3D_live_3.json")
+    ]
 
     Timer {
         id: switchTimer3D

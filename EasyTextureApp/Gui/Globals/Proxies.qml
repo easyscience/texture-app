@@ -201,7 +201,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property var yData: []*/
 
             function loadOneTwoThreeD() {
-                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 selectedFileName1D = "user_voxels_1D_sorted_by_gamma_1.json"
                 selectedFileName2D = "user_voxels_2D_1.json"
@@ -213,7 +213,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             }
 
             function updateOneTwoThreeDBinning() {
-                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
 
                 selectedFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
@@ -229,7 +229,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             function loadFile1D(){
                 print("IN LOAD FILE 1D")
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
-                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 selectedFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
                 selectedRawFile1D = dataPath + selectedFileName1D
@@ -238,7 +238,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             function loadFile2D(){
                 print("IN LOAD FILE 2D")
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
-                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 selectedFileName2D = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
                 selectedRawFile2D = dataPath + selectedFileName2D
@@ -247,7 +247,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             function loadFile3D(){
                 print("IN LOAD FILE 3D")
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
-                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 selectedFileName3D = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
                 selectedRawFile3D = dataPath + selectedFileName3D
@@ -258,7 +258,8 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 // updates datafile for loading based on selected binning
                 //print("Tsb indx", selectedTabIndex)
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
-                dataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
+
                 if (selectedTabIndex==4) {
                     selectedFileName = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
                 }
@@ -336,7 +337,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property int maxIntensityWidth//: -1.0
 
             function loadOneTwoD() {
-                exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                exploreDataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 exploreFileName1D = "user_voxels_1D_sorted_by_gamma_1.json"
                 exploreFileName2D = "user_voxels_2D_1.json"
@@ -346,7 +347,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             }
 
             function updateBinning(){
-                exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
+                exploreDataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 exploreFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(gammaSliceWidth)
                 exploreFileName2D = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
@@ -371,9 +372,9 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         readonly property var results: QtObject {
             property bool isCreated: false
             property bool isTwoThetaSelected: false
-            property real gw: qmlProxy.explore.gammaSliceWidth
-            property string selectedResultsFile: (gw==1) ? Qt.resolvedUrl("./../Data/ResultsView/user_voxels_d_pattern_1.json") : Qt.resolvedUrl("./../Data/ResultsView/user_voxels_d_pattern_2.json")
-            property string selectedResultsTwoThetaFile: (gw==1) ? Qt.resolvedUrl("./../Data/ResultsView/user_voxels_two_theta_pattern_1.json") : Qt.resolvedUrl("./../Data/ResultsView/user_voxels_two_theta_pattern_2.json")
+            property real sliceWidth: qmlProxy.explore.gammaSliceWidth
+            property string selectedResultsFile: (sliceWidth==1) ? Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_d_pattern_1.json") : Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_d_pattern_2.json")
+            property string selectedResultsTwoThetaFile: (sliceWidth==1) ? Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_two_theta_pattern_1.json") : Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_two_theta_pattern_2.json")
 
             property int sliderValue
             property int sliderMaxValue

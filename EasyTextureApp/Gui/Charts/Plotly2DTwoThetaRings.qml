@@ -21,9 +21,9 @@ WebEngineView {
 
     property int currentFile2DIndex: 0
     property var files2D: [
-        Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_2D_live_1.json"),
-        Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_2D_live_2.json"),
-        Qt.resolvedUrl("./../Data/LiveDataView/user_voxels_2D_live_3.json")
+        Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/LiveDataView/user_voxels_2D_live_1.json"),
+        Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/LiveDataView/user_voxels_2D_live_2.json"),
+        Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/LiveDataView/user_voxels_2D_live_3.json")
     ]
 
     // Is activated only for LiveView

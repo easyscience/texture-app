@@ -1,6 +1,0 @@
-module Data
-
-RawData1D 1.0 user_voxels_1D_sorted_by_gamma.json
-RawData2D 1.0 user_voxels_2D.json
-RawData3D 1.0 user_voxels_3D.json
-
