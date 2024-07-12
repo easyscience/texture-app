@@ -205,7 +205,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
                 selectedFileName1D = "user_voxels_1D_sorted_by_gamma_1.json"
                 selectedFileName2D = "user_voxels_2D_1.json"
-                selectedFileName3D = "user_voxels_3D_1.json"
+                selectedFileName3D = "user_voxels_3D_sorted_1.json"
 
                 selectedRawFile1D = dataPath + selectedFileName1D
                 selectedRawFile2D = dataPath + selectedFileName2D
@@ -218,7 +218,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
                 selectedFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
                 selectedFileName2D = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
-                selectedFileName3D = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
+                selectedFileName3D = "user_voxels_3D_sorted_%1.json".arg(selectedBinningIndex)
 
                 selectedRawFile1D = dataPath + selectedFileName1D
                 selectedRawFile2D = dataPath + selectedFileName2D
@@ -249,7 +249,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
                 dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
-                selectedFileName3D = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
+                selectedFileName3D = "user_voxels_3D_sorted_%1.json".arg(selectedBinningIndex)
                 selectedRawFile3D = dataPath + selectedFileName3D
 
             }*/
@@ -267,7 +267,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     selectedFileName = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
                 }
                 if (selectedTabIndex==1) {
-                    selectedFileName = "user_voxels_3D_%1.json".arg(selectedBinningIndex)
+                    selectedFileName = "user_voxels_3D_sorted_%1.json".arg(selectedBinningIndex)
                 }
                 selectedRawFile = dataPath + selectedFileName
             }*/

@@ -68,7 +68,7 @@ EaComponents.ContentPage {
         ]
 
         items: [
-            Loader { source: 'MainContent/Tab_3dPreviewScatter.qml' },
+            Loader { source: 'MainContent/Tab_3dPreviewSurface.qml' },
             Loader { source: 'MainContent/Tab_2dPreviewGammaTwoTheta.qml' },
             Loader { source: 'MainContent/Tab_2dPreviewTwoThetaRings.qml' },
             Loader { source: 'MainContent/Tab_1dPreview.qml' }
