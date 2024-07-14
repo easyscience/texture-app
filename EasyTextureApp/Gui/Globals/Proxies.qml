@@ -204,7 +204,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 selectedFileName1D = "user_voxels_1D_sorted_by_gamma_1.json"
-                selectedFileName2D = "user_voxels_2D_1.json"
+                selectedFileName2D = "user_voxels_2D_sorted_1.json"
                 selectedFileName3D = "user_voxels_3D_sorted_1.json"
 
                 selectedRawFile1D = dataPath + selectedFileName1D
@@ -217,7 +217,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
 
                 selectedFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
-                selectedFileName2D = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
+                selectedFileName2D = "user_voxels_2D_sorted_%1.json".arg(selectedBinningIndex)
                 selectedFileName3D = "user_voxels_3D_sorted_%1.json".arg(selectedBinningIndex)
 
                 selectedRawFile1D = dataPath + selectedFileName1D
@@ -240,7 +240,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
                 dataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
-                selectedFileName2D = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
+                selectedFileName2D = "user_voxels_2D_sorted_%1.json".arg(selectedBinningIndex)
                 selectedRawFile2D = dataPath + selectedFileName2D
             }
 
@@ -264,7 +264,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                     selectedFileName = "user_voxels_1D_sorted_by_gamma_%1.json".arg(selectedBinningIndex)
                 }
                 if (selectedTabIndex==2 || selectedTabIndex==3) {
-                    selectedFileName = "user_voxels_2D_%1.json".arg(selectedBinningIndex)
+                    selectedFileName = "user_voxels_2D_sorted_%1.json".arg(selectedBinningIndex)
                 }
                 if (selectedTabIndex==1) {
                     selectedFileName = "user_voxels_3D_sorted_%1.json".arg(selectedBinningIndex)
@@ -340,7 +340,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 exploreDataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 exploreFileName1D = "user_voxels_1D_sorted_by_gamma_1.json"
-                exploreFileName2D = "user_voxels_2D_1.json"
+                exploreFileName2D = "user_voxels_2D_sorted_1.json"
 
                 selectedExploreFile1D = exploreDataPath + exploreFileName1D
                 selectedExploreFile2D = exploreDataPath + exploreFileName2D
@@ -350,7 +350,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 exploreDataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
                 exploreFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(gammaSliceWidth)
-                exploreFileName2D = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
+                exploreFileName2D = "user_voxels_2D_sorted_%1.json".arg(gammaSliceWidth)
 
                 selectedExploreFile1D= exploreDataPath + exploreFileName1D
                 selectedExploreFile2D = exploreDataPath + exploreFileName2D
@@ -420,7 +420,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
 
             function updateBinning(){
                 exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
-                exploreFileName = "user_voxels_2D_%1.json".arg(gammaSliceWidth)
+                exploreFileName = "user_voxels_2D_sorted_%1.json".arg(gammaSliceWidth)
                 selectedExploreFile = exploreDataPath + exploreFileName
             }*/
         }

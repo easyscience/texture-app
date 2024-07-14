@@ -98,7 +98,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        print('IN setHTMLData 3DSurface: ', dataFile)
+        //print('IN setHTMLData 3DSurface: ', dataFile)
         runJavaScript(`setData3DSurface(${JSON.stringify(dataFile)})`)
     }
 
