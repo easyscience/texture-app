@@ -75,7 +75,7 @@ WebEngineView {
     }
 
     function setHTMLData() {
-        print('IN setHTMLData 2D Heatmap: ', dataFile)
+        //print('IN setHTMLData 2D Heatmap: ', dataFile)
         runJavaScript(`set2dHeatmap(${JSON.stringify(dataFile)})`)
     }
 

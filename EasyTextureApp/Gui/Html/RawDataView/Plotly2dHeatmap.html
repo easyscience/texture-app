@@ -57,7 +57,6 @@
 
   <script>
     // Load data from JSON file
-    //var data2D = getDataFromJson("../../../Examples/BioSample_POWTEX@MLZ/RawDataView/user_voxels_2D_1.json")
     var data2D = getDataFromJson("../../../Examples/BioSample_POWTEX@MLZ/RawDataView/user_voxels_2D_sorted_1.json")
 
     ///////
@@ -104,9 +103,6 @@
     function setPlotTraces(twoTheta, projCount, gamma, uniqueTwoTheta, uniqueGamma){
         let trace = []
 
-        //let customArray = [twoTheta, gamma, projCount]
-        //let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
-        //var tt = []
         var projectionCounts = [];
         for (var i = 0; i < uniqueGamma.length; i++) {
             var indicesAtSelectedGamma = getIndxByValue(gamma, uniqueGamma[i]);
@@ -115,26 +111,16 @@
         }
         trace.push({
           name: '',
-          x: uniqueTwoTheta, //[1,2],//[1,2,3], //twoTheta,
-          y: uniqueGamma, //[1,2,'NaN',10,11], //[4,5,6], //gamma,
-          z: projectionCounts, //[[1,2],[3,4],['NaN','NaN'],[6,7],[8,9]],//[[1,2,3],[4,5,6],[7,8,9]],//projectionCounts,
+          x: uniqueTwoTheta,
+          y: uniqueGamma,
+          z: projectionCounts,
           hoverongaps: false,
-          //customdata: customData,
-          /*hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
-                         '\u03b3: %{customdata[1]}\u00B0<br>'+
-                         'counts: %{customdata[2]}',*/
+          hovertemplate: '2\u03b8: %{x}\u00B0<br>'+
+                         '\u03b3: %{y}\u00B0<br>'+
+                         'counts: %{z}',
           type: 'heatmap',
           colorbar: {title: {text: 'Counts'}},
           colorscale: 'Portland',
-          /*mode: 'markers',
-          marker: {
-            symbol: 'circle',
-            color: projCount,
-            size: 5,
-            showscale: true,
-            colorbar: {title: {text: 'Counts'}},
-            colorscale: 'Portland',
-          },*/
         });
 
         return trace
@@ -142,7 +128,6 @@
 
     function setPlotLayout(){
         let layout = {
-            //template: '...',
             autosize: true,
             xaxis: {
               title: '2θ, deg',
