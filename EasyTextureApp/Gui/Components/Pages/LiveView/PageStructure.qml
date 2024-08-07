@@ -37,8 +37,8 @@ EaComponents.ContentPage {
         ]
 
         items: [
-            Loader { source: 'MainContent/LiveTab3D.qml' },
-            Loader { source: 'MainContent/LiveTab2DTwoThetaRings.qml' }
+            Loader { source: 'MainContent/LiveTab3DSurface.qml' },
+            Loader { source: 'MainContent/LiveTab2DPolarHeatmap.qml' }
         ]
     }
 

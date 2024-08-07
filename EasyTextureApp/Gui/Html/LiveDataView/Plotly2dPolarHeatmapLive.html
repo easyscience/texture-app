@@ -65,18 +65,25 @@
     // Data
     ///////
 
-    let x2D = Object.values(data2D["voxel_x [mm]"])
-    let y2D = Object.values(data2D["voxel_y [mm]"])
+    //let x2D = Object.values(data2D["voxel_x [mm]"])
+    //let y2D = Object.values(data2D["voxel_y [mm]"])
     let twoTheta2D = Object.values(data2D["two_theta [deg]"])
     let gamma2D = Object.values(data2D["user gamma [deg]"])
     let projCount2D = Object.values(data2D["proj_count"])
+
+    // remove data with null proj counts (needed for heatmap but not needed for polar heatmap)
+    let projCountNullIndices = findNullIndices(projCount2D)
+
+    projCount2D = removeElementsByIndices(projCount2D, projCountNullIndices)
+    gamma2D = removeElementsByIndices(gamma2D, projCountNullIndices)
+    twoTheta2D = removeElementsByIndices(twoTheta2D, projCountNullIndices)
 
     /////////
     // Plotly
     /////////
 
     // Create the main traces, one for each twotheta
-    let plotTraces = setPlotTraces(twoTheta2D, projCount2D, gamma2D, x2D, y2D)
+    let plotTraces = setPlotTraces(twoTheta2D, projCount2D, gamma2D)
 
 
     // Plot layout
@@ -89,7 +96,7 @@
 
 
     // Plot frames
-    let plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D, x2D, y2D)
+    let plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D)
 
 
     // Create plot
@@ -141,21 +148,73 @@
         return trace
     }
 
-    function getAnimationTrace(animationTwoTheta, twoTheta, projCount, gamma, x, y) {
+    function findNullIndices(array) {
+        // Map each element to its index if it's null, otherwise map to -1
+        let indexMap = array.map((value, index) => value === null ? index : -1);
+        // Filter out the -1 values to get only the indices of nulls
+        let nullIndices = indexMap.filter(index => index !== -1);
+        return nullIndices;
+    }
+
+    function removeElementsByIndices(array, indices) {
+        let temp = array.slice()
+        return array.filter((_, index) => !indices.includes(index));
+    }
+
+
+    function setPlotTraces(twoTheta, projCount, gamma){
+        let trace = []
+        let initialTwoTheta = 45.5
+        let initialTwoThetaIndices = getIndxByValue(twoTheta, initialTwoTheta)
+        let initialTwoThetaArray = getValueByIndex(twoTheta, initialTwoThetaIndices)
+        let initialProjCount = getValueByIndex(projCount, initialTwoThetaIndices)
+
+        trace.push({
+          name: '',
+          type: 'barpolar',
+          r: getAnimationTrace(initialTwoTheta, twoTheta, projCount, gamma).r, //fictious r
+          theta: getAnimationTrace(initialTwoTheta, twoTheta, projCount, gamma).theta,
+          customdata: getAnimationTrace(initialTwoTheta, twoTheta, projCount, gamma).customdata,
+          hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                         '\u03b3: %{customdata[1]}\u00B0<br>'+
+                         'counts: %{customdata[2]}',
+          marker: {
+            symbol: 'circle',
+            color: initialProjCount,
+            cmin: Math.min(...initialProjCount),
+            cmax: Math.max(...initialProjCount),
+            size: 5,
+            showscale: true,
+            colorbar: {title: {text: 'Counts'}},
+            colorscale: 'Portland',
+          },
+        });
+
+        return trace
+    }
+
+    function getIndxByValue(object, value) {
+      return Object.keys(object).filter(indx => object[indx] === value);
+    }
+
+    function getValueByIndex(valueArray, indxArray) {
+      return indxArray.map(indx => valueArray[indx]);
+    }
+
+    function getAnimationTrace(animationTwoTheta, twoTheta, projCount, gamma) {
       let trace
       let animationTwoThetaIndices = getIndxByValue(twoTheta, animationTwoTheta)
       let animationTwoThetaArray = getValueByIndex(twoTheta, animationTwoThetaIndices)
       let animationProjCount = getValueByIndex(projCount, animationTwoThetaIndices)
       let animationGamma = getValueByIndex(gamma, animationTwoThetaIndices)
-      let animationX = getValueByIndex(x, animationTwoThetaIndices)
-      let animationY = getValueByIndex(y, animationTwoThetaIndices)
+      let animationR = Array(animationGamma.length).fill(800)
 
       let customArray = [animationTwoThetaArray, animationGamma, animationProjCount]
       let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
 
       trace = {
-        x: animationX,
-        y: animationY,
+        r: animationR,
+        theta: animationGamma,
         customdata: customData,
         mode: 'markers',
         marker: {
@@ -173,24 +232,26 @@
       return trace;
     }
 
+    function onlyUnique(value, index, array) {
+      return array.indexOf(value) === index;
+    }
+
     function setPlotLayout(uniqueTwoTheta){
         let layout = {
-            width: 650*1600/1400,
-            height: 650,
-            //autosize: true,
-            //plot_bgcolor: 'aliceblue', //'gainsboro', //'snow', //'whitesmoke', //'ghostwhite',
-            //margin: {l: 43, r: 210, b: 160, t: 60, pad: 0},
-            //showlegend: false,
-            xaxis: {
-              title: 'x, mm',
-              autorange: true,
-              zeroline: false,
-            },
-            yaxis: {
-              title: 'y, mm',
-              autorange: true,
-              zeroline: false,
-            },
+            //width: 650*1600/1400,
+            //height: 650,
+            autoresize: true,
+            autosize: true,
+            polar: {
+              radialaxis: {
+                visible: false,
+                range: [799, 800]
+              },
+              angularaxis: {
+                visible: true
+              },
+              hole: 0.9,
+            }
         }
         return layout
     }
@@ -203,28 +264,17 @@
         return config
     }
 
-    function setPlotFrames(uniqueTwoTheta, twoTheta, projCount, gamma, x, y){
+    function setPlotFrames(uniqueTwoTheta, twoTheta, projCount, gamma){
        let frames = []
        for (i = 0; i < uniqueTwoTheta.length; i++) {
          frames.push({
            name: uniqueTwoTheta[i],
-           data: [getAnimationTrace(uniqueTwoTheta[i], twoTheta, projCount, gamma, x, y)],
+           data: [getAnimationTrace(uniqueTwoTheta[i], twoTheta, projCount, gamma)],
          })
        }
        return frames
     }
 
-    function getIndxByValue(object, value) {
-      return Object.keys(object).filter(indx => object[indx] === value);
-    }
-
-    function getValueByIndex(valueArray, indxArray) {
-      return indxArray.map(indx => valueArray[indx]);
-    }
-
-    function onlyUnique(value, index, array) {
-      return array.indexOf(value) === index;
-    }
 
     function redrawPlot() {
       Plotly.redraw('plotDiv')
@@ -235,7 +285,7 @@
         mode: 'immediate',
         transition: { duration: 0 },
         frame: {
-            duration: 0,
+            duration: 400,
             redraw: true
         }
       });
@@ -253,20 +303,24 @@
       return Math.min(...uniqueTwoTheta2D)
     }
 
-    function set2dThetaRingsData(filename){
+    function set2dPolarHeatmap(filename){
         data2D = getDataFromJson(filename)
 
-        x2D = Object.values(data2D["voxel_x [mm]"])
-        y2D = Object.values(data2D["voxel_y [mm]"])
         twoTheta2D = Object.values(data2D["two_theta [deg]"])
         gamma2D = Object.values(data2D["user gamma [deg]"])
         projCount2D = Object.values(data2D["proj_count"])
 
-        plotTraces = setPlotTraces(twoTheta2D, projCount2D, gamma2D, x2D, y2D)
+        projCountNullIndices = findNullIndices(projCount2D)
+        projCount2D = removeElementsByIndices(projCount2D, projCountNullIndices)
+        gamma2D = removeElementsByIndices(gamma2D, projCountNullIndices)
+        twoTheta2D = removeElementsByIndices(twoTheta2D, projCountNullIndices)
+
+
+        plotTraces = setPlotTraces(twoTheta2D, projCount2D, gamma2D)
         uniqueTwoTheta2D = twoTheta2D.filter(onlyUnique)
         plotLayout = setPlotLayout(uniqueTwoTheta2D)
         plotConfig = setPlotConfig()
-        plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D, x2D, y2D)
+        plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D)
 
         Plotly.newPlot('plotDiv', {
           data: plotTraces,
@@ -274,7 +328,40 @@
           config: plotConfig,
           frames: plotFrames,
         })
-        return(`setData finished: ${path}`)
+
+        return(`set2dThetaRingsData finished: ${filename}`)
+    }
+
+    function getStatisticsWholeDataset(filename){
+        let data2D = getDataFromJson(filename)
+        let projCountList = Object.values(data2D["proj_count"])
+
+        let totalCountsSum = projCountList.reduce((partialSum, a) => partialSum + a, 0);
+        let totalStatisticsDict = {
+            'max': Math.max(...projCountList),
+            'min': Math.min(...projCountList),
+            'sum': totalCountsSum
+        }
+
+        return totalStatisticsDict
+    }
+
+    function getStatisticsCurrentRing(filename, sliderValue){
+        let data2D = getDataFromJson(filename)
+        let twoThetaList = Object.values(data2D["two_theta [deg]"])
+        let projCountList = Object.values(data2D["proj_count"])
+
+        let animationTwoThetaIndices = getIndxByValue(twoThetaList, sliderValue)
+        let animationProjCount = getValueByIndex(projCountList, animationTwoThetaIndices)
+
+        let ringCountsSum = animationProjCount.reduce((partialSum, a) => partialSum + a, 0);
+        let ringStatisticsDict = {
+            'max': Math.max(...animationProjCount),
+            'min': Math.min(...animationProjCount),
+            'sum': ringCountsSum
+        }
+
+        return ringStatisticsDict
     }
 
 </script>
