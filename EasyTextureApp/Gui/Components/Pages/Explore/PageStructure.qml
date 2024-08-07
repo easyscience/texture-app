@@ -27,7 +27,7 @@ EaComponents.ContentPage {
         ]
 
         items: [
-            Loader { source: 'MainContent/ExploreTab2DTwoThetaRings.qml' },
+            Loader { source: 'MainContent/ExploreTab2DPolarHeatmap.qml' },
             Loader { source: 'MainContent/ExploreTab1D.qml' }
         ]
     }
