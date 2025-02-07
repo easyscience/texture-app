@@ -372,6 +372,7 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
         readonly property var results: QtObject {
             property bool isCreated: false
             property bool isTwoThetaSelected: false
+            property bool isIntegratedTwoThetaSelected: false
             property real sliceWidth: qmlProxy.explore.gammaSliceWidth
             property string selectedResultsFile: (sliceWidth==1) ? Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_d_pattern_1.json") : Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_d_pattern_2.json")
             property string selectedResultsTwoThetaFile: (sliceWidth==1) ? Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_two_theta_pattern_1.json") : Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_two_theta_pattern_2.json")

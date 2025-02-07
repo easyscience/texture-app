@@ -16,6 +16,7 @@ EaComponents.SideBarColumn {
         //enabled: Globals.Proxies.main.project.isCreated
         title: (Globals.Proxies.main.results.isTwoThetaSelected) ? qsTr("2\u03b8 Patterns") : qsTr("d-Spacing Patterns")
         collapsible: false
+        visible: !Globals.Proxies.main.results.isIntegratedTwoThetaSelected
 
         Loader { source: 'SideBarBasic/dSpacingBox.qml' }
     }

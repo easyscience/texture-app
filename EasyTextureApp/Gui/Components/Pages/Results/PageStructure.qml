@@ -26,19 +26,29 @@ EaComponents.ContentPage {
                 text: qsTr("d-Spacing Patterns")
                 onClicked: {
                     Globals.Proxies.main.results.isTwoThetaSelected = false
+                    Globals.Proxies.main.results.isIntegratedTwoThetaSelected = false
                 }
             },
             EaElements.TabButton {
                 text: qsTr("2θ Patterns")
                 onClicked: {
                     Globals.Proxies.main.results.isTwoThetaSelected = true
+                    Globals.Proxies.main.results.isIntegratedTwoThetaSelected = false
+                }
+            },
+            EaElements.TabButton {
+                text: qsTr("2θ Integrated Pattern")
+                onClicked: {
+                    Globals.Proxies.main.results.isTwoThetaSelected = false
+                    Globals.Proxies.main.results.isIntegratedTwoThetaSelected = true
                 }
             }
         ]
 
         items: [
             Loader { source: 'MainContent/Tab_dSpacingPatterns.qml' },
-            Loader { source: 'MainContent/Tab_2thetaPatterns.qml' }
+            Loader { source: 'MainContent/Tab_2thetaPatterns.qml' },
+            Loader { source: 'MainContent/Tab_2thetaIntegratedPattern.qml' }
         ]
     }
 
