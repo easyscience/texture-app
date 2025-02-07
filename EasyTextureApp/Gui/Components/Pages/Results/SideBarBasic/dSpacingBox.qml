@@ -95,7 +95,11 @@ Grid{
         var gammaSliceWidth = Globals.Proxies.main.explore.gammaSliceWidth
 
         var gammaSliceA = -45 + currSliceNo * gammaSliceWidth
+        if (gammaSliceA < 0) gammaSliceA = gammaSliceA + 360
+        if (gammaSliceA > 360) gammaSliceA = gammaSliceA - 360
         var gammaSliceB = gammaSliceA + gammaSliceWidth
+        if (gammaSliceB < 0) gammaSliceB = gammaSliceB + 360
+        if (gammaSliceB > 360) gammaSliceB = gammaSliceB - 360
 
         var gammaRange = "(" + gammaSliceA.toString() + "° ,  " + gammaSliceB.toString() + "°)"
         return gammaRange
