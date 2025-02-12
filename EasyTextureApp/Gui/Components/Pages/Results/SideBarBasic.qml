@@ -18,16 +18,17 @@ EaComponents.SideBarColumn {
         collapsible: false
         visible: !Globals.Proxies.main.results.isIntegratedTwoThetaSelected
 
-        Loader { source: 'SideBarBasic/dSpacingBox.qml' }
+        Loader { source: 'SideBarBasic/dSpacingPatternsGroup.qml' }
+
     }
 
     EaElements.GroupBox {
         //enabled: Globals.Proxies.main.project.isCreated
-        title: qsTr("Export d-Spacing Data")
+        title: qsTr("Export Data")
         collapsible: false
         last: true
 
-        Loader { source: 'SideBarBasic/ExportReportGroup.qml' }
+        Loader { source: 'SideBarBasic/ExportDataGroup.qml' }
     }
 
 }
