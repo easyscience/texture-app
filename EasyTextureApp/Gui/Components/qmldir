@@ -1,0 +1,8 @@
+module Components
+
+ApplicationWindow ApplicationWindow.qml
+singleton PageIndex PageIndex.qml
+StatusBarTexture StatusBarTexture.qml
+StatusBarTextureLive StatusBarTextureLive.qml
+GuiTestsController GuiTestsController.qml
+UserTutorialsController UserTutorialsController.qml

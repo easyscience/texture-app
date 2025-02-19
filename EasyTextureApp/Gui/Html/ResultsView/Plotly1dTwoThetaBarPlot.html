@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+  <script src="plotly-2.18.0.min.js"></script>
+
+  <style type="text/css">
+
+    @font-face {
+      font-family: ChartFont;
+      src:url("PTSans-Regular.ttf");
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: 'ChartFont';
+    }
+
+    #plotContainer {
+      height: 100%;
+      width: 100%;
+      padding: 14px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #plotDiv {
+      width: 100%;
+      height: 100%;
+    }
+
+    div.plotly-notifier { /* Plotly notifier element */
+      visibility: hidden;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id='plotContainer'>
+    <div id='plotDiv'></div>
+  </div>
+
+  <script>
+    let myDiv = document.getElementById('plotDiv')
+
+    var twoThetaPatternData = getDataFromJson("../../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_two_theta_pattern_1.json")
+
+    ///////
+    // Data
+    ///////
+
+    let twoTheta1D = Object.values(twoThetaPatternData["two_theta [deg]"])
+    let gamma1D = Object.values(twoThetaPatternData["user gamma [deg]"])
+    let projCount1D = Object.values(twoThetaPatternData["proj_counts"])
+    let sliceIndex1D = Object.values(twoThetaPatternData["user gamma slice index"])
+
+    /////////
+    // Plotly
+    /////////
+
+    let plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
+
+    // Plot layout
+    let uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
+    let plotLayout = setPlotLayout(uniqueSliceIndex)
+
+    // Plot config
+    let plotConfig = setPlotConfig()
+
+
+    // Plot frames
+    let plotFrames = setPlotFrames(uniqueSliceIndex, twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
+
+    // Create plot
+    // use template below to use frames
+    Plotly.newPlot('plotDiv', {
+      data: plotTraces,
+      layout: plotLayout,
+      config: plotConfig,
+      frames: plotFrames,
+    })
+
+    //Plotly.relayout(myDiv, myDiv.layout.yaxis.autorange=true)
+
+    /////////////////////////////////////////
+    // Functions
+    /////////////////////////////////////////
+
+    function getDataFromJson(filename){
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        data = JSON.parse(request.responseText)
+        return data
+    }
+
+    function setPlotTraces(twoTheta, projCount, gamma, sliceIndex){
+        let trace = []
+        trace.push({
+          name: '',
+          x: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).x,
+          y: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).y,
+          customdata: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).customdata,
+          hovertemplate: 'Counts: %{customdata[1]}<br>'+
+                         '2\u03b8: %{customdata[2]:.3f} deg',
+          type: 'bar'
+        });
+        return trace
+    }
+
+    function getAnimationTrace(animationSliceIndex, twoTheta, projCount, gamma, sliceIndex) {
+      let trace
+
+      let animationSliceIndices = getIndxByValue(sliceIndex, animationSliceIndex)
+      let animationdSpacingArray = getValueByIndex(twoTheta, animationSliceIndices)
+      let animationProjCount = getValueByIndex(projCount, animationSliceIndices)
+      let animationGamma = getValueByIndex(gamma, animationSliceIndices)
+
+      let customArray = [animationSliceIndices, animationProjCount, animationdSpacingArray]
+      let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
+
+      trace = {
+        x: animationdSpacingArray,
+        y: animationProjCount,
+        customdata: customData,
+      }
+
+      return trace;
+    }
+
+    function getIndxByValue(object, value) {
+      return Object.keys(object).filter(indx => object[indx] === value);
+    }
+
+    function getValueByIndex(valueArray, indxArray) {
+      return indxArray.map(indx => valueArray[indx]);
+    }
+
+    function onlyUnique(value, index, array) {
+      return array.indexOf(value) === index;
+    }
+
+    function setPlotLayout(uniqueTwoTheta){
+        let layout = {
+            //autosize: true,
+            xaxis: {
+              title: '2\u03b8, deg',
+              autorange: true,
+            },
+            yaxis: {
+              title: 'Counts',
+              autorange: true,
+            },
+            // Finally, add the slider and use `pad` to position it
+            // nicely next to the buttons.
+            sliders: [{
+              pad: {l: 20, t: 55},
+              currentvalue: {
+                visible: true,
+                prefix: 'Slice: ',
+                //suffix: '\u00B0',
+                xanchor: 'right',
+                font: {size: 12, color: '#666'}
+              },
+            }]
+        }
+        return layout
+    }
+
+    function setPlotConfig(){
+        let config = {
+            displayModeBar: true,
+            displaylogo: false,
+        }
+        return config
+    }
+
+    function setPlotFrames(uniqueSliceIndex, twoTheta, projCount, gamma, sliceIndex){
+       let frames = []
+       for (i = 0; i < uniqueSliceIndex.length; i++) {
+         frames.push({
+           name: uniqueSliceIndex[i],
+           data: [getAnimationTrace(uniqueSliceIndex[i], twoTheta, projCount, gamma, sliceIndex)],
+         })
+       }
+       return frames
+    }
+
+    function setData(filename){
+        twoThetaPatternData = getDataFromJson(filename)
+
+        twoTheta1D = Object.values(twoThetaPatternData["two_theta [deg]"])
+        gamma1D = Object.values(twoThetaPatternData["user gamma [deg]"])
+        projCount1D = Object.values(twoThetaPatternData["proj_counts"])
+        sliceIndex1D = Object.values(twoThetaPatternData["user gamma slice index"])
+
+        plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
+        uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
+        plotLayout = setPlotLayout(uniqueSliceIndex)
+        plotConfig = setPlotConfig()
+        plotFrames = setPlotFrames(uniqueSliceIndex, twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
+
+        Plotly.newPlot('plotDiv', {
+          data: plotTraces,
+          layout: plotLayout,
+          config: plotConfig,
+          frames: plotFrames,
+        })
+
+        return(`setData finished: ${path}`)
+    }
+
+    /////////////////////////////////////////
+    // Functionality to be accesable from QML
+    /////////////////////////////////////////
+/*
+    // need to be called before setChartColors to init axis.titlefont
+    function setChartSizes(sizes) {
+      plotLayout.legend.font.size = sizes.fontPixelSize
+
+      plotLayout.xaxis.tickfont.size = sizes.fontPixelSize
+      plotLayout.yaxis.tickfont.size = sizes.fontPixelSize
+
+      if (typeof plotLayout.xaxis.titlefont !== 'undefined') {
+        plotLayout.xaxis.titlefont.size = sizes.fontPixelSize
+      } else {
+        plotLayout.xaxis.titlefont = { 'size': sizes.fontPixelSize }
+      }
+      if (typeof plotLayout.yaxis.titlefont !== 'undefined') {
+        plotLayout.yaxis.titlefont.size = sizes.fontPixelSize
+      } else {
+        plotLayout.yaxis.titlefont = { 'size': sizes.fontPixelSize }
+      }
+
+      measuredTrace.marker.size = sizes.measuredScatterSize
+      measuredTrace.line.width = sizes.measuredLineWidth
+      calculatedTrace.line.width = sizes.calculatedLineWidth
+
+      return('setChartSizes is finished.')
+    }
+
+    function setChartColors(colors) {
+      document.getElementById('plotContainer').style.backgroundColor = colors.chartBackground
+
+      plotLayout.paper_bgcolor = colors.chartBackground
+      plotLayout.plot_bgcolor = colors.chartPlotAreaBackground
+      plotLayout.legend.bgcolor = colors.chartBackground + 'cc'  // add transparency
+      //plotLayout.legend.bordercolor = colors.chartGrid
+      plotLayout.legend.font.color = colors.chartForeground
+
+      plotLayout.xaxis.linecolor = colors.chartAxis
+      plotLayout.yaxis.linecolor = colors.chartAxis
+      plotLayout.xaxis.gridcolor = colors.chartGrid
+      plotLayout.yaxis.gridcolor = colors.chartGrid
+
+      if (typeof plotLayout.xaxis.titlefont !== 'undefined') {
+        plotLayout.xaxis.titlefont.color = colors.chartForeground
+      } else {
+        plotLayout.xaxis.title.font.color = colors.chartForeground
+      }
+      if (typeof plotLayout.yaxis.titlefont !== 'undefined') {
+        plotLayout.yaxis.titlefont.color = colors.chartForeground
+      } else {
+        plotLayout.yaxis.title.font.color = colors.chartForeground
+      }
+
+      plotLayout.xaxis.tickfont.color = colors.chartForeground
+      plotLayout.yaxis.tickfont.color = colors.chartForeground
+
+      measuredTrace.marker.color = colors.measuredScatter
+      measuredTrace.line.color = colors.measuredLine
+      calculatedTrace.line.color = colors.calculatedLine
+
+      return('setChartColors is finished.')
+    }
+*/
+    //Plotly.restyle('plotDiv', {opacity: 0.5})
+
+    function relayoutPlot() {
+      Plotly.relayout('plotDiv', layout)
+    }
+
+    function redrawPlot() {
+      Plotly.redraw('plotDiv')
+    }
+
+    function toggleUseWebGL(useWebGL) {
+      if (useWebGL) {
+        measuredTrace.type = 'scattergl'
+        calculatedTrace.type = 'scattergl'
+      } else {
+        measuredTrace.type = 'scatter'
+        calculatedTrace.type = 'scatter'
+      }
+      return('toggleUseWebGL is finished.')
+    }
+
+    function redrawFrame(sliderValue){
+      Plotly.animate('plotDiv', [sliderValue], {
+        mode: 'immediate',
+        transition: { duration: 100 },
+        frame: { duration: 0, redraw: true }
+      });
+    }
+
+    function setXAxisTitle(newTitle) {
+      plotLayout.xaxis.title = newTitle
+    }
+
+    function setYAxisTitle(newTitle) {
+      plotLayout.yaxis.title = newTitle
+    }
+
+    function emptyData() {
+      plotTraces.x = []
+      plotTraces.y = []
+      plotFrames = []
+      //return('emptyData HERE is finished')
+    }
+/*
+    function setXData(newData) {
+      measuredTrace.x = newData
+      calculatedTrace.x = newData
+      return('setXData is finished')
+    }
+
+    function setMeasuredYData(newData) {
+      measuredTrace.y = newData
+      return('setMeasuredYData is finished')
+  }
+
+    function setCalculatedYData(newData) {
+      calculatedTrace.y = newData
+    }
+
+    ///////
+    // Misc
+    ///////
+
+    window.addEventListener("click", my_test)
+*/
+  </script>
+
+</body>
+
+</html>

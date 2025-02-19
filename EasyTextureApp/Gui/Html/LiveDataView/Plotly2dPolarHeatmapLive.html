@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+  <script src="plotly-2.18.0.min.js"></script>
+
+  <style type="text/css">
+
+    :root {
+      --fontPixelSize:14;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      font-size: calc(var(--fontPixelSize) * 1px);
+    }
+
+    #plotContainer {
+      height: 100%;
+      width: 100%;
+      padding: calc(var(--fontPixelSize) * 1px);;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #plotDiv {
+      width: 100%;
+      height: 100%;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id='plotContainer'>
+    <div id='plotDiv'></div>
+  </div>
+
+  <script>
+    let myDiv = document.getElementById('plotDiv')
+
+    // Load data from JSON file
+    var data2D = getDataFromJson("../../../Examples/BioSample_POWTEX@MLZ/LiveDataView/user_voxels_2D_live_1.json")
+
+    ///////
+    // Data
+    ///////
+
+    //let x2D = Object.values(data2D["voxel_x [mm]"])
+    //let y2D = Object.values(data2D["voxel_y [mm]"])
+    let twoTheta2D = Object.values(data2D["two_theta [deg]"])
+    let gamma2D = Object.values(data2D["user gamma [deg]"])
+    let projCount2D = Object.values(data2D["proj_count"])
+
+    // remove data with null proj counts (needed for heatmap but not needed for polar heatmap)
+    let projCountNullIndices = findNullIndices(projCount2D)
+
+    projCount2D = removeElementsByIndices(projCount2D, projCountNullIndices)
+    gamma2D = removeElementsByIndices(gamma2D, projCountNullIndices)
+    twoTheta2D = removeElementsByIndices(twoTheta2D, projCountNullIndices)
+
+    /////////
+    // Plotly
+    /////////
+
+    // Create the main traces, one for each twotheta
+    let plotTraces = setPlotTraces(twoTheta2D, projCount2D, gamma2D)
+
+
+    // Plot layout
+    let uniqueTwoTheta2D = twoTheta2D.filter(onlyUnique)
+    let plotLayout = setPlotLayout(uniqueTwoTheta2D)
+
+
+    // Plot config
+    let plotConfig = setPlotConfig()
+
+
+    // Plot frames
+    let plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D)
+
+
+    // Create plot
+    //Plotly.newPlot('plotDiv', plotTraces, plotLayout, plotConfig)
+    Plotly.newPlot('plotDiv', {
+      data: plotTraces,
+      layout: plotLayout,
+      config: plotConfig,
+      frames: plotFrames,
+    })
+
+    //Plotly.relayout(myDiv, myDiv.layout.title=plotFrames[0].data.toString())
+
+    /////////////////////////////////////////
+    // Functionality to be accesable from QML
+    /////////////////////////////////////////
+
+    function getDataFromJson(filename){
+        let request = new XMLHttpRequest()
+        request.open("GET", filename, false)
+        request.send(null)
+        data = JSON.parse(request.responseText)
+        return data
+    }
+
+    function setPlotTraces(twoTheta, projCount, gamma, x, y){
+        let trace = []
+        trace.push({
+          name: '',
+          x: getAnimationTrace(45.5, twoTheta, projCount, gamma, x, y).x,
+          y: getAnimationTrace(45.5, twoTheta, projCount, gamma, x, y).y,
+          customdata: getAnimationTrace(45.5, twoTheta, projCount, gamma, x, y).customdata,
+          hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                         '\u03b3: %{customdata[1]}\u00B0<br>'+
+                         'counts: %{customdata[2]}',
+          mode: 'markers',
+          marker: {
+            symbol: 'circle',
+            color: projCount,
+            cmin: Math.min(...projCount),
+            cmax: Math.max(...projCount),
+            size: 5,
+            showscale: true,
+            colorbar: {title: {text: 'Counts'}},
+            colorscale: 'Portland',
+          },
+        });
+
+        return trace
+    }
+
+    function findNullIndices(array) {
+        // Map each element to its index if it's null, otherwise map to -1
+        let indexMap = array.map((value, index) => value === null ? index : -1);
+        // Filter out the -1 values to get only the indices of nulls
+        let nullIndices = indexMap.filter(index => index !== -1);
+        return nullIndices;
+    }
+
+    function removeElementsByIndices(array, indices) {
+        let temp = array.slice()
+        return array.filter((_, index) => !indices.includes(index));
+    }
+
+
+    function setPlotTraces(twoTheta, projCount, gamma){
+        let trace = []
+        let initialTwoTheta = 45.5
+        let initialTwoThetaIndices = getIndxByValue(twoTheta, initialTwoTheta)
+        let initialTwoThetaArray = getValueByIndex(twoTheta, initialTwoThetaIndices)
+        let initialProjCount = getValueByIndex(projCount, initialTwoThetaIndices)
+
+        trace.push({
+          name: '',
+          type: 'barpolar',
+          r: getAnimationTrace(initialTwoTheta, twoTheta, projCount, gamma).r, //fictious r
+          theta: getAnimationTrace(initialTwoTheta, twoTheta, projCount, gamma).theta,
+          customdata: getAnimationTrace(initialTwoTheta, twoTheta, projCount, gamma).customdata,
+          hovertemplate: '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                         '\u03b3: %{customdata[1]}\u00B0<br>'+
+                         'counts: %{customdata[2]}',
+          marker: {
+            symbol: 'circle',
+            color: initialProjCount,
+            cmin: Math.min(...initialProjCount),
+            cmax: Math.max(...initialProjCount),
+            size: 5,
+            showscale: true,
+            colorbar: {title: {text: 'Counts'}},
+            colorscale: 'Portland',
+          },
+        });
+
+        return trace
+    }
+
+    function getIndxByValue(object, value) {
+      return Object.keys(object).filter(indx => object[indx] === value);
+    }
+
+    function getValueByIndex(valueArray, indxArray) {
+      return indxArray.map(indx => valueArray[indx]);
+    }
+
+    function getAnimationTrace(animationTwoTheta, twoTheta, projCount, gamma) {
+      let trace
+      let animationTwoThetaIndices = getIndxByValue(twoTheta, animationTwoTheta)
+      let animationTwoThetaArray = getValueByIndex(twoTheta, animationTwoThetaIndices)
+      let animationProjCount = getValueByIndex(projCount, animationTwoThetaIndices)
+      let animationGamma = getValueByIndex(gamma, animationTwoThetaIndices)
+      let animationR = Array(animationGamma.length).fill(800)
+
+      let customArray = [animationTwoThetaArray, animationGamma, animationProjCount]
+      let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
+
+      trace = {
+        r: animationR,
+        theta: animationGamma,
+        customdata: customData,
+        mode: 'markers',
+        marker: {
+          symbol: 'circle',
+          color: animationProjCount,
+          cmin: Math.min(...animationProjCount),
+          cmax: Math.max(...animationProjCount),
+          size: 5,
+          showscale: true,
+          colorbar: {title: {text: 'Counts'}},
+          colorscale: 'Portland',
+        },
+      }
+
+      return trace;
+    }
+
+    function onlyUnique(value, index, array) {
+      return array.indexOf(value) === index;
+    }
+
+    function setPlotLayout(uniqueTwoTheta){
+        let layout = {
+            //width: 650*1600/1400,
+            //height: 650,
+            autoresize: true,
+            autosize: true,
+            polar: {
+              radialaxis: {
+                visible: false,
+                range: [799, 800]
+              },
+              angularaxis: {
+                visible: true
+              },
+              hole: 0.9,
+            }
+        }
+        return layout
+    }
+
+    function setPlotConfig(){
+        let config = {
+            displayModeBar: true,
+            displaylogo: false,
+        }
+        return config
+    }
+
+    function setPlotFrames(uniqueTwoTheta, twoTheta, projCount, gamma){
+       let frames = []
+       for (i = 0; i < uniqueTwoTheta.length; i++) {
+         frames.push({
+           name: uniqueTwoTheta[i],
+           data: [getAnimationTrace(uniqueTwoTheta[i], twoTheta, projCount, gamma)],
+         })
+       }
+       return frames
+    }
+
+
+    function redrawPlot() {
+      Plotly.redraw('plotDiv')
+    }
+
+    function redrawFrame(sliderValue){
+      Plotly.animate('plotDiv', [sliderValue], {
+        mode: 'immediate',
+        transition: { duration: 0 },
+        frame: {
+            duration: 400,
+            redraw: true
+        }
+      });
+    }
+
+    function setXAxisTitle(newTitle) {
+      plotLayout.xaxis.title = newTitle
+    }
+
+    function setYAxisTitle(newTitle) {
+      plotLayout.yaxis.title = newTitle
+    }
+
+    function getMinTT(){
+      return Math.min(...uniqueTwoTheta2D)
+    }
+
+    function set2dPolarHeatmap(filename){
+        data2D = getDataFromJson(filename)
+
+        twoTheta2D = Object.values(data2D["two_theta [deg]"])
+        gamma2D = Object.values(data2D["user gamma [deg]"])
+        projCount2D = Object.values(data2D["proj_count"])
+
+        projCountNullIndices = findNullIndices(projCount2D)
+        projCount2D = removeElementsByIndices(projCount2D, projCountNullIndices)
+        gamma2D = removeElementsByIndices(gamma2D, projCountNullIndices)
+        twoTheta2D = removeElementsByIndices(twoTheta2D, projCountNullIndices)
+
+
+        plotTraces = setPlotTraces(twoTheta2D, projCount2D, gamma2D)
+        uniqueTwoTheta2D = twoTheta2D.filter(onlyUnique)
+        plotLayout = setPlotLayout(uniqueTwoTheta2D)
+        plotConfig = setPlotConfig()
+        plotFrames = setPlotFrames(uniqueTwoTheta2D, twoTheta2D, projCount2D, gamma2D)
+
+        Plotly.newPlot('plotDiv', {
+          data: plotTraces,
+          layout: plotLayout,
+          config: plotConfig,
+          frames: plotFrames,
+        })
+
+        return(`set2dThetaRingsData finished: ${filename}`)
+    }
+
+    function getStatisticsWholeDataset(filename){
+        let data2D = getDataFromJson(filename)
+        let projCountList = Object.values(data2D["proj_count"])
+
+        let totalCountsSum = projCountList.reduce((partialSum, a) => partialSum + a, 0);
+        let totalStatisticsDict = {
+            'max': Math.max(...projCountList),
+            'min': Math.min(...projCountList),
+            'sum': totalCountsSum
+        }
+
+        return totalStatisticsDict
+    }
+
+    function getStatisticsCurrentRing(filename, sliderValue){
+        let data2D = getDataFromJson(filename)
+        let twoThetaList = Object.values(data2D["two_theta [deg]"])
+        let projCountList = Object.values(data2D["proj_count"])
+
+        let animationTwoThetaIndices = getIndxByValue(twoThetaList, sliderValue)
+        let animationProjCount = getValueByIndex(projCountList, animationTwoThetaIndices)
+
+        let ringCountsSum = animationProjCount.reduce((partialSum, a) => partialSum + a, 0);
+        let ringStatisticsDict = {
+            'max': Math.max(...animationProjCount),
+            'min': Math.min(...animationProjCount),
+            'sum': ringCountsSum
+        }
+
+        return ringStatisticsDict
+    }
+
+</script>
+
+</body>
+
+</html>
