@@ -6,7 +6,7 @@ Project {
     // List of module and plugin directories passed to QML runtime
     importPaths: [
         "EasyTextureApp",
-        "../EasyApp",
+        "../EasyApp/src",
     ]
 
     // Include .qml files from specified directory and its subdirectories
@@ -14,7 +14,7 @@ Project {
         directory: "EasyTextureApp"
     }
     QmlFiles {
-        directory: "../EasyApp"
+        directory: "../EasyApp/src/EasyApp"
     }
 
     // Include .js files from specified directory and its subdirectories
@@ -22,7 +22,7 @@ Project {
         directory: "EasyTextureApp"
     }
     JavaScriptFiles {
-        directory: "../EasyApp"
+        directory: "../EasyApp/src/EasyApp"
     }
 
     // Include Module Definition Files (qmldir), as well as .ts and .qrc
@@ -34,7 +34,7 @@ Project {
     }
     Files {
         filter: "qmldir;*.ts;*.qrc;*.html"
-        directory: "../EasyApp"
+        directory: "../EasyApp/src/EasyApp"
         recursive: true
     }
 }
