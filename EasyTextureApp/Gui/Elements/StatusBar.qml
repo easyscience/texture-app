@@ -14,7 +14,7 @@ Rectangle {
     //property alias model: listView.model
     default property alias contentRowData: contentRow.data
 
-    //visible: EaGlobals.Variables.showAppStatusBar
+    //visible: EaGlobals.Vars.showAppStatusBar
 
     //Component.onCompleted: y = visible ? 0 : height
 

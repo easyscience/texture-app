@@ -15,7 +15,7 @@ import Gui.Elements as Elements
 
 
 Elements.StatusBar {
-    visible: EaGlobals.Variables.appBarCurrentIndex !== 0 && EaGlobals.Variables.appBarCurrentIndex !== 7
+    visible: EaGlobals.Vars.appBarCurrentIndex !== 0 && EaGlobals.Vars.appBarCurrentIndex !== 7
 
 
     Elements.StatusBarItem {

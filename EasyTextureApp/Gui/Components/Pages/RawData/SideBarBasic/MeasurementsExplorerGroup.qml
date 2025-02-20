@@ -50,7 +50,7 @@ Column {
                 width: EaStyle.Sizes.fontPixelSize * 29
                 headerText: qsTr("Name")
                 text: model.name
-                ToolTip.visible: EaGlobals.Variables.showToolTips && text !== "" && tableViewLine.hovered
+                ToolTip.visible: EaGlobals.Vars.showToolTips && text !== "" && tableViewLine.hovered
                 ToolTip.text: model.fullpath
             }
 

@@ -16,7 +16,7 @@ import Gui.Elements as Elements
 
 Elements.StatusBar {
     id: liveviewbar
-    visible: EaGlobals.Variables.appBarCurrentIndex == 7
+    visible: EaGlobals.Vars.appBarCurrentIndex == 7
 
     Elements.StatusBarItem {
         //keyIcon: 'archive'
