@@ -3,6 +3,7 @@ module Charts
 Plotly1D 1.0 Plotly1D.qml
 Plotly1DBarPlot 1.0 Plotly1DBarPlot.qml
 Plotly1DTwoThetaBarPlot 1.0 Plotly1DTwoThetaBarPlot.qml
+Plotly1DIntegratedTwoThetaBarPlot 1.0 Plotly1DIntegratedTwoThetaBarPlot.qml
 Plotly2DGammaTwoTheta 1.0 Plotly2DGammaTwoTheta.qml
 Plotly2DTwoThetaRings 1.0 Plotly2DTwoThetaRings.qml
 Plotly2DHeatmap 1.0 Plotly2DHeatmap.qml

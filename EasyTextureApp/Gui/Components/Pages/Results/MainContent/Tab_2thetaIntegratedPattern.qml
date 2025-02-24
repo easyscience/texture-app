@@ -8,9 +8,8 @@ import QtQuick.Controls 2.15
 import Gui.Globals as Globals
 import Gui.Charts as Charts
 
-Charts.Plotly1DTwoThetaBarPlot{
-    dataFile: qsTr(Globals.Proxies.main.results.selectedResultsTwoThetaFile)
-    sliderValue: Globals.Proxies.main.results.sliderValue
+Charts.Plotly1DIntegratedTwoThetaBarPlot {
+    dataFile: qsTr(Globals.Proxies.main.results.selectedResultsIntegratedTwoThetaFile)
     //useWebGL: Globals.Proxies.main.plotting.useWebGL1d
 
     //xAxisTitle: "2\u03b8, deg"

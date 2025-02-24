@@ -63,41 +63,32 @@
   <script>
     let myDiv = document.getElementById('plotDiv')
 
-    var twoThetaPatternData = getDataFromJson("../../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_two_theta_pattern_1.json")
+    var twoThetaPatternData = getDataFromJson("../../../Examples/BioSample_POWTEX@MLZ/ResultsView/user_voxels_integrated_two_theta_pattern.json")
 
     ///////
     // Data
     ///////
 
     let twoTheta1D = Object.values(twoThetaPatternData["two_theta [deg]"])
-    let gamma1D = Object.values(twoThetaPatternData["user gamma [deg]"])
     let projCount1D = Object.values(twoThetaPatternData["proj_counts"])
-    let sliceIndex1D = Object.values(twoThetaPatternData["user gamma slice index"])
 
     /////////
     // Plotly
     /////////
 
-    let plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
+    let plotTraces = setPlotTraces(twoTheta1D, projCount1D)
 
     // Plot layout
-    let uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
-    let plotLayout = setPlotLayout(uniqueSliceIndex)
+    let plotLayout = setPlotLayout()
 
     // Plot config
     let plotConfig = setPlotConfig()
 
-
-    // Plot frames
-    let plotFrames = setPlotFrames(uniqueSliceIndex, twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
-
     // Create plot
-    // use template below to use frames
     Plotly.newPlot('plotDiv', {
       data: plotTraces,
       layout: plotLayout,
       config: plotConfig,
-      frames: plotFrames,
     })
 
     //Plotly.relayout(myDiv, myDiv.layout.yaxis.autorange=true)
@@ -114,53 +105,18 @@
         return data
     }
 
-    function setPlotTraces(twoTheta, projCount, gamma, sliceIndex){
+    function setPlotTraces(twoTheta, projCount){
         let trace = []
         trace.push({
           name: '',
-          x: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).x,
-          y: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).y,
-          customdata: getAnimationTrace(1, twoTheta, projCount, gamma, sliceIndex).customdata,
-          hovertemplate: 'Counts: %{customdata[1]}<br>'+
-                         '2\u03b8: %{customdata[2]:.3f} deg',
+          x: twoTheta,
+          y: projCount,
           type: 'bar'
         });
         return trace
     }
 
-    function getAnimationTrace(animationSliceIndex, twoTheta, projCount, gamma, sliceIndex) {
-      let trace
-
-      let animationSliceIndices = getIndxByValue(sliceIndex, animationSliceIndex)
-      let animationdSpacingArray = getValueByIndex(twoTheta, animationSliceIndices)
-      let animationProjCount = getValueByIndex(projCount, animationSliceIndices)
-      let animationGamma = getValueByIndex(gamma, animationSliceIndices)
-
-      let customArray = [animationSliceIndices, animationProjCount, animationdSpacingArray]
-      let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
-
-      trace = {
-        x: animationdSpacingArray,
-        y: animationProjCount,
-        customdata: customData,
-      }
-
-      return trace;
-    }
-
-    function getIndxByValue(object, value) {
-      return Object.keys(object).filter(indx => object[indx] === value);
-    }
-
-    function getValueByIndex(valueArray, indxArray) {
-      return indxArray.map(indx => valueArray[indx]);
-    }
-
-    function onlyUnique(value, index, array) {
-      return array.indexOf(value) === index;
-    }
-
-    function setPlotLayout(uniqueTwoTheta){
+    function setPlotLayout(){
         let layout = {
             //autosize: true,
             xaxis: {
@@ -171,18 +127,6 @@
               title: 'Counts',
               autorange: true,
             },
-            // Finally, add the slider and use `pad` to position it
-            // nicely next to the buttons.
-            sliders: [{
-              pad: {l: 20, t: 55},
-              currentvalue: {
-                visible: true,
-                prefix: 'Slice: ',
-                //suffix: '\u00B0',
-                xanchor: 'right',
-                font: {size: 12, color: '#666'}
-              },
-            }]
         }
         return layout
     }
@@ -195,36 +139,20 @@
         return config
     }
 
-    function setPlotFrames(uniqueSliceIndex, twoTheta, projCount, gamma, sliceIndex){
-       let frames = []
-       for (i = 0; i < uniqueSliceIndex.length; i++) {
-         frames.push({
-           name: uniqueSliceIndex[i],
-           data: [getAnimationTrace(uniqueSliceIndex[i], twoTheta, projCount, gamma, sliceIndex)],
-         })
-       }
-       return frames
-    }
-
     function setData(filename){
         twoThetaPatternData = getDataFromJson(filename)
 
         twoTheta1D = Object.values(twoThetaPatternData["two_theta [deg]"])
-        gamma1D = Object.values(twoThetaPatternData["user gamma [deg]"])
         projCount1D = Object.values(twoThetaPatternData["proj_counts"])
-        sliceIndex1D = Object.values(twoThetaPatternData["user gamma slice index"])
 
-        plotTraces = setPlotTraces(twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
-        uniqueSliceIndex = sliceIndex1D.filter(onlyUnique)
-        plotLayout = setPlotLayout(uniqueSliceIndex)
+        plotTraces = setPlotTraces(twoTheta1D, projCount1D)
+        plotLayout = setPlotLayout()
         plotConfig = setPlotConfig()
-        plotFrames = setPlotFrames(uniqueSliceIndex, twoTheta1D, projCount1D, gamma1D, sliceIndex1D)
 
         Plotly.newPlot('plotDiv', {
           data: plotTraces,
           layout: plotLayout,
           config: plotConfig,
-          frames: plotFrames,
         })
 
         return(`setData finished: ${filename}`)
