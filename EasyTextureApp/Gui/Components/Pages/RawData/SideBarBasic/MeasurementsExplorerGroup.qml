@@ -40,7 +40,7 @@ Column {
 
             EaComponents.TableViewLabel {
                 width: EaStyle.Sizes.fontPixelSize * 2.5
-                headerText: qsTr("No.")
+                //headerText: qsTr("No.")
                 text: model.index + 1
             }
 
@@ -62,7 +62,7 @@ Column {
 
             EaComponents.TableViewButton {
                 id: deleteRowColumn
-                headerText: qsTr("Del.")
+                //headerText: qsTr("Del.")
                 fontIcon: "minus-circle"
                 ToolTip.text: qsTr("Remove this model")
                 onClicked: {

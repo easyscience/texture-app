@@ -1,4 +1,0 @@
-module Elements
-
-StatusBar StatusBar.qml
-StatusBarItem StatusBarItem.qml

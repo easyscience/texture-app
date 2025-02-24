@@ -36,7 +36,7 @@ EaComponents.TableView {
 
             width: EaStyle.Sizes.fontPixelSize * 2.5
 
-            headerText: "No."
+            //headerText: "No."
             text: model.index + 1
         }
 
@@ -50,7 +50,7 @@ EaComponents.TableView {
 
             horizontalAlignment: Text.AlignLeft
 
-            headerText: "Name"
+            //headerText: "Name"
             text: model.name
         }
 

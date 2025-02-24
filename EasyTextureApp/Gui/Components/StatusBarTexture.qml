@@ -11,39 +11,36 @@ import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
 
 import Gui.Globals as Globals
-import Gui.Elements as Elements
 
-
-Elements.StatusBar {
+EaElements.StatusBar {
     visible: EaGlobals.Vars.appBarCurrentIndex !== 0 && EaGlobals.Vars.appBarCurrentIndex !== 7
 
-
-    Elements.StatusBarItem {
-        //keyIcon: 'archive'
+    EaElements.StatusBarItem {
+        keyIcon: 'archive'
         keyText: qsTr('Project:')
         valueText: Globals.Proxies.main.status.project ?? ''
-        //ToolTip.text: qsTr('Current project')
+        ToolTip.text: qsTr('Current project')
     }
 
-    Elements.StatusBarItem {
-        //keyIcon: 'layer-group'
+    EaElements.StatusBarItem {
+        keyIcon: 'database'
         keyText: qsTr('Loaded file:')
         valueText: Globals.Proxies.main.status.selectedRawDataFile ?? ''
-        //ToolTip.text: qsTr('Number of models added')
+        ToolTip.text: qsTr('Selected file')
     }
 
-    Elements.StatusBarItem {
-        //keyIcon: 'microscope'
+    EaElements.StatusBarItem {
+        keyIcon: 'signal'
         keyText: qsTr('2θ: ')
         valueText: Globals.Proxies.main.status.selectedTwoTheta ?? ''
-        //ToolTip.text: qsTr('Number of experiments added')
+        ToolTip.text: qsTr('Selected two theta angle')
     }
 
-    Elements.StatusBarItem {
-        //keyIcon: 'calculator'
+    EaElements.StatusBarItem {
+        keyIcon: 'circle'
         keyText: qsTr('Slice-Width:')
         valueText: Globals.Proxies.main.status.selectedGammaSliceWidth ?? ''
-        //ToolTip.text: qsTr('Current calculation engine')
+        ToolTip.text: qsTr('Selected gamma slice width')
     }
 
 }
