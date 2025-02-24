@@ -41,7 +41,10 @@ WebEngineView {
     onDataFileChanged: {
         if (loadSucceededStatus) {
             setHTMLData()
-            setExploreTotalStat()
+            if (Globals.Vars.explorePageEnabled){
+                setExploreRingStat()
+                setExploreTotalStat()
+            }
         }
     }
 
@@ -49,6 +52,7 @@ WebEngineView {
         if (loadSucceededStatus) {
             if (Globals.Vars.explorePageEnabled){
                 setExploreRingStat()
+                setExploreTotalStat()
             }
             //setXAxisTitle()
             //setYAxisTitle()

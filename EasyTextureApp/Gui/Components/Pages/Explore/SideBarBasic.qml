@@ -7,6 +7,7 @@ import QtQuick
 import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
 
+import Gui.Globals as Globals
 
 EaComponents.SideBarColumn {
 
@@ -22,6 +23,11 @@ EaComponents.SideBarColumn {
         collapsible: false
 
         Loader { source: 'SideBarBasic/GammaSliceSelector.qml' }
+
     }
 
+    Component.onCompleted: {
+        // setting default gamma-width value
+        Globals.Proxies.main.explore.setGammaWidth(1)
+    }
 }

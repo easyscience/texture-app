@@ -323,13 +323,13 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property string selectedExploreFile1D: ''
             property string selectedExploreFile2D: ''
 
-            property real twoThetaSliderValue: 45.5
+            property real twoThetaSliderValue//: 45.5
             property real twoThetaSliderStep: 0.5
 
             property real totalCountMin//: -1.0
             property real totalCountMax//: -1.0
             property real totalCountSum//: -1.0
-            property int numberOfGammaSlices: 270
+            property int numberOfGammaSlices//: 270
 
             property real twoThetaRingCountMin//: -1.0
             property real twoThetaRingCountMax//: -1.0
@@ -346,14 +346,21 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
                 selectedExploreFile2D = exploreDataPath + exploreFileName2D
             }
 
-            function updateBinning(){
+            function updateGammaBinning(width){
                 exploreDataPath = Qt.resolvedUrl("./../../Examples/BioSample_POWTEX@MLZ/RawDataView/")
 
-                exploreFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(gammaSliceWidth)
-                exploreFileName2D = "user_voxels_2D_sorted_%1.json".arg(gammaSliceWidth)
+                exploreFileName1D = "user_voxels_1D_sorted_by_gamma_%1.json".arg(width)
+                exploreFileName2D = "user_voxels_2D_sorted_%1.json".arg(width)
 
                 selectedExploreFile1D= exploreDataPath + exploreFileName1D
                 selectedExploreFile2D = exploreDataPath + exploreFileName2D
+            }
+
+            // Logic for gamma slices
+            function setGammaWidth(width) {
+                gammaSliceWidth = width
+                numberOfGammaSlices = 270 / width
+                updateGammaBinning(width)
             }
 
             onTwoThetaSliderValueChanged: {
@@ -411,20 +418,6 @@ QtObject { // If "Unknown component. (M300) in QtCreator", try: "Tools > QML/JS 
             property real twoThetaSliderValue: 45.5
             property real sliderStep: 1.0
 
-            /*property int twoTheta: 90
-            property int gammaSliceWidth: 1
-            property string exploreDataPath: ''
-            property string exploreFileName: ''
-            property string selectedExploreFile: ''
-
-            property real twoThetaSliderValue: 45.5
-            property real twoThetaSliderStep: 0.5
-
-            function updateBinning(){
-                exploreDataPath = Qt.resolvedUrl("./../Data/RawDataView/")
-                exploreFileName = "user_voxels_2D_sorted_%1.json".arg(gammaSliceWidth)
-                selectedExploreFile = exploreDataPath + exploreFileName
-            }*/
         }
 
         /////////

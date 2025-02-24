@@ -27,7 +27,7 @@ Grid {
                 text: "1°"
 
                 onClicked: {
-                    setExploreParameters(parseInt(text.slice(0, -1)))
+                    Globals.Proxies.main.explore.setGammaWidth(parseInt(text.slice(0, -1)))
                 }
 
             }
@@ -38,7 +38,7 @@ Grid {
                 text: "2°"
 
                 onClicked: {
-                    setExploreParameters(parseInt(text.slice(0, -1)))
+                    Globals.Proxies.main.explore.setGammaWidth(parseInt(text.slice(0, -1)))
                 }
 
             }
@@ -55,7 +55,7 @@ Grid {
                 }
 
                 onClicked: {
-                    setExploreParameters(parseInt(text.slice(0, -1)))
+                    Globals.Proxies.main.explore.setGammaWidth(parseInt(text.slice(0, -1)))
                 }
 
             }
@@ -72,16 +72,10 @@ Grid {
                 }
 
                 onClicked: {
-                    setExploreParameters(parseInt(text.slice(0, -1)))
+                    Globals.Proxies.main.explore.setGammaWidth(parseInt(text.slice(0, -1)))
                 }
             }
         }
     }
 
-    // Logic for gamma slices
-    function setExploreParameters(width) {
-        Globals.Proxies.main.explore.gammaSliceWidth = width
-        Globals.Proxies.main.explore.numberOfGammaSlices = 270 / width
-        Globals.Proxies.main.explore.updateBinning()
-    }
 }
