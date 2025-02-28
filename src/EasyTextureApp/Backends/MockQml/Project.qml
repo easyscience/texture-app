@@ -37,22 +37,22 @@ QtObject {
         {
             'description': 'neutrons, powder, constant wavelength, D20@ILL',
             'name': 'Co2SiO4 (D20)',
-            'path': ':/Examples/Co2SiO4_D20@ILL/project.cif'
+            'path': '/Examples/Co2SiO4_D20@ILL/project.cif'
         },
         {
             'description': 'neutrons, powder, constant wavelength, G41@LLB',
             'name': 'Dy3Al5O12 (G41)',
-            'path': ':/Examples/Dy3Al5O12_G41@LLB/project.cif'
+            'path': '/Examples/Dy3Al5O12_G41@LLB/project.cif'
         },
         {
             'description': 'neutrons, powder, constant wavelength, D1A@ILL',
             'name': 'PbSO4 (D1A)',
-            'path': ':/Examples/PbSO4_D1A@ILL/project.cif'
+            'path': '/Examples/PbSO4_D1A@ILL/project.cif'
         },
         {
             'description': 'neutrons, powder, constant wavelength, 3T2@LLB',
             'name': 'LaMnO3 (3T2)',
-            'path': ':/Examples/LaMnO3_3T2@LLB/project.cif'
+            'path': '/Examples/LaMnO3_3T2@LLB/project.cif'
         }
     ]
 

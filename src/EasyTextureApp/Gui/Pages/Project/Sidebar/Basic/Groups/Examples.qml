@@ -45,7 +45,12 @@ EaComponents.TableView {
     delegate: EaComponents.TableViewDelegate {
         mouseArea.onPressed: {
             const filePath = tableView.model[index].path
-            console.debug(`Loading example: ${filePath}`)
+            console.debug(`Loading simulation of example from: ${filePath}`)
+            Globals.BackendWrapper.projectName = tableView.model[index].name
+            Globals.BackendWrapper.projectEditInfo('description', tableView.model[index].description)
+            Globals.BackendWrapper.projectEditInfo('location', tableView.model[index].path)
+            Globals.BackendWrapper.projectCreate()
+            Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
         }
 
         EaComponents.TableViewLabel {
