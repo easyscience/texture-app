@@ -18,15 +18,19 @@ EaComponents.ProjectDescriptionDialog {
 
     projectName: Globals.BackendWrapper.projectName
     projectDescription: Globals.BackendWrapper.projectInfo.description
+    projectLocation: Globals.BackendWrapper.projectInfo.location
 
     onAccepted: {
         Globals.BackendWrapper.projectName = projectName
         Globals.BackendWrapper.projectEditInfo('description', projectDescription)
+        Globals.BackendWrapper.projectEditInfo('location', projectLocation)
         Globals.BackendWrapper.projectCreate()
         Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
     }
 
     Component.onCompleted: {
+        projectName = 'DefaultProject'
+        projectDescription = 'Default project description'
         projectLocation = Globals.BackendWrapper.projectInfo.location
     }
 

@@ -20,19 +20,19 @@ QtObject {
 
     readonly property var examples: [
         {
-            'description': 'neutrons, powder, constant wavelength, HRPT@PSI',
-            'name': 'La0.5Ba0.5CoO3 (HRPT)',
-            'path': ':/Examples/La0.5Ba0.5CoO3_HRPT@PSI/project.cif'
+            'description': 'neutron, powder, simulation, POWTEX@MLZ',
+            'name': 'Bio-Sample (POWTEX)',
+            'path': '/Examples/Bio-sample/biosample.json'
         },
         {
-            'description': 'neutrons, powder, constant wavelength, HRPT@PSI',
-            'name': 'La0.5Ba0.5CoO3-Raw (HRPT)',
-            'path': ':/Examples/La0.5Ba0.5CoO3-Raw_HRPT@PSI/project.cif'
+            'description': 'neutron, powder, simulation, POWTEX@MLZ',
+            'name': 'NaCl-Sample (POWTEX)',
+            'path': '/Examples/NaCl-sample/nacl.json'
         },
         {
-            'description': 'neutrons, powder, constant wavelength, HRPT@PSI, 2 phases',
-            'name': 'La0.5Ba0.5CoO3-Mult-Phases (HRPT)',
-            'path': ':/Examples/La0.5Ba0.5CoO3-Mult-Phases_HRPT@PSI/project.cif'
+            'description': 'neutron, powder, simulation, POWTEX@MLZ',
+            'name': 'Powder-Sample (POWTEX)',
+            'path': '/Examples/Powder-sample/powder.json'
         },
         {
             'description': 'neutrons, powder, constant wavelength, D20@ILL',
@@ -67,8 +67,9 @@ QtObject {
         console.debug(`NOT IMPLEMENTED: Saving project '${name}'`)
     }
 
-    function editInfo(path, new_value) {
-        console.debug(`NOT IMPLEMENTED: Changing project info.${path} from '${info.path}' to '${new_value}'`)
+    function editInfo(key, new_value) {
+        console.debug(`In editInfo: Setting projectInfo['${key}'] to '${new_value}'`)
+        info[key] = new_value
     }
 
 }
