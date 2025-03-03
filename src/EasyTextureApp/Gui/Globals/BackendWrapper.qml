@@ -57,6 +57,30 @@ QtObject {
     function projectEditInfo(path, new_value) { activeBackend.project.editInfo(path, new_value) }
 
     ///////////////
+    // RawData page
+    ///////////////
+
+    readonly property var rawDataMeasurements: activeBackend.rawData.measurements
+
+    property bool rawDataLoaded: activeBackend.rawData.loaded
+    onRawDataLoadedChanged: activeBackend.rawData.loaded = rawDataLoaded
+
+    function rawDataLoadMeasurement() { activeBackend.rawData.loadMeasurement() }
+
+    // readonly property var projectInfo: activeBackend.project.info
+    // readonly property var projectExamples: activeBackend.project.examples
+
+    // property bool projectCreated: activeBackend.project.created
+    // onProjectCreatedChanged: activeBackend.project.created = projectCreated
+    // property string projectName: activeBackend.project.name
+    // onProjectNameChanged: activeBackend.project.name = projectName
+
+    // function projectCreate() { activeBackend.project.create() }
+    // function projectSave() { activeBackend.project.save() }
+    // function projectEditInfo(path, new_value) { activeBackend.project.editInfo(path, new_value) }
+
+
+    ///////////////
     // Summary page
     ///////////////
 

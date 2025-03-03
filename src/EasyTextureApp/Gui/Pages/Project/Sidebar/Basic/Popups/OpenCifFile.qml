@@ -20,7 +20,7 @@ FileDialog{
     nameFilters: [ 'CIF files (*.cif)']
 
     onAccepted: {
-        Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
+        Globals.References.applicationWindow.appBarCentralTabs.rawDataButton.enabled = true
     }
 
     Component.onCompleted: {

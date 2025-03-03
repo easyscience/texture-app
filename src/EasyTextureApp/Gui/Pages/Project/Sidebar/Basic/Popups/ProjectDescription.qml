@@ -25,7 +25,7 @@ EaComponents.ProjectDescriptionDialog {
         Globals.BackendWrapper.projectEditInfo('description', projectDescription)
         Globals.BackendWrapper.projectEditInfo('location', projectLocation)
         Globals.BackendWrapper.projectCreate()
-        Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
+        Globals.References.applicationWindow.appBarCentralTabs.rawDataButton.enabled = true
     }
 
     Component.onCompleted: {

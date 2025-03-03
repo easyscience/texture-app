@@ -71,6 +71,19 @@ EaComponents.ApplicationWindow {
         },
         // Project page
 
+        // RawData page
+        EaElements.AppBarTabButton {
+            id: rawDataButton
+            enabled: false
+            fontIcon: 'archive'
+            text: qsTr('Raw Data')
+            ToolTip.text: qsTr('Raw data description page')
+            Component.onCompleted: {
+                Globals.References.applicationWindow.appBarCentralTabs.rawDataButton = rawDataButton
+            }
+        },
+        // RawData page
+
         // Summary page
         EaElements.AppBarTabButton {
             id: summaryButton
@@ -93,6 +106,7 @@ EaComponents.ApplicationWindow {
     contentArea: [
         Loader { source: 'Pages/Home/Content.qml' },
         Loader { source: 'Pages/Project/Layout.qml' },
+        Loader { source: 'Pages/RawData/Layout.qml' },
         Loader { source: 'Pages/Report/Layout.qml' }
     ]
 

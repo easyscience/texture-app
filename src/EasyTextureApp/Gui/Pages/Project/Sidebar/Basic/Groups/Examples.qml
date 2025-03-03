@@ -50,6 +50,7 @@ EaComponents.TableView {
             Globals.BackendWrapper.projectEditInfo('description', tableView.model[index].description)
             Globals.BackendWrapper.projectEditInfo('location', tableView.model[index].path)
             Globals.BackendWrapper.projectCreate()
+            Globals.References.applicationWindow.appBarCentralTabs.rawDataButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
         }
 
