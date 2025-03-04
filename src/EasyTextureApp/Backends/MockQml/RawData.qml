@@ -31,14 +31,15 @@ QtObject {
 
 
     function loadMeasurement() {
-
         console.debug(`NOT IMPLEMENTED: LOAD MEASUREMENT FILE`, selectedFilename)
     }
     function setCurrentMeasurementIndex(value) {
         console.debug(`setCurrentMeasurementIndex ${value}`)
     }
-    function setSelectedFilename(value) {
-        console.debug(`setSelectedFileName ${value}`)
+    function setSelectedFilename(text) {
+        var newEntry = { 'indx': measurements.length + 1, 'name':  text };
+        measurements = measurements.concat([newEntry])
+        console.debug(`setSelectedFileName ${text}`)
     }
     function removeFilename(text) {
         measurements = measurements.filter(item => item.name !== text)
