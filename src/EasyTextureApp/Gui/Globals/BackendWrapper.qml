@@ -61,11 +61,18 @@ QtObject {
     ///////////////
 
     readonly property var rawDataMeasurements: activeBackend.rawData.measurements
+    readonly property var rawDataMeasurementNames: activeBackend.rawData.measurementNames
+
+    readonly property int rawDataCurrentMeasurementIndex: activeBackend.rawData.currentMeasurementIndex
+    property string rawDataSelectedFilename: activeBackend.rawData.selectedFilename
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
     onRawDataLoadedChanged: activeBackend.rawData.loaded = rawDataLoaded
 
     function rawDataLoadMeasurement() { activeBackend.rawData.loadMeasurement() }
+    function rawDataSetSelectedFilename(text) { activeBackend.rawData.setSelectedFilename(text)}
+    function rawDataRemoveFilename(text) { activeBackend.rawData.removeFilename(text) }
+    function rawDataSetCurrentMeasurementIndex(value) { activeBackend.rawData.setCurrentMeasurementIndex(value) }
 
     // readonly property var projectInfo: activeBackend.project.info
     // readonly property var projectExamples: activeBackend.project.examples

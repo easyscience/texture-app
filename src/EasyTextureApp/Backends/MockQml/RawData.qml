@@ -7,19 +7,42 @@ pragma Singleton
 import QtQuick
 
 QtObject {
-
+    readonly property int currentMeasurementIndex: -1
     property bool loaded: false
 
     //property string name: ''
 
-    readonly property var measurements: {
-        'description': '',
-        'location': '',
-        'creationDate': ''
-    }
+    property var measurements: [
+        {
+            'indx': 1,
+            'name': 'testname',
+        },
+        {
+            'indx': 2,
+            'name': 'testname2',
+        },
+        {
+            'indx': 3,
+            'name': 'testname3',
+        },
+    ]
+    readonly property var measurementNames: measurements.map(function (item) { return item.name })
+    property string selectedFilename: ''
+
 
     function loadMeasurement() {
-        console.debug(`NOT IMPLEMENTED: LOAD MEASUREMENT FILE`)
+
+        console.debug(`NOT IMPLEMENTED: LOAD MEASUREMENT FILE`, selectedFilename)
+    }
+    function setCurrentMeasurementIndex(value) {
+        console.debug(`setCurrentMeasurementIndex ${value}`)
+    }
+    function setSelectedFilename(value) {
+        console.debug(`setSelectedFileName ${value}`)
+    }
+    function removeFilename(text) {
+        measurements = measurements.filter(item => item.name !== text)
+        console.debug(`removeFilename with name ${text}`)
     }
 
     /*
@@ -34,31 +57,6 @@ QtObject {
             'name': 'NaCl-Sample (POWTEX)',
             'path': '/Examples/NaCl-sample/nacl.json'
         },
-        {
-            'description': 'neutron, powder, simulation, POWTEX@MLZ',
-            'name': 'Powder-Sample (POWTEX)',
-            'path': '/Examples/Powder-sample/powder.json'
-        },
-        {
-            'description': 'neutrons, powder, constant wavelength, D20@ILL',
-            'name': 'Co2SiO4 (D20)',
-            'path': '/Examples/Co2SiO4_D20@ILL/project.cif'
-        },
-        {
-            'description': 'neutrons, powder, constant wavelength, G41@LLB',
-            'name': 'Dy3Al5O12 (G41)',
-            'path': '/Examples/Dy3Al5O12_G41@LLB/project.cif'
-        },
-        {
-            'description': 'neutrons, powder, constant wavelength, D1A@ILL',
-            'name': 'PbSO4 (D1A)',
-            'path': '/Examples/PbSO4_D1A@ILL/project.cif'
-        },
-        {
-            'description': 'neutrons, powder, constant wavelength, 3T2@LLB',
-            'name': 'LaMnO3 (3T2)',
-            'path': '/Examples/LaMnO3_3T2@LLB/project.cif'
-        }
     ]
 
 
