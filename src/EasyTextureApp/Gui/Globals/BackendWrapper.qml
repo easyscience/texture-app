@@ -70,22 +70,9 @@ QtObject {
     onRawDataLoadedChanged: activeBackend.rawData.loaded = rawDataLoaded
 
     function rawDataLoadMeasurement() { activeBackend.rawData.loadMeasurement() }
-    function rawDataSetSelectedFilename(text) { activeBackend.rawData.setSelectedFilename(text)}
+    function rawDataSetSelectedFilename(path, name) { activeBackend.rawData.setSelectedFilename(path, name)}
     function rawDataRemoveFilename(text) { activeBackend.rawData.removeFilename(text) }
     function rawDataSetCurrentMeasurementIndex(value) { activeBackend.rawData.setCurrentMeasurementIndex(value) }
-
-    // readonly property var projectInfo: activeBackend.project.info
-    // readonly property var projectExamples: activeBackend.project.examples
-
-    // property bool projectCreated: activeBackend.project.created
-    // onProjectCreatedChanged: activeBackend.project.created = projectCreated
-    // property string projectName: activeBackend.project.name
-    // onProjectNameChanged: activeBackend.project.name = projectName
-
-    // function projectCreate() { activeBackend.project.create() }
-    // function projectSave() { activeBackend.project.save() }
-    // function projectEditInfo(path, new_value) { activeBackend.project.editInfo(path, new_value) }
-
 
     ///////////////
     // Summary page

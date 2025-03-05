@@ -20,12 +20,15 @@ FileDialog{
     nameFilters: [ 'JSON files (*.json)']
 
     onAccepted: {
-        //Globals.BackendWrapper.projectName = projectName
-        //Globals.BackendWrapper.projectEditInfo('description', projectDescription)
-        //Globals.BackendWrapper.projectEditInfo('location', projectLocation)
+        console.debug(`Open file dialog ${this} accepted`)
+
+        // Extract the file name from the full path
+        var filePath = selectedFile.toString()
+        var fileName = filePath.split('/').pop()
 
         Globals.BackendWrapper.rawDataLoaded = true
         Globals.BackendWrapper.rawDataLoadMeasurement()
+        Globals.BackendWrapper.rawDataSetSelectedFilename(filePath, fileName)
         Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
     }
 

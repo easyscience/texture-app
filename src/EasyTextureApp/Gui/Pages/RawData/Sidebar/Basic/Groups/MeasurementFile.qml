@@ -19,84 +19,66 @@ Column {
     spacing: EaStyle.Sizes.fontPixelSize
 
     // Table
-
     EaComponents.TableView {
-        id: myTableView
-
-        //showHeader: false
-        //tallRows: true
-        //maxRowCountShow: 6
+        id: measurementFilesView
 
         defaultInfoText: qsTr('No measurements loaded')
 
         // Table model
+        model: Globals.BackendWrapper.rawDataMeasurements
 
-        model: Globals.BackendWrapper.rawDataMeasurements /*EaComponents.JsonListModel {
-            json: Globals.Proxies.main.rawData.isCreated ?
-                      JSON.stringify([Globals.Proxies.main.rawData.rawFiles]) :
-                      ""
-            query: "$[*]"
-        }*/
-
-        // Table rows
-
-        delegate: EaComponents.TableViewDelegate {
+        // Headers
+        header: EaComponents.TableViewHeader {
 
             EaComponents.TableViewLabel {
+                text: qsTr('No.')
                 width: EaStyle.Sizes.fontPixelSize * 2.5
-                //headerText: qsTr("No.")
-                text: model.index + 1
             }
 
-            EaComponents.TableViewLabelControl {
-                id: tableViewLine
+            EaComponents.TableViewLabel {
+                flexibleWidth: true
                 horizontalAlignment: Text.AlignLeft
-                width: EaStyle.Sizes.fontPixelSize * 29
-                headerText: qsTr("Name")
-                text: model.name
-                ToolTip.visible: EaGlobals.Vars.showToolTips && text !== "" && tableViewLine.hovered
-                ToolTip.text: model.fullpath
+                text: qsTr('Filename')
             }
 
-            /*EaComponents.TableViewLabel {
-                headerText: qsTr("Color")
-                backgroundColor: EaStyle.Colors.chartForegrounds[0]
+            // Placeholder for row delete button
+            EaComponents.TableViewLabel {
+                width: EaStyle.Sizes.tableRowHeight
             }
-            */
-
-            EaComponents.TableViewButton {
-                id: deleteRowColumn
-                //headerText: qsTr("Del.")
-                fontIcon: "minus-circle"
-                ToolTip.text: qsTr("Remove this model")
-                onClicked: {
-                    Globals.Proxies.main.rawData.isCreated = false
-                    var idx = myTableView.currentIndex
-                    Globals.Proxies.main.rawData.rawFiles.splice(idx, 1)
-                    console.debug("Current TableView row deleted by index: " + idx)
-
-                    Globals.Proxies.main.rawData.isCreated = (Globals.Proxies.main.rawData.rawFiles.length > 0)
-                    if (!Globals.Proxies.main.rawData.isCreated){
-                        Globals.Proxies.main.rawData.selectedFileName = ''
-                    }
-                    //Globals.Proxies.main.corrections.emptyData()
-                    //Globals.Vars.rawDataPageEnabled = false
-                    //Globals.Vars.explorePageEnabled = false
-                    //Globals.Vars.resultsPageEnabled = false
-
-                }
-
-
-
-            }
-
         }
 
+        // Table rows
+        delegate: EaComponents.TableViewDelegate {
+
+            // Index
+            EaComponents.TableViewLabel {
+                width: EaStyle.Sizes.fontPixelSize * 2.5
+                text: index + 1
+            }
+
+            // Filename
+            EaComponents.TableViewTextInput {
+                id: tableViewLine
+                text: measurementFilesView.model[index].name
+                ToolTip.visible: EaGlobals.Vars.showToolTips && text !== '' && tableViewLine.hovered
+                ToolTip.text: measurementFilesView.model[index].path
+                readOnly: true
+                color: EaStyle.Colors.themeForeground
+            }
+
+            // Remove button
+            EaComponents.TableViewButton {
+                enabled: measurementFilesView !== null
+                fontIcon: 'minus-circle'
+                ToolTip.text: qsTr('Remove this file')
+                onClicked: Globals.BackendWrapper.rawDataRemoveFilename(measurementFilesView.model[index].name)
+            }
+        }
     }
 
     // Control buttons below table
-
     Row {
+
         spacing: EaStyle.Sizes.fontPixelSize
 
         EaElements.SideBarButton {
@@ -118,46 +100,6 @@ Column {
                 Globals.Refs.app.rawDataPage.importDataFromLocalDriveButton = this
             }*/
 
-        }
-
-
-    }
-
-    function getFilename(str)
-    {
-        return (str.slice(str.lastIndexOf("/")+1))
-    }
-
-    // Select File dialog
-    FileDialog {
-        id: measurementFileDialog
-        fileMode: FileDialog.OpenFile
-        nameFilters: [ "JSON files (*.json)"]
-        title: qsTr("Choose Measurement File")
-
-        onAccepted: {
-            Globals.Proxies.main.rawData.isMmtFileAssigned = true
-            Globals.Proxies.main.rawData.isCreated = false //trigger refresh
-
-            Globals.Proxies.main.project.needSave = true
-
-            Globals.Proxies.main.rawData.rawFiles.push({
-                "name": getFilename(selectedFile.toString()),
-                "fullpath": selectedFile.toString()
-            })
-
-            Globals.Proxies.main.rawData.selectedRawFile = selectedFile.toString()
-            Globals.Proxies.main.rawData.selectedFileName = getFilename(selectedFile.toString())
-
-            Globals.Proxies.main.rawData.isCreated = true //trigger refresh
-
-            Globals.Proxies.main.rawData.loadOneTwoThreeD()
-            //Globals.Proxies.main.rawData.loadData()
-        }
-
-        onRejected: {
-            Globals.Proxies.main.rawData.isMmtFileAssigned = false
-            Globals.Proxies.main.rawData.isCreated = false
         }
     }
 }

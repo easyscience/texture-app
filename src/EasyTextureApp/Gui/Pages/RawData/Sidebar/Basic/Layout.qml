@@ -16,9 +16,7 @@ EaComponents.SideBarColumn {
     EaElements.GroupBox {
         title: qsTr('Measurement File')
         icon: 'rocket'
-        //collapsed: false
         collapsible: false
-        //last: !Globals.Proxies.main.corrections.isCreated
 
         Loader { source: 'Groups/MeasurementFile.qml' }
     }
