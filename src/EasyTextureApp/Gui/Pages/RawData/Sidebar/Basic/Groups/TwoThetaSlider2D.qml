@@ -20,24 +20,11 @@ Grid {
 
     // Location
     Row {
-
         Grid {
             readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
-
-
             columns: 2
             rowSpacing: 10
-            //columnSpacing: commonSpacing
-
-            EaElements.Label {
-                //font.bold: true
-                text: qsTr("2θ: ")
-            }
-            EaElements.Label {
-                text: slider.value.toFixed(2) + "°"
-            }
         }
-
     }
 
 
@@ -45,16 +32,13 @@ Grid {
         id: slideRow
 
         width: EaStyle.Sizes.sideBarContentWidth
-        height: 50 //parent.height
-
+        height: 50
         spacing: 10
-
 
         EaElements.Label {
             id: sliderFromLabel
-            text: slider.from.toFixed(1)
+            text: slider.from.toFixed(1) + '°'
         }
-
 
         // Slider
         EaElements.Slider {
@@ -64,23 +48,17 @@ Grid {
             height: parent.height
             from: 45.5
             to: 134.5
-            stepSize: Globals.Proxies.main.rawData.slider2DStep
-            //value: 50
+            stepSize: Globals.BackendWrapper.rawDataTwoThetaSliderStep
+            toolTipText: slider.value + '°'
 
-            // TODO: tool tip:
-            // make it an int (not double)
-            //onHandleChanged: {slider.handle.update()}
             onValueChanged: {
-                //Globals.Proxies.main.rawData.twoTheta = value.toFixed(2)
-                Globals.Proxies.main.rawData.twoThetaRingsSliderValue = slider.value.toFixed(1)
-                //slider.handle.ToolTip.text = value.toFixed(2)
+                Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue = slider.value.toFixed(1)
             }
-            //Component.onCompleted: slider.handle.ToolTip.text ="AAA"
         }
 
         EaElements.Label {
             id: sliderToLabel
-            text: slider.to.toFixed(1)
+            text: slider.to.toFixed(1) + '°'
         }
     }
 }

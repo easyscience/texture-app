@@ -33,25 +33,23 @@ Grid {
 
                     EaElements.Label {
                         enabled: true
-                        text: qsTr("2θ bin size")
+                        text: qsTr('2θ bin size')
                     }
 
                     ComboBox {
                         id: ttBinning2D
                         //values for two_theta_bin_width_2D
                         // currentIndex: 2
-                        // model: ["0.1°", "0.25°", "0.5°", "0.75°", "1°", "2°", "5°", "10°"]
-                        //currentIndex: 0 //Globals.Proxies.main.rawData.twoThetaIndex
-                        currentIndex: Globals.Proxies.main.rawData.twoThetaIndex
-                        model: ["0.5°", "1°"]
+                        // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°']
+                        currentIndex: Globals.BackendWrapper.rawDataTwoThetaIndex
+                        model: ['0.5°', '1°']
                         onCurrentIndexChanged: {
-                            Globals.Proxies.main.rawData.twoThetaIndex = currentIndex
-                            print("CURRENT 2D TT INDX", currentIndex)
-                            indxChanged()
+                            Globals.BackendWrapper.rawDataTwoThetaIndex = currentIndex
+                            /*indxChanged()
                             if (Globals.Proxies.main.rawData.isCreated) {
                                 Globals.Proxies.main.rawData.slider2DStep = parseFloat(ttBinning2D.textAt(ttBinning2D.currentIndex))
                                 Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
-                            }
+                            }*/
                         }
                     }
                 }
@@ -65,33 +63,23 @@ Grid {
 
                     EaElements.Label {
                         enabled: true
-                        text: qsTr("γ bin size")
+                        text: qsTr('γ bin size')
                     }
 
                     ComboBox {
                         //values for gamma_bin_width_2D
-                        // model: ["1°", "2°", "5°", "10°"]
-                        model: ["1°", "2°"]
-                        //currentIndex: 0 // Globals.Proxies.main.rawData.gammaIndex
-                        currentIndex: Globals.Proxies.main.rawData.gammaIndex
+                        // model: ['1°', '2°', '5°', '10°']
+                        model: ['1°', '2°']
+                        currentIndex: Globals.BackendWrapper.rawDataGammaIndex
                         onCurrentIndexChanged: {
-                            Globals.Proxies.main.rawData.gammaIndex = currentIndex
-                            print("CURRENT 2D GAMMA INDX", currentIndex)
-                            if (Globals.Proxies.main.rawData.isCreated) {
+                            Globals.BackendWrapper.rawDataGammaIndex = currentIndex
+                            /*if (Globals.Proxies.main.rawData.isCreated) {
                                 Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
-                            }
+                            }*/
                         }
                     }
                 }
             }
         }
     }
-
-    // Select File dialog
-    FileDialog {
-        id: measurementFileDialog
-        title: qsTr("Choose Measurement File")
-    }
-
-
 }

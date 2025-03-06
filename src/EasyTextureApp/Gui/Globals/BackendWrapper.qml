@@ -71,8 +71,29 @@ QtObject {
 
     function rawDataLoadMeasurement() { activeBackend.rawData.loadMeasurement() }
     function rawDataSetSelectedFilename(path, name) { activeBackend.rawData.setSelectedFilename(path, name)}
-    function rawDataRemoveFilename(text) { activeBackend.rawData.removeFilename(text) }
+    function rawDataRemoveFilename(text) {
+        activeBackend.rawData.removeFilename(text);
+        if (rawDataMeasurements.length === 0){
+            rawDataLoaded = false
+        }
+    }
     function rawDataSetCurrentMeasurementIndex(value) { activeBackend.rawData.setCurrentMeasurementIndex(value) }
+
+    property int rawDataSelectedTabIndex: activeBackend.rawData.selectedTabIndex
+    onRawDataSelectedTabIndexChanged: activeBackend.rawData.selectedTabIndex= rawDataSelectedTabIndex
+    property int rawDataTwoThetaIndex: activeBackend.rawData.twoThetaIndex
+    onRawDataTwoThetaIndexChanged: activeBackend.rawData.twoThetaIndex = rawDataTwoThetaIndex
+    property int rawDataGammaIndex: activeBackend.rawData.gammaIndex
+    onRawDataGammaIndexChanged: activeBackend.rawData.gammaIndex = rawDataGammaIndex
+    property real rawDataTwoThetaRingsSliderValue: activeBackend.rawData.twoThetaRingsSliderValue
+    onRawDataTwoThetaRingsSliderValueChanged: activeBackend.rawData.twoThetaRingsSliderValue = rawDataTwoThetaRingsSliderValue
+    property real rawDataTwoThetaSliderValue: activeBackend.rawData.twoThetaSliderValue
+    onRawDataTwoThetaSliderValueChanged: activeBackend.rawData.twoThetaSliderValue = rawDataTwoThetaSliderValue
+    //property real rawDataTwoThetaRingsSliderStep: activeBackend.rawData.twoThetaRingsSliderStep
+    //onRawDataTwoThetaRingsSliderStepChanged: activeBackend.rawData.twoThetaRingsSliderStep = rawDataTwoThetaRingsSliderStep
+    property real rawDataTwoThetaSliderStep: activeBackend.rawData.twoThetaSliderStep
+    onRawDataTwoThetaSliderStepChanged: activeBackend.rawData.twoThetaSliderStep = rawDataTwoThetaSliderStep
+
 
     ///////////////
     // Summary page

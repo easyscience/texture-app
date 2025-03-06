@@ -24,8 +24,8 @@ EaComponents.SideBarColumn {
     EaElements.GroupBox {
         title: qsTr('3D Binning Parameters')
         icon: 'database'
-        //collapsible: false
-        //visible: Globals.Proxies.main.rawData.is3DtabSelected && Globals.Proxies.main.rawData.isCreated
+        collapsible: false
+        visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
 
         Loader { source: 'Groups/Binning3D.qml' }
     }
@@ -34,8 +34,8 @@ EaComponents.SideBarColumn {
         //id: binning2DGroupBox
         title: qsTr('2D Binning Parameters')
         icon: 'archive'
-        //collapsible: false
-        //visible: (Globals.Proxies.main.rawData.is2DtabSelected || Globals.Proxies.main.rawData.is2DthetaRingsTabSelected) && Globals.Proxies.main.rawData.isCreated
+        collapsible: false
+        visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
 
 
         Loader {
@@ -55,8 +55,8 @@ EaComponents.SideBarColumn {
     EaElements.GroupBox {
         id: slider2D
         title: qsTr('2θ Rings Slider')
-        //collapsible: false
-        //visible: Globals.Proxies.main.rawData.is2DthetaRingsTabSelected && Globals.Proxies.main.rawData.isCreated
+        collapsible: false
+        visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 2
 
         Loader {
             id: slider2DGroupBoxLoader
@@ -67,8 +67,8 @@ EaComponents.SideBarColumn {
     EaElements.GroupBox {
         id: binning1DGroupBox
         title: qsTr('1D Binning Parameters')
-        //collapsible: false
-        //visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
+        collapsible: false
+        visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 3
 
         Loader {
             id: binning1DGroupBoxLoader
@@ -86,9 +86,9 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slider1D
-        title: qsTr('2θ Slider 1D')
-        //collapsible: false
-        //visible: Globals.Proxies.main.rawData.is1DtabSelected && Globals.Proxies.main.rawData.isCreated
+        title: qsTr('2θ Slider')
+        collapsible: false
+        visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 3
 
         Loader {
             id: slider1DGroupBoxLoader
