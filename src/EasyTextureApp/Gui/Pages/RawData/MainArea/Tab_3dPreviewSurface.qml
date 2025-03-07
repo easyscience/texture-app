@@ -9,11 +9,7 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Charts as Charts
 import Gui.Globals as Globals
 
-Charts.Plotly3DSurface {
-    //dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
-    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile3D)
-
-    //xAxisTitle: "x, mm"
-    //yAxisTitle: "y, mm"
-    //zAxisTitle: "z, mm"
+EaCharts.Plotly3dSurface {
+    id: surface3d
+    url: Qt.resolvedUrl('../../../Html/RawDataView/Plotly3dSurfaceRaw.html')
 }

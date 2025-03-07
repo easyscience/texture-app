@@ -9,10 +9,7 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Charts as Charts
 import Gui.Globals as Globals
 
-Charts.Plotly2DHeatmap {
-    //dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile)
-    dataFile: qsTr(Globals.Proxies.main.rawData.selectedRawFile2D)
-
-    //xAxisTitle: "2\u03b8, deg"
-    //yAxisTitle: "\u03b3, deg"
+EaCharts.Plotly2dHeatmap {
+    id: heatmap1
+    url: Qt.resolvedUrl('../../../Html/RawDataView/Plotly2dHeatmapRaw.html')
 }

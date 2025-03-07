@@ -48,10 +48,18 @@ EaComponents.ContentPage {
         ]
 
         items: [
-            Loader { source: 'MainArea/Tab_3dPreviewSurface.qml' },
-            Loader { source: 'MainArea/Tab_2dPreviewHeatmap.qml' },
-            Loader { source: 'MainArea/Tab_2dPreviewPolarHeatmap.qml' },
-            Loader { source: 'MainArea/Tab_1dPreview.qml' }
+            Loader {
+                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_3dPreviewSurface.qml' : ''
+            },
+            Loader {
+                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_2dPreviewHeatmap.qml' : ''
+            },
+            Loader {
+                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_2dPreviewPolarHeatmap.qml' : ''
+            },
+            Loader {
+                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_1dPreview.qml' : ''
+            }
         ]
     }
 
