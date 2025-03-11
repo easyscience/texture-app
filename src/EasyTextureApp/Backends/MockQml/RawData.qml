@@ -12,11 +12,44 @@ QtObject {
     // Load measurements group
     property var measurements: []
     readonly property var measurementNames: measurements.map(function (item) { return item.name })
-    property string selectedFilename: ''
+    //property string selectedFilename: ''
     readonly property int currentMeasurementIndex: -1
+    property string plot3dFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly3dSurfaceRaw.html"
+    property string plot2dHeatmapFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly2dHeatmapRaw.html"
+    property string plot2dPolarHeatmapFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly2dHeatmapRaw.html"
+    property string plot1dFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly1dRaw.html"
 
-    function loadMeasurement() {
-        console.debug(`loadMeasurement: NOT IMPLEMENTED`, selectedFilename)
+    function loadMeasurement(filePath) {
+        console.debug(`NOT IMPLEMENTED: loadMeasurement file ${filePath}. Load pre-saved files instead.`)
+        let [twoThetaBinWidth, gammaBinWidth] = getBinning(twoThetaIndex, gammaIndex);
+        generate3dSurfacePlot(filePath, twoThetaBinWidth, gammaBinWidth)
+        generate2dHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth)
+        generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth)
+        generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth)
+    }
+
+    function generate3dSurfacePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`NOT IMPLEMENTED: generate3dSurfacePlot for file ${filePath}. Load ${plot3dFilepath}$ instead.`)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaIndex)
+        //let gammaBinSize = getGammaBinning(gammaIndex)
+    }
+
+    function generate2dHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`NOT IMPLEMENTED: generate2dHeatmapPlot for file ${filePath}. Load ${plot2dHeatmapFilepath}$ instead.`)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaIndex)
+        //let gammaBinSize = getGammaBinning(gammaIndex)
+    }
+
+    function generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`NOT IMPLEMENTED: generate2dPolarHeatmapPlot for file ${filePath}. Load ${plot2dPolarHeatmapFilepath}$ instead.`)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaIndex)
+        //let gammaBinSize = getGammaBinning(gammaIndex)
+    }
+
+    function generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`NOT IMPLEMENTED: generate1dLinePlot for file ${filePath}. Load ${plot1dFilepath}$ instead.`)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaIndex)
+        //let gammaBinSize = getGammaBinning(gammaIndex)
     }
 
     function setCurrentMeasurementIndex(value) {
@@ -48,6 +81,28 @@ QtObject {
         console.debug(`removeFilename with name ${text}`)
     }
 
+    function getTwoThetaBinning(twoThetaIndex) {
+        console.debug(`getTwoThetaBinning for two theta index ${twoThetaIndex}`)
+        const twoTheta = [0.5, 1]
+        // in final version
+        //const twoTheta = [0.1, 0.25, 0.5, 0.75, 1, 2, 5, 10];
+        return twoTheta[twoThetaIndex]
+    }
+
+    function getGammaBinning(gammaIndex) {
+        console.debug(`getGammaBinning for gamma index ${gammaIndex}`)
+        const gamma = [1, 2]
+        // in final version
+        //const gamma = [0.1, 1, 2, 5, 10]
+        return gamma[gammaIndex]
+    }
+
+    function getBinning(twoThetaIndex, gammaIndex) {
+        let twoThetaBinning =  getTwoThetaBinning(twoThetaIndex)
+        let gammaBinning =  getGammaBinning(gammaIndex)
+        console.debug(`getBinning: two_theta_bin_width ${twoThetaBinning} and gamma_bin_width ${gammaBinning}`)
+        return [twoThetaBinning, gammaBinning]
+    }
 
     //Binning Group
     property int selectedTabIndex

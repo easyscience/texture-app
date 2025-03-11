@@ -64,12 +64,12 @@ QtObject {
     readonly property var rawDataMeasurementNames: activeBackend.rawData.measurementNames
 
     readonly property int rawDataCurrentMeasurementIndex: activeBackend.rawData.currentMeasurementIndex
-    property string rawDataSelectedFilename: activeBackend.rawData.selectedFilename
+    //property string rawDataSelectedFilename: activeBackend.rawData.selectedFilename
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
     onRawDataLoadedChanged: activeBackend.rawData.loaded = rawDataLoaded
 
-    function rawDataLoadMeasurement() { activeBackend.rawData.loadMeasurement() }
+    function rawDataLoadMeasurement(filePath) { activeBackend.rawData.loadMeasurement(filePath) }
     function rawDataSetSelectedFilename(path, name) { activeBackend.rawData.setSelectedFilename(path, name)}
     function rawDataRemoveFilename(text) {
         activeBackend.rawData.removeFilename(text);
@@ -95,6 +95,16 @@ QtObject {
     onRawDataTwoThetaSliderStepChanged: activeBackend.rawData.twoThetaSliderStep = rawDataTwoThetaSliderStep
 
 
+    property string rawDataPlot3dFilepath: activeBackend.rawData.plot3dFilepath
+    onRawDataPlot3dFilepathChanged: activeBackend.rawData.surface3dPlotFilepath = rawDataPlot3dFilepath
+    property string rawDataPlot2dHeatmapFilepath: activeBackend.rawData.plot2dHeatmapFilepath
+    onRawDataPlot2dHeatmapFilepathChanged: activeBackend.rawData.plot2dHeatmapFilepath = rawDataPlot2dHeatmapFilepath
+    property string rawDataPlot2dPolarHeatmapFilepath: activeBackend.rawData.plot2dPolarHeatmapFilepath
+    onRawDataPlot2dPolarHeatmapFilepathChanged: activeBackend.rawData.plot2dPolarHeatmapFilepath = rawDataPlot2dPolarHeatmapFilepath
+    property string rawDataPlot1dFilepath: activeBackend.rawData.plot1dFilepath
+    onRawDataPlot1dFilepathChanged: activeBackend.rawData.plot1dFilepath = rawDataPlot1dFilepath
+
+    //function rawDataLoadMeasurement(filePath) { activeBackend.rawData.loadMeasurement(filePath) }
     ///////////////
     // Summary page
     ///////////////
