@@ -11,5 +11,5 @@ import Gui.Globals as Globals
 
 EaCharts.Plotly2dHeatmap {
     id: heatmap2
-    url: Qt.resolvedUrl('../../../Html/RawDataView/Plotly2dHeatmapRaw.html')
+    url: Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot2dPolarHeatmapFilepath)
 }

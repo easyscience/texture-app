@@ -11,5 +11,9 @@ import Gui.Globals as Globals
 
 EaCharts.Plotly3dSurface {
     id: surface3d
-    url: Qt.resolvedUrl('../../../Html/RawDataView/Plotly3dSurfaceRaw.html')
+    url: Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot3dFilepath)
+
+    xAxisTitle: "x, mm"
+    yAxisTitle: "y, mm"
+    zAxisTitle: "z, mm"
 }

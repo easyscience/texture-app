@@ -11,7 +11,10 @@ import Gui.Globals as Globals
 import Gui.Charts as Charts
 
 EaCharts.Plotly1dLine {
-    id: line
-    url: Qt.resolvedUrl('../../../Html/RawDataView/Plotly1dRaw.html')
+    id: line1d
+    url: Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot1dFilepath)
+
+    xAxisTitle: "\u03b3, deg"
+    yAxisTitle: "Counts"
 }
 

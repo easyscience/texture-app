@@ -26,10 +26,10 @@ FileDialog{
         var filePath = selectedFile.toString()
         var fileName = filePath.split('/').pop()
 
-        Globals.BackendWrapper.rawDataLoaded = true
-        Globals.BackendWrapper.rawDataLoadMeasurement()
+        Globals.BackendWrapper.rawDataLoadMeasurement(filePath)
         Globals.BackendWrapper.rawDataSetSelectedFilename(filePath, fileName)
         Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
+        Globals.BackendWrapper.rawDataLoaded = true
     }
 
     Component.onCompleted: {

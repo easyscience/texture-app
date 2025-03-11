@@ -10,6 +10,9 @@ import Gui.Charts as Charts
 import Gui.Globals as Globals
 
 EaCharts.Plotly2dHeatmap {
-    id: heatmap1
-    url: Qt.resolvedUrl('../../../Html/RawDataView/Plotly2dHeatmapRaw.html')
+    id: heatmap2d
+    url: Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot2dHeatmapFilepath)
+
+    xAxisTitle: "2\u03b8, deg"
+    yAxisTitle: "\u03b3, deg"
 }
