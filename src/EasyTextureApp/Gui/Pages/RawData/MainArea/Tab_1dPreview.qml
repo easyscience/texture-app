@@ -10,11 +10,37 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Globals as Globals
 import Gui.Charts as Charts
 
-EaCharts.Plotly1dLine {
+EaCharts.Plotly1dLineNew {
     id: line1d
-    url: Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot1dFilepath)
 
-    xAxisTitle: "\u03b3, deg"
-    yAxisTitle: "Counts"
+    xAxisTitle: '\u03b3, deg'
+    yAxisTitle: 'Counts'
+
+    xAxisCoord:  'user gamma [deg]'
+    yAxisCoord:  'proj_count'
+    sliderCoord: 'two_theta [deg]'
+
+
+    /*onLoadSucceededStatusChanged: {
+        xyData = Globals.BackendWrapper.rawDataLoadedData
+        //Globals.BackendWrapper.rawDataLoadedData = line1d.getDataFromJson(fileToLoad)
+        //xyData = Globals.BackendWrapper.rawDataLoadedData
+    }*/
+
+    onLoadSucceededStatusChanged: {
+        if (loadSucceededStatus) {
+            console.debug('WebEngineView Loaded! Now loading JSON...')
+            if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+                // callback is used to wait until line1d.getDataFromJson() executed
+                line1d.getDataFromJson(Globals.BackendWrapper.rawDataPlot1dFilepath, function(){
+                    line1d.selectXYdata(Globals.BackendWrapper.rawDataTwoThetaMin)
+                })
+            }
+            else {
+                console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+            }
+        } else {
+            console.debug('WebEngineView not ready yet.')
+        }
+    }
 }
-

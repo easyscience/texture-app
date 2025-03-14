@@ -60,6 +60,9 @@ QtObject {
     // RawData page
     ///////////////
 
+    readonly property real rawDataTwoThetaMin: activeBackend.rawData.twoThetaMin
+
+
     readonly property var rawDataMeasurements: activeBackend.rawData.measurements
     readonly property var rawDataMeasurementNames: activeBackend.rawData.measurementNames
 
@@ -68,6 +71,9 @@ QtObject {
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
     onRawDataLoadedChanged: activeBackend.rawData.loaded = rawDataLoaded
+
+    property string rawDataSelectedFilePath: activeBackend.rawData.selectedFilePath
+    onRawDataSelectedFilePathChanged: activeBackend.rawData.selectedFilePath = rawDataSelectedFilePath
 
     function rawDataLoadMeasurement(filePath) { activeBackend.rawData.loadMeasurement(filePath) }
     function rawDataSetSelectedFilename(path, name) { activeBackend.rawData.setSelectedFilename(path, name)}
@@ -104,6 +110,7 @@ QtObject {
     property string rawDataPlot1dFilepath: activeBackend.rawData.plot1dFilepath
     onRawDataPlot1dFilepathChanged: activeBackend.rawData.plot1dFilepath = rawDataPlot1dFilepath
 
+    property var rawDataLoadedData: activeBackend.rawData.loadedData
     //function rawDataLoadMeasurement(filePath) { activeBackend.rawData.loadMeasurement(filePath) }
     ///////////////
     // Summary page

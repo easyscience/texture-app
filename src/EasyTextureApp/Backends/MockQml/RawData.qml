@@ -8,16 +8,18 @@ import QtQuick
 
 QtObject {
     property bool loaded: false
+    readonly property real twoThetaMin: 45.5
+
 
     // Load measurements group
     property var measurements: []
     readonly property var measurementNames: measurements.map(function (item) { return item.name })
-    //property string selectedFilename: ''
+    property string selectedFilePath: ''
     readonly property int currentMeasurementIndex: -1
     property string plot3dFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly3dSurfaceRaw.html"
     property string plot2dHeatmapFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly2dHeatmapRaw.html"
     property string plot2dPolarHeatmapFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly2dHeatmapRaw.html"
-    property string plot1dFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly1dRaw.html"
+    property string plot1dFilepath: '/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/examples/RawData/user_voxels_1D_sorted_by_gamma_1.json'
 
     function loadMeasurement(filePath) {
         console.debug(`NOT IMPLEMENTED: loadMeasurement file ${filePath}. Load pre-saved files instead.`)
