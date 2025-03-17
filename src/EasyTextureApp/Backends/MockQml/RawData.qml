@@ -16,7 +16,7 @@ QtObject {
     readonly property var measurementNames: measurements.map(function (item) { return item.name })
     property string selectedFilePath: ''
     readonly property int currentMeasurementIndex: -1
-    property string plot3dFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly3dSurfaceRaw.html"
+    property string plot3dFilepath: '/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/examples/RawData/user_voxels_3D.json'
     property string plot2dHeatmapFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly2dHeatmapRaw.html"
     property string plot2dPolarHeatmapFilepath: "/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/src/EasyTextureApp/Gui/Html/RawDataView/Plotly2dHeatmapRaw.html"
     property string plot1dFilepath: '/home/koshchii/GitRepos/github/EasyScience/EasyTextureApp/examples/RawData/user_voxels_1D_sorted_by_gamma_1.json'
