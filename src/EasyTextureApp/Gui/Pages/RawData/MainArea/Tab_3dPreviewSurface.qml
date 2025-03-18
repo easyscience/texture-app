@@ -51,7 +51,7 @@ EaCharts.Plotly3dSurfaceNew {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
                 // callback is used to wait until surface3d.getDataFromJson() executed
-                surface3d.getDataFromJson(Globals.BackendWrapper.rawDataPlot3dFilepath, function(){
+                surface3d.getDataFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot3dFilepath), function(){
                     surface3d.getPlotData()
                     surface3d.setScene()
                 })

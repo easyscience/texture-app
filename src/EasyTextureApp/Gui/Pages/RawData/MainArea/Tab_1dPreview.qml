@@ -25,7 +25,7 @@ EaCharts.Plotly1dLineNew {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
                 // callback is used to wait until line1d.getDataFromJson() executed
-                line1d.getDataFromJson(Globals.BackendWrapper.rawDataPlot1dFilepath, function(){
+                line1d.getDataFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot1dFilepath), function(){
                     line1d.getPlotData(Globals.BackendWrapper.rawDataTwoThetaMin)
                 })
             }
