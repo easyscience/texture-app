@@ -20,20 +20,13 @@ EaCharts.Plotly1dLineNew {
     yAxisCoord:  'proj_count'
     sliderCoord: 'two_theta [deg]'
 
-
-    /*onLoadSucceededStatusChanged: {
-        xyData = Globals.BackendWrapper.rawDataLoadedData
-        //Globals.BackendWrapper.rawDataLoadedData = line1d.getDataFromJson(fileToLoad)
-        //xyData = Globals.BackendWrapper.rawDataLoadedData
-    }*/
-
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
                 // callback is used to wait until line1d.getDataFromJson() executed
                 line1d.getDataFromJson(Globals.BackendWrapper.rawDataPlot1dFilepath, function(){
-                    line1d.selectXYdata(Globals.BackendWrapper.rawDataTwoThetaMin)
+                    line1d.getPlotData(Globals.BackendWrapper.rawDataTwoThetaMin)
                 })
             }
             else {
