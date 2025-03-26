@@ -16,9 +16,9 @@ QtObject {
     readonly property var measurementNames: measurements.map(function (item) { return item.name })
     property string selectedFilePath: ''
     readonly property int currentMeasurementIndex: -1
-    property string plot3dFilepath: '../../../../../../examples/RawData/user_voxels_3D_sorted_0.json'
-    property string plot2dHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_sorted_1.json'
-    property string plot2dPolarHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_sorted_1.json'
+    property string plot3dFilepath: '../../../../../../examples/RawData/user_voxels_3D_1.json'
+    property string plot2dHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_sorted_0.json'
+    property string plot2dPolarHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_sorted_0.json'
     property string plot1dFilepath: '../../../../../../examples/RawData/user_voxels_1D_sorted_by_gamma_0.json'
 
     function loadMeasurement(filePath) {
@@ -124,6 +124,12 @@ QtObject {
 
     function updateFigure(tab_indx) {
         console.debug(`updateFigure for tab ${tab_indx}: NOT IMPLEMENTED`)
+        if (tab_indx === 0) {
+            //selectedBinningIndex = 2*twoThetaIndex + gammaIndex + 1
+            //twoThetaBinWidth = getTwoThetaBinning(twoThetaIndex)
+            //gammaBinWidth = getGammaBinning(gammaIndex)
+            generate3dSurfacePlot('random_path', twoThetaBinWidth, gammaBinWidth)
+        }
     }
     function updateTwoThetaSliderStep(two_theta_indx) {
         if (two_theta_indx === 0) {
