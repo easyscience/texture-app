@@ -61,7 +61,7 @@ EaCharts.Plotly3dSurfaceNew {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let xData = result[xColumn]
             let yData = result[yColumn]
-            //customData: 0: two_theta, 1: gamma, 2: z, 3: counts
+            //customData: [0]: two_theta, [1]: gamma, [2]: z, [3]: counts
             let customData = result[customDataColumn]
             let zData = extractCustomColumnByIndex(customData, 2)
             let countsData = extractCustomColumnByIndex(customData, 3)
@@ -83,6 +83,7 @@ EaCharts.Plotly3dSurfaceNew {
 
         })
     }
+
     function extractCustomColumnByIndex(customData, i) {
       // extract the i-th element from each sub-array in customData
       let extractedCustomColumn = customData.map(row => row.map(arr => arr[i]));

@@ -17,8 +17,9 @@ QtObject {
     property string selectedFilePath: ''
     readonly property int currentMeasurementIndex: -1
     property string plot3dFilepath: '../../../../../../examples/RawData/user_voxels_3D_1.json'
-    property string plot2dHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_sorted_0.json'
-    property string plot2dPolarHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_sorted_0.json'
+    property string plot2dHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
+    //property string plot2dPolarHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_sorted_0.json'
+    property string plot2dPolarHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
     property string plot1dFilepath: '../../../../../../examples/RawData/user_voxels_1D_sorted_by_gamma_0.json'
 
     function loadMeasurement(filePath) {

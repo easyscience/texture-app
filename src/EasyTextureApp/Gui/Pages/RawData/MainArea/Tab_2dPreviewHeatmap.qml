@@ -18,6 +18,7 @@ EaCharts.Plotly2dHeatmapNew {
     property string twoThetaColumn: 'two_theta [deg]'
     property string gammaColumn: 'user gamma [deg]'
     property string countsColumn: 'proj_count'
+    property string customDataColumn: 'custom_data'
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -35,28 +36,23 @@ EaCharts.Plotly2dHeatmapNew {
         }
     }
 
-
     function getData2DFromJson(jsonFilename){
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
-            let twoThetaData = Object.values(result[twoThetaColumn])
-            let gammaData = Object.values(result[gammaColumn])
-            let countsData = Object.values(result[countsColumn])
-
-            let uniqueTwoTheta = twoThetaData.filter(onlyUnique)
-            let uniqueGamma = gammaData.filter(onlyUnique)
-
-            let counts = [];
-            for (let i = 0; i < uniqueGamma.length; i++) {
-                let indicesAtCurrentGamma = getIndxByValue(gammaData, uniqueGamma[i]);
-                let countsAtCurrentGamma = getValueByIndex(countsData, indicesAtCurrentGamma);
-                counts.push(countsAtCurrentGamma);
-            }
+            let uniqueTwoTheta = result[twoThetaColumn]
+            let uniqueGamma = result[gammaColumn]
+            // replace undefined by null
+            uniqueGamma = uniqueGamma.map(value => value === undefined ? null : value);
+            //customData: [0]: two_theta, [1]: gamma, [2]: counts
+            let customData = result[customDataColumn]
+            let countsData = extractCustomColumnByIndex(customData, 2)
+            // replace undefined by null
+            countsData = countsData.map(row => row.map(value => value === undefined ? null : value));;
 
             plotData = {
                 'x': uniqueTwoTheta,
                 'y': uniqueGamma,
-                'z': counts,
+                'z': countsData,
                 'colorbarTitle': 'Counts',
                 'hoverTemplate': '2\u03b8: %{x}\u00B0<br>'+
                                  '\u03b3: %{y}\u00B0<br>'+
@@ -76,6 +72,12 @@ EaCharts.Plotly2dHeatmapNew {
 
     function getValueByIndex(valueArray, indxArray) {
         return indxArray.map(indx => valueArray[indx]);
+    }
+
+    function extractCustomColumnByIndex(customData, i) {
+      // extract the i-th element from each sub-array in customData
+      let extractedCustomColumn = customData.map(row => row.map(arr => arr[i]))
+      return extractedCustomColumn
     }
 
 }
