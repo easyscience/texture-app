@@ -13,14 +13,14 @@ EaCharts.Plotly2dPolarHeatmapNew {
     id: polarheatmap2d
 
     property string gammaColumn: 'user gamma [deg]'
-    property string countsColumn: 'proj_count'
     property string twoThetaColumn: 'two_theta [deg]'
+    property string customDataColumn: 'custom_data'
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getTwoThetaRingDataFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot2dHeatmapFilepath), 45.5)
+                getTwoThetaRingDataFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot2dHeatmapFilepath), 45.25)
             }
             else {
                 console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
@@ -33,60 +33,62 @@ EaCharts.Plotly2dPolarHeatmapNew {
     function getTwoThetaRingDataFromJson(jsonFilename, sliderValue){
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
-            let gammaData = Object.values(result[gammaColumn])
-            let countsData = Object.values(result[countsColumn])
-            let twoThetaData = Object.values(result[twoThetaColumn])
+            let uniqueTwoTheta = result[twoThetaColumn]
+            let uniqueGamma = result[gammaColumn]
+            let customData = result[customDataColumn]
 
-            // Null indices are present in the 2d dataset to ensure the hole is properly
-            // dislayed in the gamma-two_theta view. Not needed for the purposes of the polar heatmap.
-            let countsWithNullIndices = findNullIndices(countsData)
-            gammaData = removeElementsByIndices(gammaData, countsWithNullIndices)
-            countsData = removeElementsByIndices(countsData, countsWithNullIndices)
-            twoThetaData = removeElementsByIndices(twoThetaData, countsWithNullIndices)
+            let ringsGamma = cleanUpGamma(uniqueGamma, 270) //removes 270 and 2 neighbors
+            let ringsR = Array(ringsGamma.length).fill(800)
+            let countsData = extractCustomColumnByIndex(customData, 2)
+            let ringsCountsMesh = cleanUpCounts(countsData)
 
-            let animationTwoThetaIndices = getIndxByValue(twoThetaData, sliderValue)
-            let animationTwoThetaArray = getValueByIndex(twoThetaData, animationTwoThetaIndices)
-            let animationCounts = getValueByIndex(countsData, animationTwoThetaIndices)
-            let animationGamma = getValueByIndex(gammaData, animationTwoThetaIndices)
-            let animationR = Array(animationGamma.length).fill(800)
-
-            let customArray = [animationTwoThetaArray, animationGamma, animationCounts]
-            let customData = customArray[0].map((_, colIndex) => customArray.map(row => row[colIndex]))
+            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
+            let twoThetaArray = Array(ringsCountsMesh[sliderIndx].length).fill(uniqueTwoTheta[sliderIndx])
 
             plotData = {
-                'r': animationR,
-                'theta': animationGamma,
-                'z': animationCounts,
-                'customData': customData,
-                'hoverTemplate': '2\u03b8: %{customdata[0]}\u00B0<br>'+
-                                 '\u03b3: %{customdata[1]}\u00B0<br>'+
-                                 'Counts: %{customdata[2]}',
+                'r': ringsR,
+                'theta': ringsGamma,
+                'z': ringsCountsMesh[sliderIndx],
+                'customData': twoThetaArray,
+                'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
+                                 '\u03b3: %{theta}\u00B0<br>'+
+                                 'Counts: %{marker.color}',
             }
         })
-    }
-
-    function onlyUnique(value, index, array) {
-        return array.indexOf(value) === index;
     }
 
     function getIndxByValue(object, value) {
         return Object.keys(object).filter(indx => object[indx] === value);
     }
 
-    function getValueByIndex(valueArray, indxArray) {
-        return indxArray.map(indx => valueArray[indx]);
+    function cleanUpGamma(gammaArray, target) {
+        let index = gammaArray.indexOf(target);
+        // Only proceed if the target is found
+        if (index > -1) {
+            // Check if there are neighbors to remove (both before and after the target)
+            if (index > 0 && index < gammaArray.length - 1) {
+                // Remove the target and its two neighbors (one before and one after)
+                gammaArray.splice(index - 1, 3);
+            } else if (index === 0) {
+                // Special case: target is at the start of the array (remove target and next element)
+                gammaArray.splice(index, 2); // Remove the target and its neighbor
+            } else if (index === gammaArray.length - 1) {
+                // Special case: target is at the end of the array (remove previous element and target)
+                gammaArray.splice(index - 1, 2); // Remove the previous element and target
+            }
+        }
+        return gammaArray
     }
 
-    function findNullIndices(array) {
-        // Map each element to its index if it's null, otherwise map to -1
-        let indexMap = array.map((value, index) => value === null ? index : -1);
-        // Filter out the -1 values to get only the indices of nulls
-        let nullIndices = indexMap.filter(index => index !== -1);
-        return nullIndices;
+    function extractCustomColumnByIndex(customData, i) {
+        // extract the i-th element from each sub-array in customData
+        let extractedCustomColumn = customData.map(row => row.map(arr => arr[i]))
+        // reshape the array to match the expected structure (transpose the 2D array)
+        let customColumn = extractedCustomColumn[0].map((_, colIndex) => extractedCustomColumn.map(row => row[colIndex]))
+        return customColumn
     }
 
-    function removeElementsByIndices(array, indices) {
-        let temp = array.slice()
-        return array.filter((_, index) => !indices.includes(index));
+    function cleanUpCounts(arr) {
+        return arr.map(row => row.filter(value => value !== undefined));
     }
 }
