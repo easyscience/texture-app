@@ -19,7 +19,7 @@ QtObject {
     property string plot3dFilepath: '../../../../../../examples/RawData/user_voxels_3D_1.json'
     property string plot2dHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
     property string plot2dPolarHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
-    property string plot1dFilepath: '../../../../../../examples/RawData/user_voxels_1D_sorted_by_gamma_0.json'
+    property string plot1dFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
 
     function loadMeasurement(filePath) {
         console.debug(`NOT IMPLEMENTED: loadMeasurement file ${filePath}. Load pre-saved files instead.`)

@@ -19,12 +19,13 @@ EaCharts.Plotly1dLineNew {
     property string gammaColumn:  'user gamma [deg]'
     property string countsColumn:  'proj_count'
     property string twoThetaColumn: 'two_theta [deg]'
+    property string customDataColumn: 'custom_data'
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getData1DFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot1dFilepath), 45.5)
+                getData1DFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot1dFilepath), 45.25)
                 line1d.setXAxisTitle()
                 line1d.setYAxisTitle()
             }
@@ -39,32 +40,36 @@ EaCharts.Plotly1dLineNew {
     function getData1DFromJson(jsonFilename, sliderValue){
         console.debug(`${this} getData1DFromJson from file ${jsonFilename} at two theta ${sliderValue}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
-            let gammaData = Object.values(result[gammaColumn])
-            let countsData = Object.values(result[countsColumn])
-            let twoThetaData = Object.values(result[twoThetaColumn])
+            let uniqueTwoTheta = result[twoThetaColumn]
+            let uniqueGamma = result[gammaColumn]
+            let customData = result[customDataColumn]
 
-            let animationDataIndices = getIndxByValue(twoThetaData, sliderValue)
-            let animationGammaData = getValueByIndex(gammaData, animationDataIndices)
-            let animationCountsData = getValueByIndex(countsData, animationDataIndices)
+            let countsData = extractCustomColumnByIndex(customData, 2)
+            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
+
+            let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndx])
+
             plotData = {
-                'x': animationGammaData,
-                'y': animationCountsData,
-                'hoverTemplate': '\u03b3: %{x}\u00B0<br>'+
+                'x': uniqueGamma,
+                'y': countsData[sliderIndx],
+                'customData': twoThetaArray,
+                'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
+                                 '\u03b3: %{x}\u00B0<br>'+
                                  'Counts: %{y}'
             }
         })
     }
 
+    function extractCustomColumnByIndex(customData, i) {
+        // extract the i-th element from each sub-array in customData
+        let extractedCustomColumn = customData.map(row => row.map(arr => arr[i]))
+        // reshape the array to match the expected structure (transpose the 2D array)
+        let customColumn = extractedCustomColumn[0].map((_, colIndex) => extractedCustomColumn.map(row => row[colIndex]))
+        return customColumn
+    }
+
     function getIndxByValue(object, value) {
         return Object.keys(object).filter(indx => object[indx] === value);
-    }
-
-    function getValueByIndex(valueArray, indxArray) {
-        return indxArray.map(indx => valueArray[indx]);
-    }
-
-    function onlyUnique(value, index, array) {
-        return array.indexOf(value) === index;
     }
 
     /*function getSliderValues(){
