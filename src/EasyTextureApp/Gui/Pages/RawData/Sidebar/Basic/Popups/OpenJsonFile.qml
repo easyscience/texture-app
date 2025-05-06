@@ -20,7 +20,7 @@ FileDialog{
     nameFilters: [ 'JSON files (*.json)']
 
     onAccepted: {
-        console.debug(`Open file dialog ${this} accepted`)
+        console.debug(`Open file dialog ${this} accepted. Starting file loading process.`)
 
         // Extract the file name from the full path
         var filePath = selectedFile.toString()
@@ -30,6 +30,9 @@ FileDialog{
         Globals.BackendWrapper.rawDataSetSelectedFilename(filePath, fileName)
         Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
         Globals.BackendWrapper.rawDataLoaded = true
+
+        console.debug(`File loading process finished.`)
+
     }
 
     Component.onCompleted: {
