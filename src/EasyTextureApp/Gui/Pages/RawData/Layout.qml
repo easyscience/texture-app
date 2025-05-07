@@ -16,8 +16,8 @@ import Gui.Globals as Globals
 EaComponents.ContentPage {
 
     defaultInfo: Globals.BackendWrapper.rawDataLoaded ?
-                     '' :
-                     qsTr('No measurement files loaded')
+                    '' :
+                    qsTr('No measurement files loaded')
 
     mainView: EaComponents.MainContent {
         tabs: [
@@ -25,40 +25,44 @@ EaComponents.ContentPage {
                 text: qsTr('3D View: Detector Inner Surface')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 0
+                    console.debug(`3D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
             EaElements.TabButton {
                 text: qsTr('2D View: γ-2θ')
                 onClicked: {
-                   Globals.BackendWrapper.rawDataSelectedTabIndex = 1
+                    Globals.BackendWrapper.rawDataSelectedTabIndex = 1
+                    console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
             EaElements.TabButton {
                 text: qsTr('2D View: 2θ Rings')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
+                    console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
             EaElements.TabButton {
                 text: qsTr('1D View: γ(2θ)')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 3
+                    console.debug(`1D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             }
         ]
 
         items: [
             Loader {
-                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_3dPreviewSurface.qml' : ''
+                source: 'MainArea/Tab_3dPreviewSurface.qml'
             },
             Loader {
-                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_2dPreviewHeatmap.qml' : ''
+                source: 'MainArea/Tab_2dPreviewHeatmap.qml'
             },
             Loader {
-                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_2dPreviewPolarHeatmap.qml' : ''
+                source: 'MainArea/Tab_2dPreviewPolarHeatmap.qml'
             },
             Loader {
-                source: Globals.BackendWrapper.rawDataLoaded ? 'MainArea/Tab_1dPreview.qml' : ''
+                source: 'MainArea/Tab_1dPreview.qml'
             }
         ]
     }

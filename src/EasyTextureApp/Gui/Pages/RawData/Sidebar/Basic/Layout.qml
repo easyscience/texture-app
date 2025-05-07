@@ -37,7 +37,6 @@ EaComponents.SideBarColumn {
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
 
-
         Loader {
             id: binning2DGroupBoxLoader
             source: 'Groups/Binning2D.qml'
@@ -45,9 +44,10 @@ EaComponents.SideBarColumn {
 
         Connections {
             target: binning2DGroupBoxLoader.item
-            // once indxChanged signal from groupbox is received -> change slider value in slider1D group box
+            // once indxChanged signal from groupbox is received -> reset slider value
+            // in slider2D group box to the smalest (default) value
             function onIndxChanged() {
-                slider2DGroupBoxLoader.item.sliderValue = 45.5
+                slider2DGroupBoxLoader.item.sliderValue = Globals.BackendWrapper.rawDataMinTwoThetaCenter
             }
         }
     }
@@ -77,9 +77,10 @@ EaComponents.SideBarColumn {
 
         Connections {
             target: binning1DGroupBoxLoader.item
-            // once indxChanged signal from groupbox is received -> change slider value in slider1D group box
+            // once indxChanged signal from groupbox is received -> reset slider value
+            // in slider1D group box to the smalest (default) value
             function onIndxChanged() {
-                slider1DGroupBoxLoader.item.sliderValue = 45.5
+                slider1DGroupBoxLoader.item.sliderValue = Globals.BackendWrapper.rawDataMinTwoThetaCenter
             }
         }
     }
