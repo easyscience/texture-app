@@ -39,7 +39,7 @@ Grid {
 
         EaElements.Label {
             id: sliderFromLabel
-            text: slider.from.toFixed(1) + '°'
+            text: slider.from.toFixed(2) + '°'
         }
 
 
@@ -49,19 +49,19 @@ Grid {
             width: EaStyle.Sizes.sideBarContentWidth
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
-            from: 45.5 //
-            to: 134.5 // the last beam center to be computed based on the selected binning width
-            stepSize: Globals.BackendWrapper.rawDataTwoThetaSliderStep
+            from: Globals.BackendWrapper.rawDataMinTwoThetaCenter
+            to: Globals.BackendWrapper.rawDataMaxTwoThetaCenter
+            stepSize: Globals.BackendWrapper.rawDataTwoThetaBinWidth
             toolTipText: slider.value + '°'
 
             onValueChanged: {
-                Globals.BackendWrapper.rawDataTwoThetaSliderValue = slider.value.toFixed(1)
+                Globals.BackendWrapper.rawDataTwoThetaSlider1DValue = slider.value.toFixed(2)
             }
         }
 
         EaElements.Label {
             id: sliderToLabel
-            text: slider.to.toFixed(1) + '°'
+            text: slider.to.toFixed(2) + '°'
         }
     }
 }
