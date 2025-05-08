@@ -39,7 +39,7 @@ Grid {
                         id: ttBinning1D
                         //values for two_theta_bin_width_1D
                         currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
-                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex :
+                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexMD :
                                       Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
                         model: ['0.5°', '1°']
                         onCurrentIndexChanged: {
@@ -69,7 +69,7 @@ Grid {
                         // model: ['1°', '2°', '5°', '10°']// default value should be 1
                         model: ['1°', '2°']
                         currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
-                                      Globals.BackendWrapper.rawDataGammaBinWidthIndex :
+                                      Globals.BackendWrapper.rawDataGammaBinWidthIndexMD :
                                       Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
 
                         onCurrentIndexChanged: {

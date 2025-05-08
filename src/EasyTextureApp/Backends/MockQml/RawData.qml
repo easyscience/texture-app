@@ -55,26 +55,26 @@ QtObject {
 
     function generate3dSurfacePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate3dSurfacePlot. Load ${plot3dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndex)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndex)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
+        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function generate2dHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate2dHeatmapPlot. Load ${plot2dHeatmapFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndex)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndex)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
+        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate2dPolarHeatmapPlot. Load ${plot2dPolarHeatmapFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndex)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndex)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
+        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate1dLinePlot. Load ${plot1dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndex)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndex)
+        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
+        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function setCurrentMeasurementIndex(value) {
@@ -106,39 +106,40 @@ QtObject {
         console.debug(`removeFilename with name ${text}`)
     }
 
-    /*function getTwoThetaBinning(twoThetaBinWidthIndex) {
-        console.debug(`getTwoThetaBinning for two theta index ${twoThetaBinWidthIndex}`)
+    /*function getTwoThetaBinning(twoThetaBinWidthIndexMD) {
+        console.debug(`getTwoThetaBinning for two theta index ${twoThetaBinWidthIndexMD}`)
         const twoTheta = [0.5, 1]
         // in final version
         //const twoTheta = [0.1, 0.25, 0.5, 0.75, 1, 2, 5, 10];
-        return twoTheta[twoThetaBinWidthIndex]
+        return twoTheta[twoThetaBinWidthIndexMD]
     }
 
-    function getGammaBinning(gammaBinWidthIndex) {
-        console.debug(`getGammaBinning for gamma index ${gammaBinWidthIndex}`)
+    function getGammaBinning(gammaBinWidthIndexMD) {
+        console.debug(`getGammaBinning for gamma index ${gammaBinWidthIndexMD}`)
         const gamma = [1, 2]
         // in final version
         //const gamma = [0.1, 1, 2, 5, 10]
-        return gamma[gammaBinWidthIndex]
+        return gamma[gammaBinWidthIndexMD]
     }
 
-    function getBinning(twoThetaBinWidthIndex, gammaBinWidthIndex) {
-        let twoThetaBinning = getTwoThetaBinning(twoThetaBinWidthIndex)
-        let gammaBinning = getGammaBinning(gammaBinWidthIndex)
+    function getBinning(twoThetaBinWidthIndexMD, gammaBinWidthIndexMD) {
+        let twoThetaBinning = getTwoThetaBinning(twoThetaBinWidthIndexMD)
+        let gammaBinning = getGammaBinning(gammaBinWidthIndexMD)
         console.debug(`getBinning: two_theta_bin_width ${twoThetaBinning} and gamma_bin_width ${gammaBinning}`)
         return [twoThetaBinning, gammaBinning]
     }*/
 
     //Binning Group
     property int selectedTabIndex: 0
-    property int twoThetaBinWidthIndex: 0
+
+    property int twoThetaBinWidthIndexMD: 0
+    property int gammaBinWidthIndexMD: 0
     property real twoThetaBinWidth: 0.5
-    property int gammaBinWidthIndex: 0
     property real gammaBinWidth: 1.0
 
     /*function updateFigure(tab_indx) {
         console.debug(`updateFigure for tab ${tab_indx}: NOT IMPLEMENTED`)
-        let mockBinningIndex = 2*twoThetaBinWidthIndex + gammaBinWidthIndex + 1
+        let mockBinningIndex = 2*twoThetaBinWidthIndexMD + gammaBinWidthIndexMD + 1
         console.debug('mockBinningIndex: ', mockBinningIndex)
         if (tab_indx === 0) {
             plot3dFilepath = '../../../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
@@ -192,28 +193,55 @@ QtObject {
     property int gammaBinWidthIndex3D: 0
 
     function update3DTwoThetaBinningData(selectedBinWidthIndexValue){
-        console.debug(`Starting to update3DTwoThetaBinningData...`)
+        console.debug(`Starting to update 3DTwoThetaBinningData...`)
+        let currentGammaBinWidthIndex = getCurrentGammaBinWidthIndex3D()
         update3DTwoThetaBinWidthIndex(selectedBinWidthIndexValue)
+        update3DPlotFilepath(selectedBinWidthIndexValue, currentGammaBinWidthIndex)
+        console.debug(`Finished updating 3DTwoThetaBinningData...`)
     }
 
+    function getCurrentGammaBinWidthIndex3D(){
+        if (syncTabsBinnings) {
+            return gammaBinWidthIndexMD
+        } else {
+            return gammaBinWidthIndex3D
+        }
+    }
     function update3DTwoThetaBinWidthIndex(selectedBinWidthIndexValue){
         console.debug(`update3DTwoThetaBinWidthIndex to ${selectedBinWidthIndexValue}`)
         if (syncTabsBinnings) {
-            twoThetaBinWidthIndex = selectedBinWidthIndexValue
+            twoThetaBinWidthIndexMD = selectedBinWidthIndexValue
         } else {
             twoThetaBinWidthIndex3D = selectedBinWidthIndexValue
         }
     }
 
+    function update3DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
+        let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
+        plot3dFilepath = '../../../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
+        console.debug(`update3DPlotFilepath to ${plot3dFilepath}`)
+    }
+
     function update3DGammaBinningData(selectedBinWidthIndexValue){
         console.debug(`Starting to update3DGammaBinningData...`)
+        let currentTwoThetaBinWidthIndex = getCurrentTwoThetaBinWidthIndex3D()
         update3DGammaBinWidthIndex(selectedBinWidthIndexValue)
+        update3DPlotFilepath(currentTwoThetaBinWidthIndex, selectedBinWidthIndexValue)
+        console.debug(`Finished updating 3DGammaBinningData...`)
+    }
+
+    function getCurrentTwoThetaBinWidthIndex3D(){
+        if (syncTabsBinnings) {
+            return twoThetaBinWidthIndexMD
+        } else {
+            return twoThetaBinWidthIndex3D
+        }
     }
 
     function update3DGammaBinWidthIndex(selectedBinWidthIndexValue){
         console.debug(`update3DGammaBinWidthIndex to ${selectedBinWidthIndexValue}`)
         if (syncTabsBinnings) {
-            gammaBinWidthIndex = selectedBinWidthIndexValue
+            gammaBinWidthIndexMD = selectedBinWidthIndexValue
         } else {
             gammaBinWidthIndex3D = selectedBinWidthIndexValue
         }
@@ -226,28 +254,61 @@ QtObject {
     property real twoThetaRingsSliderValue: minTwoThetaCenter
 
     function update2DTwoThetaBinningData(selectedBinWidthIndexValue){
-        console.debug(`Starting to update2DTwoThetaBinningData...`)
+        console.debug(`Starting to update 2DTwoThetaBinningData...`)
+        //let currentGammaBinWidthIndex = getCurrentGammaBinWidthIndex2D()
         update2DTwoThetaBinWidthIndex(selectedBinWidthIndexValue)
+        //update2DTwoThetaSliderData(selectedBinWidthIndexValue)
+        //update2DPlotFilepath(selectedBinWidthIndexValue, currentGammaBinWidthIndex)
+        console.debug(`Finished updating 2DTwoThetaBinningData...`)
+    }
+
+    function getCurrentGammaBinWidthIndex2D(){
+        if (syncTabsBinnings) {
+            return gammaBinWidthIndexMD
+        } else {
+            return gammaBinWidthIndex2D
+        }
     }
 
     function update2DTwoThetaBinWidthIndex(selectedBinWidthIndexValue){
         console.debug(`update2DTwoThetaBinWidthIndex to ${selectedBinWidthIndexValue}`)
         if (syncTabsBinnings) {
-            twoThetaBinWidthIndex = selectedBinWidthIndexValue
+            twoThetaBinWidthIndexMD = selectedBinWidthIndexValue
         } else {
             twoThetaBinWidthIndex2D = selectedBinWidthIndexValue
         }
     }
 
+    function update2DTwoThetaSliderData(twoThetaBinWidthIndx) {
+        if (twoThetaBinWidthIndx === 0) {
+            twoThetaBinWidth = 0.5
+            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
+            minTwoThetaCenter = 45.25 //centers[0]
+            maxTwoThetaCenter = 134.75 //centers[-1]
+            console.debug(`update1DTwoThetaSliderData to bin_width=${twoThetaBinWidth}, and slider edges to (min=${minTwoThetaCenter}, max=${maxTwoThetaCenter})`)
+        } else if (twoThetaBinWidthIndx === 1) {
+            twoThetaBinWidth = 1
+            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
+            minTwoThetaCenter = 45.5 //centers[0]
+            maxTwoThetaCenter = 134.5 //centers[-1]
+            console.debug(`update1DTwoThetaSliderData to bin_width=${twoThetaBinWidth}, and slider edges to (min=${minTwoThetaCenter}, max=${maxTwoThetaCenter})`)
+        } else {
+            console.debug(`WARNING: update1DTwoThetaSliderData for two theta bin width index ${two_theta_bin_width_indx} is not implemented.`)
+        }
+        twoThetaRingsSliderValue = minTwoThetaCenter
+        console.debug(`twoThetaRingsSliderValue is changed to ${twoThetaRingsSliderValue}`)
+    }
+
     function update2DGammaBinningData(selectedBinWidthIndexValue){
-        console.debug(`Starting to update2DGammaBinningData...`)
+        console.debug(`Starting to update 2DGammaBinningData...`)
         update2DGammaBinWidthIndex(selectedBinWidthIndexValue)
+        console.debug(`Finished updating 2DGammaBinningData...`)
     }
 
     function update2DGammaBinWidthIndex(selectedBinWidthIndexValue){
         console.debug(`update2DGammaBinWidthIndex to ${selectedBinWidthIndexValue}`)
         if (syncTabsBinnings) {
-            gammaBinWidthIndex = selectedBinWidthIndexValue
+            gammaBinWidthIndexMD = selectedBinWidthIndexValue
         } else {
             gammaBinWidthIndex2D = selectedBinWidthIndexValue
         }
@@ -255,63 +316,84 @@ QtObject {
 
     // Binning 1D
     property int twoThetaBinWidthIndex1D: 0
-    property int gammaBinWidthIndex1D: 0
+    property real minTwoThetaCenter1D: 45.25
+    property real maxTwoThetaCenter1D: 134.75
+    property real twoThetaBinWidth1D: 0.5
     property real twoThetaSlider1DValue: minTwoThetaCenter
+
+    property int gammaBinWidthIndex1D: 0
+    property real gammaBinWidth1D: 1.0
+
+
+    property var twoThetaBinWidthIndexFinal1D: ({
+        true: twoThetaBinWidthIndexMD,
+        false: twoThetaBinWidthIndex1D
+    })
+    property var gammaBinWidthIndexFinal1D: ({
+        true: gammaBinWidthIndexMD,
+        false: gammaBinWidthIndex1D
+    })
+
 
     function update1DTwoThetaBinningData(twoThetaBinWidthIndx){
         console.debug(`Starting to update 1DTwoThetaBinningData...`)
+        let currentGammaBinWidthIndex = getCurrentGammaBinWidthIndex1D()
         update1DTwoThetaBinWidthIndex(twoThetaBinWidthIndx)
         update1DTwoThetaSliderData(twoThetaBinWidthIndx)
-        update1DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndex1D)
+        update1DPlotFilepath(twoThetaBinWidthIndx, currentGammaBinWidthIndex)
+        console.debug(`Finished updating 1DTwoThetaBinningData...`)
+    }
+
+    function getCurrentGammaBinWidthIndex1D(){
+        return gammaBinWidthIndexFinal1D[syncTabsBinnings]
+    }
+
+    function update1DTwoThetaBinWidthIndex(selectedBinWidthIndexValue){
+        console.debug(`update1DTwoThetaBinWidthIndex to ${selectedBinWidthIndexValue}`)
+        twoThetaBinWidthIndexFinal1D[syncTabsBinnings] = selectedBinWidthIndexValue
+    }
+
+    function update1DTwoThetaSliderData(twoThetaBinWidthIndx) {
+        if (twoThetaBinWidthIndx === 0) {
+            twoThetaBinWidth1D = 0.5
+            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
+            minTwoThetaCenter1D = 45.25 //centers[0]
+            maxTwoThetaCenter1D = 134.75 //centers[-1]
+            console.debug(`update1DTwoThetaSliderData to bin_width=${twoThetaBinWidth1D}, and slider edges to (min=${minTwoThetaCenter1D}, max=${maxTwoThetaCenter1D})`)
+        } else if (twoThetaBinWidthIndx === 1) {
+            twoThetaBinWidth1D = 1
+            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
+            minTwoThetaCenter1D = 45.5 //centers[0]
+            maxTwoThetaCenter1D = 134.5 //centers[-1]
+            console.debug(`update1DTwoThetaSliderData to bin_width=${twoThetaBinWidth1D}, and slider edges to (min=${minTwoThetaCenter1D}, max=${maxTwoThetaCenter1D})`)
+        } else {
+            console.debug(`WARNING: update1DTwoThetaSliderData for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
+        }
+        twoThetaSlider1DValue = minTwoThetaCenter1D
+        console.debug(`twoThetaSlider1DValue is changed to ${twoThetaSlider1DValue}`)
     }
 
     function update1DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
         let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
         plot1dFilepath = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-    }
-
-    function update1DTwoThetaBinWidthIndex(selectedBinWidthIndexValue){
-        console.debug(`update1DTwoThetaBinWidthIndex to ${selectedBinWidthIndexValue}`)
-        if (syncTabsBinnings) {
-            twoThetaBinWidthIndex = selectedBinWidthIndexValue
-        } else {
-            twoThetaBinWidthIndex1D = selectedBinWidthIndexValue
-        }
-    }
-
-    function update1DTwoThetaSliderData(twoThetaBinWidthIndx) {
-        if (twoThetaBinWidthIndx === 0) {
-            twoThetaBinWidth = 0.5
-            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
-            minTwoThetaCenter = 45.25 //centers[0]
-            maxTwoThetaCenter = 134.75 //centers[-1]
-            console.debug(`Updated two theta bin width 1D to ${twoThetaBinWidth}, and slider edges to (min=${minTwoThetaCenter}, max=${maxTwoThetaCenter})`)
-        } else if (twoThetaBinWidthIndx === 1) {
-            twoThetaBinWidth = 1
-            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
-            minTwoThetaCenter = 45.5 //centers[0]
-            maxTwoThetaCenter = 134.5 //centers[-1]
-            console.debug(`Updated two theta bin width 1D to ${twoThetaBinWidth}, and slider edges to (min=${minTwoThetaCenter}, max=${maxTwoThetaCenter})`)
-        } else {
-            console.debug(`WARNING: update1DTwoThetaSliderData for two theta bin width index ${two_theta_bin_width_indx} is not implemented.`)
-        }
-        twoThetaSlider1DValue = minTwoThetaCenter
-        console.debug(`twoThetaSlider1DValue: ${twoThetaSlider1DValue}`)
-
+        console.debug(`update1DPlotFilepath to ${plot1dFilepath}`)
     }
 
     function update1DGammaBinningData(selectedBinWidthIndexValue){
         console.debug(`Starting to update 1DGammaBinningData...`)
+        let currentTwoThetaBinWidthIndex = getCurrentTwoThetaBinWidthIndex1D()
         update1DGammaBinWidthIndex(selectedBinWidthIndexValue)
+        update1DPlotFilepath(currentTwoThetaBinWidthIndex, selectedBinWidthIndexValue)
+        console.debug(`Finished updating 1DGammaBinningData...`)
+    }
+
+    function getCurrentTwoThetaBinWidthIndex1D(){
+        return twoThetaBinWidthIndexFinal1D[syncTabsBinnings]
     }
 
     function update1DGammaBinWidthIndex(selectedBinWidthIndexValue){
         console.debug(`update1DGammaBinWidthIndex to ${selectedBinWidthIndexValue}`)
-        if (syncTabsBinnings) {
-            gammaBinWidthIndex = selectedBinWidthIndexValue
-        } else {
-            gammaBinWidthIndex1D = selectedBinWidthIndexValue
-        }
+        gammaBinWidthIndexFinal1D[syncTabsBinnings] = selectedBinWidthIndexValue
     }
 
 }

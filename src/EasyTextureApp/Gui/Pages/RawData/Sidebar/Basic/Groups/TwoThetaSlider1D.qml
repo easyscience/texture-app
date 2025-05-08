@@ -49,9 +49,9 @@ Grid {
             width: EaStyle.Sizes.sideBarContentWidth
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
-            from: Globals.BackendWrapper.rawDataMinTwoThetaCenter
-            to: Globals.BackendWrapper.rawDataMaxTwoThetaCenter
-            stepSize: Globals.BackendWrapper.rawDataTwoThetaBinWidth
+            from: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
+            to: Globals.BackendWrapper.rawDataMaxTwoThetaCenter1D
+            stepSize: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D  //Globals.BackendWrapper.rawDataTwoThetaSliderStep
             toolTipText: slider.value + '°'
 
             onValueChanged: {

@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // © 2022 Contributors to the EasyTexture project <https://github.com/EasyScience/EasyTextureApp>
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
 
 import EasyApp.Gui.Charts as EaCharts
 
@@ -17,15 +16,19 @@ EaCharts.Plotly1dLineNew {
     yAxisTitle: 'Counts'
 
     property string gammaColumn:  'user gamma [deg]'
-    property string countsColumn:  'proj_count'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
+    property string plot1dFilepath: Globals.BackendWrapper.rawDataPlot1dFilepath
+    property real minTT: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
+    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSlider1DValue
+    //property string sliderValue: Globals.BackendWrapper.rawDataMinTwoThetaCenter
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getData1DFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot1dFilepath), 45.25)
+                //console.debug('SLIDERV', sliderValue)
+                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTT)
                 line1d.setXAxisTitle()
                 line1d.setYAxisTitle()
             }
@@ -37,17 +40,39 @@ EaCharts.Plotly1dLineNew {
         }
     }
 
-    function getData1DFromJson(jsonFilename, sliderValue){
-        console.debug(`${this} getData1DFromJson from file ${jsonFilename} at two theta ${sliderValue}`)
+    onPlot1dFilepathChanged: {
+        if (loadSucceededStatus) {
+            //console.debug('SLIDERV2', minTT)
+            //sliderValue = minTT
+            //print('HERE', minTT)
+            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTT)
+            //surface3d.setScene()
+        }
+    }
+
+    onSliderValueChanged: {
+        if (loadSucceededStatus) {
+            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), sliderValue)
+        }
+    }
+
+    function getData1DFromJson(jsonFilename, sld){
+        console.debug(`${this} getData1DFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueTwoTheta = result[twoThetaColumn]
+            //print('TT', uniqueTwoTheta)
             let uniqueGamma = result[gammaColumn]
+            //print('gg', uniqueGamma)
             let customData = result[customDataColumn]
 
             let countsData = extractCustomColumnByIndex(customData, 2)
-            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
+            //print('counts', countsData)
+            //let minTT
+            let sliderIndx = getIndxByValue(uniqueTwoTheta, sld)
+            //print('sliderIndx', sliderIndx, 'sl value', sld)
 
             let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndx])
+            //print('tt array', twoThetaArray)
 
             plotData = {
                 'x': uniqueGamma,
