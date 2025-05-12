@@ -41,15 +41,14 @@ Grid {
                         //values for two_theta_bin_width_2D
                         // currentIndex: 2
                         // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°']
-                        currentIndex: Globals.BackendWrapper.rawDataTwoThetaIndex
                         model: ['0.5°', '1°']
+                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
+                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexMD :
+                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
+
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataTwoThetaIndex = currentIndex
-                            /*indxChanged()
-                            if (Globals.Proxies.main.rawData.isCreated) {
-                                Globals.Proxies.main.rawData.slider2DStep = parseFloat(ttBinning2D.textAt(ttBinning2D.currentIndex))
-                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
-                            }*/
+                            Globals.BackendWrapper.rawDataUpdate2DTwoThetaBinningData(currentIndex)
+                            indxChanged()
                         }
                     }
                 }
@@ -70,12 +69,12 @@ Grid {
                         //values for gamma_bin_width_2D
                         // model: ['1°', '2°', '5°', '10°']
                         model: ['1°', '2°']
-                        currentIndex: Globals.BackendWrapper.rawDataGammaIndex
+                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
+                                      Globals.BackendWrapper.rawDataGammaBinWidthIndexMD :
+                                      Globals.BackendWrapper.rawDataGammaBinWidthIndex2D
+
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataGammaIndex = currentIndex
-                            /*if (Globals.Proxies.main.rawData.isCreated) {
-                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
-                            }*/
+                            Globals.BackendWrapper.rawDataUpdate2DGammaBinningData(currentIndex)
                         }
                     }
                 }

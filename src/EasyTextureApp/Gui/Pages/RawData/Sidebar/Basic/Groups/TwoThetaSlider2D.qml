@@ -37,7 +37,7 @@ Grid {
 
         EaElements.Label {
             id: sliderFromLabel
-            text: slider.from.toFixed(1) + '°'
+            text: slider.from.toFixed(2) + '°'
         }
 
         // Slider
@@ -46,19 +46,19 @@ Grid {
             width: EaStyle.Sizes.sideBarContentWidth
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
-            from: 45.5
-            to: 134.5
-            stepSize: Globals.BackendWrapper.rawDataTwoThetaSliderStep
+            from: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
+            to: Globals.BackendWrapper.rawDataMaxTwoThetaCenter2D
+            stepSize: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
             toolTipText: slider.value + '°'
 
             onValueChanged: {
-                Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue = slider.value.toFixed(1)
+                Globals.BackendWrapper.rawDatatwoThetaRingsSliderValue2D = slider.value.toFixed(2)
             }
         }
 
         EaElements.Label {
             id: sliderToLabel
-            text: slider.to.toFixed(1) + '°'
+            text: slider.to.toFixed(2) + '°'
         }
     }
 }

@@ -51,11 +51,11 @@ Grid {
             height: parent.height
             from: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
             to: Globals.BackendWrapper.rawDataMaxTwoThetaCenter1D
-            stepSize: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D  //Globals.BackendWrapper.rawDataTwoThetaSliderStep
+            stepSize: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
             toolTipText: slider.value + '°'
 
             onValueChanged: {
-                Globals.BackendWrapper.rawDataTwoThetaSlider1DValue = slider.value.toFixed(2)
+                Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
             }
         }
 

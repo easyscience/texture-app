@@ -38,13 +38,14 @@ Grid {
                         //values for two_theta_bin_width_3D
                         // currentIndex: 2
                         // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°']
-                        currentIndex: Globals.BackendWrapper.rawDataTwoThetaIndex
                         model: ['0.5°', '1°']
+
+                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
+                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexMD :
+                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
+
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataTwoThetaIndex = currentIndex
-                            /*if (Globals.Proxies.main.rawData.isCreated) {
-                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
-                            }*/
+                            Globals.BackendWrapper.rawDataUpdate3DTwoThetaBinningData(currentIndex)
                         }
                     }
                 }
@@ -65,12 +66,12 @@ Grid {
                         //values for gamma_bin_width_3D
                         // model: ['1°', '2°', '5°', '10°']
                         model: ['1°', '2°']
-                        currentIndex: Globals.BackendWrapper.rawDataGammaIndex
+                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
+                                      Globals.BackendWrapper.rawDataGammaBinWidthIndexMD :
+                                      Globals.BackendWrapper.rawDataGammaBinWidthIndex3D
+
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataGammaIndex = currentIndex
-                            /*if (Globals.Proxies.main.rawData.isCreated) {
-                                Globals.Proxies.main.rawData.updateOneTwoThreeDBinning()
-                            }*/
+                            Globals.BackendWrapper.rawDataUpdate3DGammaBinningData(currentIndex)
                         }
                     }
                 }

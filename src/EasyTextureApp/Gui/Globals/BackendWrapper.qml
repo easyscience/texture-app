@@ -101,11 +101,6 @@ QtObject {
     }
     function rawDataSetCurrentMeasurementIndex(value) { activeBackend.rawData.setCurrentMeasurementIndex(value) }
 
-    property real rawDataTwoThetaRingsSliderValue: activeBackend.rawData.twoThetaRingsSliderValue
-    onRawDataTwoThetaRingsSliderValueChanged: activeBackend.rawData.twoThetaRingsSliderValue = rawDataTwoThetaRingsSliderValue
-    property real rawDataTwoThetaSlider1DValue: activeBackend.rawData.twoThetaSlider1DValue
-    onRawDataTwoThetaSlider1DValueChanged: activeBackend.rawData.twoThetaSlider1DValue = rawDataTwoThetaSlider1DValue
-
 
 
 
@@ -139,6 +134,18 @@ QtObject {
     property int rawDataGammaBinWidthIndex2D: activeBackend.rawData.gammaBinWidthIndex2D
     onRawDataGammaBinWidthIndex2DChanged: activeBackend.rawData.gammaBinWidthIndex2D = rawDataGammaBinWidthIndex2D
 
+    property real rawDataMinTwoThetaCenter2D: activeBackend.rawData.minTwoThetaCenter2D
+    onRawDataMinTwoThetaCenter2DChanged: activeBackend.rawData.minTwoThetaCenter2D = rawDataMinTwoThetaCenter2D
+    property real rawDataMaxTwoThetaCenter2D: activeBackend.rawData.maxTwoThetaCenter2D
+    onRawDataMaxTwoThetaCenter2DChanged: activeBackend.rawData.maxTwoThetaCenter2D = rawDataMaxTwoThetaCenter2D
+    property real rawDataTwoThetaBinWidth2D: activeBackend.rawData.twoThetaBinWidth2D
+    onRawDataTwoThetaBinWidth2DChanged: activeBackend.rawData.twoThetaBinWidth2D = rawDataTwoThetaBinWidth2D
+    property real rawDataGammaBinWidth2D: activeBackend.rawData.gammaBinWidth2D
+    onRawDataGammaBinWidth2DChanged: activeBackend.rawData.gammaBinWidth2D = rawDataGammaBinWidth2D
+
+    property real rawDatatwoThetaRingsSliderValue2D: activeBackend.rawData.twoThetaRingsSliderValue2D
+    onRawDatatwoThetaRingsSliderValue2DChanged: activeBackend.rawData.twoThetaRingsSliderValue2D = rawDatatwoThetaRingsSliderValue2D
+
     function rawDataUpdate2DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update2DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate2DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update2DGammaBinningData(selectedBinWidthIndexValue) }
 
@@ -158,6 +165,8 @@ QtObject {
     property real rawDataGammaBinWidth1D: activeBackend.rawData.gammaBinWidth1D
     onRawDataGammaBinWidth1DChanged: activeBackend.rawData.gammaBinWidth1D = rawDataGammaBinWidth1D
 
+    property real rawDataTwoThetaSliderValue1D: activeBackend.rawData.twoThetaSliderValue1D
+    onRawDataTwoThetaSliderValue1DChanged: activeBackend.rawData.twoThetaSliderValue1D = rawDataTwoThetaSliderValue1D
 
     function rawDataUpdate1DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate1DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DGammaBinningData(selectedBinWidthIndexValue) }

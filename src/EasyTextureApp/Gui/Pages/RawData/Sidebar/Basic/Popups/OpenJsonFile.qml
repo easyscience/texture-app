@@ -30,7 +30,6 @@ FileDialog{
         Globals.BackendWrapper.rawDataSetSelectedFilename(filePath, fileName)
         Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
         Globals.BackendWrapper.rawDataLoaded = true
-
         console.debug(`File loading process finished.`)
 
     }
