@@ -19,16 +19,14 @@ EaCharts.Plotly1dLineNew {
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
     property string plot1dFilepath: Globals.BackendWrapper.rawDataPlot1dFilepath
-    property real minTT: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
-    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
-    //property string sliderValue: Globals.BackendWrapper.rawDataMinTwoThetaCenter
+    property real minTwoTheta1D: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
+    property real sliderValue1D: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                //console.debug('SLIDERV', sliderValue)
-                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTT)
+                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTwoTheta1D)
                 line1d.setXAxisTitle()
                 line1d.setYAxisTitle()
             }
@@ -42,37 +40,27 @@ EaCharts.Plotly1dLineNew {
 
     onPlot1dFilepathChanged: {
         if (loadSucceededStatus) {
-            //console.debug('SLIDERV2', minTT)
-            //sliderValue = minTT
-            //print('HERE', minTT)
-            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTT)
-            //surface3d.setScene()
+            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTwoTheta1D)
         }
     }
 
-    onSliderValueChanged: {
+    onSliderValue1DChanged: {
         if (loadSucceededStatus) {
-            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), sliderValue)
+            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), sliderValue1D)
         }
     }
 
-    function getData1DFromJson(jsonFilename, sld){
-        console.debug(`${this} getData1DFromJson from file ${jsonFilename}`)
+    function getData1DFromJson(jsonFilename, sliderValue){
+        console.debug(`${this} getData1DFromJson from file ${jsonFilename} for two theta=${sliderValue}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueTwoTheta = result[twoThetaColumn]
-            //print('TT', uniqueTwoTheta)
             let uniqueGamma = result[gammaColumn]
-            //print('gg', uniqueGamma)
             let customData = result[customDataColumn]
 
             let countsData = extractCustomColumnByIndex(customData, 2)
-            //print('counts', countsData)
-            //let minTT
-            let sliderIndx = getIndxByValue(uniqueTwoTheta, sld)
-            //print('sliderIndx', sliderIndx, 'sl value', sld)
+            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
 
             let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndx])
-            //print('tt array', twoThetaArray)
 
             plotData = {
                 'x': uniqueGamma,
@@ -96,9 +84,5 @@ EaCharts.Plotly1dLineNew {
     function getIndxByValue(object, value) {
         return Object.keys(object).filter(indx => object[indx] === value);
     }
-
-    /*function getSliderValues(){
-        return twoThetaData.filter(onlyUnique)
-    }*/
 
 }
