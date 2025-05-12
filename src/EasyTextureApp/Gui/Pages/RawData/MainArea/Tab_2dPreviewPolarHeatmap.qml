@@ -15,12 +15,15 @@ EaCharts.Plotly2dPolarHeatmapNew {
     property string gammaColumn: 'user gamma [deg]'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
+    property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath
+    property real minTT: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
+    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getTwoThetaRingDataFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot2dHeatmapFilepath), 45.25)
+                getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), minTT)
             }
             else {
                 console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
@@ -30,7 +33,22 @@ EaCharts.Plotly2dPolarHeatmapNew {
         }
     }
 
-    function getTwoThetaRingDataFromJson(jsonFilename, sliderValue){
+    onPlot2dFilepathChanged: {
+        if (loadSucceededStatus) {
+            print('FN CHANGED', plot2dFilepath, sliderValue)
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue)
+            //heatmap2d.setXAxisTitle()
+            //heatmap2d.setYAxisTitle()
+        }
+    }
+
+    onSliderValueChanged: {
+        if (loadSucceededStatus) {
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue)
+        }
+    }
+
+    function getTwoThetaRingDataFromJson(jsonFilename, sld){
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueTwoTheta = result[twoThetaColumn]
@@ -42,7 +60,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
             let countsData = extractCustomColumnByIndex(customData, 2)
             let ringsCountsMesh = cleanUpCounts(countsData)
 
-            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
+            let sliderIndx = getIndxByValue(uniqueTwoTheta, sld)
             let twoThetaArray = Array(ringsCountsMesh[sliderIndx].length).fill(uniqueTwoTheta[sliderIndx])
 
             plotData = {

@@ -20,7 +20,7 @@ EaCharts.Plotly1dLineNew {
     property string customDataColumn: 'custom_data'
     property string plot1dFilepath: Globals.BackendWrapper.rawDataPlot1dFilepath
     property real minTT: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
-    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSlider1DValue
+    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
     //property string sliderValue: Globals.BackendWrapper.rawDataMinTwoThetaCenter
 
     onLoadSucceededStatusChanged: {

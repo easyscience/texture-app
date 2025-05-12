@@ -15,6 +15,7 @@ EaCharts.Plotly3dSurfaceNew {
     property string xColumn: 'voxel_x [mm]'
     property string yColumn: 'voxel_y [mm]'
     property string customDataColumn: 'custom_data'
+    property string plot3dFilepath: Globals.BackendWrapper.rawDataPlot3dFilepath
 
     scene: {
         'xaxis': {
@@ -46,7 +47,8 @@ EaCharts.Plotly3dSurfaceNew {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getData3DFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot3dFilepath))
+                //Globals.BackendWrapper.getData3DBackendTest(Qt.resolvedUrl(plot3dFilepath))
+                getData3DFromJson(Qt.resolvedUrl(plot3dFilepath))
                 surface3d.setScene()
             }
             else {
@@ -54,6 +56,13 @@ EaCharts.Plotly3dSurfaceNew {
             }
         } else {
             console.debug('WebEngineView not ready yet.')
+        }
+    }
+
+    onPlot3dFilepathChanged: {
+        if (loadSucceededStatus) {
+            getData3DFromJson(Qt.resolvedUrl(plot3dFilepath))
+            setScene()
         }
     }
 
@@ -80,7 +89,6 @@ EaCharts.Plotly3dSurfaceNew {
                 'hoverTemplate': hoverTemplate,
                 'colorbarTitle': 'Counts'
             }
-
         })
     }
 

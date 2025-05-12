@@ -100,19 +100,6 @@ QtObject {
         }
     }
     function rawDataSetCurrentMeasurementIndex(value) { activeBackend.rawData.setCurrentMeasurementIndex(value) }
-
-
-
-
-    property string rawDataPlot3dFilepath: activeBackend.rawData.plot3dFilepath
-    onRawDataPlot3dFilepathChanged: activeBackend.rawData.plot3dFilepath = rawDataPlot3dFilepath
-    property string rawDataPlot2dHeatmapFilepath: activeBackend.rawData.plot2dHeatmapFilepath
-    onRawDataPlot2dHeatmapFilepathChanged: activeBackend.rawData.plot2dHeatmapFilepath = rawDataPlot2dHeatmapFilepath
-    property string rawDataPlot2dPolarHeatmapFilepath: activeBackend.rawData.plot2dPolarHeatmapFilepath
-    onRawDataPlot2dPolarHeatmapFilepathChanged: activeBackend.rawData.plot2dPolarHeatmapFilepath = rawDataPlot2dPolarHeatmapFilepath
-    property string rawDataPlot1dFilepath: activeBackend.rawData.plot1dFilepath
-    onRawDataPlot1dFilepathChanged: activeBackend.rawData.plot1dFilepath = rawDataPlot1dFilepath
-
     property var rawDataLoadedData: activeBackend.rawData.loadedData
 
     //Binning Group
@@ -124,6 +111,9 @@ QtObject {
     onRawDataTwoThetaBinWidthIndex3DChanged: activeBackend.rawData.twoThetaBinWidthIndex3D = rawDataTwoThetaBinWidthIndex3D
     property int rawDataGammaBinWidthIndex3D: activeBackend.rawData.gammaBinWidthIndex3D
     onRawDataGammaBinWidthIndex3DChanged: activeBackend.rawData.gammaBinWidthIndex3D = rawDataGammaBinWidthIndex3D
+
+    property string rawDataPlot3dFilepath: activeBackend.rawData.plot3dFilepath
+    onRawDataPlot3dFilepathChanged: activeBackend.rawData.plot3dFilepath = rawDataPlot3dFilepath
 
     function rawDataUpdate3DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update3DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate3DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update3DGammaBinningData(selectedBinWidthIndexValue) }
@@ -143,8 +133,11 @@ QtObject {
     property real rawDataGammaBinWidth2D: activeBackend.rawData.gammaBinWidth2D
     onRawDataGammaBinWidth2DChanged: activeBackend.rawData.gammaBinWidth2D = rawDataGammaBinWidth2D
 
-    property real rawDatatwoThetaRingsSliderValue2D: activeBackend.rawData.twoThetaRingsSliderValue2D
-    onRawDatatwoThetaRingsSliderValue2DChanged: activeBackend.rawData.twoThetaRingsSliderValue2D = rawDatatwoThetaRingsSliderValue2D
+    property real rawDataTwoThetaRingsSliderValue2D: activeBackend.rawData.twoThetaRingsSliderValue2D
+    onRawDataTwoThetaRingsSliderValue2DChanged: activeBackend.rawData.twoThetaRingsSliderValue2D = rawDataTwoThetaRingsSliderValue2D
+
+    property string rawDataPlot2dFilepath: activeBackend.rawData.plot2dFilepath
+    onRawDataPlot2dFilepathChanged: activeBackend.rawData.plot2dFilepath = rawDataPlot2dFilepath
 
     function rawDataUpdate2DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update2DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate2DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update2DGammaBinningData(selectedBinWidthIndexValue) }
@@ -167,6 +160,9 @@ QtObject {
 
     property real rawDataTwoThetaSliderValue1D: activeBackend.rawData.twoThetaSliderValue1D
     onRawDataTwoThetaSliderValue1DChanged: activeBackend.rawData.twoThetaSliderValue1D = rawDataTwoThetaSliderValue1D
+
+    property string rawDataPlot1dFilepath: activeBackend.rawData.plot1dFilepath
+    onRawDataPlot1dFilepathChanged: activeBackend.rawData.plot1dFilepath = rawDataPlot1dFilepath
 
     function rawDataUpdate1DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate1DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DGammaBinningData(selectedBinWidthIndexValue) }

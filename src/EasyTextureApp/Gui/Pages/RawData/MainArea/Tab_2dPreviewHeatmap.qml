@@ -19,12 +19,13 @@ EaCharts.Plotly2dHeatmapNew {
     property string gammaColumn: 'user gamma [deg]'
     property string countsColumn: 'proj_count'
     property string customDataColumn: 'custom_data'
+    property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath //rawDataPlot2dFilepath
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getData2DFromJson(Qt.resolvedUrl(Globals.BackendWrapper.rawDataPlot2dHeatmapFilepath))
+                getData2DFromJson(Qt.resolvedUrl(plot2dFilepath))
                 heatmap2d.setXAxisTitle()
                 heatmap2d.setYAxisTitle()
             }
@@ -33,6 +34,14 @@ EaCharts.Plotly2dHeatmapNew {
             }
         } else {
             console.debug('WebEngineView not ready yet.')
+        }
+    }
+
+    onPlot2dFilepathChanged: {
+        if (loadSucceededStatus) {
+            getData2DFromJson(Qt.resolvedUrl(plot2dFilepath))
+            heatmap2d.setXAxisTitle()
+            heatmap2d.setYAxisTitle()
         }
     }
 

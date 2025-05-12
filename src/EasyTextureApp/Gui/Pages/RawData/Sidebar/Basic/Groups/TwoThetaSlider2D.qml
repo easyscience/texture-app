@@ -52,7 +52,7 @@ Grid {
             toolTipText: slider.value + '°'
 
             onValueChanged: {
-                Globals.BackendWrapper.rawDatatwoThetaRingsSliderValue2D = slider.value.toFixed(2)
+                Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = slider.value.toFixed(2)
             }
         }
 

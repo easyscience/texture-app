@@ -28,18 +28,15 @@ QtObject {
     property string selectedFilePath: ''
     readonly property int currentMeasurementIndex: -1
     property string plot3dFilepath: '../../../../../../examples/RawData/user_voxels_3D_1.json'
-    property string plot2dHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
-    property string plot2dPolarHeatmapFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
+    property string plot2dFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
     property string plot1dFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
 
     onPlot3dFilepathChanged: {
         generate3dSurfacePlot(plot3dFilepath, twoThetaBinWidth, gammaBinWidth)
     }
-    onPlot2dHeatmapFilepathChanged: {
-        generate2dHeatmapPlot(plot2dHeatmapFilepath, twoThetaBinWidth, gammaBinWidth)
-    }
-    onPlot2dPolarHeatmapFilepathChanged: {
-        generate2dPolarHeatmapPlot(plot2dPolarHeatmapFilepath, twoThetaBinWidth, gammaBinWidth)
+    onPlot2dFilepathChanged: {
+        generate2dHeatmapPlot(plot2dFilepath, twoThetaBinWidth, gammaBinWidth)
+        generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth)
     }
     onPlot1dFilepathChanged: {
         generate1dLinePlot(plot1dFilepath, twoThetaBinWidth, gammaBinWidth)
@@ -60,13 +57,13 @@ QtObject {
     }
 
     function generate2dHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`QML backend for generate2dHeatmapPlot. Load ${plot2dHeatmapFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        console.debug(`QML backend for generate2dHeatmapPlot. Load ${plot2dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
         //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
         //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`QML backend for generate2dPolarHeatmapPlot. Load ${plot2dPolarHeatmapFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        console.debug(`QML backend for generate2dPolarHeatmapPlot. Load ${plot2dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
         //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
         //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
@@ -106,29 +103,6 @@ QtObject {
         console.debug(`removeFilename with name ${text}`)
     }
 
-    /*function getTwoThetaBinning(twoThetaBinWidthIndexMD) {
-        console.debug(`getTwoThetaBinning for two theta index ${twoThetaBinWidthIndexMD}`)
-        const twoTheta = [0.5, 1]
-        // in final version
-        //const twoTheta = [0.1, 0.25, 0.5, 0.75, 1, 2, 5, 10];
-        return twoTheta[twoThetaBinWidthIndexMD]
-    }
-
-    function getGammaBinning(gammaBinWidthIndexMD) {
-        console.debug(`getGammaBinning for gamma index ${gammaBinWidthIndexMD}`)
-        const gamma = [1, 2]
-        // in final version
-        //const gamma = [0.1, 1, 2, 5, 10]
-        return gamma[gammaBinWidthIndexMD]
-    }
-
-    function getBinning(twoThetaBinWidthIndexMD, gammaBinWidthIndexMD) {
-        let twoThetaBinning = getTwoThetaBinning(twoThetaBinWidthIndexMD)
-        let gammaBinning = getGammaBinning(gammaBinWidthIndexMD)
-        console.debug(`getBinning: two_theta_bin_width ${twoThetaBinning} and gamma_bin_width ${gammaBinning}`)
-        return [twoThetaBinning, gammaBinning]
-    }*/
-
     //Binning Group
     property int selectedTabIndex: 0
 
@@ -137,56 +111,6 @@ QtObject {
     property real twoThetaBinWidth: 0.5
     property real gammaBinWidth: 1.0
 
-    /*function updateFigure(tab_indx) {
-        console.debug(`updateFigure for tab ${tab_indx}: NOT IMPLEMENTED`)
-        let mockBinningIndex = 2*twoThetaBinWidthIndexMD + gammaBinWidthIndexMD + 1
-        console.debug('mockBinningIndex: ', mockBinningIndex)
-        if (tab_indx === 0) {
-            plot3dFilepath = '../../../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
-        } else if (tab_indx === 1 || tab_indx === 2 || tab_indx === 3) {
-            plot2dHeatmapFilepath = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-            plot2dPolarHeatmapFilepath = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-            plot1dFilepath = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        } else {
-            console.debug('updateFigure: Unsupported tab index')
-        }
-    }*/
-
-    /*function updateTwoThetaBinData(two_theta_bin_width_indx) {
-        if (two_theta_bin_width_indx === 0) {
-            twoThetaBinWidth = 0.5
-            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
-            minTwoThetaCenter = 45.25 //centers[0]
-            maxTwoThetaCenter = 134.75 //centers[-1]
-            console.debug(`updated two theta bin data to bin width: ${twoThetaBinWidth}, and (min, max) two theta to (${minTwoThetaCenter}, ${maxTwoThetaCenter})`)
-        } else if (two_theta_bin_width_indx === 1) {
-            twoThetaBinWidth = 1
-            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
-            minTwoThetaCenter = 45.5 //centers[0]
-            maxTwoThetaCenter = 134.5 //centers[-1]
-            console.debug(`updated two theta bin data to bin width: ${twoThetaBinWidth}, and (min, max) two theta to (${minTwoThetaCenter}, ${maxTwoThetaCenter})`)
-        } else {
-            console.debug(`updateTwoThetaBinData for two theta index ${two_theta_bin_width_indx}: NOT IMPLEMENTED`)
-        }
-    }*/
-
-    /*function updateGammaBinData(gamma_bin_width_indx) {
-        if (gamma_bin_width_indx === 0) {
-            gammaBinWidth = 1
-            // centers, edges = bins_gamma(gamma_hole_low, gamma_hole_high, 1, drop_incomplete=True, with_hole=False)
-            gammaHoleLowCenter = 224.5 //centers[-1]
-            gammaHoleHighCenter = 315.5 //centers[0]
-            console.debug(`updateGammaBinData to ${gammaBinWidth}`)
-        } else if (gamma_bin_width_indx === 1) {
-            gammaBinWidth = 2
-            // centers, edges = bins_gamma(gamma_hole_low, gamma_hole_high, 2, drop_incomplete=True, with_hole=False)
-            gammaHoleLowCenter = 223 //centers[-1]
-            gammaHoleHighCenter = 317 //centers[0]
-            console.debug(`updateGammaBinData to ${gammaBinWidth}`)
-        } else {
-            console.debug(`updateGammaBinData for two theta index ${gamma_bin_width_indx}: NOT IMPLEMENTED`)
-        }
-    }*/
 
     // Binning 3D
     property int twoThetaBinWidthIndex3D: 0
@@ -307,8 +231,8 @@ QtObject {
 
     function update2DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
         let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
-        plot2dHeatmapFilepath = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        console.debug(`update2DPlotFilepath to ${plot2dHeatmapFilepath}`)
+        plot2dFilepath = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        console.debug(`update2DPlotFilepath to ${plot2dFilepath}`)
     }
 
     function update2DGammaBinningData(selectedBinWidthIndexValue){
