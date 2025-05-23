@@ -16,7 +16,6 @@ Grid {
 
     rows: 1
     columnSpacing: EaStyle.Sizes.fontPixelSize
-    //rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
 
     // Location
     Row {

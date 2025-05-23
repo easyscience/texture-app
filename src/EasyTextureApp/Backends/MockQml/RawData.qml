@@ -20,8 +20,6 @@ QtObject {
     property real gammaHoleLowCenter: 225.0
     property real gammaHoleHighCenter: 315.0
 
-
-
     // Load measurements group
     property var measurements: []
     readonly property var measurementNames: measurements.map(function (item) { return item.name })
@@ -36,7 +34,7 @@ QtObject {
     }
     onPlot2dFilepathChanged: {
         generate2dHeatmapPlot(plot2dFilepath, twoThetaBinWidth, gammaBinWidth)
-        generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth)
+        generate2dPolarHeatmapPlot(plot2dFilepath, twoThetaBinWidth, gammaBinWidth)
     }
     onPlot1dFilepathChanged: {
         generate1dLinePlot(plot1dFilepath, twoThetaBinWidth, gammaBinWidth)
@@ -52,26 +50,18 @@ QtObject {
 
     function generate3dSurfacePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate3dSurfacePlot. Load ${plot3dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function generate2dHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate2dHeatmapPlot. Load ${plot2dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate2dPolarHeatmapPlot. Load ${plot2dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`QML backend for generate1dLinePlot. Load ${plot1dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-        //let twoThetaBinSize = getTwoThetaBinning(twoThetaBinWidthIndexMD)
-        //let gammaBinSize = getGammaBinning(gammaBinWidthIndexMD)
     }
 
     function setCurrentMeasurementIndex(value) {
@@ -83,18 +73,18 @@ QtObject {
 
         // Check if the path already exists in the measurements array
         var pathExists = measurements.some(function(entry) {
-            return entry.path === path;
-        });
+            return entry.path === path
+        })
 
         if (!pathExists) {
             var newEntry = {
                 'indx': measurements.length + 1,
                 'path':  path,
                 'name':  name
-            };
+            }
             measurements = measurements.concat([newEntry])
         } else {
-            console.debug(`Path ${path} already exists.`);
+            console.debug(`Path ${path} already exists.`)
         }
     }
 
@@ -178,10 +168,8 @@ QtObject {
     property real twoThetaBinWidth2D: 0.5
     property real twoThetaRingsSliderValue2D: minTwoThetaCenter2D
 
-
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0
-
 
     function update2DTwoThetaBinningData(selectedBinWidthIndexValue){
         console.debug(`Starting to update 2DTwoThetaBinningData...`)
@@ -266,16 +254,17 @@ QtObject {
     property real maxTwoThetaCenter1D: 134.75
     property real twoThetaBinWidth1D: 0.5
     property real twoThetaSliderValue1D: minTwoThetaCenter1D
+    property bool resetTwoThetaSlider1D: false
 
     property int gammaBinWidthIndex1D: 0
     property real gammaBinWidth1D: 1.0
-
 
     function update1DTwoThetaBinningData(twoThetaBinWidthIndx){
         console.debug(`Starting to update 1DTwoThetaBinningData...`)
         let currentGammaBinWidthIndex = getCurrentGammaBinWidthIndex1D()
         update1DTwoThetaBinWidthIndex(twoThetaBinWidthIndx)
         update1DTwoThetaSliderData(twoThetaBinWidthIndx)
+        update1DTwoThetaSliderResetFlag(true)
         update1DPlotFilepath(twoThetaBinWidthIndx, currentGammaBinWidthIndex)
         console.debug(`Finished updating 1DTwoThetaBinningData...`)
     }
@@ -323,10 +312,16 @@ QtObject {
         console.debug(`update1DPlotFilepath to ${plot1dFilepath}`)
     }
 
+    function update1DTwoThetaSliderResetFlag(flagValue){
+        resetTwoThetaSlider1D = flagValue
+        console.debug(`update1DTwoThetaSliderResetFlag to ${flagValue}`)
+    }
+
     function update1DGammaBinningData(selectedBinWidthIndexValue){
         console.debug(`Starting to update 1DGammaBinningData...`)
         let currentTwoThetaBinWidthIndex = getCurrentTwoThetaBinWidthIndex1D()
         update1DGammaBinWidthIndex(selectedBinWidthIndexValue)
+        update1DTwoThetaSliderResetFlag(false)
         update1DPlotFilepath(currentTwoThetaBinWidthIndex, selectedBinWidthIndexValue)
         console.debug(`Finished updating 1DGammaBinningData...`)
     }

@@ -160,6 +160,8 @@ QtObject {
 
     property real rawDataTwoThetaSliderValue1D: activeBackend.rawData.twoThetaSliderValue1D
     onRawDataTwoThetaSliderValue1DChanged: activeBackend.rawData.twoThetaSliderValue1D = rawDataTwoThetaSliderValue1D
+    property bool rawDataResetTwoThetaSlider1D: activeBackend.rawData.resetTwoThetaSlider1D
+    onRawDataResetTwoThetaSlider1DChanged: activeBackend.rawData.resetTwoThetaSlider1D = rawDataResetTwoThetaSlider1D
 
     property string rawDataPlot1dFilepath: activeBackend.rawData.plot1dFilepath
     onRawDataPlot1dFilepathChanged: activeBackend.rawData.plot1dFilepath = rawDataPlot1dFilepath

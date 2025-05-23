@@ -21,6 +21,7 @@ EaCharts.Plotly1dLineNew {
     property string plot1dFilepath: Globals.BackendWrapper.rawDataPlot1dFilepath
     property real minTwoTheta1D: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
     property real sliderValue1D: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
+    property bool resetSlider1D: Globals.BackendWrapper.rawDataResetTwoThetaSlider1D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -40,7 +41,11 @@ EaCharts.Plotly1dLineNew {
 
     onPlot1dFilepathChanged: {
         if (loadSucceededStatus) {
-            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTwoTheta1D)
+            if (resetSlider1D) {
+                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTwoTheta1D)
+            } else {
+                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), sliderValue1D)
+            }
         }
     }
 
