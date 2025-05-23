@@ -12,18 +12,21 @@ import Gui.Globals as Globals
 EaCharts.Plotly2dPolarHeatmapNew {
     id: polarheatmap2d
 
+    colorbarTitle: 'Counts'
+
     property string gammaColumn: 'user gamma [deg]'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
     property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath
-    property real minTT: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
+    property real minTwoTheta2D: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
+    property real sliderValue2D: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), minTT)
+                getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), minTwoTheta2D)
+                polarheatmap2d.setColorbarTitle()
             }
             else {
                 console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
@@ -35,20 +38,17 @@ EaCharts.Plotly2dPolarHeatmapNew {
 
     onPlot2dFilepathChanged: {
         if (loadSucceededStatus) {
-            print('FN CHANGED', plot2dFilepath, sliderValue)
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue)
-            //heatmap2d.setXAxisTitle()
-            //heatmap2d.setYAxisTitle()
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue2D)
         }
     }
 
-    onSliderValueChanged: {
+    onSliderValue2DChanged: {
         if (loadSucceededStatus) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue)
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue2D)
         }
     }
 
-    function getTwoThetaRingDataFromJson(jsonFilename, sld){
+    function getTwoThetaRingDataFromJson(jsonFilename, sliderValue){
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueTwoTheta = result[twoThetaColumn]
@@ -60,7 +60,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
             let countsData = extractCustomColumnByIndex(customData, 2)
             let ringsCountsMesh = cleanUpCounts(countsData)
 
-            let sliderIndx = getIndxByValue(uniqueTwoTheta, sld)
+            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
             let twoThetaArray = Array(ringsCountsMesh[sliderIndx].length).fill(uniqueTwoTheta[sliderIndx])
 
             plotData = {
@@ -69,14 +69,14 @@ EaCharts.Plotly2dPolarHeatmapNew {
                 'z': ringsCountsMesh[sliderIndx],
                 'customData': twoThetaArray,
                 'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
-                                 '\u03b3: %{theta}\u00B0<br>'+
+                                 '\u03b3: %{theta}<br>'+
                                  'Counts: %{marker.color}',
             }
         })
     }
 
     function getIndxByValue(object, value) {
-        return Object.keys(object).filter(indx => object[indx] === value);
+        return Object.keys(object).filter(indx => object[indx] === value)
     }
 
     function cleanUpGamma(gammaArray, target) {
@@ -86,13 +86,13 @@ EaCharts.Plotly2dPolarHeatmapNew {
             // Check if there are neighbors to remove (both before and after the target)
             if (index > 0 && index < gammaArray.length - 1) {
                 // Remove the target and its two neighbors (one before and one after)
-                gammaArray.splice(index - 1, 3);
+                gammaArray.splice(index - 1, 3)
             } else if (index === 0) {
                 // Special case: target is at the start of the array (remove target and next element)
-                gammaArray.splice(index, 2); // Remove the target and its neighbor
+                gammaArray.splice(index, 2) // Remove the target and its neighbor
             } else if (index === gammaArray.length - 1) {
                 // Special case: target is at the end of the array (remove previous element and target)
-                gammaArray.splice(index - 1, 2); // Remove the previous element and target
+                gammaArray.splice(index - 1, 2) // Remove the previous element and target
             }
         }
         return gammaArray
@@ -107,6 +107,6 @@ EaCharts.Plotly2dPolarHeatmapNew {
     }
 
     function cleanUpCounts(arr) {
-        return arr.map(row => row.filter(value => value !== undefined));
+        return arr.map(row => row.filter(value => value !== undefined))
     }
 }

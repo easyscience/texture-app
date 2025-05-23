@@ -14,12 +14,13 @@ EaCharts.Plotly2dHeatmapNew {
 
     xAxisTitle: '2\u03b8, deg'
     yAxisTitle: '\u03b3, deg'
+    colorbarTitle: 'Counts'
 
     property string twoThetaColumn: 'two_theta [deg]'
     property string gammaColumn: 'user gamma [deg]'
     property string countsColumn: 'proj_count'
     property string customDataColumn: 'custom_data'
-    property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath //rawDataPlot2dFilepath
+    property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -28,6 +29,7 @@ EaCharts.Plotly2dHeatmapNew {
                 getData2DFromJson(Qt.resolvedUrl(plot2dFilepath))
                 heatmap2d.setXAxisTitle()
                 heatmap2d.setYAxisTitle()
+                heatmap2d.setColorbarTitle()
             }
             else {
                 console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
@@ -40,8 +42,6 @@ EaCharts.Plotly2dHeatmapNew {
     onPlot2dFilepathChanged: {
         if (loadSucceededStatus) {
             getData2DFromJson(Qt.resolvedUrl(plot2dFilepath))
-            heatmap2d.setXAxisTitle()
-            heatmap2d.setYAxisTitle()
         }
     }
 
@@ -62,7 +62,6 @@ EaCharts.Plotly2dHeatmapNew {
                 'x': uniqueTwoTheta,
                 'y': uniqueGamma,
                 'z': countsData,
-                'colorbarTitle': 'Counts',
                 'hoverTemplate': '2\u03b8: %{x}\u00B0<br>'+
                                  '\u03b3: %{y}\u00B0<br>'+
                                  'Counts: %{z}',
