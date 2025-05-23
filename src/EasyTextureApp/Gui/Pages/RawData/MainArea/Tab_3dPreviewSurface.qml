@@ -12,6 +12,8 @@ import Gui.Globals as Globals
 EaCharts.Plotly3dSurfaceNew {
     id: surface3d
 
+    colorbarTitle: 'Counts'
+
     property string xColumn: 'voxel_x [mm]'
     property string yColumn: 'voxel_y [mm]'
     property string customDataColumn: 'custom_data'
@@ -47,9 +49,9 @@ EaCharts.Plotly3dSurfaceNew {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                //Globals.BackendWrapper.getData3DBackendTest(Qt.resolvedUrl(plot3dFilepath))
                 getData3DFromJson(Qt.resolvedUrl(plot3dFilepath))
                 surface3d.setScene()
+                surface3d.setColorbarTitle()
             }
             else {
                 console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
@@ -86,8 +88,7 @@ EaCharts.Plotly3dSurfaceNew {
                 'z': zData,
                 'surfaceColor': countsData,
                 'customData': customData,
-                'hoverTemplate': hoverTemplate,
-                'colorbarTitle': 'Counts'
+                'hoverTemplate': hoverTemplate
             }
         })
     }
