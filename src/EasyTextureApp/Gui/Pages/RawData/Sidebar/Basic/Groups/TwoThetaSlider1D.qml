@@ -16,7 +16,7 @@ Grid {
     rows: 2
     columnSpacing: EaStyle.Sizes.fontPixelSize
     rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
-    property alias sliderValue: slider.value
+    property alias sliderValue1D: slider.value
 
     // Location
     Row {

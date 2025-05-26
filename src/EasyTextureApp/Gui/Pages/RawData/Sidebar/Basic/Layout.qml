@@ -47,7 +47,7 @@ EaComponents.SideBarColumn {
             // once indxChanged signal from groupbox is received -> reset slider value
             // in slider2D group box to the smalest (default) value
             function onIndxChanged() {
-                slider2DGroupBoxLoader.item.sliderValue = Globals.BackendWrapper.rawDataMinTwoThetaCenter
+                slider2DGroupBoxLoader.item.sliderValue2D = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
             }
         }
     }
@@ -80,7 +80,7 @@ EaComponents.SideBarColumn {
             // once indxChanged signal from groupbox is received -> reset slider value
             // in slider1D group box to the smalest (default) value
             function onIndxChanged() {
-                slider1DGroupBoxLoader.item.sliderValue = Globals.BackendWrapper.rawDataMinTwoThetaCenter
+                slider1DGroupBoxLoader.item.sliderValue1D = Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
             }
         }
     }
