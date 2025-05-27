@@ -97,6 +97,19 @@ EaComponents.ApplicationWindow {
         },
         // Corrections page
 
+        // Explore page
+        EaElements.AppBarTabButton {
+            id: exploreButton
+            enabled: false
+            fontIcon: 'microscope'
+            text: qsTr('Explore')
+            ToolTip.text: qsTr('Explore page')
+            Component.onCompleted: {
+                Globals.References.applicationWindow.appBarCentralTabs.exploreButton = exploreButton
+            }
+        },
+        // Explore page
+
         // Summary page
         EaElements.AppBarTabButton {
             id: summaryButton
@@ -121,6 +134,7 @@ EaComponents.ApplicationWindow {
         Loader { source: 'Pages/Project/Layout.qml' },
         Loader { source: 'Pages/RawData/Layout.qml' },
         Loader { source: 'Pages/Corrections/Layout.qml' },
+        Loader { source: 'Pages/Explore/Layout.qml' },
         Loader { source: 'Pages/Report/Layout.qml' }
     ]
 

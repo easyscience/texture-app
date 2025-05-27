@@ -42,11 +42,10 @@ EaComponents.ContentPage {
 
         continueButton.visible: true
 
-
         continueButton.onClicked: {
             console.debug(`Clicking '${continueButton.text}' button ::: ${this}`)
-            Globals.References.applicationWindow.appBarCentralTabs.summaryButton.enabled = true
-            Globals.References.applicationWindow.appBarCentralTabs.summaryButton.toggle()
+            Globals.References.applicationWindow.appBarCentralTabs.exploreButton.enabled = true
+            Globals.References.applicationWindow.appBarCentralTabs.exploreButton.toggle()
         }
     }
 

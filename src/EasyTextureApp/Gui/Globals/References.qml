@@ -19,6 +19,7 @@ QtObject {
             'projectButton': null,
             'rawDataButton': null,
             'correctionsButton': null,
+            'exploreButton': null,
             'summaryButton': null,
         }
     }
@@ -48,6 +49,15 @@ QtObject {
                 'basic': {
                     'popups': {
                         'openVanadiumJsonFile': null
+                    }
+                }
+            }
+        },
+        'explore': {
+            'sidebar': {
+                'basic': {
+                    'popups': {
+                        'openJsonFile': null
                     }
                 }
             }
