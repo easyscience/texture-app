@@ -15,54 +15,35 @@ import Gui.Globals as Globals
 
 EaComponents.ContentPage {
 
-    defaultInfo: Globals.BackendWrapper.rawDataLoaded ?
+    defaultInfo: Globals.BackendWrapper.exploreCreated ?
                     '' :
-                    qsTr('No measurement files loaded')
+                    qsTr('No preview available')
 
     mainView: EaComponents.MainContent {
         tabs: [
             EaElements.TabButton {
-                text: qsTr('3D View: Detector Inner Surface')
-                onClicked: {
-                    Globals.BackendWrapper.rawDataSelectedTabIndex = 0
-                    console.debug(`3D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
-                }
-            },
-            EaElements.TabButton {
-                text: qsTr('2D View: γ-2θ')
-                onClicked: {
-                    Globals.BackendWrapper.rawDataSelectedTabIndex = 1
-                    console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
-                }
-            },
-            EaElements.TabButton {
                 text: qsTr('2D View: 2θ Rings')
                 onClicked: {
-                    Globals.BackendWrapper.rawDataSelectedTabIndex = 2
-                    console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
+                    //Globals.BackendWrapper.rawDataSelectedTabIndex = 0
+                    console.debug(`2D View tab is selected in Explore ::: ${this}.`)
                 }
+
             },
             EaElements.TabButton {
                 text: qsTr('1D View: γ(2θ)')
                 onClicked: {
-                    Globals.BackendWrapper.rawDataSelectedTabIndex = 3
-                    console.debug(`1D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
+                    //Globals.BackendWrapper.rawDataSelectedTabIndex = 0
+                    console.debug(`1D View tab is selected in Explore ::: ${this}.`)
                 }
             }
         ]
 
         items: [
             Loader {
-                source: 'MainArea/Tab_3dPreviewSurface.qml'
+                source: 'MainArea/ExploreTab2DTwoThetaRings.qml'
             },
             Loader {
-                source: 'MainArea/Tab_2dPreviewHeatmap.qml'
-            },
-            Loader {
-                source: 'MainArea/Tab_2dPreviewPolarHeatmap.qml'
-            },
-            Loader {
-                source: 'MainArea/Tab_1dPreview.qml'
+                source: 'MainArea/ExploreTab1D.qml'
             }
         ]
     }
@@ -70,14 +51,14 @@ EaComponents.ContentPage {
     sideBar: EaComponents.SideBar {
         tabs: [
             EaElements.TabButton { text: qsTr('Basic controls') },
-            EaElements.TabButton { text: qsTr('Extra controls') },
-            EaElements.TabButton { text: qsTr('Text mode controls'); enabled: false }
+            EaElements.TabButton { text: qsTr('Extra controls') }
+            //EaElements.TabButton { text: qsTr('Text mode controls'); enabled: false }
         ]
 
         items: [
             Loader { source: 'Sidebar/Basic/Layout.qml' },
-            Loader { source: 'Sidebar/Extra/Layout.qml' },
-            Loader { source: 'Sidebar/Text/Layout.qml' }
+            Loader { source: 'Sidebar/Extra/Layout.qml' }
+            //Loader { source: 'Sidebar/Text/Layout.qml' }
         ]
 
         continueButton.visible: true

@@ -13,6 +13,8 @@ QtObject {
 
     property var project: MockLogic.Project
     property var rawData: MockLogic.RawData
+    property var corrections: MockLogic.Corrections
+    property var explore: MockLogic.Explore
     property var status: MockLogic.Status
     property var report: MockLogic.Report
 

@@ -182,6 +182,13 @@ QtObject {
     function correctionsLoadVanadiumMeasurement(filePath) { activeBackend.corrections.loadVanadiumMeasurement(filePath) }
 
     ///////////////
+    // Explore page
+    ///////////////
+
+    property bool exploreCreated: activeBackend.explore.created
+    onExploreCreatedChanged: activeBackend.explore.created = exploreCreated
+
+    ///////////////
     // Summary page
     ///////////////
 
