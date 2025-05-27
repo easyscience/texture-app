@@ -84,6 +84,19 @@ EaComponents.ApplicationWindow {
         },
         // RawData page
 
+        // Corrections page
+        EaElements.AppBarTabButton {
+            id: correctionsButton
+            enabled: false
+            fontIcon: 'hammer'
+            text: qsTr('Corrections')
+            ToolTip.text: qsTr('Corrections page')
+            Component.onCompleted: {
+                Globals.References.applicationWindow.appBarCentralTabs.correctionsButton = correctionsButton
+            }
+        },
+        // Corrections page
+
         // Summary page
         EaElements.AppBarTabButton {
             id: summaryButton
@@ -107,6 +120,7 @@ EaComponents.ApplicationWindow {
         Loader { source: 'Pages/Home/Content.qml' },
         Loader { source: 'Pages/Project/Layout.qml' },
         Loader { source: 'Pages/RawData/Layout.qml' },
+        Loader { source: 'Pages/Corrections/Layout.qml' },
         Loader { source: 'Pages/Report/Layout.qml' }
     ]
 

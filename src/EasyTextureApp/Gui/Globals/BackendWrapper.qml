@@ -169,6 +169,18 @@ QtObject {
     function rawDataUpdate1DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate1DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DGammaBinningData(selectedBinWidthIndexValue) }
 
+    ///////////////////
+    // Corrections page
+    ///////////////////
+
+    property bool correctionsCreated: activeBackend.corrections.created
+    onCorrectionsCreatedChanged: activeBackend.corrections.created = correctionsCreated
+
+    property string corectionsSelectedVanadiumFilePath: activeBackend.corrections.selectedVanadiumFilePath
+    onCorectionsSelectedVanadiumFilePathChanged: activeBackend.corrections.selectedVanadiumFilePath = corectionsSelectedVanadiumFilePath
+
+    function correctionsLoadVanadiumMeasurement(filePath) { activeBackend.corrections.loadVanadiumMeasurement(filePath) }
+
     ///////////////
     // Summary page
     ///////////////
