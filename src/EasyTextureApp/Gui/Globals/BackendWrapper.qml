@@ -198,8 +198,6 @@ QtObject {
     onExploreTwoThetaBinWidthChanged: activeBackend.explore.twoThetaBinWidth = exploreTwoThetaBinWidth
     property real exploreTwoThetaSliderValue: activeBackend.explore.twoThetaSliderValue
     onExploreTwoThetaSliderValueChanged: activeBackend.explore.twoThetaSliderValue = exploreTwoThetaSliderValue
-    property bool exploreResetTwoThetaSlider: activeBackend.explore.resetTwoThetaSlider
-    onExploreResetTwoThetaSliderChanged: activeBackend.explore.resetTwoThetaSlider = exploreResetTwoThetaSlider
 
     property int exploreGammaBinWidthIndex: activeBackend.explore.gammaBinWidthIndex
     onExploreGammaBinWidthIndexChanged: activeBackend.explore.gammaBinWidthIndex = exploreGammaBinWidthIndex
@@ -209,11 +207,11 @@ QtObject {
     property string explorePlotFilepath: activeBackend.explore.plotFilepath
     onExplorePlotFilepathChanged: activeBackend.explore.plotFilepath = explorePlotFilepath
 
-    function exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth) {
-        activeBackend.explore.generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth)
+    function exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.explore.generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
-    function exploreGenerate1dLinePlot() {
-        activeBackend.explore.generate1dLinePlot()
+    function exploreGenerate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.explore.generate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
     ///////////////

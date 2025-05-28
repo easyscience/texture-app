@@ -18,40 +18,43 @@ EaCharts.Plotly1dLineNew {
     property string gammaColumn:  'user gamma [deg]'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
-    property string plot1dFilepath: Globals.BackendWrapper.explorePlotFilepath
-    property real minTwoTheta1D: Globals.BackendWrapper.exploreMinTwoThetaCenter
-    property real sliderValue1D: Globals.BackendWrapper.exploreTwoThetaSliderValue
-    property bool resetSlider1D: Globals.BackendWrapper.exploreResetTwoThetaSlider
+
+    property string plotFilepath: Globals.BackendWrapper.explorePlotFilepath
+    property real minTwoTheta: Globals.BackendWrapper.exploreMinTwoThetaCenter
+    property real sliderValue: Globals.BackendWrapper.exploreTwoThetaSliderValue
+    property real gammaBinWidthValue: Globals.BackendWrapper.exploreGammaBinWidth
+    property real twoThetaBinWidthValue: 0.5
+
+    function generateLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        Globals.BackendWrapper.exploreGenerate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
+            line1d.setXAxisTitle()
+            line1d.setYAxisTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
+    }
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            console.debug('WebEngineView Loaded! Now loading JSON...')
-            if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTwoTheta1D)
-                line1d.setXAxisTitle()
-                line1d.setYAxisTitle()
-            }
-            else {
-                console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-            }
+            console.debug('WebEngineView Loaded! Now generating visualizations...')
+            generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
     }
 
-    onPlot1dFilepathChanged: {
-        if (loadSucceededStatus) {
-            if (resetSlider1D) {
-                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), minTwoTheta1D)
-            } else {
-                getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), sliderValue1D)
-            }
+    onGammaBinWidthValueChanged: {
+        if (loadSucceededStatus){
+            generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
-    onSliderValue1DChanged: {
+    onSliderValueChanged: {
         if (loadSucceededStatus) {
-            getData1DFromJson(Qt.resolvedUrl(plot1dFilepath), sliderValue1D)
+            generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 

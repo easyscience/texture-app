@@ -40,7 +40,7 @@ EaComponents.ContentPage {
 
         items: [
             Loader {
-                source: 'MainArea/ExploreTab2DTwoThetaRings.qml'
+                source: 'MainArea/ExploreTab2D.qml'
             },
             Loader {
                 source: 'MainArea/ExploreTab1D.qml'

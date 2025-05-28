@@ -25,7 +25,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
     property real twoThetaBinWidthValue: 0.5
 
     function generatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        Globals.BackendWrapper.exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth)
+        Globals.BackendWrapper.exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
             getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             polarheatmap2d.setColorbarTitle()

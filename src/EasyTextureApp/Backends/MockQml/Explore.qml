@@ -15,14 +15,13 @@ QtObject {
     property real maxTwoThetaCenter: 134.75
     property real twoThetaBinWidth: 0.5
     property real twoThetaSliderValue: minTwoThetaCenter
-    property bool resetTwoThetaSlider: false
 
     property int gammaBinWidthIndex: 0
     property real gammaBinWidth: 1.0
 
     property string plotFilepath: '../../../../../../examples/Explore/user_voxels_2D_1.json'
 
-    function generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth) {
+    function generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         updatePlotFilepath(twoThetaIndex, gammaIndex)
@@ -57,7 +56,11 @@ QtObject {
         console.debug(`In ${this}: updatePlotFilepath to ${plotFilepath}`)
     }
 
-    function generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`QML backend for generate1dLinePlot. Load ${plot1dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+    function generate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
+        updatePlotFilepath(twoThetaIndex, gammaIndex)
+        console.debug(`In ${this}: QML backend for generate1dLinePlot. Load ${plotFilepath} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+
     }
 }
