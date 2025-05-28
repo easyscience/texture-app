@@ -23,15 +23,38 @@ QtObject {
     property string plotFilepath: '../../../../../../examples/Explore/user_voxels_2D_1.json'
 
     function generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth) {
+        let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
-        update2DPlotFilepath(twoThetaIndex, gammaIndex)
-        console.debug(`QML backend for generate2dPolarHeatmapPlot. Load ${plotFilepath} for (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        updatePlotFilepath(twoThetaIndex, gammaIndex)
+        console.debug(`In ${this}: QML backend for generate2dPolarHeatmapPlot. Load ${plotFilepath} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function update2DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
+    function getBinningIndices(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: getBinningIndices for twoThetaBinWidth=${twoThetaBinWidth} and gammaBinWidth=${gammaBinWidth}`)
+        let twoThetaBinWidthIndex, gammaBinWidthIndex
+        if (twoThetaBinWidth === 0.5) {
+            twoThetaBinWidthIndex = 0
+        } else if (twoThetaBinWidth === 1){
+            twoThetaBinWidthIndex = 1
+        } else {
+            twoThetaBinWidthIndex = 2
+            console.debug(`In ${this}: WARNING in getBinningIndices: unimplemented twoThetaBinWidth ${twoThetaBinWidth}`)
+        }
+        if (gammaBinWidth === 1) {
+            gammaBinWidthIndex = 0
+        } else if (gammaBinWidth === 2){
+            gammaBinWidthIndex = 1
+        } else {
+            gammaBinWidthIndex = 2
+            console.debug(`In ${this}: WARNING in getBinningIndices: unimplemented gammaBinWidth ${gammaBinWidth}`)
+        }
+        return [twoThetaBinWidthIndex, gammaBinWidthIndex]
+    }
+
+    function updatePlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
         let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
-        plotFilepath = '../../../../../../examples/explore/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        console.debug(`update2DPlotFilepath to ${plot2dFilepath}`)
+        plotFilepath = '../../../../../../examples/Explore/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        console.debug(`In ${this}: updatePlotFilepath to ${plotFilepath}`)
     }
 
     function generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth) {

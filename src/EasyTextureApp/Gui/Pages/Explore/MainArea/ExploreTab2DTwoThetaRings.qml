@@ -17,45 +17,47 @@ EaCharts.Plotly2dPolarHeatmapNew {
     property string gammaColumn: 'user gamma [deg]'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
+
     property string plotFilepath: Globals.BackendWrapper.explorePlotFilepath
     property real minTwoTheta: Globals.BackendWrapper.exploreMinTwoThetaCenter
     property real sliderValue: Globals.BackendWrapper.exploreTwoThetaSliderValue
     property real gammaBinWidthValue: Globals.BackendWrapper.exploreGammaBinWidth
     property real twoThetaBinWidthValue: 0.5
 
-    function generatePolarHeatmap(twoThetaBinWidth, gammaBinWidth) {
+    function generatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         Globals.BackendWrapper.exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
+            polarheatmap2d.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
     }
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
-            console.debug('WebEngineView Loaded! Now loading JSON...')
-            if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), minTwoTheta)
-                polarheatmap2d.setColorbarTitle()
-            }
-            else {
-                console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-            }
+            console.debug('WebEngineView Loaded! Now generating visualizations...')
+            generatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
     }
 
-    onPlotFilepathChanged: {
-        if (loadSucceededStatus) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), sliderValue)
+    onGammaBinWidthValueChanged: {
+        if (loadSucceededStatus){
+            generatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
     onSliderValueChanged: {
         if (loadSucceededStatus) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), sliderValue)
+            generatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
     function getTwoThetaRingDataFromJson(jsonFilename, sliderValue){
-        console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
+        console.debug(`In ${this}: Getting data from json: ${jsonFilename} for twoTheta=${sliderValue}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueTwoTheta = result[twoThetaColumn]
             let uniqueGamma = result[gammaColumn]
