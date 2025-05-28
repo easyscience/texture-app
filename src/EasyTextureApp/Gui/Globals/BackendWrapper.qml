@@ -188,6 +188,34 @@ QtObject {
     property bool exploreCreated: activeBackend.explore.created
     onExploreCreatedChanged: activeBackend.explore.created = exploreCreated
 
+    property int exploreTwoThetaBinWidthIndex: activeBackend.explore.twoThetaBinWidthIndex
+    onExploreTwoThetaBinWidthIndexChanged: activeBackend.explore.twoThetaBinWidthIndex = exploreTwoThetaBinWidthIndex
+    property real exploreMinTwoThetaCenter: activeBackend.explore.minTwoThetaCenter
+    onExploreMinTwoThetaCenterChanged: activeBackend.explore.minTwoThetaCenter = exploreMinTwoThetaCenter
+    property real exploreMaxTwoThetaCenter: activeBackend.explore.maxTwoThetaCenter
+    onExploreMaxTwoThetaCenterChanged: activeBackend.explore.maxTwoThetaCenter = exploreMaxTwoThetaCenter
+    property real exploreTwoThetaBinWidth: activeBackend.explore.twoThetaBinWidth
+    onExploreTwoThetaBinWidthChanged: activeBackend.explore.twoThetaBinWidth = exploreTwoThetaBinWidth
+    property real exploreTwoThetaSliderValue: activeBackend.explore.twoThetaSliderValue
+    onExploreTwoThetaSliderValueChanged: activeBackend.explore.twoThetaSliderValue = exploreTwoThetaSliderValue
+    property bool exploreResetTwoThetaSlider: activeBackend.explore.resetTwoThetaSlider
+    onExploreResetTwoThetaSliderChanged: activeBackend.explore.resetTwoThetaSlider = exploreResetTwoThetaSlider
+
+    property int exploreGammaBinWidthIndex: activeBackend.explore.gammaBinWidthIndex
+    onExploreGammaBinWidthIndexChanged: activeBackend.explore.gammaBinWidthIndex = exploreGammaBinWidthIndex
+    property real exploreGammaBinWidth: activeBackend.explore.gammaBinWidth
+    onExploreGammaBinWidthChanged: activeBackend.explore.gammaBinWidth = exploreGammaBinWidth
+
+    property string explorePlotFilepath: activeBackend.explore.plotFilepath
+    onExplorePlotFilepathChanged: activeBackend.explore.plotFilepath = explorePlotFilepath
+
+    function exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth) {
+        activeBackend.explore.generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth)
+    }
+    function exploreGenerate1dLinePlot() {
+        activeBackend.explore.generate1dLinePlot()
+    }
+
     ///////////////
     // Summary page
     ///////////////

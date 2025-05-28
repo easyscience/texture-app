@@ -18,10 +18,10 @@ EaCharts.Plotly1dLineNew {
     property string gammaColumn:  'user gamma [deg]'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
-    property string plot1dFilepath: Globals.BackendWrapper.rawDataPlot1dFilepath
-    property real minTwoTheta1D: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
-    property real sliderValue1D: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
-    property bool resetSlider1D: Globals.BackendWrapper.rawDataResetTwoThetaSlider1D
+    property string plot1dFilepath: Globals.BackendWrapper.explorePlotFilepath
+    property real minTwoTheta1D: Globals.BackendWrapper.exploreMinTwoThetaCenter
+    property real sliderValue1D: Globals.BackendWrapper.exploreTwoThetaSliderValue
+    property bool resetSlider1D: Globals.BackendWrapper.exploreResetTwoThetaSlider
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {

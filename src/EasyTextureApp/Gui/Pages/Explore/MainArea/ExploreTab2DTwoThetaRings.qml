@@ -17,15 +17,21 @@ EaCharts.Plotly2dPolarHeatmapNew {
     property string gammaColumn: 'user gamma [deg]'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
-    property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath
-    property real minTwoTheta2D: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-    property real sliderValue2D: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
+    property string plotFilepath: Globals.BackendWrapper.explorePlotFilepath
+    property real minTwoTheta: Globals.BackendWrapper.exploreMinTwoThetaCenter
+    property real sliderValue: Globals.BackendWrapper.exploreTwoThetaSliderValue
+    property real gammaBinWidthValue: Globals.BackendWrapper.exploreGammaBinWidth
+    property real twoThetaBinWidthValue: 0.5
+
+    function generatePolarHeatmap(twoThetaBinWidth, gammaBinWidth) {
+        Globals.BackendWrapper.exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth)
+    }
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), minTwoTheta2D)
+                getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), minTwoTheta)
                 polarheatmap2d.setColorbarTitle()
             }
             else {
@@ -36,15 +42,15 @@ EaCharts.Plotly2dPolarHeatmapNew {
         }
     }
 
-    onPlot2dFilepathChanged: {
+    onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue2D)
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), sliderValue)
         }
     }
 
-    onSliderValue2DChanged: {
+    onSliderValueChanged: {
         if (loadSucceededStatus) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue2D)
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), sliderValue)
         }
     }
 
