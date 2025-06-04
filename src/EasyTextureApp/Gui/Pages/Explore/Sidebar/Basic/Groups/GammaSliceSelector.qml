@@ -28,6 +28,7 @@ Grid {
 
                 onClicked: {
                     Globals.BackendWrapper.exploreGammaBinWidth = 1.0
+                    console.debug(`In ${this}: gamma bin width 1 selected`)
                 }
 
             }
@@ -38,7 +39,9 @@ Grid {
                 text: '2°'
 
                 onClicked: {
-                    Globals.BackendWrapper.exploreGammaBinWidth = 2.0                }
+                    Globals.BackendWrapper.exploreGammaBinWidth = 2.0
+                    console.debug(`In ${this}: gamma bin width 2 selected`)
+                }
 
             }
 
@@ -55,6 +58,7 @@ Grid {
 
                 onClicked: {
                     Globals.BackendWrapper.exploreGammaBinWidth = 5.0
+                    console.debug(`In ${this}: gamma bin width 5 selected`)
                 }
 
             }
@@ -71,7 +75,8 @@ Grid {
                 }
 
                 onClicked: {
-                    Globals.BackendWrapper.exploreGammaBinWidth = 5.0
+                    Globals.BackendWrapper.exploreGammaBinWidth = 10.0
+                    console.debug(`In ${this}: gamma bin width 10 selected`)
                 }
             }
         }

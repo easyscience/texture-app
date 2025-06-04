@@ -30,39 +30,48 @@ Row {
                 text: qsTr(' ')
             }
 
-            EaElements.Label {
-                visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
-                //font.bold: true
-                text: qsTr('Counts Min:')
-            }
-            EaElements.Label {
-                text: Globals.Proxies.main.explore.twoThetaRingCountMin
-            }
+            // Grid
+            Grid {
+                readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
 
-            EaElements.Label {
-                //font.bold: true
-                text: qsTr('Counts Max:')
-            }
-            EaElements.Label {
-                text: Globals.Proxies.main.explore.twoThetaRingCountMax
-            }
+                columns: 2
+                rowSpacing: 0
+                columnSpacing: commonSpacing
 
-            EaElements.Label {
-                //font.bold: true
-                text: qsTr('Counts Sum:')
-            }
-            EaElements.Label {
-                text: Globals.Proxies.main.explore.twoThetaRingCountSum
-            }
+                EaElements.Label {
+                    visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
+                    //font.bold: true
+                    text: qsTr('Counts Min:')
+                }
+                EaElements.Label {
+                    text: Globals.BackendWrapper.exploreRingCountsMin
+                }
 
-            EaElements.Label {
-                //font.bold: true
-                text: qsTr('Intensity Width (in γ°):')
-            }
-            EaElements.Label {
-                id: intensityWidth
-                text: Globals.Proxies.main.explore.maxIntensityWidth
-            }
+                EaElements.Label {
+                    //font.bold: true
+                    text: qsTr('Counts Max:')
+                }
+                EaElements.Label {
+                    text: Globals.BackendWrapper.exploreRingCountsMax
+                }
+
+                EaElements.Label {
+                    //font.bold: true
+                    text: qsTr('Counts Sum:')
+                }
+                EaElements.Label {
+                    text: Globals.BackendWrapper.exploreRingCountsSum
+                }
+
+                EaElements.Label {
+                    //font.bold: true
+                    text: qsTr('Intensity Width (in γ°):')
+                }
+                EaElements.Label {
+                    id: intensityWidth
+                    text: Globals.BackendWrapper.exploreRingMaxIntensityWidth + '°'
+                }
+            }// Grid
         }
 
         Column {
@@ -72,43 +81,45 @@ Row {
                 //enabled: false
                 text: qsTr('Total')
             }
-
             EaElements.Label {
                 //enabled: false
                 text: qsTr(' ')
             }
-            EaElements.Label {
-                visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
-                //font.bold: true
-                text: qsTr('Count Min:')
-            }
-            EaElements.Label {
-                text: Globals.Proxies.main.explore.totalCountMin
-            }
 
-            EaElements.Label {
-                //font.bold: true
-                text: qsTr('Count Max:')
-            }
-            EaElements.Label {
-                text: Globals.Proxies.main.explore.totalCountMax
-            }
+            // Grid
+            Grid {
+                readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
 
-            EaElements.Label {
-                //font.bold: true
-                text: qsTr('Count Sum:')
-            }
-            EaElements.Label {
-                text: Globals.Proxies.main.explore.totalCountSum
-            }
+                columns: 2
+                rowSpacing: 0
+                columnSpacing: commonSpacing
 
-            EaElements.Label {
-                //font.bold: true
-                text: qsTr('Number of Slices/Patterns:')
-            }
-            EaElements.Label {
-                text: Globals.Proxies.main.explore.numberOfGammaSlices //.sliderMaxValue
-            }
+                EaElements.Label {
+                    visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
+                    //font.bold: true
+                    text: qsTr('Counts Min:')
+                }
+                EaElements.Label {
+                    text: Globals.BackendWrapper.exploreTotalCountsMin
+                }
+
+                EaElements.Label {
+                    //font.bold: true
+                    text: qsTr('Counts Max:')
+                }
+                EaElements.Label {
+                    text: Globals.BackendWrapper.exploreTotalCountsMax
+                }
+
+                EaElements.Label {
+                    //font.bold: true
+                    text: qsTr('Counts Sum:')
+                }
+                EaElements.Label {
+                    text: Globals.BackendWrapper.exploreTotalCountsSum
+                }
+
+            }// Grid
         }
     }
 }

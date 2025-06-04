@@ -24,21 +24,12 @@ EaCharts.Plotly2dPolarHeatmapNew {
     property real gammaBinWidthValue: Globals.BackendWrapper.exploreGammaBinWidth
     property real twoThetaBinWidthValue: 0.5
 
-    function generatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        Globals.BackendWrapper.exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            polarheatmap2d.setColorbarTitle()
-        }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-        }
-    }
-
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now generating visualizations...')
             generatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            setTotalStatistics(twoThetaBinWidthValue, gammaBinWidthValue)
+            setRingStatistics(twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -47,13 +38,82 @@ EaCharts.Plotly2dPolarHeatmapNew {
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus){
             generatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            setTotalStatistics(twoThetaBinWidthValue, gammaBinWidthValue)
+            setRingStatistics(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
     onSliderValueChanged: {
         if (loadSucceededStatus) {
             generatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            setRingStatistics(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
+    }
+
+    function generatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: generatePolarHeatmap started`)
+        Globals.BackendWrapper.exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
+            polarheatmap2d.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
+        console.debug(`In ${this}: generatePolarHeatmap finished`)
+    }
+
+    function setTotalStatistics(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: setTotalStatistics started`)
+        Globals.BackendWrapper.exploreSetTotalStatistics(twoThetaBinWidth, gammaBinWidth)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            runJavaScript(`getDataFromJson(${JSON.stringify(Qt.resolvedUrl(plotFilepath))})`, function(result){
+                let customData = result[customDataColumn]
+                let countsData = extractCustomColumnByIndex(customData, 2)
+                let countsDataClean = cleanUpCounts(countsData)
+                let totalCountsMin = countsDataClean.reduce((min, row) => Math.min(min, ...row), Infinity)
+                let totalCountsMax = countsDataClean.reduce((max, row) => Math.max(max, ...row), -Infinity)
+                let totalCountsSum = countsDataClean.reduce((sum, row) => sum + row.reduce((rSum, val) => rSum + val, 0), 0)
+                Globals.BackendWrapper.exploreTotalCountsMin = totalCountsMin
+                Globals.BackendWrapper.exploreTotalCountsMax = totalCountsMax
+                Globals.BackendWrapper.exploreTotalCountsSum = totalCountsSum
+            })
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for setTotalStatistics() is not implemented yet.')
+        }
+        console.debug(`In ${this}: setTotalStatistics finished`)
+    }
+
+    function setRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: setRingStatistics started. WARNING: ringMaxIntensityWidth determination is not implemented. Random value is used instead.`)
+        Globals.BackendWrapper.exploreSetRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            runJavaScript(`getDataFromJson(${JSON.stringify(Qt.resolvedUrl(plotFilepath))})`, function(result){
+                let uniqueTwoTheta = result[twoThetaColumn]
+
+                let customData = result[customDataColumn]
+                let countsData = extractCustomColumnByIndex(customData, 2)
+                let countsDataClean = cleanUpCounts(countsData)
+
+                let sliderIndx = getIndxByValue(uniqueTwoTheta, currentTwoTheta)
+                let countsDataRing = countsDataClean[sliderIndx]
+
+                let ringCountsMin = Math.min(...countsDataRing)
+                let ringCountsMax = Math.max(...countsDataRing)
+                let ringCountsSum = countsDataRing.reduce((total, num) => total + num, 0)
+                let ringMaxIntensityWidth = Math.round((1 + Math.random() * 14) * 100) / 100;
+                Globals.BackendWrapper.exploreRingCountsMin = ringCountsMin
+                Globals.BackendWrapper.exploreRingCountsMax = ringCountsMax
+                Globals.BackendWrapper.exploreRingCountsSum = ringCountsSum
+                Globals.BackendWrapper.exploreRingMaxIntensityWidth = ringMaxIntensityWidth
+
+            })
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for setRingStatistics() is not implemented yet.')
+        }
+        console.debug(`In ${this}: setRingStatistics finished`)
     }
 
     function getTwoThetaRingDataFromJson(jsonFilename, sliderValue){
@@ -117,4 +177,5 @@ EaCharts.Plotly2dPolarHeatmapNew {
     function cleanUpCounts(arr) {
         return arr.map(row => row.filter(value => value !== undefined))
     }
+
 }

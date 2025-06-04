@@ -214,6 +214,32 @@ QtObject {
         activeBackend.explore.generate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
+    // Statistics related
+    property int exploreTotalCountsMin: activeBackend.explore.totalCountsMin
+    onExploreTotalCountsMinChanged: activeBackend.explore.totalCountsMin = exploreTotalCountsMin
+    property int exploreTotalCountsMax: activeBackend.explore.totalCountsMax
+    onExploreTotalCountsMaxChanged: activeBackend.explore.totalCountsMax = exploreTotalCountsMax
+    property int exploreTotalCountsSum: activeBackend.explore.totalCountsSum
+    onExploreTotalCountsSumChanged: activeBackend.explore.totalCountsSum = exploreTotalCountsSum
+
+    function exploreSetTotalStatistics(twoThetaBinWidth, gammaBinWidth) {
+        activeBackend.explore.setTotalStatistics(twoThetaBinWidth, gammaBinWidth)
+    }
+
+    property int exploreRingCountsMin: activeBackend.explore.ringCountsMin
+    onExploreRingCountsMinChanged: activeBackend.explore.ringCountsMin = exploreRingCountsMin
+    property int exploreRingCountsMax: activeBackend.explore.ringCountsMax
+    onExploreRingCountsMaxChanged: activeBackend.explore.ringCountsMax = exploreRingCountsMax
+    property int exploreRingCountsSum: activeBackend.explore.ringCountsSum
+    onExploreRingCountsSumChanged: activeBackend.explore.ringCountsSum = exploreRingCountsSum
+    property real exploreRingMaxIntensityWidth: activeBackend.explore.ringMaxIntensityWidth
+    onExploreRingMaxIntensityWidthChanged: activeBackend.explore.ringMaxIntensityWidth = exploreRingMaxIntensityWidth
+
+    function exploreSetRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.explore.setRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    }
+
+
     ///////////////
     // Summary page
     ///////////////

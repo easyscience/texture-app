@@ -22,10 +22,11 @@ QtObject {
     property string plotFilepath: '../../../../../../examples/Explore/user_voxels_2D_1.json'
 
     function generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: QML backend for generate2dPolarHeatmapPlot.`)
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         updatePlotFilepath(twoThetaIndex, gammaIndex)
-        console.debug(`In ${this}: QML backend for generate2dPolarHeatmapPlot. Load ${plotFilepath} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        console.debug(`In ${this}: Loaded ${plotFilepath} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
     function getBinningIndices(twoThetaBinWidth, gammaBinWidth) {
@@ -57,10 +58,28 @@ QtObject {
     }
 
     function generate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: QML backend for generate1dLinePlot.`)
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         updatePlotFilepath(twoThetaIndex, gammaIndex)
-        console.debug(`In ${this}: QML backend for generate1dLinePlot. Load ${plotFilepath} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        console.debug(`In ${this}: Loaded ${plotFilepath} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+    }
 
+    // stats related
+    property int totalCountsMin: 0
+    property int totalCountsMax: 0
+    property int totalCountsSum: 0
+
+    property int ringCountsMin: 0
+    property int ringCountsMax: 0
+    property int ringCountsSum: 0
+    property real ringMaxIntensityWidth: 0
+
+    function setTotalStatistics(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for setTotalStatistics using ${plotFilepath}`)
+    }
+
+    function setRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: QML backend for setRingStatistics using ${plotFilepath}`)
     }
 }
