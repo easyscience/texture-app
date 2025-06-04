@@ -241,12 +241,12 @@ QtObject {
 
 
     ///////////////
-    // Summary page
+    // Results page
     ///////////////
 
-    readonly property string reportAsHtml: activeBackend.report.asHtml
+    readonly property string resultsAsHtml: activeBackend.results.asHtml
 
-    property bool reportCreated: activeBackend.report.created
-    onReportCreatedChanged: activeBackend.report.created = reportCreated
+    property bool resultsCreated: activeBackend.results.created
+    onResultsCreatedChanged: activeBackend.results.created = resultsCreated
 
 }

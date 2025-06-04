@@ -110,18 +110,18 @@ EaComponents.ApplicationWindow {
         },
         // Explore page
 
-        // Summary page
+        // Results page
         EaElements.AppBarTabButton {
-            id: summaryButton
+            id: resultsButton
             enabled: false
             fontIcon: 'clipboard-list'
-            text: qsTr('Summary')
-            ToolTip.text: qsTr('Summary of the work done')
+            text: qsTr('Results')
+            ToolTip.text: qsTr('Results page')
             Component.onCompleted: {
-                Globals.References.applicationWindow.appBarCentralTabs.summaryButton = summaryButton
+                Globals.References.applicationWindow.appBarCentralTabs.resultsButton = resultsButton
             }
         }
-        // Summary page
+        // Results page
     ]
 
     //////////////////////////////////
@@ -135,7 +135,7 @@ EaComponents.ApplicationWindow {
         Loader { source: 'Pages/RawData/Layout.qml' },
         Loader { source: 'Pages/Corrections/Layout.qml' },
         Loader { source: 'Pages/Explore/Layout.qml' },
-        Loader { source: 'Pages/Report/Layout.qml' }
+        Loader { source: 'Pages/Results/Layout.qml' }
     ]
 
     /////////////

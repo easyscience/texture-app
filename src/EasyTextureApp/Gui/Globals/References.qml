@@ -20,7 +20,7 @@ QtObject {
             'rawDataButton': null,
             'correctionsButton': null,
             'exploreButton': null,
-            'summaryButton': null,
+            'resultsButton': null,
         }
     }
 

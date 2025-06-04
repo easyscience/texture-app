@@ -15,17 +15,17 @@ import Gui.Globals as Globals
 
 EaComponents.ContentPage {
 
-    defaultInfo: Globals.BackendWrapper.reportCreated ?
+    defaultInfo: Globals.BackendWrapper.resultsCreated ?
                      '' :
-                     qsTr('No Summary Generated')
+                     qsTr('No Results Generated')
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr('Summary') }
+            EaElements.TabButton { text: qsTr('Results') }
         ]
 
         items: [
-            Loader { source: 'MainArea/Summary.qml' }
+            Loader { source: 'MainArea/Results.qml' }
         ]
     }
 
@@ -43,7 +43,7 @@ EaComponents.ContentPage {
         continueButton.visible: false
     }
 
-    Component.onCompleted: console.debug(`Summary page loaded ::: ${this}`)
-    Component.onDestruction: console.debug(`Summary page destroyed ::: ${this}`)
+    Component.onCompleted: console.debug(`Results page loaded ::: ${this}`)
+    Component.onDestruction: console.debug(`Results page destroyed ::: ${this}`)
 
 }
