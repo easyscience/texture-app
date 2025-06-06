@@ -244,8 +244,6 @@ QtObject {
     // Results page
     ///////////////
 
-    readonly property string resultsAsHtml: activeBackend.results.asHtml
-
     property bool resultsCreated: activeBackend.results.created
     onResultsCreatedChanged: activeBackend.results.created = resultsCreated
 

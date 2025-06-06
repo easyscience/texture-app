@@ -39,7 +39,7 @@ Row {
                 columnSpacing: commonSpacing
 
                 EaElements.Label {
-                    visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
+                    //visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
                     //font.bold: true
                     text: qsTr('Counts Min:')
                 }
@@ -95,7 +95,7 @@ Row {
                 columnSpacing: commonSpacing
 
                 EaElements.Label {
-                    visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
+                    //visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
                     //font.bold: true
                     text: qsTr('Counts Min:')
                 }

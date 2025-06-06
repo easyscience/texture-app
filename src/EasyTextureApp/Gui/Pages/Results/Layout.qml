@@ -21,11 +21,33 @@ EaComponents.ContentPage {
 
     mainView: EaComponents.MainContent {
         tabs: [
-            EaElements.TabButton { text: qsTr('Results') }
+            EaElements.TabButton {
+                text: qsTr('d-Spacing Patterns')
+                onClicked: {
+                    //Globals.Proxies.main.results.isTwoThetaSelected = false
+                    //Globals.Proxies.main.results.isIntegratedTwoThetaSelected = false
+                }
+            },
+            EaElements.TabButton {
+                text: qsTr('2θ Patterns')
+                onClicked: {
+                    //Globals.Proxies.main.results.isTwoThetaSelected = true
+                    //Globals.Proxies.main.results.isIntegratedTwoThetaSelected = false
+                }
+            },
+            EaElements.TabButton {
+                text: qsTr('2θ Integrated Pattern')
+                onClicked: {
+                    //Globals.Proxies.main.results.isTwoThetaSelected = false
+                    //Globals.Proxies.main.results.isIntegratedTwoThetaSelected = true
+                }
+            }
         ]
 
         items: [
-            Loader { source: 'MainArea/Results.qml' }
+            Loader { source: 'MainArea/dSpacingPatterns.qml' }
+            //Loader { source: 'MainArea/TwoThetaPatterns.qml' },
+            //Loader { source: 'MainArea/IntegratedTwoThetaPattern.qml' }
         ]
     }
 

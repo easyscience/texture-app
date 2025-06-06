@@ -68,7 +68,7 @@ Grid {
             horizontalAlignment: TextInput.AlignLeft
 
             placeholderText: qsTr('Enter vanadium filename here')
-            text: Globals.Proxies.main.corrections.correctionFileName
+            //text: Globals.Proxies.main.corrections.correctionFileName
 
             EaElements.ToolButton {
                 id: chooseButton
