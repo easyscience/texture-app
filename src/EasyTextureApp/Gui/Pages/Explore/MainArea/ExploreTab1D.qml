@@ -7,7 +7,6 @@ import QtQuick
 import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
-import Gui.Charts as Charts
 
 EaCharts.Plotly1dLineNew {
     id: line1d
