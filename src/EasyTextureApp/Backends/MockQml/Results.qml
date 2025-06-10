@@ -9,4 +9,8 @@ import QtQuick
 QtObject {
     property bool created: true
 
+    property string dPatternPlotFilepath: '../../../../../../examples/Results/barplot_d_patters_1.json'
+
+    readonly property int minSliderValue: 1
+    property int ringIndexSliderValue: 1
 }

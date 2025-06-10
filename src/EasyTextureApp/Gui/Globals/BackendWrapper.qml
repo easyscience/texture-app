@@ -40,6 +40,20 @@ QtObject {
     readonly property string statusMinimizer: activeBackend.status.minimizer
     readonly property string statusVariables: activeBackend.status.variables
 
+    /////////////////////////////
+    // Global Detector Properties
+    /////////////////////////////
+
+    readonly property real minTwoTheta: 45
+    readonly property real maxTwoTheta: 135
+    readonly property real gammaHoleLow: 225
+    readonly property real gammaHoleHigh: 315
+
+    function getDetectorGammaRange() {
+        let gammaRange = 360 - (gammaHoleHigh - gammaHoleLow)
+        return gammaRange
+    }
+
     ///////////////
     // Project page
     ///////////////
@@ -74,10 +88,6 @@ QtObject {
     property real rawDataGammaBinWidth: activeBackend.rawData.gammaBinWidth
     onRawDataGammaBinWidthChanged: activeBackend.rawData.gammaBinWidth = rawDataGammaBinWidth
 
-    readonly property real rawDataMinTwoTheta: activeBackend.rawData.minTwoTheta
-    readonly property real rawDataMaxTwoTheta: activeBackend.rawData.maxTwoTheta
-    readonly property real rawDataGammaHoleLow: activeBackend.rawData.gammaHoleLow
-    readonly property real rawDataGammaHoleHigh: activeBackend.rawData.gammaHoleHigh
 
     readonly property var rawDataMeasurements: activeBackend.rawData.measurements
     readonly property var rawDataMeasurementNames: activeBackend.rawData.measurementNames
@@ -246,5 +256,14 @@ QtObject {
 
     property bool resultsCreated: activeBackend.results.created
     onResultsCreatedChanged: activeBackend.results.created = resultsCreated
+
+    property string resultsDPatternPlotFilepath: activeBackend.results.dPatternPlotFilepath
+    onResultsDPatternPlotFilepathChanged: activeBackend.results.dPatternPlotFilepath = resultsDPatternPlotFilepath
+
+    readonly property int resultsMinSliderValue: activeBackend.results.minSliderValue
+    onResultsMinSliderValueChanged: activeBackend.results.minSliderValue = resultsMinSliderValue
+    property int resultsRingIndexSliderValue: activeBackend.results.ringIndexSliderValue
+    onResultsRingIndexSliderValueChanged: activeBackend.results.ringIndexSliderValue = resultsRingIndexSliderValue
+
 
 }

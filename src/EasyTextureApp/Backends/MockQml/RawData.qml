@@ -10,10 +10,10 @@ QtObject {
     property bool loaded: false
     readonly property bool syncTabsBinnings: true
 
-    readonly property real minTwoTheta: 45
-    readonly property real maxTwoTheta: 135
-    readonly property real gammaHoleLow: 225.0
-    readonly property real gammaHoleHigh: 315.0
+    //readonly property real minTwoTheta: 45
+    //readonly property real maxTwoTheta: 135
+    //readonly property real gammaHoleLow: 225.0
+    //readonly property real gammaHoleHigh: 315.0
 
     property real minTwoThetaCenter: 45.25
     property real maxTwoThetaCenter: 134.75
