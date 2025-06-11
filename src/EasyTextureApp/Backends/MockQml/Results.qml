@@ -13,4 +13,8 @@ QtObject {
 
     readonly property int minSliderValue: 1
     property int ringIndexSliderValue: 1
+
+    function generateBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
+        console.debug(`In ${this}: QML backend for generateBarPlot using ${dPatternPlotFilepath}`)
+    }
 }

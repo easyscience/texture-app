@@ -279,4 +279,7 @@ QtObject {
     property int resultsRingIndexSliderValue: activeBackend.results.ringIndexSliderValue
     onResultsRingIndexSliderValueChanged: activeBackend.results.ringIndexSliderValue = resultsRingIndexSliderValue
 
+    function resultsGenerateBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
+        activeBackend.results.generateBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx)
+    }
 }
