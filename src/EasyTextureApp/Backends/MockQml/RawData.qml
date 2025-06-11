@@ -343,4 +343,49 @@ QtObject {
         }
     }
 
+    // bins generating functions
+
+    function generateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete) {
+        let range1 = generateBinEdges(0, holeLow, binStep, dropIncomplete)
+        let range2 = generateBinEdgesReverse(360, holeHigh, binStep, dropIncomplete)
+        let finalRange = [...range2, ...range1]
+
+        let bins = []
+        for (let i = 0; i < finalRange.length - 1; i++) {
+            bins.push([finalRange[i], finalRange[i + 1]])
+        }
+
+        return bins
+    }
+
+    function generateBinEdgesReverse(maxVal, minVal, binStep, dropIncomplete) {
+        let numBins = Math.floor((maxVal - minVal) / binStep)
+        let binEdges = linspace(maxVal - binStep, maxVal - numBins * binStep, numBins)
+
+        if (dropIncomplete && binEdges[binEdges.length - 1] < minVal) {
+            binEdges = binEdges.slice(0, -1)
+        } else if (!dropIncomplete && binEdges[binEdges.length - 1] > minVal) {
+            binEdges.push(minVal)
+        }
+
+        return binEdges.reverse()
+    }
+
+    function generateBinEdges(minVal, maxVal, binStep, dropIncomplete) {
+        let numBins = Math.floor((maxVal - minVal) / binStep) + 1
+        let binEdges = linspace(minVal, minVal + (numBins - 1) * binStep, numBins)
+
+        if (dropIncomplete && binEdges[binEdges.length - 1] > maxVal) {
+            binEdges = binEdges.slice(0, -1)
+        } else if (!dropIncomplete && binEdges[binEdges.length - 1] < maxVal) {
+            binEdges.push(maxVal)
+        }
+
+        return binEdges
+    }
+
+    function linspace(start, stop, num) {
+        let step = (stop - start) / (num - 1)
+        return Array.from({ length: num }, (_, i) => start + i * step)
+    }
 }

@@ -54,6 +54,14 @@ QtObject {
         return gammaRange
     }
 
+    function getGammaSliceRange(sliceIndx) {
+        let currentBin = rawDataGenerateBinEdgesGamma(gammaHoleLow, gammaHoleHigh, exploreGammaBinWidth)[sliceIndx - 1]
+        let binMin = currentBin[0]
+        let binMax = currentBin[1]
+        let gammaRange = "[" + binMin.toString() + "° ,  " + binMax.toString() + "°)"
+        return gammaRange
+    }
+
     ///////////////
     // Project page
     ///////////////
@@ -179,6 +187,11 @@ QtObject {
     function rawDataUpdate1DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate1DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DGammaBinningData(selectedBinWidthIndexValue) }
 
+    function rawDataGenerateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete = true) {
+        let gammaBinsList = activeBackend.rawData.generateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete)
+        return gammaBinsList
+    }
+
     ///////////////////
     // Corrections page
     ///////////////////
@@ -257,13 +270,13 @@ QtObject {
     property bool resultsCreated: activeBackend.results.created
     onResultsCreatedChanged: activeBackend.results.created = resultsCreated
 
+    readonly property int resultsMinSliderValue: 1
+    property int resultsSelectedTabIndex: 0
+
     property string resultsDPatternPlotFilepath: activeBackend.results.dPatternPlotFilepath
     onResultsDPatternPlotFilepathChanged: activeBackend.results.dPatternPlotFilepath = resultsDPatternPlotFilepath
 
-    readonly property int resultsMinSliderValue: activeBackend.results.minSliderValue
-    onResultsMinSliderValueChanged: activeBackend.results.minSliderValue = resultsMinSliderValue
     property int resultsRingIndexSliderValue: activeBackend.results.ringIndexSliderValue
     onResultsRingIndexSliderValueChanged: activeBackend.results.ringIndexSliderValue = resultsRingIndexSliderValue
-
 
 }

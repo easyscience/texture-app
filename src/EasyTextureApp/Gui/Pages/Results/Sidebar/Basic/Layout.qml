@@ -13,31 +13,21 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        //enabled: Globals.Proxies.main.project.isCreated
-        //title: (Globals.Proxies.main.results.isTwoThetaSelected) ? qsTr("2\u03b8 Patterns") : qsTr("d-Spacing Patterns")
+        title: Globals.BackendWrapper.resultsSelectedTabIndex === 0 ? qsTr("d-Spacing Patterns") : qsTr("2\u03b8 Patterns")
         collapsible: false
-        //visible: !Globals.Proxies.main.results.isIntegratedTwoThetaSelected
+        visible: !(Globals.BackendWrapper.resultsSelectedTabIndex === 2)
+        icon: 'database'
 
         Loader { source: 'Groups/dSpacingPatterns.qml' }
-
     }
 
     EaElements.GroupBox {
         //enabled: Globals.Proxies.main.project.isCreated
         title: qsTr('Export Data')
         collapsible: false
+        icon: 'download'
         last: true
 
         Loader { source: 'Groups/ExportData.qml' }
     }
-
-    /*EaElements.GroupBox {
-        enabled: false
-        title: qsTr('Export summary')
-        icon: 'download'
-        collapsed: false
-
-        Loader { source: 'Groups/Export.qml' }
-    }*/
-
 }

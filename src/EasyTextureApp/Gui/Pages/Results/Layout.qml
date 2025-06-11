@@ -24,22 +24,19 @@ EaComponents.ContentPage {
             EaElements.TabButton {
                 text: qsTr('d-Spacing Patterns')
                 onClicked: {
-                    //Globals.Proxies.main.results.isTwoThetaSelected = false
-                    //Globals.Proxies.main.results.isIntegratedTwoThetaSelected = false
+                    Globals.BackendWrapper.resultsSelectedTabIndex = 0
                 }
             },
             EaElements.TabButton {
                 text: qsTr('2θ Patterns')
                 onClicked: {
-                    //Globals.Proxies.main.results.isTwoThetaSelected = true
-                    //Globals.Proxies.main.results.isIntegratedTwoThetaSelected = false
+                    Globals.BackendWrapper.resultsSelectedTabIndex = 1
                 }
             },
             EaElements.TabButton {
                 text: qsTr('2θ Integrated Pattern')
                 onClicked: {
-                    //Globals.Proxies.main.results.isTwoThetaSelected = false
-                    //Globals.Proxies.main.results.isIntegratedTwoThetaSelected = true
+                    Globals.BackendWrapper.resultsSelectedTabIndex = 2
                 }
             }
         ]
