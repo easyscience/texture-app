@@ -13,12 +13,13 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: Globals.BackendWrapper.resultsSelectedTabIndex === 0 ? qsTr("d-Spacing Patterns") : qsTr("2\u03b8 Patterns")
+        id: slicerGroupBox
+        title: Globals.BackendWrapper.resultsSelectedTabIndex === 0 ? qsTr('Slicer: d-Spacing Patterns') : qsTr('Slicer: 2\u03b8 Patterns')
         collapsible: false
         visible: !(Globals.BackendWrapper.resultsSelectedTabIndex === 2)
         icon: 'database'
 
-        Loader { source: 'Groups/dSpacingPatterns.qml' }
+        Loader { source: 'Groups/Slicer.qml' }
     }
 
     EaElements.GroupBox {
@@ -30,4 +31,5 @@ EaComponents.SideBarColumn {
 
         Loader { source: 'Groups/ExportData.qml' }
     }
+
 }

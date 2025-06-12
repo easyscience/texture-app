@@ -271,6 +271,8 @@ QtObject {
     onResultsCreatedChanged: activeBackend.results.created = resultsCreated
 
     readonly property int resultsMinSliderValue: 1
+    property int resultsMaxSliderValue: activeBackend.results.maxSliderValue
+    onResultsMaxSliderValueChanged: activeBackend.results.maxSliderValue = resultsMaxSliderValue
     property int resultsSelectedTabIndex: 0
 
     property string resultsDPatternPlotFilepath: activeBackend.results.dPatternPlotFilepath

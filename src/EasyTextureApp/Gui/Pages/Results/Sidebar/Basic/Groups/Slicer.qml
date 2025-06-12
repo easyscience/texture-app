@@ -15,7 +15,7 @@ import Gui.Globals as Globals
 Grid{
     rows: 2
     rowSpacing: 20
-    property alias sliderValue: slider.value
+    property alias sliderItem: slider
 
     Row {
 
@@ -53,11 +53,16 @@ Grid{
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
             from: Globals.BackendWrapper.resultsMinSliderValue
-            to: Globals.BackendWrapper.getDetectorGammaRange() / Globals.BackendWrapper.exploreGammaBinWidth
+            to: Globals.BackendWrapper.resultsMaxSliderValue
             stepSize: 1
             toolTipText: slider.value
+            //value: Globals.References.pages.results.sidebar.basic.groups.slicer.sliderValue
 
-            onValueChanged: Globals.BackendWrapper.resultsRingIndexSliderValue = slider.value
+            onValueChanged: {
+                Globals.BackendWrapper.resultsRingIndexSliderValue = slider.value
+            }
+
+            Component.onCompleted: Globals.References.pages.results.sidebar.basic.groups.slicer = slider
         }
 
         EaElements.Label {

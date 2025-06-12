@@ -36,7 +36,7 @@ FileDialog{
     }
 
     Component.onCompleted: {
-        Globals.References.pages.corrections.sidebar.basic.popups.openVanadiumJsonFile =  openVanadiumJsonFileDialog
+        Globals.References.pages.corrections.sidebar.basic.popups.openVanadiumJsonFile = openVanadiumJsonFileDialog
     }
 
 }

@@ -61,7 +61,15 @@ QtObject {
                     }
                 }
             }
+        },
+        'results': {
+            'sidebar': {
+                'basic': {
+                    'groups': {
+                        'slicer': null
+                    }
+                }
+            }
         }
     }
-
 }

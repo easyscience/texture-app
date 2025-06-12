@@ -39,6 +39,12 @@ EaCharts.Plotly1dBarPlotNew {
         }
     }
 
+    onGammaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            getBarPlotData(dSpacingBinWidthValue, gammaBinWidthValue, minSliderValue)
+        }
+    }
+
     function getBarPlotData(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
         Globals.BackendWrapper.resultsGenerateBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
@@ -52,7 +58,7 @@ EaCharts.Plotly1dBarPlotNew {
     }
 
     function getBarPlotDataFromJson(jsonFilename, sliderValue){
-        console.debug(`${this} getBarPlotDataFromJson from file ${jsonFilename} for two theta=${sliderValue}`)
+        console.debug(`${this} getBarPlotDataFromJson from file ${jsonFilename} for slice: ${sliderValue}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueDSpacing = result[dSpacingColumn]
             let uniqueGamma = result[gammaColumn]
