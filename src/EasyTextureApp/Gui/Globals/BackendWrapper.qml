@@ -277,11 +277,22 @@ QtObject {
 
     property string resultsDPatternPlotFilepath: activeBackend.results.dPatternPlotFilepath
     onResultsDPatternPlotFilepathChanged: activeBackend.results.dPatternPlotFilepath = resultsDPatternPlotFilepath
+    property string resultsTwoThetaPlotFilepath: activeBackend.results.twoThetaPlotFilepath
+    onResultsTwoThetaPlotFilepathChanged: activeBackend.results.twoThetaPlotFilepath = resultsTwoThetaPlotFilepath
+
 
     property int resultsRingIndexSliderValue: activeBackend.results.ringIndexSliderValue
     onResultsRingIndexSliderValueChanged: activeBackend.results.ringIndexSliderValue = resultsRingIndexSliderValue
 
-    function resultsGenerateBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
-        activeBackend.results.generateBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx)
+    function resultsGenerateDSpacingBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
+        activeBackend.results.generateDSpacingBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx)
+    }
+
+    function resultsGenerateTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth, currentGammaSliceIndx){
+        activeBackend.results.generateTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth, currentGammaSliceIndx)
+    }
+
+    function resultsGenerateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth){
+        activeBackend.results.generateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth)
     }
 }

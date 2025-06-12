@@ -42,9 +42,9 @@ EaComponents.ContentPage {
         ]
 
         items: [
-            Loader { source: 'MainArea/dSpacingPatterns.qml' }
-            //Loader { source: 'MainArea/TwoThetaPatterns.qml' },
-            //Loader { source: 'MainArea/IntegratedTwoThetaPattern.qml' }
+            Loader { source: 'MainArea/dSpacingPatterns.qml' },
+            Loader { source: 'MainArea/TwoThetaPatterns.qml' },
+            Loader { source: 'MainArea/IntegratedTwoThetaPattern.qml' }
         ]
     }
 

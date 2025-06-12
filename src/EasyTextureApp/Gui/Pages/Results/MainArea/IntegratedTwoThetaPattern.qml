@@ -9,67 +9,60 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Globals as Globals
 
 EaCharts.Plotly1dBarPlotNew {
-    id: dspacingBarPlot
+    id: twoThetaIntegratedBarPlot
 
-    xAxisTitle: 'd-spacing, A'
+    xAxisTitle: '2\u03b8, deg'
     yAxisTitle: 'Counts'
 
     property string gammaColumn:  'user gamma [deg]'
-    property string dSpacingColumn: 'd-spacing [A]'
+    property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
-    property string plotFilepath: Globals.BackendWrapper.resultsDPatternPlotFilepath
-    property int minSliderValue: Globals.BackendWrapper.resultsMinSliderValue
-    property real sliderValue: Globals.BackendWrapper.resultsRingIndexSliderValue
+    property string plotFilepath: Globals.BackendWrapper.resultsTwoThetaPlotFilepath
 
     property real gammaBinWidthValue: Globals.BackendWrapper.exploreGammaBinWidth
-    property real dSpacingBinWidthValue: 0.02
+    property real twoThetaBinWidthValue: 0.5
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            getBarPlotData(dSpacingBinWidthValue, gammaBinWidthValue, minSliderValue)
+            getBarPlotData(twoThetaBinWidthValue, gammaBinWidthValue)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
     }
 
-    onSliderValueChanged: {
-        if (loadSucceededStatus) {
-            getBarPlotData(dSpacingBinWidthValue, gammaBinWidthValue, sliderValue)
-        }
-    }
-
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            getBarPlotData(dSpacingBinWidthValue, gammaBinWidthValue, minSliderValue)
+            getBarPlotData(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
-    function getBarPlotData(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
-        Globals.BackendWrapper.resultsGenerateDSpacingBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx)
+    function getBarPlotData(twoThetaBinWidth, gammaBinWidth){
+        Globals.BackendWrapper.resultsGenerateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-            getBarPlotDataFromJson(Qt.resolvedUrl(plotFilepath), currentGammaSliceIndx)
-            dspacingBarPlot.setXAxisTitle()
-            dspacingBarPlot.setYAxisTitle()
+            getBarPlotDataFromJson(Qt.resolvedUrl(plotFilepath))
+            twoThetaIntegratedBarPlot.setXAxisTitle()
+            twoThetaIntegratedBarPlot.setYAxisTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
         }
     }
 
-    function getBarPlotDataFromJson(jsonFilename, sliderValue){
-        console.debug(`${this} getBarPlotDataFromJson from file ${jsonFilename} for slice: ${sliderValue}`)
+    function getBarPlotDataFromJson(jsonFilename){
+        console.debug(`${this} getBarPlotDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
-            let uniqueDSpacing = result[dSpacingColumn]
+            let uniqueTwoTheta = result[twoThetaColumn]
             let uniqueGamma = result[gammaColumn]
-            // [0]: d-spacing, [1]: gamma, [2]: counts
+            // [0]: twotheta, [1]: gamma, [2]: counts
             let customData = result[customDataColumn]
 
             let countsData = extractCustomColumnByIndex(customData, 2)
+            let countsSum = a => a[0].map((_, i) => a.reduce((acc, row) => acc + row[i], 0))
 
             plotData = {
-                'x': uniqueDSpacing,
-                'y': countsData[sliderValue-1],
+                'x': uniqueTwoTheta,
+                'y': countsSum(countsData),
                 //'customData': twoThetaArray,
                 //'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
                 //                 '\u03b3: %{x}\u00B0<br>'+
