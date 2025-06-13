@@ -19,7 +19,7 @@ EaComponents.SideBarColumn {
         visible: !(Globals.BackendWrapper.resultsSelectedTabIndex === 2)
         icon: 'database'
 
-        Loader { source: 'Groups/Slicer.qml' }
+        Loader { source: 'Groups/DataSlicer.qml' }
     }
 
     EaElements.GroupBox {

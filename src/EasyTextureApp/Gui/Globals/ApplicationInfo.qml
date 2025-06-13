@@ -9,20 +9,20 @@ import QtQuick
 QtObject {
 
     readonly property var about: {
-        'name': 'BasicQml',
-        'namePrefix': 'Basic',
-        'nameSuffix': 'Qml',
-        'namePrefixForLogo': 'basic',
-        'nameSuffixForLogo': 'qml',
-        'homePageUrl': 'https://github.com/EasyScience/EasyExample',
-        'issuesUrl': 'https://github.com/EasyScience/EasyExample/issues',
-        'licenseUrl': 'https://github.com/EasyScience/EasyExample/LICENCE.md',
+        'name': 'EasyTexture',
+        'namePrefix': 'Easy',
+        'nameSuffix': 'Texture',
+        'namePrefixForLogo': 'easy',
+        'nameSuffixForLogo': 'texture',
+        'homePageUrl': 'https://github.com/easyscience/texture-app',
+        'issuesUrl': 'https://github.com/easyscience/texture-app/issues',
+        'licenseUrl': 'https://github.com/easyscience/texture-app/LICENCE.md',
         'dependenciesUrl': 'https://github.com/EasyScience/EasyExample/DEPENDENCIES.md',
-        'version': '1.0.0',
+        'version': '0.0.1',
         'icon': Qt.resolvedUrl('../Resources/Logos/App.svg'),
         'date': new Date().toISOString().slice(0,10),
         'developerYearsFrom': '2019',
-        'developerYearsTo': '2024',
+        'developerYearsTo': '2025',
         'description': 'Example of a desktop application of basic complexity with Python backend and EasyApp-based GUI',
         'developerIcons': [
             {

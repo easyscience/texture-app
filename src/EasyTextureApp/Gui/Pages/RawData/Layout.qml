@@ -53,16 +53,16 @@ EaComponents.ContentPage {
 
         items: [
             Loader {
-                source: 'MainArea/Tab_3dPreviewSurface.qml'
+                source: 'MainArea/3dSurfaceTab.qml'
             },
             Loader {
-                source: 'MainArea/Tab_2dPreviewHeatmap.qml'
+                source: 'MainArea/2dHeatmapTab.qml'
             },
             Loader {
-                source: 'MainArea/Tab_2dPreviewPolarHeatmap.qml'
+                source: 'MainArea/2dPolarHeatmapTab.qml'
             },
             Loader {
-                source: 'MainArea/Tab_1dPreview.qml'
+                source: 'MainArea/1dLineTab.qml'
             }
         ]
     }

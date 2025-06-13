@@ -18,7 +18,7 @@ EaComponents.SideBarColumn {
         //icon: 'download'
         collapsed: false
 
-        Loader { source: 'Groups/Vanadium.qml' }
+        Loader { source: 'Groups/VanadiumCorrection.qml' }
     }
 
 }

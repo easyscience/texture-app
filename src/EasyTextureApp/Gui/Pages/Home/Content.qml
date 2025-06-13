@@ -103,7 +103,7 @@ Item {
                 }
                 EaElements.Button {
                     text: qsTr('Online documentation')
-                    onClicked: Qt.openUrlExternally('https://github.com/EasyScience/EasyApp')
+                    onClicked: Qt.openUrlExternally('https://github.com/easyscience/texture-app/')
                 }
                 EaElements.Button {
                     text: qsTr('Get in touch online')

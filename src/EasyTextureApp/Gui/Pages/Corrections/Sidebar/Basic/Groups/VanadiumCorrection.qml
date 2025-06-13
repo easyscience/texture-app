@@ -16,8 +16,7 @@ import Gui.Globals as Globals
 
 Grid {
     rows: 3
-    columnSpacing: EaStyle.Sizes.fontPixelSize
-    rowSpacing: EaStyle.Sizes.fontPixelSize
+    rowSpacing: 1
 
     // button 1
     Row {
@@ -33,22 +32,17 @@ Grid {
         EaElements.RadioButton {
             id: applyDataCorrection
             //topPadding: 0
-            text: qsTr('Apply data correction')
+            text: qsTr('Apply data correction ')
+            checked: false
             enabled: false
-            /*contentItem: Text {
-                text: applyDataCorrection.text
-                color: 'grey'
-                leftPadding: applyDataCorrection.indicator.width + applyDataCorrection.spacing
-                verticalAlignment: Text.AlignVCenter
-            }*/
             //onCheckedChanged: Globals.Proxies.main.corrections.applyDataCorrection = checked
         }
     }
+
     // Location
     Row {
         spacing: EaStyle.Sizes.fontPixelSize * 0.5
         topPadding: 0
-
         visible: applyDataCorrection.checked
 
 
