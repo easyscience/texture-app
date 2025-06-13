@@ -181,8 +181,8 @@ QtObject {
     property bool rawDataResetTwoThetaSlider1D: activeBackend.rawData.resetTwoThetaSlider1D
     onRawDataResetTwoThetaSlider1DChanged: activeBackend.rawData.resetTwoThetaSlider1D = rawDataResetTwoThetaSlider1D
 
-    property string rawDataPlot1dFilepath: activeBackend.rawData.plot1dFilepath
-    onRawDataPlot1dFilepathChanged: activeBackend.rawData.plot1dFilepath = rawDataPlot1dFilepath
+    property string rawDataPlotFilepath1D: activeBackend.rawData.plotFilepath1D
+    onRawDataPlotFilepath1DChanged: activeBackend.rawData.plotFilepath1D = rawDataPlotFilepath1D
 
     function rawDataUpdate1DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DTwoThetaBinningData(selectedBinWidthIndexValue) }
     function rawDataUpdate1DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DGammaBinningData(selectedBinWidthIndexValue) }
@@ -190,6 +190,9 @@ QtObject {
     function rawDataGenerateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete = true) {
         let gammaBinsList = activeBackend.rawData.generateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete)
         return gammaBinsList
+    }
+    function rawDataGenerate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.rawData.generate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
     ///////////////////

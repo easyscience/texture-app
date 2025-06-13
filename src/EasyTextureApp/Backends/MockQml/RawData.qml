@@ -27,9 +27,9 @@ QtObject {
     readonly property int currentMeasurementIndex: -1
     property string plot3dFilepath: '../../../../../../examples/RawData/user_voxels_3D_1.json'
     property string plot2dFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
-    property string plot1dFilepath: '../../../../../../examples/RawData/user_voxels_2D_1.json'
+    property string plotFilepath1D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
 
-    onPlot3dFilepathChanged: {
+    /*onPlot3dFilepathChanged: {
         generate3dSurfacePlot(plot3dFilepath, twoThetaBinWidth, gammaBinWidth)
     }
     onPlot2dFilepathChanged: {
@@ -37,15 +37,15 @@ QtObject {
         generate2dPolarHeatmapPlot(plot2dFilepath, twoThetaBinWidth, gammaBinWidth)
     }
     onPlot1dFilepathChanged: {
-        generate1dLinePlot(plot1dFilepath, twoThetaBinWidth, gammaBinWidth)
-    }
+        generate1dLinePlot(plotFilepath1D, twoThetaBinWidth, gammaBinWidth)
+    }*/
 
     function loadMeasurement(filePath) {
         console.debug(`QML backend: Loading pre-saved mock-up files instead of the selected file ${filePath}.`)
         generate3dSurfacePlot(filePath, twoThetaBinWidth, gammaBinWidth)
         generate2dHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth)
         generate2dPolarHeatmapPlot(filePath, twoThetaBinWidth, gammaBinWidth)
-        generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth)
+        //generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth)
     }
 
     function generate3dSurfacePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
@@ -60,9 +60,9 @@ QtObject {
         console.debug(`QML backend for generate2dPolarHeatmapPlot. Load ${plot2dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`QML backend for generate1dLinePlot. Load ${plot1dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-    }
+    /*function generate1dLinePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`QML backend for generate1dLinePlot. Load ${plotFilepath1D} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+    }*/
 
     function setCurrentMeasurementIndex(value) {
         console.debug(`setCurrentMeasurementIndex ${value}: NOT IMPLEMENTED`)
@@ -308,8 +308,8 @@ QtObject {
 
     function update1DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
         let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
-        plot1dFilepath = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        console.debug(`update1DPlotFilepath to ${plot1dFilepath}`)
+        plotFilepath1D = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        console.debug(`update1DPlotFilepath to ${plotFilepath1D}`)
     }
 
     function update1DTwoThetaSliderResetFlag(flagValue){
@@ -342,6 +342,42 @@ QtObject {
             gammaBinWidthIndex1D = selectedBinWidthIndexValue
         }
     }
+
+    function generate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: QML backend for generate1dLinePlot.`)
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
+        update1DPlotFilepath(twoThetaIndex, gammaIndex)
+        console.debug(`In ${this}: Loaded ${plotFilepath1D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+    }
+
+    function getBinningIndices(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: getBinningIndices for twoThetaBinWidth=${twoThetaBinWidth} and gammaBinWidth=${gammaBinWidth}`)
+        let twoThetaBinWidthIndex, gammaBinWidthIndex
+        if (twoThetaBinWidth === 0.5) {
+            twoThetaBinWidthIndex = 0
+        } else if (twoThetaBinWidth === 1){
+            twoThetaBinWidthIndex = 1
+        } else {
+            twoThetaBinWidthIndex = 2
+            console.debug(`In ${this}: WARNING in getBinningIndices: unimplemented twoThetaBinWidth ${twoThetaBinWidth}`)
+        }
+        if (gammaBinWidth === 1) {
+            gammaBinWidthIndex = 0
+        } else if (gammaBinWidth === 2){
+            gammaBinWidthIndex = 1
+        } else {
+            gammaBinWidthIndex = 2
+            console.debug(`In ${this}: WARNING in getBinningIndices: unimplemented gammaBinWidth ${gammaBinWidth}`)
+        }
+        return [twoThetaBinWidthIndex, gammaBinWidthIndex]
+    }
+
+    /*function updatePlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
+        let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
+        plotFilepath = '../../../../../../examples/Explore/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        console.debug(`In ${this}: updatePlotFilepath to ${plotFilepath}`)
+    }*/
 
     // bins generating functions
 
