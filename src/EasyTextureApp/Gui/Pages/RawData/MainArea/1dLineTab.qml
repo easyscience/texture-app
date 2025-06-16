@@ -21,7 +21,6 @@ EaCharts.Plotly1dLineNew {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath1D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
-    property bool resetSlider: Globals.BackendWrapper.rawDataResetTwoThetaSlider1D
 
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth1D
@@ -29,7 +28,7 @@ EaCharts.Plotly1dLineNew {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            generateLinePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -37,28 +36,42 @@ EaCharts.Plotly1dLineNew {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            if (resetSlider) {
-                generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
-            } else {
-                generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
-            }
+            generateLinePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+        }
+    }
+
+    onTwoThetaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            updateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            updateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
     onSliderValueChanged: {
         if (loadSucceededStatus) {
-            generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            updateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
-    function generateLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        Globals.BackendWrapper.rawDataGenerate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    function generateLinePlot(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        Globals.BackendWrapper.rawDataGenerateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
+            line1dRawData.setXAxisTitle()
+            line1dRawData.setYAxisTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
+    }
+
+    function updateLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        Globals.BackendWrapper.rawDataUpdateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
             getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             line1dRawData.setXAxisTitle()

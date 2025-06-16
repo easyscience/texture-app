@@ -37,12 +37,11 @@ Grid {
                     ComboBox {
                         id: ttBinning1D
                         //values for two_theta_bin_width_1D
-                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
-                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexMD :
-                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
                         model: ['0.5°', '1°']
+                        currentIndex: Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
+
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataUpdate1DTwoThetaBinningData(currentIndex)
+                            Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData1D(currentIndex)
                             indxChanged()
                         }
 
@@ -67,12 +66,10 @@ Grid {
                         //values for gamma_bin_width_1D
                         // model: ['1°', '2°', '5°', '10°']// default value should be 1
                         model: ['1°', '2°']
-                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
-                                      Globals.BackendWrapper.rawDataGammaBinWidthIndexMD :
-                                      Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
+                        currentIndex: Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
 
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataUpdate1DGammaBinningData(currentIndex)
+                            Globals.BackendWrapper.rawDataUpdateGammaBinWidth1D(currentIndex)
                         }
                     }
                 }

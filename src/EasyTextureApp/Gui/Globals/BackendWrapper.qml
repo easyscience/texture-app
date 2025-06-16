@@ -154,11 +154,22 @@ QtObject {
     property real rawDataTwoThetaRingsSliderValue2D: activeBackend.rawData.twoThetaRingsSliderValue2D
     onRawDataTwoThetaRingsSliderValue2DChanged: activeBackend.rawData.twoThetaRingsSliderValue2D = rawDataTwoThetaRingsSliderValue2D
 
-    property string rawDataPlot2dFilepath: activeBackend.rawData.plot2dFilepath
-    onRawDataPlot2dFilepathChanged: activeBackend.rawData.plot2dFilepath = rawDataPlot2dFilepath
+    property string rawDataPlotFilepath2D: activeBackend.rawData.plotFilepath2D
+    onRawDataPlotFilepath2DChanged: activeBackend.rawData.plotFilepath2D = rawDataPlotFilepath2D
 
-    function rawDataUpdate2DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update2DTwoThetaBinningData(selectedBinWidthIndexValue) }
-    function rawDataUpdate2DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update2DGammaBinningData(selectedBinWidthIndexValue) }
+    function rawDataUpdate2DTwoThetaBinningData(selectedBinWidthIndexValue) {
+        activeBackend.rawData.update2DTwoThetaBinningData(selectedBinWidthIndexValue)
+    }
+    function rawDataUpdate2DGammaBinningData(selectedBinWidthIndexValue) {
+        activeBackend.rawData.update2DGammaBinningData(selectedBinWidthIndexValue)
+    }
+    function rawDataGenerate2dHeatmapPlot(twoThetaBinWidth, gammaBinWidth) {
+        activeBackend.rawData.generate2dHeatmapPlot(twoThetaBinWidth, gammaBinWidth)
+    }
+
+    function rawDataGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.rawData.generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    }
 
     // Binning 1D
 
@@ -178,21 +189,29 @@ QtObject {
 
     property real rawDataTwoThetaSliderValue1D: activeBackend.rawData.twoThetaSliderValue1D
     onRawDataTwoThetaSliderValue1DChanged: activeBackend.rawData.twoThetaSliderValue1D = rawDataTwoThetaSliderValue1D
-    property bool rawDataResetTwoThetaSlider1D: activeBackend.rawData.resetTwoThetaSlider1D
-    onRawDataResetTwoThetaSlider1DChanged: activeBackend.rawData.resetTwoThetaSlider1D = rawDataResetTwoThetaSlider1D
 
     property string rawDataPlotFilepath1D: activeBackend.rawData.plotFilepath1D
     onRawDataPlotFilepath1DChanged: activeBackend.rawData.plotFilepath1D = rawDataPlotFilepath1D
 
-    function rawDataUpdate1DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DTwoThetaBinningData(selectedBinWidthIndexValue) }
-    function rawDataUpdate1DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update1DGammaBinningData(selectedBinWidthIndexValue) }
+    function rawDataUpdateGammaBinWidth1D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateGammaBinWidth1D(selectedBinWidthIndexValue)
+    }
+
+    function rawDataUpdateTwoThetaSliderData1D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateTwoThetaSliderData1D(selectedBinWidthIndexValue)
+    }
 
     function rawDataGenerateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete = true) {
         let gammaBinsList = activeBackend.rawData.generateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete)
         return gammaBinsList
     }
-    function rawDataGenerate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        activeBackend.rawData.generate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+
+    function rawDataGenerateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.rawData.generateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    }
+
+    function rawDataUpdateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.rawData.updateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
     ///////////////////
