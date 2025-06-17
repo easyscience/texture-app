@@ -46,7 +46,7 @@ EaCharts.Plotly1dLineNew {
     }
 
     onGammaBinWidthValueChanged: {
-        if (loadSucceededStatus){
+        if (loadSucceededStatus) {
             generateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
@@ -57,7 +57,7 @@ EaCharts.Plotly1dLineNew {
         }
     }
 
-    function getData1DFromJson(jsonFilename, sliderValue){
+    function getData1DFromJson(jsonFilename, sliderValue) {
         console.debug(`${this} getData1DFromJson from file ${jsonFilename} for two theta=${sliderValue}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueTwoTheta = result[twoThetaColumn]

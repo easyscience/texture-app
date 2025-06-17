@@ -21,7 +21,6 @@ EaCharts.Plotly1dLineNew {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath1D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
-
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth1D
 
@@ -59,6 +58,7 @@ EaCharts.Plotly1dLineNew {
     }
 
     function generateLinePlot(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: generateLinePlot started...`)
         Globals.BackendWrapper.rawDataGenerateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
             getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
@@ -68,9 +68,11 @@ EaCharts.Plotly1dLineNew {
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
         }
+        console.debug(`In ${this}: generateLinePlot finished.`)
     }
 
     function updateLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: updateLinePlot started...`)
         Globals.BackendWrapper.rawDataUpdateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
             getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
@@ -80,11 +82,12 @@ EaCharts.Plotly1dLineNew {
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
         }
+        console.debug(`In ${this}: updateLinePlot finished.`)
     }
 
     function getData1DFromJson(jsonFilename, sliderValue) {
         console.debug(`${this} getData1DFromJson from file ${jsonFilename} for two theta=${sliderValue}`)
-        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
+        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
             let uniqueGamma = result[gammaColumn]
             let customData = result[customDataColumn]

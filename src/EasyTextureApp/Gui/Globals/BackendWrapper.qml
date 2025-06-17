@@ -124,6 +124,7 @@ QtObject {
     property int rawDataTwoThetaBinWidthIndexMD: activeBackend.rawData.twoThetaBinWidthIndexMD
     property int rawDataGammaBinWidthIndexMD: activeBackend.rawData.gammaBinWidthIndexMD
 
+
     // Binning 3D
     property int rawDataTwoThetaBinWidthIndex3D: activeBackend.rawData.twoThetaBinWidthIndex3D
     onRawDataTwoThetaBinWidthIndex3DChanged: activeBackend.rawData.twoThetaBinWidthIndex3D = rawDataTwoThetaBinWidthIndex3D
@@ -175,19 +176,30 @@ QtObject {
     property string rawDataPlotFilepath2D: activeBackend.rawData.plotFilepath2D
     onRawDataPlotFilepath2DChanged: activeBackend.rawData.plotFilepath2D = rawDataPlotFilepath2D
 
-    function rawDataUpdate2DTwoThetaBinningData(selectedBinWidthIndexValue) {
-        activeBackend.rawData.update2DTwoThetaBinningData(selectedBinWidthIndexValue)
-    }
-    function rawDataUpdate2DGammaBinningData(selectedBinWidthIndexValue) {
-        activeBackend.rawData.update2DGammaBinningData(selectedBinWidthIndexValue)
-    }
-    function rawDataGenerate2dHeatmapPlot(twoThetaBinWidth, gammaBinWidth) {
-        activeBackend.rawData.generate2dHeatmapPlot(twoThetaBinWidth, gammaBinWidth)
+    function rawDataUpdateTwoThetaSliderData2D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateTwoThetaSliderData2D(selectedBinWidthIndexValue)
     }
 
-    function rawDataGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        activeBackend.rawData.generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    function rawDataUpdateGammaBinWidth2D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateGammaBinWidth2D(selectedBinWidthIndexValue)
     }
+
+    function rawDataGenerateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth) {
+        activeBackend.rawData.generateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth)
+    }
+
+    function rawDataUpdateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth) {
+        activeBackend.rawData.updateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
+    }
+
+    function rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.rawData.generatePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    }
+
+    function rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        activeBackend.rawData.updatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    }
+
 
     // Binning 1D
 

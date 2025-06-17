@@ -9,7 +9,7 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Globals as Globals
 
 EaCharts.Plotly2dHeatmapNew {
-    id: heatmap2d
+    id: heatmap2dRawData
 
     xAxisTitle: '2\u03b8, deg'
     yAxisTitle: '\u03b3, deg'
@@ -19,34 +19,69 @@ EaCharts.Plotly2dHeatmapNew {
     property string gammaColumn: 'user gamma [deg]'
     property string countsColumn: 'proj_count'
     property string customDataColumn: 'custom_data'
-    property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath
+
+    property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
+    property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getData2DFromJson(Qt.resolvedUrl(plot2dFilepath))
-                heatmap2d.setXAxisTitle()
-                heatmap2d.setYAxisTitle()
-                heatmap2d.setColorbarTitle()
-            }
-            else {
-                console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-            }
+            generateHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
     }
 
-    onPlot2dFilepathChanged: {
+    onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            getData2DFromJson(Qt.resolvedUrl(plot2dFilepath))
+            generateHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
-    function getData2DFromJson(jsonFilename){
+    onTwoThetaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            updateHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
+        }
+    }
+
+    onGammaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            updateHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
+        }
+    }
+
+    function generateHeatmap(filepath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: generateHeatmap started...`)
+        Globals.BackendWrapper.rawDataGenerateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getData2DFromJson(Qt.resolvedUrl(plotFilepath))
+            heatmap2dRawData.setXAxisTitle()
+            heatmap2dRawData.setYAxisTitle()
+            heatmap2dRawData.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
+        }
+        console.debug(`In ${this}: generateHeatmap finished.`)
+    }
+
+    function updateHeatmap(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: updateHeatmap started...`)
+        Globals.BackendWrapper.rawDataUpdateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getData2DFromJson(Qt.resolvedUrl(plotFilepath))
+            heatmap2dRawData.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
+        }
+        console.debug(`In ${this}: updateHeatmap finished.`)
+    }
+
+    function getData2DFromJson(jsonFilename) {
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
-        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
+        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
             let uniqueGamma = result[gammaColumn]
             // replace undefined by null
@@ -70,21 +105,21 @@ EaCharts.Plotly2dHeatmapNew {
     }
 
     function onlyUnique(value, index, array) {
-        return array.indexOf(value) === index;
+        return array.indexOf(value) === index
     }
 
     function getIndxByValue(object, value) {
-        return Object.keys(object).filter(indx => object[indx] === value);
+        return Object.keys(object).filter(indx => object[indx] === value)
     }
 
     function getValueByIndex(valueArray, indxArray) {
-        return indxArray.map(indx => valueArray[indx]);
+        return indxArray.map(indx => valueArray[indx])
     }
 
     function extractCustomColumnByIndex(customData, i) {
-      // extract the i-th element from each sub-array in customData
-      let extractedCustomColumn = customData.map(row => row.map(arr => arr[i]))
-      return extractedCustomColumn
+        // extract the i-th element from each sub-array in customData
+        let extractedCustomColumn = customData.map(row => row.map(arr => arr[i]))
+        return extractedCustomColumn
     }
 
 }

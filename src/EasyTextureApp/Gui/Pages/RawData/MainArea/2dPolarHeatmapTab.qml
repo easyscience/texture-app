@@ -9,47 +9,82 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Globals as Globals
 
 EaCharts.Plotly2dPolarHeatmapNew {
-    id: polarheatmap2d
+    id: polarHeatmap2dRawData
 
     colorbarTitle: 'Counts'
 
     property string gammaColumn: 'user gamma [deg]'
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
-    property string plot2dFilepath: Globals.BackendWrapper.rawDataPlot2dFilepath
-    property real minTwoTheta2D: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-    property real sliderValue2D: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
+
+    property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
+    property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
+    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
+    property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
+    property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), minTwoTheta2D)
-                polarheatmap2d.setColorbarTitle()
-            }
-            else {
-                console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-            }
+            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
     }
 
-    onPlot2dFilepathChanged: {
+    onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue2D)
+            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
         }
     }
 
-    onSliderValue2DChanged: {
+    onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plot2dFilepath), sliderValue2D)
+            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
-    function getTwoThetaRingDataFromJson(jsonFilename, sliderValue){
+    onGammaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+        }
+    }
+
+    onSliderValueChanged: {
+        if (loadSucceededStatus) {
+            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+        }
+    }
+
+    function generatePolarHeatmap(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: generatePolarHeatmap started`)
+        Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
+            polarHeatmap2dRawData.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
+        console.debug(`In ${this}: generatePolarHeatmap finished`)
+    }
+
+    function updatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: updatePolarHeatmap started`)
+        Globals.BackendWrapper.rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
+            polarHeatmap2dRawData.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
+        console.debug(`In ${this}: updatePolarHeatmap finished`)
+    }
+
+    function getTwoThetaRingDataFromJson(jsonFilename, sliderValue) {
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
-        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
+        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
             let uniqueGamma = result[gammaColumn]
             let customData = result[customDataColumn]
@@ -79,7 +114,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
     }
 
     function cleanUpGamma(gammaArray, target) {
-        let index = gammaArray.indexOf(target);
+        let index = gammaArray.indexOf(target)
         // Only proceed if the target is found
         if (index > -1) {
             // Check if there are neighbors to remove (both before and after the target)

@@ -9,7 +9,7 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Globals as Globals
 
 EaCharts.Plotly3dSurfaceNew {
-    id: surface3d
+    id: surface3dRawData
 
     colorbarTitle: 'Counts'
 
@@ -75,25 +75,30 @@ EaCharts.Plotly3dSurfaceNew {
     }
 
     function generateSurfacePlot(filepath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: generateSurfacePlot started...`)
         Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
-            surface3d.setScene()
-            surface3d.setColorbarTitle()
+            surface3dRawData.setScene()
+            surface3dRawData.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
         }
+        console.debug(`In ${this}: generateSurfacePlot finished.`)
     }
 
     function updateSurfacePlot(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: updateSurfacePlot started...`)
         Globals.BackendWrapper.rawDataUpdateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth)
         if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
+            surface3dRawData.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
         }
+        console.debug(`In ${this}: updateSurfacePlot finished.`)
     }
 
     function getData3DFromJson(jsonFilename) {

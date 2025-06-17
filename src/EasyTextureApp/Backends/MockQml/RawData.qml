@@ -111,6 +111,7 @@ QtObject {
         console.debug(`In ${this}: Loaded ${plotFilepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
+
     // Binning 2D
     property int twoThetaBinWidthIndex2D: 0
     property real minTwoThetaCenter2D: 45.25
@@ -121,14 +122,7 @@ QtObject {
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0
 
-    function update2DTwoThetaBinningData(selectedBinWidthIndexValue) {
-        console.debug(`Starting to update 2DTwoThetaBinningData...`)
-        update2DPlotFilepath(selectedBinWidthIndexValue, gammaBinWidthIndex2D)
-        twoThetaBinWidthIndex2D = selectedBinWidthIndexValue
-        console.debug(`Finished updating 2DTwoThetaBinningData...`)
-    }
-
-    function update2DTwoThetaSliderData(twoThetaBinWidthIndx) {
+    function updateTwoThetaSliderData2D(twoThetaBinWidthIndx) {
         if (twoThetaBinWidthIndx === 0) {
             twoThetaBinWidth2D = 0.5
             // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
@@ -142,41 +136,51 @@ QtObject {
             maxTwoThetaCenter2D = 134.5 //centers[-1]
             console.debug(`update2DTwoThetaSliderData to bin_width=${twoThetaBinWidth2D}, and slider edges to (min=${minTwoThetaCenter2D}, max=${maxTwoThetaCenter2D})`)
         } else {
+            twoThetaBinWidth2D = null
+            minTwoThetaCenter2D = null
+            maxTwoThetaCenter2D = null
             console.debug(`WARNING: update2DTwoThetaSliderData for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
         }
         twoThetaRingsSliderValue2D = minTwoThetaCenter2D
         console.debug(`twoThetaRingsSliderValue2D is changed to ${twoThetaRingsSliderValue2D}`)
     }
 
-    function update2DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
-        let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
+    function updateGammaBinWidth2D(gammaBinWidthIndx) {
+        if (gammaBinWidthIndx === 0) {
+            gammaBinWidth2D = 1.0
+        } else if (gammaBinWidthIndx === 1) {
+            gammaBinWidth2D = 2.0
+        } else {
+            gammaBinWidth2D = null
+        }
+    }
+
+    function generateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for generateHeatmapPlot2D. Loaded ${plotFilepath2D} by default.`)
+    }
+
+    function updateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateHeatmapPlot2D.`)
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         plotFilepath2D = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        console.debug(`update2DPlotFilepath to ${plotFilepath2D}`)
-    }
-
-    function update2DGammaBinningData(selectedBinWidthIndexValue) {
-        console.debug(`Starting to update 2DGammaBinningData...`)
-        update2DPlotFilepath(twoThetaBinWidthIndex2D, selectedBinWidthIndexValue)
-        gammaBinWidthIndex2D = selectedBinWidthIndexValue
-        console.debug(`Finished updating 2DGammaBinningData...`)
-    }
-
-    function generate2dHeatmapPlot(twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: QML backend for generate2dHeatmapPlot.`)
-        let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
-        update2DPlotFilepath(twoThetaIndex, gammaIndex)
         console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function generate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: QML backend for generate2dPolarHeatmapPlot.`)
+    function generatePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: QML backend for generatePolarHeatmapPlot2D. Loaded ${plotFilepath2D} by default.`)
+    }
+
+    function updatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: QML backend for updatePolarHeatmapPlot2D.`)
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
-        update2DPlotFilepath(twoThetaIndex, gammaIndex)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
+        plotFilepath2D = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
         console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
-
     }
+
 
     // Binning 1D
     property int twoThetaBinWidthIndex1D: 0
@@ -258,7 +262,6 @@ QtObject {
 
 
     // bins generating functions
-
     function generateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete) {
         let range1 = generateBinEdges(0, holeLow, binStep, dropIncomplete)
         let range2 = generateBinEdgesReverse(360, holeHigh, binStep, dropIncomplete)
