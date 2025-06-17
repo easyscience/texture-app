@@ -16,7 +16,10 @@ EaCharts.Plotly3dSurfaceNew {
     property string xColumn: 'voxel_x [mm]'
     property string yColumn: 'voxel_y [mm]'
     property string customDataColumn: 'custom_data'
-    property string plot3dFilepath: Globals.BackendWrapper.rawDataPlot3dFilepath
+
+    property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath3D
+    property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth3D
+    property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth3D
 
     scene: {
         'xaxis': {
@@ -47,27 +50,53 @@ EaCharts.Plotly3dSurfaceNew {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
-                getData3DFromJson(Qt.resolvedUrl(plot3dFilepath))
-                surface3d.setScene()
-                surface3d.setColorbarTitle()
-            }
-            else {
-                console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-            }
+            generateSurfacePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
     }
 
-    onPlot3dFilepathChanged: {
+    onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            getData3DFromJson(Qt.resolvedUrl(plot3dFilepath))
-            setScene()
+            updateSurfacePlot(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
-    function getData3DFromJson(jsonFilename){
+    onGammaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            updateSurfacePlot(twoThetaBinWidthValue, gammaBinWidthValue)
+        }
+    }
+
+    onPlotFilepathChanged: {
+        if (loadSucceededStatus) {
+            generateSurfacePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
+        }
+    }
+
+    function generateSurfacePlot(filepath, twoThetaBinWidth, gammaBinWidth) {
+        Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getData3DFromJson(Qt.resolvedUrl(plotFilepath))
+            surface3d.setScene()
+            surface3d.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
+    }
+
+    function updateSurfacePlot(twoThetaBinWidth, gammaBinWidth) {
+        Globals.BackendWrapper.rawDataUpdateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth)
+        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+            getData3DFromJson(Qt.resolvedUrl(plotFilepath))
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        }
+    }
+
+    function getData3DFromJson(jsonFilename) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let xData = result[xColumn]
             let yData = result[yColumn]

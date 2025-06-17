@@ -25,16 +25,12 @@ QtObject {
     readonly property var measurementNames: measurements.map(function (item) { return item.name })
     property string selectedFilePath: ''
     readonly property int currentMeasurementIndex: -1
-    property string plot3dFilepath: '../../../../../../examples/RawData/user_voxels_3D_1.json'
+    property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
     property string plotFilepath2D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
     property string plotFilepath1D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
 
     function loadMeasurement(filePath) {
         console.debug(`QML backend: Loading pre-saved mock-up files instead of the selected file ${filePath}.`)
-    }
-
-    function generate3dSurfacePlot(filePath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`QML backend for generate3dSurfacePlot. Load ${plot3dFilepath} with (twoThetaBinWidth, gammaBinWidth): (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
     function setCurrentMeasurementIndex(value) {
@@ -77,28 +73,42 @@ QtObject {
 
     // Binning 3D
     property int twoThetaBinWidthIndex3D: 0
+    property real twoThetaBinWidth3D: 0.5
+
     property int gammaBinWidthIndex3D: 0
+    property real gammaBinWidth3D: 1.0
 
-    function update3DTwoThetaBinningData(selectedBinWidthIndexValue) {
-        console.debug(`Starting to update 3DTwoThetaBinningData...`)
-        //let currentGammaBinWidthIndex = getCurrentGammaBinWidthIndex3D()
-        //update3DTwoThetaBinWidthIndex(selectedBinWidthIndexValue)
-        update3DPlotFilepath(selectedBinWidthIndexValue, gammaBinWidthIndex3D)
-        twoThetaBinWidthIndex3D = selectedBinWidthIndexValue
-        console.debug(`Finished updating 3DTwoThetaBinningData...`)
+    function updateTwoThetaBinWidth3D(twoThetaBinWidthIndx) {
+        if (twoThetaBinWidthIndx === 0) {
+            twoThetaBinWidth3D = 0.5
+        } else if (twoThetaBinWidthIndx === 1) {
+            twoThetaBinWidth3D = 1.0
+        } else {
+            twoThetaBinWidth3D = null
+        }
     }
 
-    function update3DPlotFilepath(twoThetaBinWidthIndx, gammaBinWidthIndx) {
-        let mockBinningIndex = 2 * twoThetaBinWidthIndx + gammaBinWidthIndx + 1
-        plot3dFilepath = '../../../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
-        console.debug(`update3DPlotFilepath to ${plot3dFilepath}`)
+    function updateGammaBinWidth3D(gammaBinWidthIndx) {
+        if (gammaBinWidthIndx === 0) {
+            gammaBinWidth3D = 1.0
+        } else if (gammaBinWidthIndx === 1) {
+            gammaBinWidth3D = 2.0
+        } else {
+            gammaBinWidth3D = null
+        }
     }
 
-    function update3DGammaBinningData(selectedBinWidthIndexValue) {
-        console.debug(`Starting to update3DGammaBinningData...`)
-        update3DPlotFilepath(twoThetaBinWidthIndex3D, selectedBinWidthIndexValue)
-        gammaBinWidthIndex3D = selectedBinWidthIndexValue
-        console.debug(`Finished updating 3DGammaBinningData...`)
+    function generateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for generateSurfacePlot3D. Loaded ${plotFilepath3D} by default.`)
+    }
+
+    function updateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateSurfacePlot3D.`)
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
+        plotFilepath3D = '../../../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
+        console.debug(`In ${this}: Loaded ${plotFilepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
     // Binning 2D

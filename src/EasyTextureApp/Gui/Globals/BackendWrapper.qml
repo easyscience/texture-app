@@ -127,14 +127,32 @@ QtObject {
     // Binning 3D
     property int rawDataTwoThetaBinWidthIndex3D: activeBackend.rawData.twoThetaBinWidthIndex3D
     onRawDataTwoThetaBinWidthIndex3DChanged: activeBackend.rawData.twoThetaBinWidthIndex3D = rawDataTwoThetaBinWidthIndex3D
+    property real rawDataTwoThetaBinWidth3D: activeBackend.rawData.twoThetaBinWidth3D
+    onRawDataTwoThetaBinWidth3DChanged: activeBackend.rawData.twoThetaBinWidth3D = rawDataTwoThetaBinWidth3D
+
     property int rawDataGammaBinWidthIndex3D: activeBackend.rawData.gammaBinWidthIndex3D
     onRawDataGammaBinWidthIndex3DChanged: activeBackend.rawData.gammaBinWidthIndex3D = rawDataGammaBinWidthIndex3D
+    property int rawDataGammaBinWidth3D: activeBackend.rawData.gammaBinWidth3D
+    onRawDataGammaBinWidth3DChanged: activeBackend.rawData.gammaBinWidth3D = rawDataGammaBinWidth3D
 
-    property string rawDataPlot3dFilepath: activeBackend.rawData.plot3dFilepath
-    onRawDataPlot3dFilepathChanged: activeBackend.rawData.plot3dFilepath = rawDataPlot3dFilepath
+    property string rawDataPlotFilepath3D: activeBackend.rawData.plotFilepath3D
+    onRawDataPlotFilepath3DChanged: activeBackend.rawData.plotFilepath3D = rawDataPlotFilepath3D
 
-    function rawDataUpdate3DTwoThetaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update3DTwoThetaBinningData(selectedBinWidthIndexValue) }
-    function rawDataUpdate3DGammaBinningData(selectedBinWidthIndexValue) { activeBackend.rawData.update3DGammaBinningData(selectedBinWidthIndexValue) }
+    function rawDataUpdateTwoThetaBinWidth3D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateTwoThetaBinWidth3D(selectedBinWidthIndexValue)
+    }
+
+    function rawDataUpdateGammaBinWidth3D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateGammaBinWidth3D(selectedBinWidthIndexValue)
+    }
+
+    function rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth) {
+        activeBackend.rawData.generateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
+    }
+
+    function rawDataUpdateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth) {
+        activeBackend.rawData.updateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth)
+    }
 
     // Binning 2D
     property int rawDataTwoThetaBinWidthIndex2D: activeBackend.rawData.twoThetaBinWidthIndex2D

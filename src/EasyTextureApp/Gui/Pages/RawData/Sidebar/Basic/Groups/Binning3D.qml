@@ -40,12 +40,10 @@ Grid {
                         // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°']
                         model: ['0.5°', '1°']
 
-                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
-                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexMD :
-                                      Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
+                        currentIndex: Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D
 
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataUpdate3DTwoThetaBinningData(currentIndex)
+                            Globals.BackendWrapper.rawDataUpdateTwoThetaBinWidth3D(currentIndex)
                         }
                     }
                 }
@@ -66,12 +64,10 @@ Grid {
                         //values for gamma_bin_width_3D
                         // model: ['1°', '2°', '5°', '10°']
                         model: ['1°', '2°']
-                        currentIndex: Globals.BackendWrapper.rawDataSyncTabsBinnings ?
-                                      Globals.BackendWrapper.rawDataGammaBinWidthIndexMD :
-                                      Globals.BackendWrapper.rawDataGammaBinWidthIndex3D
+                        currentIndex: Globals.BackendWrapper.rawDataGammaBinWidthIndex3D
 
                         onCurrentIndexChanged: {
-                            Globals.BackendWrapper.rawDataUpdate3DGammaBinningData(currentIndex)
+                            Globals.BackendWrapper.rawDataUpdateGammaBinWidth3D(currentIndex)
                         }
                     }
                 }
