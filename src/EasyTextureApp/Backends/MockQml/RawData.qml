@@ -8,32 +8,13 @@ import QtQuick
 
 QtObject {
     property bool loaded: false
-
-    //readonly property real minTwoTheta: 45
-    //readonly property real maxTwoTheta: 135
-    //readonly property real gammaHoleLow: 225.0
-    //readonly property real gammaHoleHigh: 315.0
-
-    property real minTwoThetaCenter: 45.25
-    property real maxTwoThetaCenter: 134.75
-    property real gammaHoleLowCenter: 225.0
-    property real gammaHoleHighCenter: 315.0
+    property int selectedTabIndex: 0
 
     // Load measurements group
     property var measurements: []
-    readonly property var measurementNames: measurements.map(function (item) { return item.name })
-    property string selectedFilePath: ''
-    readonly property int currentMeasurementIndex: -1
-    property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
-    property string plotFilepath2D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
-    property string plotFilepath1D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
 
     function loadMeasurement(filePath) {
         console.debug(`QML backend: Loading pre-saved mock-up files instead of the selected file ${filePath}.`)
-    }
-
-    function setCurrentMeasurementIndex(value) {
-        console.debug(`setCurrentMeasurementIndex ${value}: NOT IMPLEMENTED`)
     }
 
     function setSelectedFilename(path, name) {
@@ -62,15 +43,14 @@ QtObject {
     }
 
     //Binning Group
-    property int selectedTabIndex: 0
-
-    property int twoThetaBinWidthIndexMD: 0
-    property int gammaBinWidthIndexMD: 0
-    property real twoThetaBinWidth: 0.5
-    property real gammaBinWidth: 1.0
-
+    property real minTwoThetaCenter: 45.25
+    property real maxTwoThetaCenter: 134.75
+    property real gammaHoleLowCenter: 225.0
+    property real gammaHoleHighCenter: 315.0
 
     // Binning 3D
+    property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
+
     property int twoThetaBinWidthIndex3D: 0
     property real twoThetaBinWidth3D: 0.5
 
@@ -112,6 +92,8 @@ QtObject {
 
 
     // Binning 2D
+    property string plotFilepath2D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
+
     property int twoThetaBinWidthIndex2D: 0
     property real minTwoThetaCenter2D: 45.25
     property real maxTwoThetaCenter2D: 134.75
@@ -182,6 +164,8 @@ QtObject {
 
 
     // Binning 1D
+    property string plotFilepath1D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
+
     property int twoThetaBinWidthIndex1D: 0
     property real minTwoThetaCenter1D: 45.25
     property real maxTwoThetaCenter1D: 134.75
