@@ -13,8 +13,6 @@ import Gui.Globals as Globals
 
 
 Grid {
-    signal indxChanged()
-
     rows: 1
     columnSpacing: EaStyle.Sizes.fontPixelSize
     //rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
@@ -37,7 +35,7 @@ Grid {
                     }
 
                     ComboBox {
-                        id: ttBinning2D
+                        id: twoThetaBinWidthIndexSelector2D
                         //values for two_theta_bin_width_2D
                         // currentIndex: 2
                         // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°']
@@ -46,8 +44,14 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
-                            indxChanged()
+                            Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
+                            if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                            }
                         }
+
+                        Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex = twoThetaBinWidthIndexSelector2D
                     }
                 }
             }
@@ -64,6 +68,7 @@ Grid {
                     }
 
                     ComboBox {
+                        id: gammaBinWidthIndexSelector2D
                         //values for gamma_bin_width_2D
                         // model: ['1°', '2°', '5°', '10°']
                         model: ['1°', '2°']
@@ -71,7 +76,13 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth2D(currentIndex)
+                            if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
+                            }
                         }
+
+                        Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex = gammaBinWidthIndexSelector2D
                     }
                 }
             }

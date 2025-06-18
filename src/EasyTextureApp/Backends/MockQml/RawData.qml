@@ -8,7 +8,6 @@ import QtQuick
 
 QtObject {
     property bool loaded: false
-    readonly property bool syncTabsBinnings: true
 
     //readonly property real minTwoTheta: 45
     //readonly property real maxTwoTheta: 135

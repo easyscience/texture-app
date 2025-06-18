@@ -12,8 +12,6 @@ import EasyApp.Gui.Elements as EaElements
 import Gui.Globals as Globals
 
 Grid {
-    signal indxChanged()
-
     rows: 1
     columnSpacing: EaStyle.Sizes.fontPixelSize
 
@@ -35,18 +33,23 @@ Grid {
                     }
 
                     ComboBox {
-                        id: ttBinning1D
+                        id: twoThetaBinWidthIndexSelector1D
+                        // currentIndex: 2
+                        // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°'] // default value should be 0.5
                         //values for two_theta_bin_width_1D
                         model: ['0.5°', '1°']
                         currentIndex: Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData1D(currentIndex)
-                            indxChanged()
+                            Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
+                            if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                            }
                         }
 
-                        // currentIndex: 2
-                        // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°'] // default value should be 0.5
+                        Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex = twoThetaBinWidthIndexSelector1D
                     }
                 }
             }
@@ -63,6 +66,7 @@ Grid {
                     }
 
                     ComboBox {
+                        id: gammaBinWidthIndexSelector1D
                         //values for gamma_bin_width_1D
                         // model: ['1°', '2°', '5°', '10°']// default value should be 1
                         model: ['1°', '2°']
@@ -70,7 +74,13 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth1D(currentIndex)
+                            if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
+                            }
                         }
+
+                        Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex = gammaBinWidthIndexSelector1D
                     }
                 }
             }

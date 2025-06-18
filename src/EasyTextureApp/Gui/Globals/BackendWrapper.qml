@@ -82,7 +82,7 @@ QtObject {
     // RawData page
     ///////////////
 
-    readonly property bool rawDataSyncTabsBinnings: activeBackend.rawData.syncTabsBinnings
+    readonly property bool rawDataSyncTabsBinnings: true
 
     property int rawDataSelectedTabIndex: activeBackend.rawData.selectedTabIndex
     onRawDataSelectedTabIndexChanged: activeBackend.rawData.selectedTabIndex= rawDataSelectedTabIndex
@@ -223,12 +223,12 @@ QtObject {
     property string rawDataPlotFilepath1D: activeBackend.rawData.plotFilepath1D
     onRawDataPlotFilepath1DChanged: activeBackend.rawData.plotFilepath1D = rawDataPlotFilepath1D
 
-    function rawDataUpdateGammaBinWidth1D(selectedBinWidthIndexValue) {
-        activeBackend.rawData.updateGammaBinWidth1D(selectedBinWidthIndexValue)
-    }
-
     function rawDataUpdateTwoThetaSliderData1D(selectedBinWidthIndexValue) {
         activeBackend.rawData.updateTwoThetaSliderData1D(selectedBinWidthIndexValue)
+    }
+
+    function rawDataUpdateGammaBinWidth1D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateGammaBinWidth1D(selectedBinWidthIndexValue)
     }
 
     function rawDataGenerateBinEdgesGamma(holeLow, holeHigh, binStep, dropIncomplete = true) {

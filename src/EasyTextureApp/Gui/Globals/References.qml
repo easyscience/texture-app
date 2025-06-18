@@ -38,6 +38,22 @@ QtObject {
         'rawData': {
             'sidebar': {
                 'basic': {
+                    'groups': {
+                        'binning1d': {
+                            'twoThetaBinWidthIndex': {},
+                            'gammaBinWidthIndex': {},
+                            'twoThetaSlider': {}
+                        },
+                        'binning2d': {
+                            'twoThetaBinWidthIndex': {},
+                            'gammaBinWidthIndex': {},
+                            'twoThetaSlider': {}
+                        },
+                        'binning3d': {
+                            'twoThetaBinWidthIndex': {},
+                            'gammaBinWidthIndex': {}
+                        }
+                    },
                     'popups': {
                         'openJsonFile': null
                     }

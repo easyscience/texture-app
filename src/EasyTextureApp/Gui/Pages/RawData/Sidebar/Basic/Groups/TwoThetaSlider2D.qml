@@ -54,6 +54,8 @@ Grid {
             onValueChanged: {
                 Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = slider.value.toFixed(2)
             }
+
+            Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider = slider
         }
 
         EaElements.Label {

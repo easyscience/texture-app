@@ -35,6 +35,7 @@ Grid {
                     }
 
                     ComboBox {
+                        id: twoThetaBinWidthIndexSelector3D
                         //values for two_theta_bin_width_3D
                         // currentIndex: 2
                         // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°']
@@ -44,7 +45,13 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateTwoThetaBinWidth3D(currentIndex)
+                            if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                            }
                         }
+
+                        Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex = twoThetaBinWidthIndexSelector3D
                     }
                 }
             }
@@ -61,6 +68,7 @@ Grid {
                     }
 
                     ComboBox {
+                        id: gammaBinWidthIndexSelector3D
                         //values for gamma_bin_width_3D
                         // model: ['1°', '2°', '5°', '10°']
                         model: ['1°', '2°']
@@ -68,7 +76,13 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth3D(currentIndex)
+                            if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = currentIndex
+                            }
                         }
+
+                        Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex = gammaBinWidthIndexSelector3D
                     }
                 }
             }

@@ -41,15 +41,6 @@ EaComponents.SideBarColumn {
             id: binning2DGroupBoxLoader
             source: 'Groups/Binning2D.qml'
         }
-
-        Connections {
-            target: binning2DGroupBoxLoader.item
-            // once indxChanged signal from groupbox is received -> reset slider value
-            // in slider2D group box to the smalest (default) value
-            function onIndxChanged() {
-                slider2DGroupBoxLoader.item.sliderValue2D = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-            }
-        }
     }
 
     EaElements.GroupBox {
@@ -73,15 +64,6 @@ EaComponents.SideBarColumn {
         Loader {
             id: binning1DGroupBoxLoader
             source: 'Groups/Binning1D.qml'
-        }
-
-        Connections {
-            target: binning1DGroupBoxLoader.item
-            // once indxChanged signal from groupbox is received -> reset slider value
-            // in slider1D group box to the smalest (default) value
-            function onIndxChanged() {
-                slider1DGroupBoxLoader.item.sliderValue1D = Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
-            }
         }
     }
 
