@@ -63,10 +63,8 @@ EaCharts.Plotly1dBarPlotNew {
             plotData = {
                 'x': uniqueTwoTheta,
                 'y': countsSum(countsData),
-                //'customData': twoThetaArray,
-                //'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
-                //                 '\u03b3: %{x}\u00B0<br>'+
-                //                 'Counts: %{y}'
+                'hoverTemplate': '2\u03b8: %{x:.2f}\u00B0<br>'+
+                                 'Counts: %{y}'
             }
         })
     }

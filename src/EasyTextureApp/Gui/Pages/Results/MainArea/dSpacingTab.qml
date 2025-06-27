@@ -11,12 +11,13 @@ import Gui.Globals as Globals
 EaCharts.Plotly1dBarPlotNew {
     id: dspacingBarPlot
 
-    xAxisTitle: 'd-spacing, A'
+    xAxisTitle: 'd-spacing, Å'
     yAxisTitle: 'Counts'
 
     property string gammaColumn:  'user gamma [deg]'
     property string dSpacingColumn: 'd-spacing [A]'
     property string customDataColumn: 'custom_data'
+
     property string plotFilepath: Globals.BackendWrapper.resultsDPatternPlotFilepath
     property int minSliderValue: Globals.BackendWrapper.resultsMinSliderValue
     property real sliderValue: Globals.BackendWrapper.resultsRingIndexSliderValue
@@ -70,10 +71,8 @@ EaCharts.Plotly1dBarPlotNew {
             plotData = {
                 'x': uniqueDSpacing,
                 'y': countsData[sliderValue-1],
-                //'customData': twoThetaArray,
-                //'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
-                //                 '\u03b3: %{x}\u00B0<br>'+
-                //                 'Counts: %{y}'
+                'hoverTemplate': 'd: %{x:.2f}\u00C5<br>'+
+                                 'Counts: %{y}'
             }
         })
     }
