@@ -58,6 +58,7 @@ EaComponents.TableView {
             Globals.References.applicationWindow.appBarCentralTabs.rawDataButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.correctionsButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.exploreButton.enabled = true
+            Globals.BackendWrapper.exploreActivated = true
             Globals.BackendWrapper.statusGammaSliceWidthVisible = true
             Globals.References.applicationWindow.appBarCentralTabs.resultsButton.enabled = true
         }
