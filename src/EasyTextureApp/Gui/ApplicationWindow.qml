@@ -107,6 +107,11 @@ EaComponents.ApplicationWindow {
             Component.onCompleted: {
                 Globals.References.applicationWindow.appBarCentralTabs.exploreButton = exploreButton
             }
+            onClicked: {
+                if (Globals.BackendWrapper.rawDataLoaded) {
+                    Globals.BackendWrapper.statusGammaSliceWidthVisible = true
+                }
+            }
         },
         // Explore page
 

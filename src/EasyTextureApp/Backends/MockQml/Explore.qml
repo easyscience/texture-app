@@ -8,7 +8,7 @@ import QtQuick
 
 QtObject {
 
-    property bool created: true
+    property bool activated: false
 
     property int twoThetaBinWidthIndex: 0
     property real minTwoThetaCenter: 45.25

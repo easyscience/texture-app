@@ -20,42 +20,24 @@ EaElements.StatusBar {
         keyIcon: 'archive'
         keyText: qsTr('Project')
         valueText: Globals.BackendWrapper.statusProject
+        visible: Globals.BackendWrapper.statusProjectVisible
         ToolTip.text: qsTr('Current project')
     }
 
     EaElements.StatusBarItem {
         keyIcon: 'layer-group'
-        keyText: qsTr('Models')
-        valueText: Globals.BackendWrapper.statusPhasesCount
-        ToolTip.text: qsTr('Number of models added')
+        keyText: qsTr('Loaded file')
+        valueText: Globals.BackendWrapper.statusRawDataFile
+        visible: Globals.BackendWrapper.statusRawDataFileVisible
+        ToolTip.text: qsTr('Selected datafile with raw data')
     }
 
     EaElements.StatusBarItem {
         keyIcon: 'microscope'
-        keyText: qsTr('Experiments')
-        valueText: Globals.BackendWrapper.statusExperimentsCount
-        ToolTip.text: qsTr('Number of experiments added')
-    }
-
-    EaElements.StatusBarItem {
-        keyIcon: 'calculator'
-        keyText: qsTr('Calculator')
-        valueText: Globals.BackendWrapper.statusCalculator
-        ToolTip.text: qsTr('Current calculation engine')
-    }
-
-    EaElements.StatusBarItem {
-        keyIcon: 'level-down-alt'
-        keyText: qsTr('Minimizer')
-        valueText: Globals.BackendWrapper.statusMinimizer
-        ToolTip.text: qsTr('Current minimization engine and method')
-    }
-
-    EaElements.StatusBarItem {
-        keyIcon: 'th-list'
-        keyText: qsTr('Parameters')
-        valueText: Globals.BackendWrapper.statusVariables
-        ToolTip.text: qsTr('Number of parameters: total, free and fixed')
+        keyText: qsTr('γ-slice width')
+        valueText: Globals.BackendWrapper.statusGammaSliceWidth
+        visible: Globals.BackendWrapper.statusGammaSliceWidthVisible
+        ToolTip.text: qsTr('Selected gamma slice width for generating d- and 2θ-patterns')
     }
 
 }

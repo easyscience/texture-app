@@ -31,6 +31,7 @@ FileDialog{
         //Globals.References.applicationWindow.appBarCentralTabs.correctionsButton.enabled = true
         //Globals.References.applicationWindow.appBarCentralTabs.resultsButton.enabled = true
         Globals.BackendWrapper.rawDataLoaded = true
+        Globals.BackendWrapper.statusRawDataFile = fileName
         console.debug(`File loading process finished.`)
 
     }

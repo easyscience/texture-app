@@ -15,7 +15,7 @@ import Gui.Globals as Globals
 
 EaComponents.ContentPage {
 
-    defaultInfo: Globals.BackendWrapper.exploreCreated ?
+    defaultInfo: Globals.BackendWrapper.exploreActivated ?
                     '' :
                     qsTr('No preview available')
 

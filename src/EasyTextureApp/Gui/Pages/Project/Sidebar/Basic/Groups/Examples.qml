@@ -51,6 +51,8 @@ EaComponents.TableView {
             Globals.BackendWrapper.projectEditInfo('location', tableView.model[index].path)
             Globals.BackendWrapper.projectCreate()
             Globals.References.applicationWindow.appBarCentralTabs.rawDataButton.enabled = true
+            Globals.References.applicationWindow.appBarCentralTabs.correctionsButton.enabled = true
+            Globals.References.applicationWindow.appBarCentralTabs.exploreButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.resultsButton.enabled = true
         }
 

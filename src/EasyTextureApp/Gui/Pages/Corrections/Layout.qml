@@ -46,6 +46,10 @@ EaComponents.ContentPage {
             console.debug(`Clicking '${continueButton.text}' button ::: ${this}`)
             Globals.References.applicationWindow.appBarCentralTabs.exploreButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.exploreButton.toggle()
+            Globals.BackendWrapper.exploreActivated = true
+            if (Globals.BackendWrapper.rawDataLoaded) {
+                Globals.BackendWrapper.statusGammaSliceWidthVisible = true
+            }
         }
     }
 

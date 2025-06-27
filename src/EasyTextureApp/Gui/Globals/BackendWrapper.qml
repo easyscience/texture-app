@@ -33,12 +33,18 @@ QtObject {
     // Status bar
     /////////////
 
-    readonly property string statusProject: activeBackend.status.project
-    readonly property string statusPhasesCount: activeBackend.status.phasesCount
-    readonly property string statusExperimentsCount: activeBackend.status.experimentsCount
-    readonly property string statusCalculator: activeBackend.status.calculator
-    readonly property string statusMinimizer: activeBackend.status.minimizer
-    readonly property string statusVariables: activeBackend.status.variables
+    property string statusProject: activeBackend.status.project
+    onStatusProjectChanged: activeBackend.status.project = statusProject
+    property string statusRawDataFile: activeBackend.status.rawDataFile
+    onStatusRawDataFileChanged: activeBackend.status.rawDataFile = statusRawDataFile
+    property string statusGammaSliceWidth: exploreGammaBinWidth
+
+    property bool statusProjectVisible: activeBackend.status.projectVisible
+    onStatusProjectVisibleChanged: activeBackend.status.projectVisible = statusProjectVisible
+    property bool statusRawDataFileVisible: activeBackend.status.rawDataFileVisible
+    onStatusRawDataFileVisibleChanged: activeBackend.status.rawDataFileVisible = statusRawDataFileVisible
+    property bool statusGammaSliceWidthVisible: activeBackend.status.gammaSliceWidthVisible
+    onStatusGammaSliceWidthVisibleChanged: activeBackend.status.gammaSliceWidthVisible = statusGammaSliceWidthVisible
 
     /////////////////////////////
     // Global Detector Properties
@@ -70,12 +76,23 @@ QtObject {
     readonly property var projectExamples: activeBackend.project.examples
 
     property bool projectCreated: activeBackend.project.created
-    onProjectCreatedChanged: activeBackend.project.created = projectCreated
+    onProjectCreatedChanged: {
+        activeBackend.project.created = projectCreated
+        if (projectCreated) {
+            statusProjectVisible = true
+        } else {
+            statusProjectVisible = false
+        }
+    }
+
     property string projectName: activeBackend.project.name
-    onProjectNameChanged: activeBackend.project.name = projectName
+    onProjectNameChanged: {
+        activeBackend.project.name = projectName
+    }
 
     function projectCreate() {
         activeBackend.project.create()
+        statusProject = projectName
     }
 
     function projectSave() {
@@ -93,7 +110,15 @@ QtObject {
     readonly property bool rawDataSyncTabsBinnings: true
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
-    onRawDataLoadedChanged: activeBackend.rawData.loaded = rawDataLoaded
+    onRawDataLoadedChanged: {
+        activeBackend.rawData.loaded = rawDataLoaded
+        if (rawDataLoaded) {
+            statusRawDataFileVisible = true
+        } else {
+            statusRawDataFileVisible = false
+            statusGammaSliceWidthVisible = false
+        }
+    }
     property int rawDataSelectedTabIndex: activeBackend.rawData.selectedTabIndex
     onRawDataSelectedTabIndexChanged: activeBackend.rawData.selectedTabIndex= rawDataSelectedTabIndex
 
@@ -109,9 +134,13 @@ QtObject {
     }
 
     function rawDataRemoveFilename(text) {
-        activeBackend.rawData.removeFilename(text);
-        if (rawDataMeasurements.length === 0){
+        activeBackend.rawData.removeFilename(text)
+        if (rawDataMeasurements.length === 0) {
             rawDataLoaded = false
+        }
+        if (rawDataMeasurements.length !== 0) {
+            let lastFile = rawDataMeasurements[rawDataMeasurements.length - 1].name
+            statusRawDataFile = lastFile
         }
     }
 
@@ -242,14 +271,23 @@ QtObject {
     property string corectionsSelectedVanadiumFilePath: activeBackend.corrections.selectedVanadiumFilePath
     onCorectionsSelectedVanadiumFilePathChanged: activeBackend.corrections.selectedVanadiumFilePath = corectionsSelectedVanadiumFilePath
 
-    function correctionsLoadVanadiumMeasurement(filePath) { activeBackend.corrections.loadVanadiumMeasurement(filePath) }
+    function correctionsLoadVanadiumMeasurement(filePath) {
+        activeBackend.corrections.loadVanadiumMeasurement(filePath)
+    }
 
     ///////////////
     // Explore page
     ///////////////
 
-    property bool exploreCreated: activeBackend.explore.created
-    onExploreCreatedChanged: activeBackend.explore.created = exploreCreated
+    property bool exploreActivated: activeBackend.explore.activated
+    onExploreActivatedChanged: {
+        activeBackend.explore.activated = exploreActivated
+        if (exploreActivated) {
+            statusGammaSliceWidthVisible = true
+        } else {
+            statusGammaSliceWidthVisible = false
+        }
+    }
 
     property int exploreTwoThetaBinWidthIndex: activeBackend.explore.twoThetaBinWidthIndex
     onExploreTwoThetaBinWidthIndexChanged: activeBackend.explore.twoThetaBinWidthIndex = exploreTwoThetaBinWidthIndex
@@ -302,7 +340,6 @@ QtObject {
         activeBackend.explore.setRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
-
     ///////////////
     // Results page
     ///////////////
@@ -323,15 +360,15 @@ QtObject {
     property int resultsRingIndexSliderValue: activeBackend.results.ringIndexSliderValue
     onResultsRingIndexSliderValueChanged: activeBackend.results.ringIndexSliderValue = resultsRingIndexSliderValue
 
-    function resultsGenerateDSpacingBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
+    function resultsGenerateDSpacingBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx) {
         activeBackend.results.generateDSpacingBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx)
     }
 
-    function resultsGenerateTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth, currentGammaSliceIndx){
+    function resultsGenerateTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth, currentGammaSliceIndx) {
         activeBackend.results.generateTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth, currentGammaSliceIndx)
     }
 
-    function resultsGenerateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth){
+    function resultsGenerateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth) {
         activeBackend.results.generateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth)
     }
 }
