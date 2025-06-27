@@ -50,9 +50,15 @@ EaComponents.TableView {
             Globals.BackendWrapper.projectEditInfo('description', tableView.model[index].description)
             Globals.BackendWrapper.projectEditInfo('location', tableView.model[index].path)
             Globals.BackendWrapper.projectCreate()
+            // todo: sum up as rawDataCreate()
+            Globals.BackendWrapper.rawDataLoaded = true
+            Globals.BackendWrapper.rawDataLoadMeasurement('example_rawdata.json')
+            Globals.BackendWrapper.rawDataSetSelectedFilename('test/example_rawdata.json', 'example_rawdata.json')
+            Globals.BackendWrapper.statusRawDataFile = 'example_rawdata.json'
             Globals.References.applicationWindow.appBarCentralTabs.rawDataButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.correctionsButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.exploreButton.enabled = true
+            Globals.BackendWrapper.statusGammaSliceWidthVisible = true
             Globals.References.applicationWindow.appBarCentralTabs.resultsButton.enabled = true
         }
 
