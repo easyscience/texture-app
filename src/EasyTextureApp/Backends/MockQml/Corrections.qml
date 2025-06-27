@@ -1,0 +1,20 @@
+// SPDX-FileCopyrightText: 2024 EasyApp contributors
+// SPDX-License-Identifier: BSD-3-Clause
+// © 2024 Contributors to the EasyApp project <https://github.com/easyscience/EasyApp>
+
+pragma Singleton
+
+import QtQuick
+
+QtObject {
+
+    property bool created: false
+
+    // Load measurements group
+    property var measurements: []
+    property string selectedVanadiumFilePath: ''
+
+    function loadVanadiumMeasurement(filePath) {
+        console.debug(`NOT IMPLEMENTED: Loading vanadium file ${filePath}.`)
+    }
+}
