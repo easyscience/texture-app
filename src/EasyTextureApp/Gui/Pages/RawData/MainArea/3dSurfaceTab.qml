@@ -77,7 +77,7 @@ EaCharts.Plotly3dSurfaceNew {
     function generateSurfacePlot(filepath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: generateSurfacePlot started...`)
         Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
             surface3dRawData.setScene()
             surface3dRawData.setColorbarTitle()
@@ -91,7 +91,7 @@ EaCharts.Plotly3dSurfaceNew {
     function updateSurfacePlot(twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: updateSurfacePlot started...`)
         Globals.BackendWrapper.rawDataUpdateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
             surface3dRawData.setColorbarTitle()
         }

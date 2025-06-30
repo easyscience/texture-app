@@ -60,7 +60,7 @@ EaCharts.Plotly1dLineNew {
     function generateLinePlot(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: generateLinePlot started...`)
         Globals.BackendWrapper.rawDataGenerateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             line1dRawData.setXAxisTitle()
             line1dRawData.setYAxisTitle()
@@ -74,7 +74,7 @@ EaCharts.Plotly1dLineNew {
     function updateLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: updateLinePlot started...`)
         Globals.BackendWrapper.rawDataUpdateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             line1dRawData.setXAxisTitle()
             line1dRawData.setYAxisTitle()
@@ -117,7 +117,7 @@ EaCharts.Plotly1dLineNew {
     }
 
     function getIndxByValue(object, value) {
-        return Object.keys(object).filter(indx => object[indx] === value);
+        return Object.keys(object).filter(indx => object[indx] === value)
     }
 
 }

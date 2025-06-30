@@ -54,7 +54,7 @@ EaCharts.Plotly2dHeatmapNew {
     function generateHeatmap(filepath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: generateHeatmap started...`)
         Globals.BackendWrapper.rawDataGenerateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData2DFromJson(Qt.resolvedUrl(plotFilepath))
             heatmap2dRawData.setXAxisTitle()
             heatmap2dRawData.setYAxisTitle()
@@ -69,7 +69,7 @@ EaCharts.Plotly2dHeatmapNew {
     function updateHeatmap(twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: updateHeatmap started...`)
         Globals.BackendWrapper.rawDataUpdateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData2DFromJson(Qt.resolvedUrl(plotFilepath))
             heatmap2dRawData.setColorbarTitle()
         }

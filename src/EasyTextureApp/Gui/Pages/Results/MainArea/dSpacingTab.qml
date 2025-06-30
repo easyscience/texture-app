@@ -48,7 +48,7 @@ EaCharts.Plotly1dBarPlotNew {
 
     function getBarPlotData(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx){
         Globals.BackendWrapper.resultsGenerateDSpacingBarPlot(dSpacingBinWidth, gammaBinWidth, currentGammaSliceIndx)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getBarPlotDataFromJson(Qt.resolvedUrl(plotFilepath), currentGammaSliceIndx)
             dspacingBarPlot.setXAxisTitle()
             dspacingBarPlot.setYAxisTitle()

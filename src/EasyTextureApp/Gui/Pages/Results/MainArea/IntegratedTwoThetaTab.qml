@@ -39,7 +39,7 @@ EaCharts.Plotly1dBarPlotNew {
 
     function getBarPlotData(twoThetaBinWidth, gammaBinWidth){
         Globals.BackendWrapper.resultsGenerateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getBarPlotDataFromJson(Qt.resolvedUrl(plotFilepath))
             twoThetaIntegratedBarPlot.setXAxisTitle()
             twoThetaIntegratedBarPlot.setYAxisTitle()

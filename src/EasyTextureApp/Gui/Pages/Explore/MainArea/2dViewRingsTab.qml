@@ -52,7 +52,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
     function generatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: generatePolarHeatmap started`)
         Globals.BackendWrapper.exploreGenerate2dPolarHeatmapPlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             polarheatmap2d.setColorbarTitle()
         }
@@ -65,7 +65,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
     function setTotalStatistics(twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: setTotalStatistics started`)
         Globals.BackendWrapper.exploreSetTotalStatistics(twoThetaBinWidth, gammaBinWidth)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             runJavaScript(`getDataFromJson(${JSON.stringify(Qt.resolvedUrl(plotFilepath))})`, function(result){
                 let customData = result[customDataColumn]
                 let countsData = extractCustomColumnByIndex(customData, 2)
@@ -87,7 +87,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
     function setRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: setRingStatistics started. WARNING: ringMaxIntensityWidth determination is not implemented. Random value is used instead.`)
         Globals.BackendWrapper.exploreSetRingStatistics(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             runJavaScript(`getDataFromJson(${JSON.stringify(Qt.resolvedUrl(plotFilepath))})`, function(result){
                 let uniqueTwoTheta = result[twoThetaColumn]
 

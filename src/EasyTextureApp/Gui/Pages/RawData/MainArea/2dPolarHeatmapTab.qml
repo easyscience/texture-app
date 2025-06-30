@@ -59,7 +59,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
     function generatePolarHeatmap(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: generatePolarHeatmap started`)
         Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             polarHeatmap2dRawData.setColorbarTitle()
         }
@@ -72,7 +72,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
     function updatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: updatePolarHeatmap started`)
         Globals.BackendWrapper.rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             polarHeatmap2dRawData.setColorbarTitle()
         }

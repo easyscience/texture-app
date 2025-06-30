@@ -26,7 +26,7 @@ EaCharts.Plotly1dLineNew {
 
     function generateLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         Globals.BackendWrapper.exploreGenerate1dLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE")) {
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             line1d.setXAxisTitle()
             line1d.setYAxisTitle()
