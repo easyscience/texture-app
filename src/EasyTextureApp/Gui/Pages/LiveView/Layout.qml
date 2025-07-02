@@ -60,16 +60,19 @@ EaComponents.ContentPage {
             Loader { source: 'Sidebar/Text/Layout.qml' }
         ]
 
-        continueButton.enabled: Globals.BackendWrapper.rawDataLoaded
+        continueButton.enabled: true //Globals.BackendWrapper.rawDataLoaded
+        continueButton.text: 'Back to offline data processing'
 
         continueButton.onClicked: {
             console.debug(`Clicking '${continueButton.text}' button ::: ${this}`)
-            Globals.References.applicationWindow.appBarCentralTabs.correctionsButton.enabled = true
-            Globals.References.applicationWindow.appBarCentralTabs.correctionsButton.toggle()
+            Globals.References.applicationWindow.appBarCentralTabs.homeButton.enabled = true
+            Globals.References.applicationWindow.appBarCentralTabs.liveViewButton.enabled = false
+            Globals.References.applicationWindow.appBarCentralTabs.homeButton.toggle()
+            Globals.BackendWrapper.liveViewConnected = false
         }
     }
 
-    Component.onCompleted: console.debug(`RawData page loaded ::: ${this}`)
-    Component.onDestruction: console.debug(`RawData page destroyed ::: ${this}`)
+    Component.onCompleted: console.debug(`LiveView page loaded ::: ${this}`)
+    Component.onDestruction: console.debug(`LiveView page destroyed ::: ${this}`)
 
 }

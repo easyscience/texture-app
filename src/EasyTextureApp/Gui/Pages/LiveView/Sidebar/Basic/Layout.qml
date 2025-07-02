@@ -28,13 +28,13 @@ EaComponents.SideBarColumn {
         Loader { source: 'Groups/LiveStatistics.qml' }
     }
 
-    EaElements.GroupBox {
+    /*EaElements.GroupBox {
         title: qsTr('3D Preview Features')
         collapsible: false
         visible: Globals.BackendWrapper.liveViewConnected && Globals.BackendWrapper.liveViewSelectedTabIndex === 0
 
         Loader { source: 'Groups/LiveFeatures3D.qml' }
-    }
+    }*/
 
     EaElements.GroupBox {
         title: qsTr('2D Preview Features: 2θ Rings')
