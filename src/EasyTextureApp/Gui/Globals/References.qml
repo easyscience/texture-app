@@ -21,6 +21,7 @@ QtObject {
             'correctionsButton': null,
             'exploreButton': null,
             'resultsButton': null,
+            'liveViewButton': null,
         }
     }
 
@@ -86,6 +87,23 @@ QtObject {
                     }
                 }
             }
-        }
+        },
+        'liveView': {
+            'sidebar': {
+                'basic': {
+                    'groups': {
+                        'features2d': {
+                            'twoThetaBinWidthIndex': {},
+                            'gammaBinWidthIndex': {},
+                            'twoThetaSlider': {}
+                        },
+                        'features3d': {
+                            'twoThetaBinWidthIndex': {},
+                            'gammaBinWidthIndex': {}
+                        }
+                    }
+                }
+            }
+        },
     }
 }

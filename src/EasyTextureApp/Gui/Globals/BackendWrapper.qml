@@ -371,4 +371,56 @@ QtObject {
     function resultsGenerateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth) {
         activeBackend.results.generateIntegratedTwoThetaBarPlot(twoThetaBinWidth, gammaBinWidth)
     }
+
+    ////////////////
+    // LiveView page
+    ////////////////
+
+    property bool liveViewConnected: activeBackend.liveView.connected
+    onLiveViewConnectedChanged: activeBackend.liveView.connected = liveViewConnected
+
+    property int liveViewSelectedTabIndex: activeBackend.liveView.selectedTabIndex
+    onLiveViewSelectedTabIndexChanged: activeBackend.liveView.selectedTabIndex = liveViewSelectedTabIndex
+
+    // Binning 3D
+    property string liveViewPlotFilepath3D: activeBackend.liveView.plotFilepath3D
+    onLiveViewPlotFilepath3DChanged: activeBackend.liveView.plotFilepath3D = liveViewPlotFilepath3D
+
+    property int liveViewTwoThetaBinWidthIndex3D: activeBackend.liveView.twoThetaBinWidthIndex3D
+    onLiveViewTwoThetaBinWidthIndex3DChanged: activeBackend.liveView.twoThetaBinWidthIndex3D = liveViewTwoThetaBinWidthIndex3D
+    property real liveViewTwoThetaBinWidth3D: activeBackend.liveView.twoThetaBinWidth3D
+    onLiveViewTwoThetaBinWidth3DChanged: activeBackend.liveView.twoThetaBinWidth3D = liveViewTwoThetaBinWidth3D
+
+    property int liveViewGammaBinWidthIndex3D: activeBackend.liveView.gammaBinWidthIndex3D
+    onLiveViewGammaBinWidthIndex3DChanged: activeBackend.liveView.gammaBinWidthIndex3D = liveViewGammaBinWidthIndex3D
+    property int liveViewGammaBinWidth3D: activeBackend.liveView.gammaBinWidth3D
+    onLiveViewGammaBinWidth3DChanged: activeBackend.liveView.gammaBinWidth3D = liveViewGammaBinWidth3D
+
+    function liveViewUpdatePlotFilepath3D() {
+        activeBackend.liveView.updatePlotFilepath3D()
+    }
+
+    // Binning 2D
+    property string liveViewPlotFilepath2D: activeBackend.liveView.plotFilepath2D
+    onLiveViewPlotFilepath2DChanged: activeBackend.liveView.plotFilepath2D = liveViewPlotFilepath2D
+
+    property int liveViewTwoThetaBinWidthIndex2D: activeBackend.liveView.twoThetaBinWidthIndex2D
+    onLiveViewTwoThetaBinWidthIndex2DChanged: activeBackend.liveView.twoThetaBinWidthIndex2D = liveViewTwoThetaBinWidthIndex2D
+    property real liveViewMinTwoThetaCenter2D: activeBackend.liveView.minTwoThetaCenter2D
+    onLiveViewMinTwoThetaCenter2DChanged: activeBackend.rawData.minTwoThetaCenter2D = rawDataMinTwoThetaCenter2D
+    property real liveViewMaxTwoThetaCenter2D: activeBackend.liveView.maxTwoThetaCenter2D
+    onLiveViewMaxTwoThetaCenter2DChanged: activeBackend.liveView.maxTwoThetaCenter2D = liveViewMaxTwoThetaCenter2D
+    property real liveViewTwoThetaBinWidth2D: activeBackend.liveView.twoThetaBinWidth2D
+    onLiveViewTwoThetaBinWidth2DChanged: activeBackend.liveView.twoThetaBinWidth2D = liveViewTwoThetaBinWidth2D
+    property real liveViewTwoThetaRingsSliderValue2D: activeBackend.liveView.twoThetaRingsSliderValue2D
+    onLiveViewTwoThetaRingsSliderValue2DChanged: activeBackend.liveView.twoThetaRingsSliderValue2D = liveViewTwoThetaRingsSliderValue2D
+
+    property int liveViewGammaBinWidthIndex2D: activeBackend.liveView.gammaBinWidthIndex2D
+    onLiveViewGammaBinWidthIndex2DChanged: activeBackend.liveView.gammaBinWidthIndex2D = liveViewGammaBinWidthIndex2D
+    property real liveViewGammaBinWidth2D: activeBackend.liveView.gammaBinWidth2D
+    onLiveViewGammaBinWidth2DChanged: activeBackend.liveView.gammaBinWidth2D = liveViewGammaBinWidth2D
+
+    function liveViewUpdatePlotFilepath2D() {
+        activeBackend.liveView.updatePlotFilepath2D()
+    }
 }

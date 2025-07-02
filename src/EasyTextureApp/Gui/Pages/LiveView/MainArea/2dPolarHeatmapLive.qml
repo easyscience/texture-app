@@ -34,7 +34,7 @@ EaCharts.Plotly2dPolarHeatmapNew {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
         }
     }
 
@@ -53,6 +53,15 @@ EaCharts.Plotly2dPolarHeatmapNew {
     onSliderValueChanged: {
         if (loadSucceededStatus) {
             updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+        }
+    }
+
+    Timer {
+        interval: 3000  // 3 seconds
+        repeat: true
+        running: Globals.BackendWrapper.liveViewConnected && Globals.BackendWrapper.liveViewSelectedTabIndex === 1
+        onTriggered: {
+            Globals.BackendWrapper.liveViewUpdatePlotFilepath2D()
         }
     }
 

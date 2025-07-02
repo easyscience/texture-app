@@ -16,6 +16,7 @@ QtObject {
     property var corrections: MockLogic.Corrections
     property var explore: MockLogic.Explore
     property var results: MockLogic.Results
+    property var liveView: MockLogic.LiveView
     property var status: MockLogic.Status
 
 }

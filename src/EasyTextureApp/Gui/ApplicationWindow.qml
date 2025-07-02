@@ -8,6 +8,7 @@ import QtQuick.Controls
 import EasyApp.Gui.Globals as EaGlobals
 import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
+import EasyApp.Gui.Style as EaStyle
 
 import Gui as Gui
 import Gui.Globals as Globals
@@ -125,8 +126,34 @@ EaComponents.ApplicationWindow {
             Component.onCompleted: {
                 Globals.References.applicationWindow.appBarCentralTabs.resultsButton = resultsButton
             }
-        }
+        },
         // Results page
+
+        // Horisontal spacer
+        EaElements.AppBarTabButton { enabled: false; text: qsTr('    ')},
+
+        // Live View page
+        EaElements.AppBarTabButton {
+            id: liveViewButton
+            enabled: false
+            fontIcon: 'satellite-dish'
+            text: qsTr('Live View')
+            ToolTip.text: qsTr('Live View page')
+
+            /*onClicked: clicked ?
+                                  Globals.Proxies.main.liveView.isLiveViewSelected = true :
+                                  Globals.Proxies.main.liveView.isLiveViewSelected = false
+
+            onEnabledChanged: enabled ?
+                                  liveViewPageLoader.source = 'Pages/LiveView/PageStructure.qml' :
+                                  liveViewPageLoader.source = ''*/
+
+            Component.onCompleted: {
+                Globals.References.applicationWindow.appBarCentralTabs.liveViewButton = liveViewButton
+            }
+        }
+        // Live View page
+
     ]
 
     //////////////////////////////////
@@ -140,7 +167,9 @@ EaComponents.ApplicationWindow {
         Loader { source: 'Pages/RawData/Layout.qml' },
         Loader { source: 'Pages/Corrections/Layout.qml' },
         Loader { source: 'Pages/Explore/Layout.qml' },
-        Loader { source: 'Pages/Results/Layout.qml' }
+        Loader { source: 'Pages/Results/Layout.qml' },
+        Loader {}, // empy loader for a spacer
+        Loader { source: 'Pages/LiveView/Layout.qml' }
     ]
 
     /////////////

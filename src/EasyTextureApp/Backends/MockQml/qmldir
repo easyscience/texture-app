@@ -5,4 +5,5 @@ singleton RawData RawData.qml
 singleton Corrections Corrections.qml
 singleton Explore Explore.qml
 singleton Results Results.qml
+singleton LiveView LiveView.qml
 singleton Status Status.qml

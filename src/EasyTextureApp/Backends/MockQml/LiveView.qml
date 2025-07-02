@@ -12,7 +12,7 @@ QtObject {
     property int selectedTabIndex: 0
 
     // Binning 3D
-    property string plotFilepath3D: '../../../../../../examples/LiveView/user_voxels_3D_1.json'
+    property string plotFilepath3D: '../../../../../../examples/LiveView/user_voxels_live_3D_1.json'
 
     property int twoThetaBinWidthIndex3D: 0
     property real twoThetaBinWidth3D: 0.5
@@ -20,8 +20,18 @@ QtObject {
     property int gammaBinWidthIndex3D: 0
     property real gammaBinWidth3D: 1.0
 
+    property var indexList: [2, 3, 1]
+    property int currentIndex: 0
+
+    function updatePlotFilepath3D() {
+        console.debug(`In ${this}: updatePlotFilepath3D()`)
+        var mockIndex = indexList[currentIndex]
+        plotFilepath3D = '../../../../../../examples/LiveView/user_voxels_live_3D_%1.json'.arg(mockIndex)
+        currentIndex = (currentIndex + 1) % indexList.length;
+    }
+
     // Binning 2D
-    property string plotFilepath2D: '../../../../../../examples/LiveView/user_voxels_2D_1.json'
+    property string plotFilepath2D: '../../../../../../examples/LiveView/user_voxels_live_2D_1.json'
 
     property int twoThetaBinWidthIndex2D: 0
     property real minTwoThetaCenter2D: 45.25
@@ -31,6 +41,13 @@ QtObject {
 
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0
+
+    function updatePlotFilepath2D() {
+        console.debug(`In ${this}: updatePlotFilepath2D()`)
+        var mockIndex = indexList[currentIndex]
+        plotFilepath2D = '../../../../../../examples/LiveView/user_voxels_live_2D_%1.json'.arg(mockIndex)
+        currentIndex = (currentIndex + 1) % indexList.length;
+    }
 
     /*property bool activated: false
 

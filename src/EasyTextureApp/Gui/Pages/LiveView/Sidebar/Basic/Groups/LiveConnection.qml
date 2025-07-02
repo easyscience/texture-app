@@ -21,7 +21,7 @@ EaElements.SideBarButton {
 
     onClicked: {
         Globals.BackendWrapper.liveViewConnected = !Globals.BackendWrapper.liveViewConnected
-        console.debug(`Live view conncetion status changed to: ${Globals.BackendWrapper.liveViewConnected}.`)
+        console.debug(`Live view connection status changed to: ${Globals.BackendWrapper.liveViewConnected}.`)
     }
     Component.onCompleted: {}
 }

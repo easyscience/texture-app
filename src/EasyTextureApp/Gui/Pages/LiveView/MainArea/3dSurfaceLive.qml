@@ -74,6 +74,15 @@ EaCharts.Plotly3dSurfaceNew {
         }
     }
 
+    Timer {
+        interval: 3000  // 3 seconds
+        repeat: true
+        running: Globals.BackendWrapper.liveViewConnected && Globals.BackendWrapper.liveViewSelectedTabIndex === 0
+        onTriggered: {
+            Globals.BackendWrapper.liveViewUpdatePlotFilepath3D()
+        }
+    }
+
     function generateSurfacePlot(filepath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: generateSurfacePlot started...`)
         Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)

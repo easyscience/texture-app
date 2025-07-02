@@ -32,7 +32,7 @@ Grid{
                 text: qsTr('2θ = ')
             }
             EaElements.Label {
-                text: slider.value.toFixed(2)
+                text: slider.value.toFixed(2)  + '°'
             }
         }
 
@@ -49,8 +49,9 @@ Grid{
 
         EaElements.Label {
             id: sliderFromLabel
-            text: slider.from.toFixed(1)
+            text: slider.from.toFixed(2) + '°'
         }
+
 
         // Slider
         EaElements.Slider {
@@ -58,30 +59,21 @@ Grid{
             width: EaStyle.Sizes.sideBarContentWidth
                    - EaStyle.Sizes.fontPixelSize * 0.5 - 100
             height: parent.height
-            from: 45.5
-            to: 134.5
-            stepSize: Globals.Proxies.main.liveView.sliderStep
+            from: Globals.BackendWrapper.liveViewMinTwoThetaCenter2D
+            to: Globals.BackendWrapper.liveViewMaxTwoThetaCenter2D
+            stepSize: Globals.BackendWrapper.liveViewTwoThetaBinWidth2D
+            toolTipText: slider.value + '°'
 
-            // TODO: tool tip:
-            // make it an int (not double)
-            //onHandleChanged: {slider.handle.update()}
             onValueChanged: {
-                Globals.Proxies.main.liveView.twoThetaSliderValue = slider.value.toFixed(1)
-                //slider.handle.ToolTip.text = value.toFixed(2)
+                Globals.BackendWrapper.liveViewTwoThetaRingsSliderValue2D = slider.value.toFixed(2)
             }
-            //value: 90
 
-            // TODO: tool tip:
-            // make it an int (not double)
-
-            onPressedChanged: {
-
-            }
+            Component.onCompleted: Globals.References.pages.liveView.sidebar.basic.groups.features2d.twoThetaSlider = slider
         }
 
         EaElements.Label {
             id: sliderToLabel
-            text: slider.to.toFixed(1)
+            text: slider.to.toFixed(2) + '°'
         }
 
     }

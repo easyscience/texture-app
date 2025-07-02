@@ -83,6 +83,25 @@ Item {
         }
 
         // Vertical spacer
+        Item { width: 1; height: EaStyle.Sizes.fontPixelSize * 1.5 }
+
+        // Live View button
+        EaElements.SideBarButton {
+            id: liveViewButton
+
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            fontIcon: 'satellite-dish'
+            text: qsTr('Activate Live View')
+            onClicked: {
+                console.debug(`Clicking '${text}' button ::: ${this}`)
+                Globals.References.applicationWindow.appBarCentralTabs.liveViewButton.enabled = true
+                Globals.References.applicationWindow.appBarCentralTabs.liveViewButton.toggle()
+            }
+        }
+
+
+        // Vertical spacer
         Item { width: 1; height: EaStyle.Sizes.fontPixelSize * 2.5 }
 
         // Links
