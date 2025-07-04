@@ -19,7 +19,7 @@ QtObject {
         'licenseUrl': 'https://github.com/easyscience/texture-app/LICENCE.md',
         'dependenciesUrl': 'https://github.com/EasyScience/EasyExample/DEPENDENCIES.md',
         'version': '0.0.1',
-        'icon': Qt.resolvedUrl('../Resources/Logos/App.svg'),
+        'icon': Qt.resolvedUrl('../Resources/Logos/texture-logo-no-text.png'),
         'date': new Date().toISOString().slice(0,10),
         'developerYearsFrom': '2019',
         'developerYearsTo': '2025',
