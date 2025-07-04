@@ -76,7 +76,7 @@ EaComponents.ApplicationWindow {
         EaElements.AppBarTabButton {
             id: rawDataButton
             enabled: false
-            fontIcon: 'archive'
+            fontIcon: 'layer-group'
             text: qsTr('Raw Data')
             ToolTip.text: qsTr('Raw data description page')
             Component.onCompleted: {

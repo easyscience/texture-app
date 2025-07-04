@@ -35,7 +35,7 @@ EaElements.StatusBar {
     EaElements.StatusBarItem {
         keyIcon: 'microscope'
         keyText: qsTr('γ-slice width')
-        valueText: Globals.BackendWrapper.statusGammaSliceWidth
+        valueText: Globals.BackendWrapper.statusGammaSliceWidth + '°'
         visible: Globals.BackendWrapper.statusGammaSliceWidthVisible
         ToolTip.text: qsTr('Selected gamma slice width for generating d- and 2θ-patterns')
     }

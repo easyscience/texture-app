@@ -14,16 +14,16 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr('Measurement File')
-        icon: 'rocket'
+        title: qsTr('Measurement file')
+        icon: 'layer-group'
         collapsible: false
 
         Loader { source: 'Groups/MeasurementFile.qml' }
     }
 
     EaElements.GroupBox {
-        title: qsTr('3D Binning Parameters')
-        icon: 'database'
+        title: qsTr('3D binning parameters')
+        icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
 
@@ -32,8 +32,8 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         //id: binning2DGroupBox
-        title: qsTr('2D Binning Parameters')
-        icon: 'archive'
+        title: qsTr('2D binning parameters')
+        icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
 
@@ -45,7 +45,8 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slider2D
-        title: qsTr('2θ Rings Slider')
+        title: qsTr('2θ rings slider')
+        icon: 'microscope'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 2
 
@@ -57,7 +58,8 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: binning1DGroupBox
-        title: qsTr('1D Binning Parameters')
+        title: qsTr('1D binning parameters')
+        icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 3
 
@@ -69,7 +71,8 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slider1D
-        title: qsTr('2θ Slider')
+        title: qsTr('2θ slider')
+        icon: 'microscope'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 3
 

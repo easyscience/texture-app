@@ -14,8 +14,8 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         //enabled: false
-        title: qsTr('Data Corrections Using Vanadium Standard')
-        //icon: 'download'
+        title: qsTr('Data corrections using vanadium standard')
+        icon: 'hammer'
         collapsed: false
 
         Loader { source: 'Groups/VanadiumCorrection.qml' }

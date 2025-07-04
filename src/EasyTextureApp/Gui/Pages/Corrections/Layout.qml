@@ -17,7 +17,7 @@ EaComponents.ContentPage {
 
     defaultInfo: Globals.BackendWrapper.correctionsCreated ?
                      '' :
-                     qsTr('Correction file to be loaded')
+                     qsTr('Corrections file to be loaded')
 
     mainView: EaComponents.MainContent {
         tabs: [

@@ -14,17 +14,17 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slicerGroupBox
-        title: Globals.BackendWrapper.resultsSelectedTabIndex === 0 ? qsTr('Slicer: d-Spacing Patterns') : qsTr('Slicer: 2\u03b8 Patterns')
+        title: Globals.BackendWrapper.resultsSelectedTabIndex === 0 ? qsTr('Slicer: d-spacing patterns') : qsTr('Slicer: 2\u03b8 patterns')
         collapsible: false
         visible: !(Globals.BackendWrapper.resultsSelectedTabIndex === 2)
-        icon: 'database'
+        icon: 'microscope'
 
         Loader { source: 'Groups/DataSlicer.qml' }
     }
 
     EaElements.GroupBox {
         //enabled: Globals.Proxies.main.project.isCreated
-        title: qsTr('Export Data')
+        title: qsTr('Export data')
         collapsible: false
         icon: 'download'
         last: true

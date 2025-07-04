@@ -14,7 +14,8 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr('Select 2θ Ring')
+        title: qsTr('Select 2θ ring')
+        icon: 'microscope'
         collapsible: false
 
         Loader { source: 'Groups/TwoThetaSlider.qml' }
@@ -22,13 +23,15 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         title: qsTr('Statistics')
+        icon: 'microscope'
         collapsible: false
 
         Loader { source: 'Groups/Statistics.qml' }
     }
 
     EaElements.GroupBox {
-        title: qsTr('Select γ-Slice Width')
+        title: qsTr('Select γ-slice width')
+        icon: 'arrows-alt'
         collapsible: false
 
         Loader { source: 'Groups/GammaSliceSelector.qml' }

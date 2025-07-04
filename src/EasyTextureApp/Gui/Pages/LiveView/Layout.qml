@@ -67,8 +67,8 @@ EaComponents.ContentPage {
             console.debug(`Clicking '${continueButton.text}' button ::: ${this}`)
             Globals.References.applicationWindow.appBarCentralTabs.homeButton.enabled = true
             Globals.References.applicationWindow.appBarCentralTabs.liveViewButton.enabled = false
-            Globals.References.applicationWindow.appBarCentralTabs.homeButton.toggle()
             Globals.BackendWrapper.liveViewConnected = false
+            Globals.References.applicationWindow.appBarCentralTabs.homeButton.toggle()
         }
     }
 
