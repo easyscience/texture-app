@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
 
-EaCharts.Plotly2dHeatmapNew {
+EaCharts.Plotly2dHeatmap {
     id: heatmap2dRawData
 
     xAxisTitle: '2\u03b8, deg'

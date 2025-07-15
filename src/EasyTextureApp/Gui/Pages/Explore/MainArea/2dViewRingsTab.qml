@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
 
-EaCharts.Plotly2dPolarHeatmapNew {
+EaCharts.Plotly2dPolarHeatmap {
     id: polarheatmap2d
 
     colorbarTitle: 'Counts'

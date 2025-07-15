@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
 
-EaCharts.Plotly3dSurfaceNew {
+EaCharts.Plotly3dSurface {
     id: surface3dRawData
 
     colorbarTitle: 'Counts'

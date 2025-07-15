@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
 
-EaCharts.Plotly1dLineNew {
+EaCharts.Plotly1dLine {
     id: line1d
 
     xAxisTitle: '\u03b3, deg'

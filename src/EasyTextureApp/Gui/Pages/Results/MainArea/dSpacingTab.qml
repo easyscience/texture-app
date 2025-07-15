@@ -8,7 +8,7 @@ import EasyApp.Gui.Charts as EaCharts
 
 import Gui.Globals as Globals
 
-EaCharts.Plotly1dBarPlotNew {
+EaCharts.Plotly1dBarPlot {
     id: dspacingBarPlot
 
     xAxisTitle: 'd-spacing, Å'
