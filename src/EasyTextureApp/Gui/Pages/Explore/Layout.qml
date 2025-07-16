@@ -51,7 +51,10 @@ EaComponents.ContentPage {
     sideBar: EaComponents.SideBar {
         tabs: [
             EaElements.TabButton { text: qsTr('Basic controls') },
-            EaElements.TabButton { text: qsTr('Extra controls') }
+            EaElements.TabButton {
+                text: qsTr('Extra controls')
+                enabled: false
+            }
             //EaElements.TabButton { text: qsTr('Text mode controls'); enabled: false }
         ]
 

@@ -42,7 +42,6 @@ Grid {
             text: slider.from.toFixed(2) + '°'
         }
 
-
         // Slider
         EaElements.Slider {
             id: slider

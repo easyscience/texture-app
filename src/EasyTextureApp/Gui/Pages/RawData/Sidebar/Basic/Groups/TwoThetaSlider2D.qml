@@ -13,7 +13,7 @@ import Gui.Globals as Globals
 
 
 Grid {
-    rows: 4
+    rows: 2
     columnSpacing: EaStyle.Sizes.fontPixelSize
     rowSpacing: EaStyle.Sizes.fontPixelSize * 0.5
     property alias sliderValue2D: slider.value

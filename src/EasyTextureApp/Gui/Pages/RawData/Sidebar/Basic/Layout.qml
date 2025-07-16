@@ -26,6 +26,7 @@ EaComponents.SideBarColumn {
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
+        last: true
 
         Loader { source: 'Groups/Binning3D.qml' }
     }
@@ -36,6 +37,7 @@ EaComponents.SideBarColumn {
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
+        last: true
 
         Loader {
             id: binning2DGroupBoxLoader
@@ -49,6 +51,7 @@ EaComponents.SideBarColumn {
         icon: 'microscope'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 2
+        last: true
 
         Loader {
             id: slider2DGroupBoxLoader
@@ -75,6 +78,7 @@ EaComponents.SideBarColumn {
         icon: 'microscope'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 3
+        last: true
 
         Loader {
             id: slider1DGroupBoxLoader
