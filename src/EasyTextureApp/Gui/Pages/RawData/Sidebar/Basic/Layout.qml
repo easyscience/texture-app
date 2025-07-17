@@ -37,7 +37,6 @@ EaComponents.SideBarColumn {
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
-        last: true
 
         Loader {
             id: binning2DGroupBoxLoader
@@ -50,7 +49,7 @@ EaComponents.SideBarColumn {
         title: qsTr('2θ rings slider')
         icon: 'microscope'
         collapsible: false
-        visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 2
+        visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
         last: true
 
         Loader {

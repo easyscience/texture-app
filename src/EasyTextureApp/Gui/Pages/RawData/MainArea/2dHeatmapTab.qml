@@ -21,13 +21,31 @@ EaCharts.Plotly2dHeatmap {
     property string customDataColumn: 'custom_data'
 
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
-    property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
+    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
+    property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real sliderIndx: (Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+
+    shapes: [{
+        'type': 'rect',
+        'x0': sliderIndx - 0.5,
+        'x1': sliderIndx + 0.5,
+        'y0': 0,
+        'y1': 360,
+        'fillcolor': 'rgba(0, 0, 0, 0)',
+        'line': {
+            'color': 'black',
+            'width': 2,
+            'dash': 'dash'
+        }
+    }]
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             generateHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
+            heatmap2dRawData.setShape()
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -50,6 +68,7 @@ EaCharts.Plotly2dHeatmap {
             updateHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
+
 
     function generateHeatmap(filepath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: generateHeatmap started...`)
