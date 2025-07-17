@@ -52,10 +52,36 @@ QtObject {
     property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
 
     property int twoThetaBinWidthIndex3D: 0
+    property real minTwoThetaCenter3D: 45.25
+    property real maxTwoThetaCenter3D: 134.75
     property real twoThetaBinWidth3D: 0.5
+    property real twoThetaSliderValue3D: minTwoThetaCenter3D
 
     property int gammaBinWidthIndex3D: 0
     property real gammaBinWidth3D: 1.0
+
+    function updateTwoThetaSliderData3D(twoThetaBinWidthIndx) {
+        if (twoThetaBinWidthIndx === 0) {
+            twoThetaBinWidth3D = 0.5
+            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
+            minTwoThetaCenter3D = 45.25 //centers[0]
+            maxTwoThetaCenter3D = 134.75 //centers[-1]
+            console.debug(`update3DTwoThetaSliderData to bin_width=${twoThetaBinWidth3D}, and slider edges to (min=${minTwoThetaCenter3D}, max=${maxTwoThetaCenter3D})`)
+        } else if (twoThetaBinWidthIndx === 1) {
+            twoThetaBinWidth3D = 1
+            // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
+            minTwoThetaCenter3D = 45.5 //centers[0]
+            maxTwoThetaCenter3D = 134.5 //centers[-1]
+            console.debug(`update3DTwoThetaSliderData to bin_width=${twoThetaBinWidth3D}, and slider edges to (min=${minTwoThetaCenter3D}, max=${maxTwoThetaCenter3D})`)
+        } else {
+            twoThetaBinWidth3D = null
+            minTwoThetaCenter3D = null
+            maxTwoThetaCenter3D = null
+            console.debug(`WARNING: update3DTwoThetaSliderData for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
+        }
+        twoThetaSliderValue3D = minTwoThetaCenter3D
+        console.debug(`twoThetaRingsSliderValue3D is changed to ${twoThetaSliderValue3D}`)
+    }
 
     function updateTwoThetaBinWidth3D(twoThetaBinWidthIndx) {
         if (twoThetaBinWidthIndx === 0) {

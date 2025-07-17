@@ -108,6 +108,7 @@ QtObject {
     ///////////////
 
     readonly property bool rawDataSyncTabsBinnings: true
+    readonly property bool rawDataSyncTabsSliders: true
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
     onRawDataLoadedChanged: {
@@ -150,13 +151,23 @@ QtObject {
 
     property int rawDataTwoThetaBinWidthIndex3D: activeBackend.rawData.twoThetaBinWidthIndex3D
     onRawDataTwoThetaBinWidthIndex3DChanged: activeBackend.rawData.twoThetaBinWidthIndex3D = rawDataTwoThetaBinWidthIndex3D
+    property real rawDataMinTwoThetaCenter3D: activeBackend.rawData.minTwoThetaCenter3D
+    onRawDataMinTwoThetaCenter3DChanged: activeBackend.rawData.minTwoThetaCenter3D = rawDataMinTwoThetaCenter3D
+    property real rawDataMaxTwoThetaCenter3D: activeBackend.rawData.maxTwoThetaCenter3D
+    onRawDataMaxTwoThetaCenter3DChanged: activeBackend.rawData.maxTwoThetaCenter3D = rawDataMaxTwoThetaCenter3D
     property real rawDataTwoThetaBinWidth3D: activeBackend.rawData.twoThetaBinWidth3D
     onRawDataTwoThetaBinWidth3DChanged: activeBackend.rawData.twoThetaBinWidth3D = rawDataTwoThetaBinWidth3D
+    property real rawDataTwoThetaSliderValue3D: activeBackend.rawData.twoThetaSliderValue3D
+    onRawDataTwoThetaSliderValue3DChanged: activeBackend.rawData.twoThetaSliderValue3D = rawDataTwoThetaSliderValue3D
 
     property int rawDataGammaBinWidthIndex3D: activeBackend.rawData.gammaBinWidthIndex3D
     onRawDataGammaBinWidthIndex3DChanged: activeBackend.rawData.gammaBinWidthIndex3D = rawDataGammaBinWidthIndex3D
     property int rawDataGammaBinWidth3D: activeBackend.rawData.gammaBinWidth3D
     onRawDataGammaBinWidth3DChanged: activeBackend.rawData.gammaBinWidth3D = rawDataGammaBinWidth3D
+
+    function rawDataUpdateTwoThetaSliderData3D(selectedBinWidthIndexValue) {
+        activeBackend.rawData.updateTwoThetaSliderData3D(selectedBinWidthIndexValue)
+    }
 
     function rawDataUpdateTwoThetaBinWidth3D(selectedBinWidthIndexValue) {
         activeBackend.rawData.updateTwoThetaBinWidth3D(selectedBinWidthIndexValue)

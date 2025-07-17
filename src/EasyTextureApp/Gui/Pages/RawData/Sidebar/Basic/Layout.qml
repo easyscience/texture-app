@@ -26,9 +26,23 @@ EaComponents.SideBarColumn {
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
-        last: true
+        last: false
 
         Loader { source: 'Groups/Binning3D.qml' }
+    }
+
+    EaElements.GroupBox {
+        id: slider3D
+        title: qsTr('3D slider')
+        icon: 'microscope'
+        collapsible: false
+        visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
+        last: true
+
+        Loader {
+            id: slider3DGroupBoxLoader
+            source: 'Groups/TwoThetaSlider3D.qml'
+        }
     }
 
     EaElements.GroupBox {
