@@ -55,6 +55,12 @@ Grid {
 
             onValueChanged: {
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
+                if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                    Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
+                    console.debug(`In ${this}: 1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
+                } else {
+                    console.debug(`In ${this}: 1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue1D} degrees.`)
+                }
             }
 
             Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider = slider

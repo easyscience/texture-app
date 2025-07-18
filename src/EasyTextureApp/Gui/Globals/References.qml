@@ -52,8 +52,9 @@ QtObject {
                         },
                         'binning3d': {
                             'twoThetaBinWidthIndex': {},
-                            'gammaBinWidthIndex': {}
-                        }
+                            'gammaBinWidthIndex': {},
+                            'twoThetaSlider': {}
+                        },
                     },
                     'popups': {
                         'openJsonFile': null

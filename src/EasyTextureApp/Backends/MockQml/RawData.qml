@@ -48,6 +48,8 @@ QtObject {
     property real gammaHoleLowCenter: 225.0
     property real gammaHoleHighCenter: 315.0
 
+    property real twoThetaSliderValueSync: 45.25
+
     // Binning 3D
     property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
 

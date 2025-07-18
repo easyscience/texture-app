@@ -18,6 +18,8 @@ EaCharts.Plotly3dSurface {
     property string customDataColumn: 'custom_data'
 
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath3D
+    property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
+    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue3D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth3D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth3D
 
@@ -51,6 +53,8 @@ EaCharts.Plotly3dSurface {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             generateSurfacePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
+            surface3dRawData.setScene()
+            surface3dRawData.setColorbarTitle()
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -79,8 +83,6 @@ EaCharts.Plotly3dSurface {
         Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
-            surface3dRawData.setScene()
-            surface3dRawData.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')

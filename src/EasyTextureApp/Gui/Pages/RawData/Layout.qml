@@ -25,6 +25,10 @@ EaComponents.ContentPage {
                 text: qsTr('3D View: Detector Inner Surface')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 0
+                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                    }
                     console.debug(`3D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
@@ -32,6 +36,10 @@ EaComponents.ContentPage {
                 text: qsTr('2D View: γ-2θ')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
+                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                    }
                     console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
@@ -39,6 +47,10 @@ EaComponents.ContentPage {
                 text: qsTr('2D View: 2θ Rings')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
+                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                    }
                     console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
@@ -46,6 +58,10 @@ EaComponents.ContentPage {
                 text: qsTr('1D View: γ(2θ)')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 3
+                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                    }
                     console.debug(`1D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             }

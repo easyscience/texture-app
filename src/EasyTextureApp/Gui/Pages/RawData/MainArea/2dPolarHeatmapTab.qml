@@ -20,8 +20,8 @@ EaCharts.Plotly2dPolarHeatmap {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
-    property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {

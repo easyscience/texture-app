@@ -23,9 +23,9 @@ EaCharts.Plotly2dHeatmap {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
-    property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
-    property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real sliderIndx: (Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
 
     shapes: [{
         'type': 'rect',

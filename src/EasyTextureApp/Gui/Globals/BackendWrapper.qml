@@ -109,6 +109,8 @@ QtObject {
 
     readonly property bool rawDataSyncTabsBinnings: true
     readonly property bool rawDataSyncTabsSliders: true
+    property real rawDataTwoThetaSliderValueSync: activeBackend.rawData.twoThetaSliderValueSync
+    onRawDataTwoThetaSliderValueSyncChanged: activeBackend.rawData.twoThetaSliderValueSync = rawDataTwoThetaSliderValueSync
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
     onRawDataLoadedChanged: {
