@@ -123,7 +123,13 @@ EaCharts.Plotly3dSurface {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            generateSurfacePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
+            updateSurfacePlot(twoThetaBinWidthValue, gammaBinWidthValue)
+        }
+    }
+
+    onSliderIndxChanged: {
+        if (loadSucceededStatus) {
+            generateSurfacePlot(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
@@ -152,7 +158,7 @@ EaCharts.Plotly3dSurface {
         console.debug(`In ${this}: updateSurfacePlot finished.`)
     }
 
-    function getData3DFromJson(jsonFilename, indx) {
+    function getData3DFromJson(jsonFilename, myindx) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let xData = result[xColumn]
             let yData = result[yColumn]
@@ -175,7 +181,7 @@ EaCharts.Plotly3dSurface {
                 'hoverTemplate': hoverTemplate
             }
 
-            plotPatch(indx, plotData)
+            plotPatch(plotData, myindx)
         })
     }
 
@@ -187,17 +193,31 @@ EaCharts.Plotly3dSurface {
       return customColumn
     }
 
-    function plotPatch(indx, surfaceData) {
-        let zLow = indx
-        let zHigh = indx + 1
+    function plotPatch(surfaceData, indx) {
+        let xData = surfaceData.x
+        let yData = surfaceData.y
+        let zData = surfaceData.z
 
-        let topX = surfaceData.x[indx + 1]
-        let topY = surfaceData.y[indx + 1]
-        let topZ = surfaceData.z[indx + 1]
+        let midZ, midNextZ
 
-        let bottomX = surfaceData.x[indx]
-        let bottomY = surfaceData.y[indx]
-        let bottomZ = surfaceData.z[indx]
+        // proper handling of the bin width estimation for the last
+        // bin center, when there is no next (i+1) bin.
+        if (indx === zData.length - 1) {
+            midZ = zData[indx]
+            midNextZ = zData[indx - 1]
+        } else {
+            midZ = zData[indx]
+            midNextZ = zData[indx + 1]
+        }
+        let diffMidZ = midNextZ.map((val, i) => Math.abs(val - midZ[i]))
+
+        let topX = xData[indx]
+        let topY = yData[indx]
+        let topZ = midZ.map((val, i) => val + diffMidZ[i] / 2)
+
+        let bottomX = xData[indx]
+        let bottomY = yData[indx]
+        let bottomZ = midZ.map((val, i) => val - diffMidZ[i] / 2)
 
         // Choose vertical connector points (2 edges)
         let connectorX = [topX[0], bottomX[0], null, topX[topX.length - 1], bottomX[bottomX.length - 1]]
