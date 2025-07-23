@@ -22,7 +22,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr('3D binning parameters')
+        title: qsTr('Bin widths 3D')
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
@@ -33,7 +33,7 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slider3D
-        title: qsTr('3D slider')
+        title: qsTr('2θ slider 3D')
         icon: 'microscope'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
@@ -47,7 +47,7 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         //id: binning2DGroupBox
-        title: qsTr('2D binning parameters')
+        title: qsTr('Bin widths 2D')
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
@@ -60,7 +60,7 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slider2D
-        title: qsTr('2θ rings slider')
+        title: qsTr('2θ slider 2D')
         icon: 'microscope'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && (Globals.BackendWrapper.rawDataSelectedTabIndex == 1 || Globals.BackendWrapper.rawDataSelectedTabIndex == 2)
@@ -74,7 +74,7 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: binning1DGroupBox
-        title: qsTr('1D binning parameters')
+        title: qsTr('Bin widths 1D')
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 3
@@ -87,7 +87,7 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slider1D
-        title: qsTr('2θ slider')
+        title: qsTr('2θ slider 1D')
         icon: 'microscope'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 3

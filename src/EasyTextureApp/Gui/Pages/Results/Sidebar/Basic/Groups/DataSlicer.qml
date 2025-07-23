@@ -57,6 +57,14 @@ Grid{
             stepSize: 1
             toolTipText: slider.value
             //value: Globals.References.pages.results.sidebar.basic.groups.slicer.sliderValue
+            // updates slider value only on release
+            live: false
+            // live update of slider tooltip value
+            onPositionChanged: {
+                let rawToolTipValue = from + visualPosition * (to - from)
+                let toolTipValue = from + Math.round((rawToolTipValue - from) / stepSize) * stepSize
+                toolTipText = toolTipValue.toString()
+            }
 
             onValueChanged: {
                 Globals.BackendWrapper.resultsRingIndexSliderValue = slider.value

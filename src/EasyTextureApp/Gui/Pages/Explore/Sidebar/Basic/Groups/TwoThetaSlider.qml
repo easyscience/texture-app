@@ -36,6 +36,15 @@ Row {
         to: Globals.BackendWrapper.exploreMaxTwoThetaCenter
         stepSize: Globals.BackendWrapper.exploreTwoThetaBinWidth
         toolTipText: slider.value + '°'
+        // updates slider value only on release
+        live: false
+        // live update of slider tooltip value
+        onPositionChanged: {
+            let rawToolTipValue = from + visualPosition * (to - from)
+            let toolTipValue = from + Math.round((rawToolTipValue - from) / stepSize) * stepSize
+            toolTipText = toolTipValue.toString() + '°'
+        }
+
         onValueChanged: {
             Globals.BackendWrapper.exploreTwoThetaSliderValue = slider.value.toFixed(2)
         }
