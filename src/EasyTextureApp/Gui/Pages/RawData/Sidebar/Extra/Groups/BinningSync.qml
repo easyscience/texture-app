@@ -6,19 +6,21 @@ import QtQuick
 
 import EasyApp.Gui.Style as EaStyle
 import EasyApp.Gui.Elements as EaElements
+import EasyApp.Gui.Components as EaComponents
 
+Row {
 
-Column {
+    EaElements.RadioButton {
+        id: yesButton
+        checked: true
+        //enabled: false
+        text: 'Yes'
+    }
 
-    property int labelsCount: 50
-
-    spacing: EaStyle.Sizes.fontPixelSize
-
-    Repeater {
-        model: labelsCount
-        EaElements.Label {
-            text: `Label ${index+1} of ${labelsCount}`
-        }
+    EaElements.RadioButton {
+        id: noButton
+        enabled: false
+        text: 'No'
     }
 
 }

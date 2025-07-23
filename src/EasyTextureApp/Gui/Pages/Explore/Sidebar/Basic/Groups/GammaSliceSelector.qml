@@ -20,7 +20,7 @@ Grid {
             columns: 4
             columnSpacing: EaStyle.Sizes.fontPixelSize
 
-            RadioButton {
+            EaElements.RadioButton {
                 id: oneDegreeButton
                 topPadding: 0
                 checked: true
@@ -34,7 +34,7 @@ Grid {
 
             }
 
-            RadioButton {
+            EaElements.RadioButton {
                 id: twoDegreeButton
                 topPadding: 0
                 text: '2°'
@@ -47,7 +47,7 @@ Grid {
 
             }
 
-            RadioButton {
+            EaElements.RadioButton {
                 id: fiveDegreeButton
                 topPadding: 0
                 text: '5°'
@@ -66,7 +66,7 @@ Grid {
 
             }
 
-            RadioButton {
+            EaElements.RadioButton {
                 id: tenDegreeButton
                 topPadding: 0
                 text: '10°'

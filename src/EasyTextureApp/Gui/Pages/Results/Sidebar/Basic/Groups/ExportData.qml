@@ -18,17 +18,17 @@ Column {
     Row {
         EaElements.CheckBox {
             id: dSpacingCheckBox
-            text: "d-spacing"
+            text: 'd-spacing'
         }
 
         EaElements.CheckBox {
             id: twoThetaCheckBox
-            text: "2θ"
+            text: '2θ'
         }
 
         EaElements.CheckBox {
             id: twoThetaIntegratedCheckBox
-            text: "2θ integrated"
+            text: '2θ integrated'
         }
     }
 
@@ -43,11 +43,11 @@ Column {
             topInset: nameLabel.height
             topPadding: topInset + padding
             horizontalAlignment: TextInput.AlignLeft
-            placeholderText: qsTr("Enter report file name here")
+            placeholderText: qsTr('Enter report file name here')
             //Component.onCompleted: text = 'report'
             EaElements.Label {
                 id: nameLabel
-                text: qsTr("Name")
+                text: qsTr('Name')
             }
         }
 
@@ -58,15 +58,15 @@ Column {
             topPadding: topInset + padding
             //bottomInset: 0
             width: EaStyle.Sizes.fontPixelSize * 10
-            textRole: "text"
-            valueRole: "value"
+            textRole: 'text'
+            valueRole: 'value'
             model: [
-                { value: 'maud', text: qsTr("MAUD") },
-                { value: 'txt', text: qsTr("TEXT") }
+                { value: 'maud', text: qsTr('MAUD') },
+                { value: 'txt', text: qsTr('TEXT') }
             ]
             EaElements.Label {
                 id: formatLabel
-                text: qsTr("Format")
+                text: qsTr('Format')
             }
         }
     }
@@ -79,18 +79,18 @@ Column {
         topPadding: topInset + padding
         rightPadding: chooseButton.width
         horizontalAlignment: TextInput.AlignLeft
-        placeholderText: qsTr("Enter report location here")
+        placeholderText: qsTr('Enter report location here')
         EaElements.Label {
             id: locationLabel
-            text: qsTr("Location")
+            text: qsTr('Location')
         }
         EaElements.ToolButton {
             id: chooseButton
             anchors.right: parent.right
             topPadding: parent.topPadding
             showBackground: false
-            fontIcon: "folder-open"
-            ToolTip.text: qsTr("Choose report parent directory")
+            fontIcon: 'folder-open'
+            ToolTip.text: qsTr('Choose report parent directory')
             onClicked: reportParentDirDialog.open()
         }
     }
@@ -113,7 +113,7 @@ Column {
     // Save directory dialog
     FolderDialog {
         id: reportParentDirDialog
-        title: qsTr("Choose report parent directory")
+        title: qsTr('Choose report parent directory')
         //folder: Globals.Proxies.main.project.currentProjectPath
         //Component.onCompleted: selectedFolder = projectPathDict().parent
     }

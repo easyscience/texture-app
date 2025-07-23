@@ -14,11 +14,27 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr('Scrolling')
+        title: qsTr('Mask detectors')
         icon: 'rocket'
-        collapsed: false
+        collapsible: false
 
-        Loader { source: 'Groups/Scrolling.qml' }
+        Loader { source: 'Groups/Masking.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr('Syncronize binning accross the tabs')
+        icon: 'rocket'
+        collapsible: false
+
+        Loader { source: 'Groups/BinningSync.qml' }
+    }
+
+    EaElements.GroupBox {
+        title: qsTr('Syncronize sliders accross the tabs')
+        icon: 'rocket'
+        collapsible: false
+
+        Loader { source: 'Groups/SliderSync.qml' }
     }
 
 }

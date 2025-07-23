@@ -88,7 +88,7 @@ EaComponents.ContentPage {
             EaElements.TabButton { text: qsTr('Basic controls') },
             EaElements.TabButton {
                 text: qsTr('Extra controls')
-                enabled: false
+                //enabled: false
             },
             EaElements.TabButton { text: qsTr('Text mode controls'); enabled: false }
         ]
