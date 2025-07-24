@@ -11,118 +11,58 @@ import EasyApp.Gui.Components as EaComponents
 
 import Gui.Globals as Globals
 
+EaComponents.TableView {
+    id: statisticsTable
+    defaultInfoText: 'No statistics available'
 
-Row {
-    Grid {
-        columns: 2
-        columnSpacing: EaStyle.Sizes.fontPixelSize
+    property var tableData: [
+        { rowTitle: 'Counts Min', column1: Globals.BackendWrapper.exploreRingCountsMin, column2: Globals.BackendWrapper.exploreTotalCountsMin },
+        { rowTitle: 'Counts Max', column1: Globals.BackendWrapper.exploreRingCountsMax, column2: Globals.BackendWrapper.exploreTotalCountsMax },
+        { rowTitle: 'Counts Sum', column1: Globals.BackendWrapper.exploreRingCountsSum, column2: Globals.BackendWrapper.exploreTotalCountsSum },
+        { rowTitle: 'Peak Width', column1: Globals.BackendWrapper.exploreRingMaxIntensityWidth + '°', column2: 'N/A' }
+    ]
 
-        Column {
-            width: 1/2 * EaStyle.Sizes.sideBarContentWidth
+    model: tableData
 
-            EaElements.Label {
-                //enabled: false
-                text: qsTr('Current 2θ Ring')
-            }
+    header: EaComponents.TableViewHeader {
 
-            EaElements.Label {
-                //enabled: false
-                text: qsTr(' ')
-            }
-
-            // Grid
-            Grid {
-                readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
-
-                columns: 2
-                rowSpacing: 0
-                columnSpacing: commonSpacing
-
-                EaElements.Label {
-                    //visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
-                    //font.bold: true
-                    text: qsTr('Counts Min:')
-                }
-                EaElements.Label {
-                    text: Globals.BackendWrapper.exploreRingCountsMin
-                }
-
-                EaElements.Label {
-                    //font.bold: true
-                    text: qsTr('Counts Max:')
-                }
-                EaElements.Label {
-                    text: Globals.BackendWrapper.exploreRingCountsMax
-                }
-
-                EaElements.Label {
-                    //font.bold: true
-                    text: qsTr('Counts Sum:')
-                }
-                EaElements.Label {
-                    text: Globals.BackendWrapper.exploreRingCountsSum
-                }
-
-                EaElements.Label {
-                    //font.bold: true
-                    text: qsTr('Intensity Width (in γ°):')
-                }
-                EaElements.Label {
-                    id: intensityWidth
-                    text: Globals.BackendWrapper.exploreRingMaxIntensityWidth + '°'
-                }
-            }// Grid
+        // Placeholder for row title
+        EaComponents.TableViewLabel {
+            width: statisticsTable.width / 5
         }
 
-        Column {
-            width: 1/2 * EaStyle.Sizes.sideBarContentWidth
+        EaComponents.TableViewLabel {
+            text: qsTr('Current 2θ Ring')
+            width: statisticsTable.width * 2 / 5
+        }
 
-            EaElements.Label {
-                //enabled: false
-                text: qsTr('Total')
-            }
-            EaElements.Label {
-                //enabled: false
-                text: qsTr(' ')
-            }
-
-            // Grid
-            Grid {
-                readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
-
-                columns: 2
-                rowSpacing: 0
-                columnSpacing: commonSpacing
-
-                EaElements.Label {
-                    //visible: Globals.Proxies.main.project.location !== '--- EXAMPLE ---'
-                    //font.bold: true
-                    text: qsTr('Counts Min:')
-                }
-                EaElements.Label {
-                    text: Globals.BackendWrapper.exploreTotalCountsMin
-                }
-
-                EaElements.Label {
-                    //font.bold: true
-                    text: qsTr('Counts Max:')
-                }
-                EaElements.Label {
-                    text: Globals.BackendWrapper.exploreTotalCountsMax
-                }
-
-                EaElements.Label {
-                    //font.bold: true
-                    text: qsTr('Counts Sum:')
-                }
-                EaElements.Label {
-                    text: Globals.BackendWrapper.exploreTotalCountsSum
-                }
-
-            }// Grid
+        EaComponents.TableViewLabel {
+            text: qsTr('Total')
+            width: statisticsTable.width * 2 / 5
         }
     }
+
+    // Rows
+    delegate: EaComponents.TableViewDelegate {
+
+        EaComponents.TableViewLabel {
+            text: modelData.rowTitle
+            width: statisticsTable.width / 5
+            horizontalAlignment: Text.AlignHCenter
+            //enabled: false
+        }
+
+        EaComponents.TableViewLabel {
+            text: modelData.column1
+            width: statisticsTable.width * 2 / 5
+            enabled: false
+        }
+
+        EaComponents.TableViewLabel {
+            text: modelData.column2
+            width: statisticsTable.width * 2 / 5
+            enabled: false
+        }
+    }
+
 }
-
-
-
