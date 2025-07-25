@@ -20,22 +20,22 @@ Grid {
     Row {
         EaElements.RadioButton {
             id: noCalibration
-            text: qsTr('No vanadium correction')
+            text: qsTr('No voxel calibration')
             width: EaStyle.Sizes.fontPixelSize * 15
             checked: true
 
             onClicked: {
-                Globals.BackendWrapper.correctionsLoadVanadium = false
+                Globals.BackendWrapper.correctionsLoadCalibration = false
             }
         }
 
         EaElements.RadioButton {
             id: calibration
-            text: qsTr('Use vanadium measurement')
+            text: qsTr('Use voxel calibration')
             width: EaStyle.Sizes.fontPixelSize * 15
 
             onClicked: {
-                Globals.BackendWrapper.correctionsLoadVanadium = true
+                Globals.BackendWrapper.correctionsLoadCalibration = true
             }
         }
     }
@@ -47,14 +47,14 @@ Grid {
         EaElements.Label {
             id: locationLabel
             text: qsTr('File')
-            enabled: Globals.BackendWrapper.correctionsLoadVanadium
+            enabled: Globals.BackendWrapper.correctionsLoadCalibration
             anchors.verticalCenter: parent.verticalCenter
         }
 
         EaElements.TextField {
             id: reportLocationField
-            placeholderText: qsTr('Enter vanadium measurement filename here')
-            enabled: Globals.BackendWrapper.correctionsLoadVanadium
+            placeholderText: qsTr('Enter calibration filename here')
+            enabled: Globals.BackendWrapper.correctionsLoadCalibration
 
             width: EaStyle.Sizes.sideBarContentWidth - locationLabel.width - EaStyle.Sizes.fontPixelSize * 0.5
             rightPadding: chooseButton.width
@@ -67,15 +67,15 @@ Grid {
 
                 showBackground: false
                 fontIcon: 'folder-open'
-                ToolTip.text: qsTr('Choose vanadium measurement file here')
+                ToolTip.text: qsTr('Choose calibration file here')
 
                 onClicked: {
-                    console.debug(`Clicking load vanadium measurement file button ::: ${this}`)
-                    Globals.References.pages.corrections.sidebar.basic.popups.loadVanadiumMeasurementFile.open()
+                    console.debug(`Clicking load calibration file button ::: ${this}`)
+                    Globals.References.pages.corrections.sidebar.basic.popups.loadVortexCalibrationFile.open()
                 }
 
                 Loader {
-                    source: '../Popups/LoadVanadiumMeasurementFile.qml'
+                    source: '../Popups/LoadVortexCalibrationFile.qml'
                 }
             }
         }

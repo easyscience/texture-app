@@ -17,4 +17,8 @@ QtObject {
     function loadVanadiumMeasurement(filePath) {
         console.debug(`NOT IMPLEMENTED: Loading vanadium file ${filePath}.`)
     }
+
+    property bool loadCalibration: false
+    property bool loadEmpty: false
+    property bool loadVanadium: false
 }

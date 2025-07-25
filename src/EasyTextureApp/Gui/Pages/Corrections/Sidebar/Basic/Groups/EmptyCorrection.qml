@@ -20,22 +20,22 @@ Grid {
     Row {
         EaElements.RadioButton {
             id: noCalibration
-            text: qsTr('No vanadium correction')
+            text: qsTr('No background correction')
             width: EaStyle.Sizes.fontPixelSize * 15
             checked: true
 
             onClicked: {
-                Globals.BackendWrapper.correctionsLoadVanadium = false
+                Globals.BackendWrapper.correctionsLoadEmpty = false
             }
         }
 
         EaElements.RadioButton {
             id: calibration
-            text: qsTr('Use vanadium measurement')
+            text: qsTr('Use empty can measurement')
             width: EaStyle.Sizes.fontPixelSize * 15
 
             onClicked: {
-                Globals.BackendWrapper.correctionsLoadVanadium = true
+                Globals.BackendWrapper.correctionsLoadEmpty = true
             }
         }
     }
@@ -47,14 +47,14 @@ Grid {
         EaElements.Label {
             id: locationLabel
             text: qsTr('File')
-            enabled: Globals.BackendWrapper.correctionsLoadVanadium
+            enabled: Globals.BackendWrapper.correctionsLoadEmpty
             anchors.verticalCenter: parent.verticalCenter
         }
 
         EaElements.TextField {
             id: reportLocationField
-            placeholderText: qsTr('Enter vanadium measurement filename here')
-            enabled: Globals.BackendWrapper.correctionsLoadVanadium
+            placeholderText: qsTr('Enter empty can measurement filename here')
+            enabled: Globals.BackendWrapper.correctionsLoadEmpty
 
             width: EaStyle.Sizes.sideBarContentWidth - locationLabel.width - EaStyle.Sizes.fontPixelSize * 0.5
             rightPadding: chooseButton.width
@@ -67,15 +67,15 @@ Grid {
 
                 showBackground: false
                 fontIcon: 'folder-open'
-                ToolTip.text: qsTr('Choose vanadium measurement file here')
+                ToolTip.text: qsTr('Choose empty can measurement file here')
 
                 onClicked: {
-                    console.debug(`Clicking load vanadium measurement file button ::: ${this}`)
-                    Globals.References.pages.corrections.sidebar.basic.popups.loadVanadiumMeasurementFile.open()
+                    console.debug(`Clicking load empty can measurement file button ::: ${this}`)
+                    Globals.References.pages.corrections.sidebar.basic.popups.loadEmptyMeasurementFile.open()
                 }
 
                 Loader {
-                    source: '../Popups/LoadVanadiumMeasurementFile.qml'
+                    source: '../Popups/LoadEmptyMeasurementFile.qml'
                 }
             }
         }

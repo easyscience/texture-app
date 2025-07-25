@@ -66,7 +66,9 @@ QtObject {
             'sidebar': {
                 'basic': {
                     'popups': {
-                        'openVanadiumJsonFile': null
+                        'loadVortexCalibrationFile': null,
+                        'loadEmptyMeasurementFile': null,
+                        'loadVanadiumMeasurementFile': null
                     }
                 }
             }

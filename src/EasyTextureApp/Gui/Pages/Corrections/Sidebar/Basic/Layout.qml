@@ -14,11 +14,43 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         //enabled: false
-        title: qsTr('Data corrections using vanadium standard')
+        title: qsTr('Voxel calibration using ?diamond? standard')
+        icon: 'hammer'
+        collapsed: false
+
+        Loader { source: 'Groups/VoxelCalibration.qml' }
+    }
+
+    EaElements.GroupBox {
+        //enabled: false
+        title: qsTr('Background correction using empty can measurement')
+        icon: 'hammer'
+        collapsed: false
+
+        Loader { source: 'Groups/EmptyCorrection.qml' }
+    }
+
+    EaElements.GroupBox {
+        //enabled: false
+        title: qsTr('Detector efficiency correction using vanadium standard')
         icon: 'hammer'
         collapsed: false
 
         Loader { source: 'Groups/VanadiumCorrection.qml' }
     }
 
+    // Apply corrections button
+    Row {
+        spacing: EaStyle.Sizes.fontPixelSize
+
+        EaElements.SideBarButton {
+            id: applyCorrectionsButton
+            text: qsTr('Apply selected corrections')
+            wide: true
+            fontIcon: 'download'
+            onClicked: {
+                console.debug(`In ${this}: Apply corrections clicked.`)
+            }
+        }
+    }
 }

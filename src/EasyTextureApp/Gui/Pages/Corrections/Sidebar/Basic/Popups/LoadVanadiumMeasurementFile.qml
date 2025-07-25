@@ -14,13 +14,13 @@ import Gui.Globals as Globals
 
 FileDialog{
 
-    id: openVanadiumJsonFileDialog
+    id: loadVanadiumMeasurementFileDialog
 
     fileMode: FileDialog.OpenFile
     nameFilters: [ 'JSON files (*.json)']
 
     onAccepted: {
-        console.debug(`Open file dialog ${this} accepted. Starting vanadium file loading process.`)
+        console.debug(`Open file dialog ${this} accepted. Starting vanadium measurement file loading process.`)
 
         // Extract the file name from the full path
         // var filePath = selectedFile.toString()
@@ -31,12 +31,12 @@ FileDialog{
         // Globals.References.applicationWindow.appBarCentralTabs.correctionsButton.enabled = true
         // Globals.References.applicationWindow.appBarCentralTabs.resultsButton.enabled = true
         // Globals.BackendWrapper.rawDataLoaded = true
-        console.debug(`Vanadium file loading process finished.`)
+        console.debug(`Vanadium measurement file loading process finished.`)
 
     }
 
     Component.onCompleted: {
-        Globals.References.pages.corrections.sidebar.basic.popups.openVanadiumJsonFile = openVanadiumJsonFileDialog
+        Globals.References.pages.corrections.sidebar.basic.popups.loadVanadiumMeasurementFile = loadVanadiumMeasurementFileDialog
     }
 
 }

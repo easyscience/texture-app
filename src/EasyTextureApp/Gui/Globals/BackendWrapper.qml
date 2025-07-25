@@ -281,8 +281,12 @@ QtObject {
     property bool correctionsCreated: activeBackend.corrections.created
     onCorrectionsCreatedChanged: activeBackend.corrections.created = correctionsCreated
 
-    property string corectionsSelectedVanadiumFilePath: activeBackend.corrections.selectedVanadiumFilePath
-    onCorectionsSelectedVanadiumFilePathChanged: activeBackend.corrections.selectedVanadiumFilePath = corectionsSelectedVanadiumFilePath
+    property bool correctionsLoadCalibration: activeBackend.corrections.loadCalibration
+    onCorrectionsLoadCalibrationChanged: activeBackend.corrections.loadCalibration = correctionsLoadCalibration
+    property bool correctionsLoadEmpty: activeBackend.corrections.loadEmpty
+    onCorrectionsLoadEmptyChanged: activeBackend.corrections.loadEmpty = correctionsLoadEmpty
+    property bool correctionsLoadVanadium: activeBackend.corrections.loadVanadium
+    onCorrectionsLoadVanadiumChanged: activeBackend.corrections.loadVanadium = correctionsLoadVanadium
 
     function correctionsLoadVanadiumMeasurement(filePath) {
         activeBackend.corrections.loadVanadiumMeasurement(filePath)
