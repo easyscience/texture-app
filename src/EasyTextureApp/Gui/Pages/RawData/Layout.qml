@@ -26,8 +26,8 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 0
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
                     }
                     console.debug(`3D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -37,8 +37,8 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
                     }
                     console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -48,8 +48,8 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
                     }
                     console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -59,8 +59,8 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 3
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
                     }
                     console.debug(`1D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }

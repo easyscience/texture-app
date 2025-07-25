@@ -37,7 +37,7 @@ QtObject {
     property real minTwoThetaCenter2D: 45.25
     property real maxTwoThetaCenter2D: 134.75
     property real twoThetaBinWidth2D: 0.5
-    property real twoThetaRingsSliderValue2D: minTwoThetaCenter2D
+    property real twoThetaSliderValue2D: minTwoThetaCenter2D
 
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0

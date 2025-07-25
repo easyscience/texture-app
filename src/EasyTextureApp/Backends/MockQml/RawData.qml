@@ -9,6 +9,7 @@ import QtQuick
 QtObject {
     property bool loaded: false
     property int selectedTabIndex: 0
+    property bool syncTabsSliders: true
 
     // Load measurements group
     property var measurements: []
@@ -48,7 +49,7 @@ QtObject {
     property real gammaHoleLowCenter: 225.0
     property real gammaHoleHighCenter: 315.0
 
-    property real twoThetaSliderValueSync: 45.25
+    property real twoThetaSyncedSliderValue: 45.25
 
     // Binning 3D
     property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
@@ -126,7 +127,7 @@ QtObject {
     property real minTwoThetaCenter2D: 45.25
     property real maxTwoThetaCenter2D: 134.75
     property real twoThetaBinWidth2D: 0.5
-    property real twoThetaRingsSliderValue2D: minTwoThetaCenter2D
+    property real twoThetaSliderValue2D: minTwoThetaCenter2D
 
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0
@@ -150,8 +151,8 @@ QtObject {
             maxTwoThetaCenter2D = null
             console.debug(`WARNING: update2DTwoThetaSliderData for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
         }
-        twoThetaRingsSliderValue2D = minTwoThetaCenter2D
-        console.debug(`twoThetaRingsSliderValue2D is changed to ${twoThetaRingsSliderValue2D}`)
+        twoThetaSliderValue2D = minTwoThetaCenter2D
+        console.debug(`twoThetaSliderValue2D is changed to ${twoThetaSliderValue2D}`)
     }
 
     function updateGammaBinWidth2D(gammaBinWidthIndx) {

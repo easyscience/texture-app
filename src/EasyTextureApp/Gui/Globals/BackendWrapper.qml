@@ -108,9 +108,12 @@ QtObject {
     ///////////////
 
     readonly property bool rawDataSyncTabsBinnings: true
-    readonly property bool rawDataSyncTabsSliders: true
-    property real rawDataTwoThetaSliderValueSync: activeBackend.rawData.twoThetaSliderValueSync
-    onRawDataTwoThetaSliderValueSyncChanged: activeBackend.rawData.twoThetaSliderValueSync = rawDataTwoThetaSliderValueSync
+
+    property bool rawDataSyncTabsSliders: activeBackend.rawData.syncTabsSliders
+    onRawDataSyncTabsSlidersChanged: activeBackend.rawData.syncTabsSliders = rawDataSyncTabsSliders
+
+    property real rawDataTwoThetaSyncedSliderValue: activeBackend.rawData.twoThetaSyncedSliderValue
+    onRawDataTwoThetaSyncedSliderValueChanged: activeBackend.rawData.twoThetaSyncedSliderValue = rawDataTwoThetaSyncedSliderValue
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
     onRawDataLoadedChanged: {
@@ -199,8 +202,8 @@ QtObject {
     onRawDataMaxTwoThetaCenter2DChanged: activeBackend.rawData.maxTwoThetaCenter2D = rawDataMaxTwoThetaCenter2D
     property real rawDataTwoThetaBinWidth2D: activeBackend.rawData.twoThetaBinWidth2D
     onRawDataTwoThetaBinWidth2DChanged: activeBackend.rawData.twoThetaBinWidth2D = rawDataTwoThetaBinWidth2D
-    property real rawDataTwoThetaRingsSliderValue2D: activeBackend.rawData.twoThetaRingsSliderValue2D
-    onRawDataTwoThetaRingsSliderValue2DChanged: activeBackend.rawData.twoThetaRingsSliderValue2D = rawDataTwoThetaRingsSliderValue2D
+    property real rawDataTwoThetaSliderValue2D: activeBackend.rawData.twoThetaSliderValue2D
+    onRawDataTwoThetaSliderValue2DChanged: activeBackend.rawData.twoThetaSliderValue2D = rawDataTwoThetaSliderValue2D
 
     property int rawDataGammaBinWidthIndex2D: activeBackend.rawData.gammaBinWidthIndex2D
     onRawDataGammaBinWidthIndex2DChanged: activeBackend.rawData.gammaBinWidthIndex2D = rawDataGammaBinWidthIndex2D
@@ -429,8 +432,8 @@ QtObject {
     onLiveViewMaxTwoThetaCenter2DChanged: activeBackend.liveView.maxTwoThetaCenter2D = liveViewMaxTwoThetaCenter2D
     property real liveViewTwoThetaBinWidth2D: activeBackend.liveView.twoThetaBinWidth2D
     onLiveViewTwoThetaBinWidth2DChanged: activeBackend.liveView.twoThetaBinWidth2D = liveViewTwoThetaBinWidth2D
-    property real liveViewTwoThetaRingsSliderValue2D: activeBackend.liveView.twoThetaRingsSliderValue2D
-    onLiveViewTwoThetaRingsSliderValue2DChanged: activeBackend.liveView.twoThetaRingsSliderValue2D = liveViewTwoThetaRingsSliderValue2D
+    property real liveViewTwoThetaSliderValue2D: activeBackend.liveView.twoThetaSliderValue2D
+    onLiveViewTwoThetaSliderValue2DChanged: activeBackend.liveView.twoThetaSliderValue2D = liveViewTwoThetaSliderValue2D
 
     property int liveViewGammaBinWidthIndex2D: activeBackend.liveView.gammaBinWidthIndex2D
     onLiveViewGammaBinWidthIndex2DChanged: activeBackend.liveView.gammaBinWidthIndex2D = liveViewGammaBinWidthIndex2D
