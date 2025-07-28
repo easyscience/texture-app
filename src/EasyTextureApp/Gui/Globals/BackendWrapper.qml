@@ -107,11 +107,15 @@ QtObject {
     // RawData page
     ///////////////
 
-    readonly property bool rawDataSyncTabsBinnings: true
+    property bool rawDataSyncTabsBinnings: activeBackend.rawData.syncTabsBinnings
+    onRawDataSyncTabsBinningsChanged: activeBackend.rawData.syncTabsBinnings = rawDataSyncTabsBinnings
+    property int rawDataSyncedTwoThetaBinWidthIndex: activeBackend.rawData.syncedTwoThetaBinWidthIndex
+    onRawDataSyncedTwoThetaBinWidthIndexChanged: activeBackend.rawData.syncedTwoThetaBinWidthIndex = rawDataSyncedTwoThetaBinWidthIndex
+    property int rawDataSyncedGammaBinWidthIndex: activeBackend.rawData.syncedGammaBinWidthIndex
+    onRawDataSyncedGammaBinWidthIndexChanged: activeBackend.rawData.syncedGammaBinWidthIndex = rawDataSyncedGammaBinWidthIndex
 
     property bool rawDataSyncTabsSliders: activeBackend.rawData.syncTabsSliders
     onRawDataSyncTabsSlidersChanged: activeBackend.rawData.syncTabsSliders = rawDataSyncTabsSliders
-
     property real rawDataTwoThetaSyncedSliderValue: activeBackend.rawData.twoThetaSyncedSliderValue
     onRawDataTwoThetaSyncedSliderValueChanged: activeBackend.rawData.twoThetaSyncedSliderValue = rawDataTwoThetaSyncedSliderValue
 

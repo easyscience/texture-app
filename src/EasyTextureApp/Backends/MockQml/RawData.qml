@@ -9,7 +9,9 @@ import QtQuick
 QtObject {
     property bool loaded: false
     property int selectedTabIndex: 0
+    property bool syncTabsBinnings: true
     property bool syncTabsSliders: true
+
 
     // Load measurements group
     property var measurements: []
@@ -50,6 +52,8 @@ QtObject {
     property real gammaHoleHighCenter: 315.0
 
     property real twoThetaSyncedSliderValue: 45.25
+    property int syncedTwoThetaBinWidthIndex: 0
+    property int syncedGammaBinWidthIndex: 0
 
     // Binning 3D
     property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
