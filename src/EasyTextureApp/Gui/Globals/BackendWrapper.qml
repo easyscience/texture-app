@@ -131,6 +131,10 @@ QtObject {
     }
     property int rawDataSelectedTabIndex: activeBackend.rawData.selectedTabIndex
     onRawDataSelectedTabIndexChanged: activeBackend.rawData.selectedTabIndex= rawDataSelectedTabIndex
+    property bool rawDataResetPatch: activeBackend.rawData.resetPatch
+    onRawDataResetPatchChanged: activeBackend.rawData.resetPatch = rawDataResetPatch
+    property bool rawDataNewTab: activeBackend.rawData.newTab
+    onRawDataNewTabChanged: activeBackend.rawData.newTab = rawDataNewTab
 
     // Load measurements group
     readonly property var rawDataMeasurements: activeBackend.rawData.measurements
@@ -168,6 +172,8 @@ QtObject {
     onRawDataTwoThetaBinWidth3DChanged: activeBackend.rawData.twoThetaBinWidth3D = rawDataTwoThetaBinWidth3D
     property real rawDataTwoThetaSliderValue3D: activeBackend.rawData.twoThetaSliderValue3D
     onRawDataTwoThetaSliderValue3DChanged: activeBackend.rawData.twoThetaSliderValue3D = rawDataTwoThetaSliderValue3D
+    property real rawDataTwoThetaSliderIndex3D: activeBackend.rawData.twoThetaSliderIndex3D
+    onRawDataTwoThetaSliderIndex3DChanged: activeBackend.rawData.twoThetaSliderIndex3D = rawDataTwoThetaSliderIndex3D
 
     property int rawDataGammaBinWidthIndex3D: activeBackend.rawData.gammaBinWidthIndex3D
     onRawDataGammaBinWidthIndex3DChanged: activeBackend.rawData.gammaBinWidthIndex3D = rawDataGammaBinWidthIndex3D
@@ -208,6 +214,8 @@ QtObject {
     onRawDataTwoThetaBinWidth2DChanged: activeBackend.rawData.twoThetaBinWidth2D = rawDataTwoThetaBinWidth2D
     property real rawDataTwoThetaSliderValue2D: activeBackend.rawData.twoThetaSliderValue2D
     onRawDataTwoThetaSliderValue2DChanged: activeBackend.rawData.twoThetaSliderValue2D = rawDataTwoThetaSliderValue2D
+    property real rawDataTwoThetaSliderIndex2D: activeBackend.rawData.twoThetaSliderIndex2D
+    onRawDataTwoThetaSliderIndex2DChanged: activeBackend.rawData.twoThetaSliderIndex2D = rawDataTwoThetaSliderIndex2D
 
     property int rawDataGammaBinWidthIndex2D: activeBackend.rawData.gammaBinWidthIndex2D
     onRawDataGammaBinWidthIndex2DChanged: activeBackend.rawData.gammaBinWidthIndex2D = rawDataGammaBinWidthIndex2D

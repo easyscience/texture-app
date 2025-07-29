@@ -44,8 +44,9 @@ Grid {
                         currentIndex: Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D
 
                         onCurrentIndexChanged: {
-
-                            Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
+                            if (!Globals.BackendWrapper.rawDataNewTab) {
+                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
+                            }
                             Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
                             Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = currentIndex
                             if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
