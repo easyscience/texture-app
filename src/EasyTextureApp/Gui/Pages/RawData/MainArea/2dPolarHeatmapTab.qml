@@ -17,16 +17,18 @@ EaCharts.Plotly2dPolarHeatmap {
     property string twoThetaColumn: 'two_theta [deg]'
     property string customDataColumn: 'custom_data'
 
+    property bool resetPatch: false
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue2D
+    property real sliderIndx: (Globals.BackendWrapper.rawDataTwoThetaSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D //Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -34,55 +36,69 @@ EaCharts.Plotly2dPolarHeatmap {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            if (Globals.BackendWrapper.rawDataNewTab) {
+                print('good loop')
+                resetPatch = false
+            } else {
+                print('bad loop')
+                resetPatch = true
+            }
+            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            resetPatch = false
+            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
-    onSliderValueChanged: {
+    onSliderIndxChanged: {
         if (loadSucceededStatus) {
-            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            resetPatch = false
+            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
+    // onSliderValueChanged: {
+    //     if (loadSucceededStatus) {
+    //         updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+    //     }
+    // }
 
-    function generatePolarHeatmap(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: generatePolarHeatmap started`)
-        Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    function generatePolarHeatmap(filepath, twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: generatePolarHeatmap started`, sliderValue)
+        Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
+            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath))
             polarHeatmap2dRawData.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
         }
-        console.debug(`In ${this}: generatePolarHeatmap finished`)
+        console.debug(`In ${this}: generatePolarHeatmap finished`, sliderValue)
     }
 
-    function updatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: updatePolarHeatmap started`)
-        Globals.BackendWrapper.rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            polarHeatmap2dRawData.setColorbarTitle()
-        }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-        }
-        console.debug(`In ${this}: updatePolarHeatmap finished`)
+    function updatePolarHeatmap(twoThetaBinWidth, gammaBinWidth) {
+        console.debug(`In ${this}: updatePolarHeatmap started`, sliderValue)
+        Globals.BackendWrapper.rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
+        // if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
+        //     getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath))
+        //     polarHeatmap2dRawData.setColorbarTitle()
+        // }
+        // else {
+        //     console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
+        // }
+        console.debug(`In ${this}: updatePolarHeatmap finished`, sliderValue)
     }
 
-    function getTwoThetaRingDataFromJson(jsonFilename, sliderValue) {
+    function getTwoThetaRingDataFromJson(jsonFilename) {
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
@@ -105,6 +121,10 @@ EaCharts.Plotly2dPolarHeatmap {
                 'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
                                  '\u03b3: %{theta}<br>'+
                                  'Counts: %{marker.color}',
+            }
+
+            if (resetPatch) {
+                sliderValue = minTwoTheta
             }
         })
     }

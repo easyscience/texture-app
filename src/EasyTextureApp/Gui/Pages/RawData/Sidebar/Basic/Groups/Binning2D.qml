@@ -43,11 +43,20 @@ Grid {
                         currentIndex: Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
 
                         onCurrentIndexChanged: {
-                            if (!Globals.BackendWrapper.rawDataNewTab) {
-                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
+                            if (Globals.BackendWrapper.rawDataNewTab && Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                                print('IN GOOD LOoP', Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue)
+                                Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex, false)
+
+                                print('IN GOOD LOoP2', Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                            } else {
+                                print('IN BAD LOoP')
+                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex, true)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
                             }
-                            Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
                             Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = currentIndex
+                            print('BIN WIDTH INDX', Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D)
                             if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
                                 Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex = currentIndex
                                 console.debug(`In ${this}: rawDataSyncedTwoThetaBinWidthIndex changed to ${Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex}`)

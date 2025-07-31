@@ -44,10 +44,17 @@ Grid {
                         currentIndex: Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D
 
                         onCurrentIndexChanged: {
-                            if (!Globals.BackendWrapper.rawDataNewTab) {
-                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
+                            if (Globals.BackendWrapper.rawDataNewTab && Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex, false)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                            } else {
+                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex, true)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
                             }
-                            Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
+                            // if (!Globals.BackendWrapper.rawDataNewTab) {
+                            //     Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
+                            // }
+                            //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
                             Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = currentIndex
                             if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
                                 Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex = currentIndex
