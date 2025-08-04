@@ -65,7 +65,7 @@ Grid{
             toolTipText: slider.value + '°'
 
             onValueChanged: {
-                Globals.BackendWrapper.liveViewTwoThetaSliderValue2D = slider.value.toFixed(2)
+                Globals.BackendWrapper.liveViewTwoThetaRingsSliderValue2D = slider.value.toFixed(2)
             }
 
             Component.onCompleted: Globals.References.pages.liveView.sidebar.basic.groups.features2d.twoThetaSlider = slider

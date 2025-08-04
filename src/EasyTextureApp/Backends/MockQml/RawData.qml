@@ -9,9 +9,6 @@ import QtQuick
 QtObject {
     property bool loaded: false
     property int selectedTabIndex: 0
-    property bool syncTabsBinnings: true
-    property bool syncTabsSliders: true
-
 
     // Load measurements group
     property var measurements: []
@@ -51,12 +48,7 @@ QtObject {
     property real gammaHoleLowCenter: 225.0
     property real gammaHoleHighCenter: 315.0
 
-    property real twoThetaSyncedSliderValue: 45.25
-    property int syncedTwoThetaBinWidthIndex: 0
-    property int syncedGammaBinWidthIndex: 0
-
-    property bool resetPatch: false
-    property bool newTab: false
+    property real twoThetaSliderValueSync: 45.25
 
     // Binning 3D
     property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
@@ -66,12 +58,11 @@ QtObject {
     property real maxTwoThetaCenter3D: 134.75
     property real twoThetaBinWidth3D: 0.5
     property real twoThetaSliderValue3D: minTwoThetaCenter3D
-    property int twoThetaSliderIndex3D: 0
 
     property int gammaBinWidthIndex3D: 0
     property real gammaBinWidth3D: 1.0
 
-    function updateTwoThetaSliderData3D(twoThetaBinWidthIndx, resetSlider) {
+    function updateTwoThetaSliderData3D(twoThetaBinWidthIndx) {
         if (twoThetaBinWidthIndx === 0) {
             twoThetaBinWidth3D = 0.5
             // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
@@ -90,10 +81,7 @@ QtObject {
             maxTwoThetaCenter3D = null
             console.debug(`WARNING: update3DTwoThetaSliderData for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
         }
-        if (resetSlider) {
-            twoThetaSliderValue3D = minTwoThetaCenter3D
-            twoThetaSliderIndex3D = 0
-        }
+        twoThetaSliderValue3D = minTwoThetaCenter3D
         console.debug(`twoThetaRingsSliderValue3D is changed to ${twoThetaSliderValue3D}`)
     }
 
@@ -118,11 +106,11 @@ QtObject {
     }
 
     function generateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: Dummy QML backend for generateSurfacePlot3D.`)
+        console.debug(`In ${this}: QML backend for generateSurfacePlot3D. Loaded ${plotFilepath3D} by default.`)
     }
 
     function updateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: QML backend for updateSurfacePlot3D started...`)
+        console.debug(`In ${this}: QML backend for updateSurfacePlot3D.`)
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
@@ -138,13 +126,12 @@ QtObject {
     property real minTwoThetaCenter2D: 45.25
     property real maxTwoThetaCenter2D: 134.75
     property real twoThetaBinWidth2D: 0.5
-    property real twoThetaSliderValue2D: 45.25 //minTwoThetaCenter2D
-    property int twoThetaSliderIndex2D: 0
+    property real twoThetaRingsSliderValue2D: minTwoThetaCenter2D
 
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0
 
-    function updateTwoThetaSliderData2D(twoThetaBinWidthIndx, resetSlider) {
+    function updateTwoThetaSliderData2D(twoThetaBinWidthIndx) {
         if (twoThetaBinWidthIndx === 0) {
             twoThetaBinWidth2D = 0.5
             // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
@@ -163,21 +150,8 @@ QtObject {
             maxTwoThetaCenter2D = null
             console.debug(`WARNING: update2DTwoThetaSliderData for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
         }
-        if (resetSlider) {
-            twoThetaSliderValue2D = minTwoThetaCenter2D
-            twoThetaSliderIndex2D = 0
-        }
-        console.debug(`twoThetaSliderValue2D is changed to ${twoThetaSliderValue2D}`)
-    }
-
-    function updateTwoThetaBinWidth2D(twoThetaBinWidthIndx) {
-        if (twoThetaBinWidthIndx === 0) {
-            twoThetaBinWidth2D = 1.0
-        } else if (twoThetaBinWidthIndx === 1) {
-            twoThetaBinWidth2D = 2.0
-        } else {
-            twoThetaBinWidth2D = null
-        }
+        twoThetaRingsSliderValue2D = minTwoThetaCenter2D
+        console.debug(`twoThetaRingsSliderValue2D is changed to ${twoThetaRingsSliderValue2D}`)
     }
 
     function updateGammaBinWidth2D(gammaBinWidthIndx) {
@@ -203,12 +177,12 @@ QtObject {
         console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function generatePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth) {
+    function generatePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: QML backend for generatePolarHeatmapPlot2D. Loaded ${plotFilepath2D} by default.`)
     }
 
-    function updatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: QML backend for updatePolarHeatmapPlot2D.`, twoThetaSliderValue2D)
+    function updatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
+        console.debug(`In ${this}: QML backend for updatePolarHeatmapPlot2D.`)
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
@@ -252,16 +226,6 @@ QtObject {
         console.debug(`twoThetaSliderValue1D is changed to ${twoThetaSliderValue1D}`)
     }
 
-    function updateTwoThetaBinWidth1D(twoThetaBinWidthIndx) {
-        if (twoThetaBinWidthIndx === 0) {
-            twoThetaBinWidth1D = 1.0
-        } else if (twoThetaBinWidthIndx === 1) {
-            twoThetaBinWidth1D = 2.0
-        } else {
-            twoThetaBinWidth1D = null
-        }
-    }
-
     function updateGammaBinWidth1D(gammaBinWidthIndx) {
         if (gammaBinWidthIndx === 0) {
             gammaBinWidth1D = 1.0
@@ -286,7 +250,7 @@ QtObject {
     }
 
     function getBinningIndices(twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: getBinningIndices for twoThetaBinWidth=${twoThetaBinWidth} and gammaBinWidth=${gammaBinWidth}`, twoThetaSliderValue2D)
+        console.debug(`In ${this}: getBinningIndices for twoThetaBinWidth=${twoThetaBinWidth} and gammaBinWidth=${gammaBinWidth}`)
         let twoThetaBinWidthIndex, gammaBinWidthIndex
         if (twoThetaBinWidth === 0.5) {
             twoThetaBinWidthIndex = 0

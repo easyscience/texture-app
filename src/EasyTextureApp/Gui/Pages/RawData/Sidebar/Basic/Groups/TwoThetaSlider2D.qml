@@ -60,10 +60,10 @@ Grid {
             }
 
             onValueChanged: {
-                Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
+                Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = slider.value.toFixed(2)
                 if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                    Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue = slider.value.toFixed(2)
-                    console.debug(`In ${this}: 2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue} degrees.`)
+                    Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
+                    console.debug(`In ${this}: 2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
                 } else {
                     console.debug(`In ${this}: 2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue2D} degrees.`)
                 }

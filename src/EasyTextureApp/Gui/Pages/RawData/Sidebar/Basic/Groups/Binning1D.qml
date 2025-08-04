@@ -42,13 +42,11 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData1D(currentIndex)
-                            Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = currentIndex
                             Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
                             if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                                Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex = currentIndex
-                                console.debug(`In ${this}: rawDataSyncedTwoThetaBinWidthIndex changed to ${Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex}`)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
                             }
-                            console.debug(`In ${this}: rawDataTwoThetaBinWidthIndex1D changed to ${Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D}`)
                         }
 
                         Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex = twoThetaBinWidthIndexSelector1D
@@ -76,12 +74,10 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth1D(currentIndex)
-                            Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = currentIndex
                             if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                                Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex = currentIndex
-                                console.debug(`In ${this}: rawDataSyncedGammaBinWidthIndex changed to ${Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex}`)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
                             }
-                            console.debug(`In ${this}: rawDataGammaBinWidthIndex1D changed to ${Globals.BackendWrapper.rawDataGammaBinWidthIndex1D}`)
                         }
 
                         Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex = gammaBinWidthIndexSelector1D

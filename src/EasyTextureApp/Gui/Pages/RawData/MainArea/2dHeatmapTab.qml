@@ -20,12 +20,10 @@ EaCharts.Plotly2dHeatmap {
     property string countsColumn: 'proj_count'
     property string customDataColumn: 'custom_data'
 
-    property bool resetPatch: false//Globals.BackendWrapper.rawDataResetPatch
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue2D
-    //property real  sliderIndx: Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D
-    property real sliderIndx: (Globals.BackendWrapper.rawDataTwoThetaSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
+    property real sliderIndx: (Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
 
@@ -61,18 +59,12 @@ EaCharts.Plotly2dHeatmap {
 
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            if (Globals.BackendWrapper.rawDataNewTab) {
-                resetPatch = false
-            } else {
-                resetPatch = true
-            }
             updateHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            resetPatch = false
             updateHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
         }
     }
@@ -90,20 +82,20 @@ EaCharts.Plotly2dHeatmap {
         else {
             console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
         }
-        console.debug(`In ${this}: generateHeatmap finished.`, sliderValue)
+        console.debug(`In ${this}: generateHeatmap finished.`)
     }
 
     function updateHeatmap(twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: updateHeatmap started...`)
         Globals.BackendWrapper.rawDataUpdateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
-        // if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-        //     getData2DFromJson(Qt.resolvedUrl(plotFilepath))
-        //     heatmap2dRawData.setColorbarTitle()
-        // }
-        // else {
-        //     console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
-        // }
-        console.debug(`In ${this}: updateHeatmap finished.`, sliderValue)
+        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
+            getData2DFromJson(Qt.resolvedUrl(plotFilepath))
+            heatmap2dRawData.setColorbarTitle()
+        }
+        else {
+            console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
+        }
+        console.debug(`In ${this}: updateHeatmap finished.`)
     }
 
     function getData2DFromJson(jsonFilename) {
@@ -126,10 +118,6 @@ EaCharts.Plotly2dHeatmap {
                 'hoverTemplate': '2\u03b8: %{x}\u00B0<br>'+
                                  '\u03b3: %{y}\u00B0<br>'+
                                  'Counts: %{z}',
-            }
-
-            if (resetPatch) {
-                sliderValue = minTwoTheta
             }
 
         })

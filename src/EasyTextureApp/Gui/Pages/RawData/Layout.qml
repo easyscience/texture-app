@@ -24,48 +24,22 @@ EaComponents.ContentPage {
             EaElements.TabButton {
                 text: qsTr('3D View: Detector Inner Surface')
                 onClicked: {
-                    Globals.BackendWrapper.rawDataNewTab = true
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 0
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
-                    if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                        //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
-                        Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
-                    }
-                    Globals.BackendWrapper.rawDataNewTab = false
                     console.debug(`3D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
             EaElements.TabButton {
                 text: qsTr('2D View: γ-2θ')
                 onClicked: {
-                    console.debug(`2D View tab (γ-2θ) is clicked`)
-                    Globals.BackendWrapper.rawDataNewTab = true
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
-                    print('Clicked0')
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        print('Clicked1', Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue)
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                        print('Clicked2')
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                        print('Clicked3', Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D)
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
-                    //let sv = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                    if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                        print('Clicked4', Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex)
-                        //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        print('Clicked5', Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D)
-                        //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
-                        Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
-                        print('Clicked6')
-                    }
-
-                    Globals.BackendWrapper.rawDataNewTab = false
                     console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
@@ -74,16 +48,9 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
-                    if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                        //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
-                        Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
-                    }
-
                     console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             },
@@ -92,14 +59,8 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 3
                     if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                    }
-                    if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                       // Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex
-                        //Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
-                        Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
                     console.debug(`1D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }

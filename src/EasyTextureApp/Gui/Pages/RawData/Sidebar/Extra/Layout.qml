@@ -22,7 +22,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr('Synchronize binning accross the tabs')
+        title: qsTr('Syncronize binning accross the tabs')
         icon: 'rocket'
         collapsible: false
 
@@ -30,7 +30,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr('Synchronize sliders accross the tabs')
+        title: qsTr('Syncronize sliders accross the tabs')
         icon: 'rocket'
         collapsible: false
 

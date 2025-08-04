@@ -43,25 +43,12 @@ Grid {
                         currentIndex: Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
 
                         onCurrentIndexChanged: {
-                            if (Globals.BackendWrapper.rawDataNewTab && Globals.BackendWrapper.rawDataSyncTabsSliders) {
-                                print('IN GOOD LOoP', Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue)
-                                Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex, false)
-
-                                print('IN GOOD LOoP2', Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue)
-                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSyncedSliderValue
-                            } else {
-                                print('IN BAD LOoP')
-                                Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex, true)
-                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-                            }
-                            Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = currentIndex
-                            print('BIN WIDTH INDX', Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D)
+                            Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
+                            Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
                             if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                                Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex = currentIndex
-                                console.debug(`In ${this}: rawDataSyncedTwoThetaBinWidthIndex changed to ${Globals.BackendWrapper.rawDataSyncedTwoThetaBinWidthIndex}`)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
                             }
-                            console.debug(`In ${this}: rawDataTwoThetaBinWidthIndex2D changed to ${Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D}`)
                         }
 
                         Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex = twoThetaBinWidthIndexSelector2D
@@ -89,13 +76,10 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth2D(currentIndex)
-                            Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = currentIndex
                             if (Globals.BackendWrapper.rawDataSyncTabsBinnings) {
-                                Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex = currentIndex
-                                console.debug(`In ${this}: rawDataSyncedGammaBinWidthIndex changed to ${Globals.BackendWrapper.rawDataSyncedGammaBinWidthIndex}`)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
                             }
-                            console.debug(`In ${this}: rawDataGammaBinWidthIndex2D changed to ${Globals.BackendWrapper.rawDataGammaBinWidthIndex2D}`)
-
                         }
 
                         Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex = gammaBinWidthIndexSelector2D
