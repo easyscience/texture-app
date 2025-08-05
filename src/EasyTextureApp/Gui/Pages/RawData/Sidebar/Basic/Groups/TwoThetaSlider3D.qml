@@ -61,7 +61,7 @@ Grid {
 
             onValueChanged: {
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
-                if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                     Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
                     console.debug(`In ${this}: 3D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
                 } else {

@@ -8,19 +8,28 @@ import EasyApp.Gui.Style as EaStyle
 import EasyApp.Gui.Elements as EaElements
 import EasyApp.Gui.Components as EaComponents
 
+import Gui.Globals as Globals
+
 Row {
 
     EaElements.RadioButton {
         id: yesButton
-        checked: true
+        checked: Globals.BackendWrapper.rawDataSyncTabsBinningsSliders
         //enabled: false
         text: 'Yes'
+        onClicked: {
+            Globals.BackendWrapper.rawDataSyncTabsBinningsSliders = true
+        }
     }
 
     EaElements.RadioButton {
         id: noButton
-        enabled: false
+        checked: !Globals.BackendWrapper.rawDataSyncTabsBinningsSliders
+        //enabled: false
         text: 'No'
+        onClicked: {
+            Globals.BackendWrapper.rawDataSyncTabsBinningsSliders = false
+        }
     }
 
 }

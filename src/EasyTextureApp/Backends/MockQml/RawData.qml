@@ -9,6 +9,40 @@ import QtQuick
 QtObject {
     property bool loaded: false
     property int selectedTabIndex: 0
+    property bool syncTabsBinningsSliders: true
+
+    function synchronizeBinningsAndSliders() {
+        if (selectedTabIndex === 0) { //3D view
+            console.debug(`QML backend: sync tabs to 3D values.`)
+            gammaBinWidth2D = gammaBinWidth3D
+            twoThetaBinWidth2D = twoThetaBinWidth3D
+            twoThetaRingsSliderValue2D = twoThetaSliderValue3D
+
+            gammaBinWidth1D = gammaBinWidth3D
+            twoThetaBinWidth1D = twoThetaBinWidth3D
+            twoThetaSliderValue1D = twoThetaSliderValueSync
+        } else if (selectedTabIndex === 1 || selectedTabIndex === 2) { //2D view
+            console.debug(`QML backend: sync tabs to 2D values.`)
+            gammaBinWidth1D = gammaBinWidth2D
+            twoThetaBinWidth1D = twoThetaBinWidth2D
+            twoThetaSliderValue1D = twoThetaRingsSliderValue2D
+
+            gammaBinWidth3D = gammaBinWidth2D
+            twoThetaBinWidth3D = twoThetaBinWidth2D
+            twoThetaSliderValue3D = twoThetaRingsSliderValue2D
+        } else if (selectedTabIndex === 3) { //1D view
+            console.debug(`QML backend: sync tabs to 1D values.`)
+            gammaBinWidth3D = gammaBinWidth1D
+            twoThetaBinWidth3D = twoThetaBinWidth1D
+            twoThetaSliderValue3D = twoThetaSliderValue1D
+
+            gammaBinWidth2D = gammaBinWidth1D
+            twoThetaBinWidth2D = twoThetaBinWidth1D
+            twoThetaRingsSliderValue2D = twoThetaSliderValue1D
+        } else {
+            console.debug(`QML backend: wrong tab index.`)
+        }
+    }
 
     // Load measurements group
     property var measurements: []

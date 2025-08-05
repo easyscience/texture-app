@@ -25,7 +25,7 @@ EaComponents.ContentPage {
                 text: qsTr('3D View: Detector Inner Surface')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 0
-                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                    if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                         Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
@@ -36,7 +36,7 @@ EaComponents.ContentPage {
                 text: qsTr('2D View: γ-2θ')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
-                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                    if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                         Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
@@ -47,7 +47,7 @@ EaComponents.ContentPage {
                 text: qsTr('2D View: 2θ Rings')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
-                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                    if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                         Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
@@ -58,7 +58,7 @@ EaComponents.ContentPage {
                 text: qsTr('1D View: γ(2θ)')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 3
-                    if (Globals.BackendWrapper.rawDataSyncTabsSliders) {
+                    if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                         Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }

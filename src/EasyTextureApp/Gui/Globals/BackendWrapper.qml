@@ -107,8 +107,18 @@ QtObject {
     // RawData page
     ///////////////
 
-    readonly property bool rawDataSyncTabsBinnings: true
-    readonly property bool rawDataSyncTabsSliders: true
+    property bool rawDataSyncTabsBinningsSliders: activeBackend.rawData.syncTabsBinningsSliders
+    onRawDataSyncTabsBinningsSlidersChanged: {
+        activeBackend.rawData.syncTabsBinningsSliders = rawDataSyncTabsBinningsSliders
+        if (rawDataSyncTabsBinningsSliders) {
+            rawDataSynchronizeBinningsAndSliders()
+        }
+        console.debug(`Raw data synchronisation of binning and sliders changed to ${activeBackend.rawData.syncTabsBinningsSliders}.`)
+    }
+    function rawDataSynchronizeBinningsAndSliders() {
+        activeBackend.rawData.synchronizeBinningsAndSliders()
+    }
+    readonly property bool rawDataSyncViewsCalculations: true
     property real rawDataTwoThetaSliderValueSync: activeBackend.rawData.twoThetaSliderValueSync
     onRawDataTwoThetaSliderValueSyncChanged: activeBackend.rawData.twoThetaSliderValueSync = rawDataTwoThetaSliderValueSync
 

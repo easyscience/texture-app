@@ -22,19 +22,19 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr('Syncronize binning accross the tabs')
+        title: qsTr('Synchronize binnings and sliders accross the tabs')
         icon: 'rocket'
         collapsible: false
 
-        Loader { source: 'Groups/BinningSync.qml' }
+        Loader { source: 'Groups/BinningsSlidersSync.qml' }
     }
 
     EaElements.GroupBox {
-        title: qsTr('Syncronize sliders accross the tabs')
+        title: qsTr('Immediate calculation of 3D, 2D, and 1D views')
         icon: 'rocket'
         collapsible: false
 
-        Loader { source: 'Groups/SliderSync.qml' }
+        Loader { source: 'Groups/CalculationsSync.qml' }
     }
 
 }
