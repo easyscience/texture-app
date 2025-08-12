@@ -45,7 +45,7 @@ EaCharts.Plotly2dHeatmap {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
             generateHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
-            heatmap2dRawData.setShape()
+            setShape()
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -75,9 +75,9 @@ EaCharts.Plotly2dHeatmap {
         Globals.BackendWrapper.rawDataGenerateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData2DFromJson(Qt.resolvedUrl(plotFilepath))
-            heatmap2dRawData.setXAxisTitle()
-            heatmap2dRawData.setYAxisTitle()
-            heatmap2dRawData.setColorbarTitle()
+            setXAxisTitle()
+            setYAxisTitle()
+            setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
@@ -90,7 +90,7 @@ EaCharts.Plotly2dHeatmap {
         Globals.BackendWrapper.rawDataUpdateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData2DFromJson(Qt.resolvedUrl(plotFilepath))
-            heatmap2dRawData.setColorbarTitle()
+            setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')

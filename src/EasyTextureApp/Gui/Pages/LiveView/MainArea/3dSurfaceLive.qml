@@ -9,7 +9,7 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Globals as Globals
 
 EaCharts.Plotly3dSurface {
-    id: surface3dRawData
+    id: surface3dRawDataLive
 
     colorbarTitle: 'Counts'
 
@@ -88,8 +88,8 @@ EaCharts.Plotly3dSurface {
         Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
-            surface3dRawData.setScene()
-            surface3dRawData.setColorbarTitle()
+            surface3dRawDataLive.setScene()
+            surface3dRawDataLive.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
@@ -102,7 +102,7 @@ EaCharts.Plotly3dSurface {
         Globals.BackendWrapper.rawDataUpdateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
-            surface3dRawData.setColorbarTitle()
+            surface3dRawDataLive.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')

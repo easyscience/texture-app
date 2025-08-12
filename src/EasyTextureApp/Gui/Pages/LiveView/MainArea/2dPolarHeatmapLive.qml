@@ -9,7 +9,7 @@ import EasyApp.Gui.Charts as EaCharts
 import Gui.Globals as Globals
 
 EaCharts.Plotly2dPolarHeatmap {
-    id: polarHeatmap2dRawData
+    id: polarHeatmap2dRawDataLive
 
     colorbarTitle: 'Counts'
 
@@ -70,7 +70,7 @@ EaCharts.Plotly2dPolarHeatmap {
         Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            polarHeatmap2dRawData.setColorbarTitle()
+            polarHeatmap2dRawDataLive.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
@@ -83,7 +83,7 @@ EaCharts.Plotly2dPolarHeatmap {
         Globals.BackendWrapper.rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            polarHeatmap2dRawData.setColorbarTitle()
+            polarHeatmap2dRawDataLive.setColorbarTitle()
         }
         else {
             console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
