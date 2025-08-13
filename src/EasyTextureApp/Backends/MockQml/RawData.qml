@@ -14,31 +14,39 @@ QtObject {
     function synchronizeBinningsAndSliders() {
         if (selectedTabIndex === 0) { //3D view
             console.debug(`QML backend: sync tabs to 3D values.`)
-            gammaBinWidth2D = gammaBinWidth3D
-            twoThetaBinWidth2D = twoThetaBinWidth3D
-            twoThetaRingsSliderValue2D = twoThetaSliderValue3D
+            //QML backend specific: updates filepaths
+            //updateHeatmapPlot2D(twoThetaBinWidth3D, gammaBinWidth3D)
+            //updateLinePlot1D(twoThetaBinWidth3D, gammaBinWidth3D)
+            // gammaBinWidth2D = gammaBinWidth3D
+            // twoThetaBinWidth2D = twoThetaBinWidth3D
+            // twoThetaRingsSliderValue2D = twoThetaSliderValue3D
 
-            gammaBinWidth1D = gammaBinWidth3D
-            twoThetaBinWidth1D = twoThetaBinWidth3D
-            twoThetaSliderValue1D = twoThetaSliderValueSync
+            // gammaBinWidth1D = gammaBinWidth3D
+            // twoThetaBinWidth1D = twoThetaBinWidth3D
+            // twoThetaSliderValue1D = twoThetaSliderValueSync
+
         } else if (selectedTabIndex === 1 || selectedTabIndex === 2) { //2D view
             console.debug(`QML backend: sync tabs to 2D values.`)
-            gammaBinWidth1D = gammaBinWidth2D
-            twoThetaBinWidth1D = twoThetaBinWidth2D
-            twoThetaSliderValue1D = twoThetaRingsSliderValue2D
+            //updateSurfacePlot3D(twoThetaBinWidth2D, gammaBinWidth2D)
+            //updateLinePlot1D(twoThetaBinWidth2D, gammaBinWidth2D)
+            // gammaBinWidth1D = gammaBinWidth2D
+            // twoThetaBinWidth1D = twoThetaBinWidth2D
+            // twoThetaSliderValue1D = twoThetaRingsSliderValue2D
 
-            gammaBinWidth3D = gammaBinWidth2D
-            twoThetaBinWidth3D = twoThetaBinWidth2D
-            twoThetaSliderValue3D = twoThetaRingsSliderValue2D
+            // gammaBinWidth3D = gammaBinWidth2D
+            // twoThetaBinWidth3D = twoThetaBinWidth2D
+            // twoThetaSliderValue3D = twoThetaRingsSliderValue2D
         } else if (selectedTabIndex === 3) { //1D view
             console.debug(`QML backend: sync tabs to 1D values.`)
-            gammaBinWidth3D = gammaBinWidth1D
-            twoThetaBinWidth3D = twoThetaBinWidth1D
-            twoThetaSliderValue3D = twoThetaSliderValue1D
+            //updateSurfacePlot3D(twoThetaBinWidth1D, gammaBinWidth1D)
+            //updateHeatmapPlot2D(twoThetaBinWidth1D, gammaBinWidth1D)
+            // gammaBinWidth3D = gammaBinWidth1D
+            // twoThetaBinWidth3D = twoThetaBinWidth1D
+            // twoThetaSliderValue3D = twoThetaSliderValue1D
 
-            gammaBinWidth2D = gammaBinWidth1D
-            twoThetaBinWidth2D = twoThetaBinWidth1D
-            twoThetaRingsSliderValue2D = twoThetaSliderValue1D
+            // gammaBinWidth2D = gammaBinWidth1D
+            // twoThetaBinWidth2D = twoThetaBinWidth1D
+            // twoThetaRingsSliderValue2D = twoThetaSliderValue1D
         } else {
             console.debug(`QML backend: wrong tab index.`)
         }
@@ -85,7 +93,7 @@ QtObject {
     property real twoThetaSliderValueSync: 45.25
 
     // Binning 3D
-    property string plotFilepath3D: '../../../../../../examples/RawData/user_voxels_3D_1.json'
+    property string plotFilepath3D: '../../../../examples/RawData/user_voxels_3D_1.json'
 
     property int twoThetaBinWidthIndex3D: 0
     property real minTwoThetaCenter3D: 45.25
@@ -95,6 +103,7 @@ QtObject {
 
     property int gammaBinWidthIndex3D: 0
     property real gammaBinWidth3D: 1.0
+    property int sliderIndx3D
 
     function updateTwoThetaSliderData3D(twoThetaBinWidthIndx) {
         if (twoThetaBinWidthIndx === 0) {
@@ -139,8 +148,139 @@ QtObject {
         }
     }
 
-    function generateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: QML backend for generateSurfacePlot3D. Loaded ${plotFilepath3D} by default.`)
+    function generateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        console.debug(`In ${this}: QML backend for generateSurfacePlot3D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
+        obj.getData3DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(xData, yData, zData, countsData, customData) {
+            let surfacePlotDict = {}
+            surfacePlotDict['x'] = xData
+            surfacePlotDict['y'] = yData
+            surfacePlotDict['z'] = zData
+            surfacePlotDict['surfaceColor'] = countsData
+            surfacePlotDict['customData'] = customData
+            surfacePlotDict['hoverTemplate'] = '2\u03b8: %{customdata[0]}\u00B0<br>'+
+                                               '\u03b3: %{customdata[1]}\u00B0<br>'+
+                                               'z: %{customdata[2]:.3f} mm<br>'+
+                                               'Counts: %{customdata[3]}'
+            obj.plotData = surfacePlotDict
+
+            sliderIndx3D = sliderIndx
+            updateSliderPatchData(obj, sliderIndx)
+        })
+        console.debug(`In ${this}: End of QML backend for generateSurfacePlot3D`)
+    }
+
+    function updateSliderPatchData(obj, sliderIndx) {
+        console.debug(`In ${this}: QML backend for updateSliderPatchData for slider index ${sliderIndx}.`)
+
+        let xData = obj.plotData.x
+        let yData = obj.plotData.y
+        let zData = obj.plotData.z
+
+        let midZ, midNextZ
+
+        // proper handling of the bin width estimation for the last
+        // bin center, when there is no next (i+1) bin.
+        if (sliderIndx === zData.length - 1) {
+            midZ = zData[sliderIndx]
+            midNextZ = zData[sliderIndx - 1]
+        } else {
+            midZ = zData[sliderIndx]
+            midNextZ = zData[sliderIndx + 1]
+        }
+        let diffMidZ = midNextZ.map((val, i) => Math.abs(val - midZ[i]))
+
+        let topX = xData[sliderIndx]
+        let topY = yData[sliderIndx]
+        let topZ = midZ.map((val, i) => val + diffMidZ[i] / 2)
+
+        let bottomX = xData[sliderIndx]
+        let bottomY = yData[sliderIndx]
+        let bottomZ = midZ.map((val, i) => val - diffMidZ[i] / 2)
+
+        // Choose vertical connector points (2 edges)
+        let connectorX = [topX[0], bottomX[0], null, topX[topX.length - 1], bottomX[bottomX.length - 1]]
+        let connectorY = [topY[0], bottomY[0], null, topY[topY.length - 1], bottomY[bottomY.length - 1]]
+        let connectorZ = [topZ[0], bottomZ[0], null, topZ[topZ.length - 1], bottomZ[bottomZ.length - 1]]
+
+        let patchX = [...topX, null, ...bottomX, null, ...connectorX]
+        let patchY = [...topY, null, ...bottomY, null, ...connectorY]
+        let patchZ = [...topZ, null, ...bottomZ, null, ...connectorZ]
+
+        let patchD = {
+          'x': patchX,
+          'y': patchY,
+          'z': patchZ
+        }
+
+        obj.patchData = patchD
+    }
+
+    // function generateSliderPatch(surfaceData, indx) {
+    //     let xData = surfaceData.x
+    //     let yData = surfaceData.y
+    //     let zData = surfaceData.z
+
+    //     let midZ, midNextZ
+
+    //     // proper handling of the bin width estimation for the last
+    //     // bin center, when there is no next (i+1) bin.
+    //     if (indx === zData.length - 1) {
+    //         midZ = zData[indx]
+    //         midNextZ = zData[indx - 1]
+    //     } else {
+    //         midZ = zData[indx]
+    //         midNextZ = zData[indx + 1]
+    //     }
+    //     let diffMidZ = midNextZ.map((val, i) => Math.abs(val - midZ[i]))
+
+    //     let topX = xData[indx]
+    //     let topY = yData[indx]
+    //     let topZ = midZ.map((val, i) => val + diffMidZ[i] / 2)
+
+    //     let bottomX = xData[indx]
+    //     let bottomY = yData[indx]
+    //     let bottomZ = midZ.map((val, i) => val - diffMidZ[i] / 2)
+
+    //     // Choose vertical connector points (2 edges)
+    //     let connectorX = [topX[0], bottomX[0], null, topX[topX.length - 1], bottomX[bottomX.length - 1]]
+    //     let connectorY = [topY[0], bottomY[0], null, topY[topY.length - 1], bottomY[bottomY.length - 1]]
+    //     let connectorZ = [topZ[0], bottomZ[0], null, topZ[topZ.length - 1], bottomZ[bottomZ.length - 1]]
+
+    //     let patchX = [...topX, null, ...bottomX, null, ...connectorX]
+    //     let patchY = [...topY, null, ...bottomY, null, ...connectorY]
+    //     let patchZ = [...topZ, null, ...bottomZ, null, ...connectorZ]
+
+    //     let patchD = {
+    //       'x': patchX,
+    //       'y': patchY,
+    //       'z': patchZ
+    //     }
+
+    //     return patchD
+    // }
+
+    function updateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateSurfacePlotGammaBinWidth3D.`)
+
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth3D, gammaBinWidth)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
+        let filepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
+        generateSurfacePlot3D(obj, filepath3D, twoThetaBinWidth3D, gammaBinWidth, sliderIndx3D)
+
+        console.debug(`In ${this}: Loaded ${filepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth3D}, ${gammaBinWidth}).`)
+    }
+
+    function updateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateSurfacePlotTwoThetaBinWidth3D.`)
+
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth3D)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
+        let filepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
+        generateSurfacePlot3D(obj, filepath3D, twoThetaBinWidth, gammaBinWidth3D, 0)
+
+        console.debug(`In ${this}: Loaded ${filepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth3D}).`)
     }
 
     function updateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth) {

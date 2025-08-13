@@ -189,8 +189,20 @@ QtObject {
         activeBackend.rawData.updateGammaBinWidth3D(selectedBinWidthIndexValue)
     }
 
-    function rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth) {
-        activeBackend.rawData.generateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
+    function rawDataGenerateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        activeBackend.rawData.generateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
+    }
+
+    function rawDataUpdateSliderPatchData(obj, sliderIndx) {
+        activeBackend.rawData.updateSliderPatchData(obj, sliderIndx)
+    }
+
+    function rawDataUpdateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth) {
+        activeBackend.rawData.updateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth)
+    }
+
+    function rawDataUpdateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth) {
+        activeBackend.rawData.updateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth)
     }
 
     function rawDataUpdateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth) {
