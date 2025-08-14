@@ -85,7 +85,7 @@ EaCharts.Plotly3dSurface {
 
     onSliderIndxValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateSliderPatchData(surface3dRawData, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(surface3dRawData, sliderIndxValue)
         }
     }
 

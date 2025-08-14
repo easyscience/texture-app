@@ -193,8 +193,8 @@ QtObject {
         activeBackend.rawData.generateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
-    function rawDataUpdateSliderPatchData(obj, sliderIndx) {
-        activeBackend.rawData.updateSliderPatchData(obj, sliderIndx)
+    function rawDataUpdateSliderPatchData3D(obj, sliderIndx) {
+        activeBackend.rawData.updateSliderPatchData3D(obj, sliderIndx)
     }
 
     function rawDataUpdateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth) {
@@ -288,14 +288,25 @@ QtObject {
         return gammaBinsList
     }
 
-    function rawDataGenerateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        activeBackend.rawData.generateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    function rawDataGenerateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        activeBackend.rawData.generateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
     function rawDataUpdateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         activeBackend.rawData.updateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
+    function rawDataUpdateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth) {
+        activeBackend.rawData.updateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth)
+    }
+
+    function rawDataUpdateLinePlotGammaBinWidth1D(obj, gammaBinWidth) {
+        activeBackend.rawData.updateLinePlotGammaBinWidth1D(obj, gammaBinWidth)
+    }
+
+    function rawDataUpdateLinePlotSliderIndex1D(obj, sliderIndx) {
+        activeBackend.rawData.updateLinePlotSliderIndex1D(obj, sliderIndx)
+    }
     ///////////////////
     // Corrections page
     ///////////////////

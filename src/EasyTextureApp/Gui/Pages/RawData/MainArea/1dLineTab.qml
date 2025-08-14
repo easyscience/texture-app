@@ -21,90 +21,57 @@ EaCharts.Plotly1dLine {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath1D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
+    property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaSliderValue1D - Globals.BackendWrapper.rawDataMinTwoThetaCenter1D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
+
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth1D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            generateLinePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            setXAxisTitle()
+            setYAxisTitle()
         } else {
             console.debug('WebEngineView not ready yet.')
         }
     }
 
-    onPlotFilepathChanged: {
-        if (loadSucceededStatus) {
-            generateLinePlot(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
-        }
-    }
-
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            Globals.BackendWrapper.rawDataUpdateLinePlotTwoThetaBinWidth1D(line1dRawData, twoThetaBinWidthValue)
         }
     }
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            Globals.BackendWrapper.rawDataUpdateLinePlotGammaBinWidth1D(line1dRawData, gammaBinWidthValue)
         }
     }
 
-    onSliderValueChanged: {
+    onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            updateLinePlot(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
         }
     }
 
-    function generateLinePlot(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: generateLinePlot started...`)
-        Globals.BackendWrapper.rawDataGenerateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            line1dRawData.setXAxisTitle()
-            line1dRawData.setYAxisTitle()
+    onSliderIndxValueChanged: {
+        if (loadSucceededStatus) {
+            Globals.BackendWrapper.rawDataUpdateLinePlotSliderIndex1D(line1dRawData, sliderIndxValue)
         }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-        }
-        console.debug(`In ${this}: generateLinePlot finished.`)
     }
 
-    function updateLinePlot(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: updateLinePlot started...`)
-        Globals.BackendWrapper.rawDataUpdateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getData1DFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            line1dRawData.setXAxisTitle()
-            line1dRawData.setYAxisTitle()
-        }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-        }
-        console.debug(`In ${this}: updateLinePlot finished.`)
-    }
-
-    function getData1DFromJson(jsonFilename, sliderValue) {
-        console.debug(`${this} getData1DFromJson from file ${jsonFilename} for two theta=${sliderValue}`)
-        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
+    function getData1DFromJson(jsonFilename, sliderIndx, callback) {
+        runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
             let uniqueTwoTheta = result[twoThetaColumn]
             let uniqueGamma = result[gammaColumn]
             let customData = result[customDataColumn]
-
             let countsData = extractCustomColumnByIndex(customData, 2)
-            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
+            //let sliderIndxValue = getIndxByValue(uniqueTwoTheta, sliderValue)
+            let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndxValue])
 
-            let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndx])
-
-            plotData = {
-                'x': uniqueGamma,
-                'y': countsData[sliderIndx],
-                'customData': twoThetaArray,
-                'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
-                                 '\u03b3: %{x}\u00B0<br>'+
-                                 'Counts: %{y}'
-            }
+            // sends values to your callback to wait for full completion of runJavaScript
+            callback(uniqueGamma, countsData, twoThetaArray, customData)
         })
     }
 
@@ -116,8 +83,8 @@ EaCharts.Plotly1dLine {
         return customColumn
     }
 
-    function getIndxByValue(object, value) {
-        return Object.keys(object).filter(indx => object[indx] === value)
-    }
+    // function getIndxByValue(object, value) {
+    //     return Object.keys(object).filter(indx => object[indx] === value)
+    // }
 
 }

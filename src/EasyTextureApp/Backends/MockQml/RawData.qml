@@ -164,13 +164,13 @@ QtObject {
             obj.plotData = surfacePlotDict
 
             sliderIndx3D = sliderIndx
-            updateSliderPatchData(obj, sliderIndx)
+            updateSliderPatchData3D(obj, sliderIndx)
         })
         console.debug(`In ${this}: End of QML backend for generateSurfacePlot3D`)
     }
 
-    function updateSliderPatchData(obj, sliderIndx) {
-        console.debug(`In ${this}: QML backend for updateSliderPatchData for slider index ${sliderIndx}.`)
+    function updateSliderPatchData3D(obj, sliderIndx) {
+        console.debug(`In ${this}: QML backend for updateSliderPatchData3D for slider index ${sliderIndx}.`)
 
         let xData = obj.plotData.x
         let yData = obj.plotData.y
@@ -265,10 +265,11 @@ QtObject {
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth3D, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
-        let filepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
-        generateSurfacePlot3D(obj, filepath3D, twoThetaBinWidth3D, gammaBinWidth, sliderIndx3D)
+        plotFilepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
 
-        console.debug(`In ${this}: Loaded ${filepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth3D}, ${gammaBinWidth}).`)
+        generateSurfacePlot3D(obj, plotFilepath3D, twoThetaBinWidth3D, gammaBinWidth, sliderIndx3D)
+
+        console.debug(`In ${this}: Loaded ${plotFilepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth3D}, ${gammaBinWidth}).`)
     }
 
     function updateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth) {
@@ -277,10 +278,10 @@ QtObject {
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth3D)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
-        let filepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
-        generateSurfacePlot3D(obj, filepath3D, twoThetaBinWidth, gammaBinWidth3D, 0)
+        plotFilepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
+        generateSurfacePlot3D(obj, plotFilepath3D, twoThetaBinWidth, gammaBinWidth3D, 0)
 
-        console.debug(`In ${this}: Loaded ${filepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth3D}).`)
+        console.debug(`In ${this}: Loaded ${plotFilepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth3D}).`)
     }
 
     function updateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth) {
@@ -366,13 +367,14 @@ QtObject {
 
 
     // Binning 1D
-    property string plotFilepath1D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
+    property string plotFilepath1D: '../../../../examples/RawData/user_voxels_2D_1.json'
 
     property int twoThetaBinWidthIndex1D: 0
     property real minTwoThetaCenter1D: 45.25
     property real maxTwoThetaCenter1D: 134.75
     property real twoThetaBinWidth1D: 0.5
     property real twoThetaSliderValue1D: minTwoThetaCenter1D
+    property int sliderIndex1D
 
     property int gammaBinWidthIndex1D: 0
     property real gammaBinWidth1D: 1.0
@@ -410,17 +412,51 @@ QtObject {
         }
     }
 
-    function generateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: QML backend for generateLinePlot1D. Loaded ${plotFilepath1D} by default.`)
+    function generateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        console.debug(`In ${this}: QML backend for generateLinePlot1D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
+        obj.getData1DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(uniqueGamma, countsData, twoThetaArray, customData) {
+            let linePlotDict = {}
+            linePlotDict['x'] = uniqueGamma
+            linePlotDict['y'] = countsData[sliderIndx]
+            linePlotDict['customData'] = twoThetaArray
+            linePlotDict['hoverTemplate'] = '2\u03b8: %{customdata}\u00B0<br>'+
+                                            '\u03b3: %{x}\u00B0<br>'+
+                                            'Counts: %{y}'
+            obj.plotData = linePlotDict
+
+            sliderIndex1D = sliderIndx
+        })
+        console.debug(`In ${this}: End of QML backend for generateLinePlot1D`)
     }
 
-    function updateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: QML backend for updateLinePlot1D.`)
+    function updateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateLinePlotTwoThetaBinWidth1D.`)
+
         let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth1D)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
-        plotFilepath1D = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        console.debug(`In ${this}: Loaded ${plotFilepath1D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        plotFilepath1D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        generateLinePlot1D(obj, plotFilepath1D, twoThetaBinWidth, gammaBinWidth1D, sliderIndex1D)
+
+        console.debug(`In ${this}: Loaded ${plotFilepath1D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth1D}).`)
+    }
+
+    function updateLinePlotGammaBinWidth1D(obj, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateLinePlotGammaBinWidth1D.`)
+
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth1D, gammaBinWidth)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
+        plotFilepath1D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        generateLinePlot1D(obj, plotFilepath1D, twoThetaBinWidth1D, gammaBinWidth, sliderIndex1D)
+
+        console.debug(`In ${this}: Loaded ${plotFilepath1D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth1D}, ${gammaBinWidth}).`)
+    }
+
+    function updateLinePlotSliderIndex1D(obj, sliderIndex) {
+        console.debug(`In ${this}: QML backend for updateLinePlotSliderIndex1D.`)
+        generateLinePlot1D(obj, plotFilepath1D, twoThetaBinWidth1D, gammaBinWidth1D, sliderIndex)
+        console.debug(`In ${this}: Generated LinePlot1D with slider index = ${sliderIndex}.`)
     }
 
     function getBinningIndices(twoThetaBinWidth, gammaBinWidth) {
