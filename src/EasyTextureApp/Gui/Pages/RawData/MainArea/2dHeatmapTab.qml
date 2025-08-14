@@ -23,14 +23,14 @@ EaCharts.Plotly2dHeatmap {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
-    property real sliderIndx: (Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
+    property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
 
     shapes: [{
         'type': 'rect',
-        'x0': sliderIndx - 0.5,
-        'x1': sliderIndx + 0.5,
+        'x0': sliderIndxValue - 0.5,
+        'x1': sliderIndxValue + 0.5,
         'y0': 0,
         'y1': 360,
         'fillcolor': 'rgba(0, 0, 0, 0)',
@@ -44,8 +44,11 @@ EaCharts.Plotly2dHeatmap {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            generateHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
+            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setShape()
+            setXAxisTitle()
+            setYAxisTitle()
+            setColorbarTitle()
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -53,52 +56,30 @@ EaCharts.Plotly2dHeatmap {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            generateHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue)
+            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            setXAxisTitle()
+            setYAxisTitle()
+            setColorbarTitle()
         }
     }
 
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updateHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
+            Globals.BackendWrapper.rawDataUpdateHeatmapTwoThetaBinWidth2D(heatmap2dRawData, twoThetaBinWidthValue)
+            setXAxisTitle()
+            setColorbarTitle()
         }
     }
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updateHeatmap(twoThetaBinWidthValue, gammaBinWidthValue)
-        }
-    }
-
-
-    function generateHeatmap(filepath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: generateHeatmap started...`)
-        Globals.BackendWrapper.rawDataGenerateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth)
-        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getData2DFromJson(Qt.resolvedUrl(plotFilepath))
-            setXAxisTitle()
+            Globals.BackendWrapper.rawDataUpdateHeatmapGammaBinWidth2D(heatmap2dRawData, gammaBinWidthValue)
             setYAxisTitle()
             setColorbarTitle()
         }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
-        }
-        console.debug(`In ${this}: generateHeatmap finished.`)
     }
 
-    function updateHeatmap(twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: updateHeatmap started...`)
-        Globals.BackendWrapper.rawDataUpdateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
-        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getData2DFromJson(Qt.resolvedUrl(plotFilepath))
-            setColorbarTitle()
-        }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data processing is not implemented yet.')
-        }
-        console.debug(`In ${this}: updateHeatmap finished.`)
-    }
-
-    function getData2DFromJson(jsonFilename) {
+    function getData2DFromJson(jsonFilename, callback) {
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
@@ -111,15 +92,8 @@ EaCharts.Plotly2dHeatmap {
             // replace undefined by null
             countsData = countsData.map(row => row.map(value => value === undefined ? null : value));;
 
-            plotData = {
-                'x': uniqueTwoTheta,
-                'y': uniqueGamma,
-                'z': countsData,
-                'hoverTemplate': '2\u03b8: %{x}\u00B0<br>'+
-                                 '\u03b3: %{y}\u00B0<br>'+
-                                 'Counts: %{z}',
-            }
-
+            // sends values to your callback to wait for full completion of runJavaScript
+            callback(uniqueTwoTheta, uniqueGamma, countsData, customData)
         })
     }
 

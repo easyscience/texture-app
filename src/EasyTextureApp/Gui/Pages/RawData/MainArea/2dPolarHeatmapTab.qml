@@ -20,13 +20,15 @@ EaCharts.Plotly2dPolarHeatmap {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
     property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
+    property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            Globals.BackendWrapper.rawDataGeneratePolarHeatmap2D(polarHeatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            setColorbarTitle()
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -34,55 +36,32 @@ EaCharts.Plotly2dPolarHeatmap {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            generatePolarHeatmap(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, minTwoTheta)
+            Globals.BackendWrapper.rawDataGeneratePolarHeatmap2D(polarHeatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            setColorbarTitle()
         }
     }
 
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            Globals.BackendWrapper.rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(polarHeatmap2dRawData, twoThetaBinWidthValue)
+            setColorbarTitle()
         }
     }
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            Globals.BackendWrapper.rawDataUpdatePolarHeatmapGammaBinWidth2D(polarHeatmap2dRawData, gammaBinWidthValue)
+            setColorbarTitle()
         }
     }
 
-    onSliderValueChanged: {
+    onSliderIndxValueChanged: {
         if (loadSucceededStatus) {
-            updatePolarHeatmap(twoThetaBinWidthValue, gammaBinWidthValue, sliderValue)
+            Globals.BackendWrapper.rawDataUpdatePolarHeatmapSliderIndex2D(polarHeatmap2dRawData, sliderIndxValue)
         }
     }
 
-    function generatePolarHeatmap(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: generatePolarHeatmap started`)
-        Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            setColorbarTitle()
-        }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-        }
-        console.debug(`In ${this}: generatePolarHeatmap finished`)
-    }
-
-    function updatePolarHeatmap(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: updatePolarHeatmap started`)
-        Globals.BackendWrapper.rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
-        if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
-            getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
-            setColorbarTitle()
-        }
-        else {
-            console.debug('NOT IMPLEMENTED: python backend for data rpocessing is not implemented yet.')
-        }
-        console.debug(`In ${this}: updatePolarHeatmap finished`)
-    }
-
-    function getTwoThetaRingDataFromJson(jsonFilename, sliderValue) {
+    function getTwoThetaRingDataFromJson(jsonFilename, sliderIndx, callback) {
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
@@ -93,19 +72,11 @@ EaCharts.Plotly2dPolarHeatmap {
             let ringsR = Array(ringsGamma.length).fill(800)
             let countsData = extractCustomColumnByIndex(customData, 2)
             let ringsCountsMesh = cleanUpCounts(countsData)
-
-            let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
+            //let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
             let twoThetaArray = Array(ringsCountsMesh[sliderIndx].length).fill(uniqueTwoTheta[sliderIndx])
 
-            plotData = {
-                'r': ringsR,
-                'theta': ringsGamma,
-                'z': ringsCountsMesh[sliderIndx],
-                'customData': twoThetaArray,
-                'hoverTemplate': '2\u03b8: %{customdata}\u00B0<br>'+
-                                 '\u03b3: %{theta}<br>'+
-                                 'Counts: %{marker.color}',
-            }
+            // sends values to your callback to wait for full completion of runJavaScript
+            callback(ringsR, ringsGamma, ringsCountsMesh, twoThetaArray)
         })
     }
 

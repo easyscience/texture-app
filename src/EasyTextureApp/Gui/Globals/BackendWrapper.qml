@@ -237,22 +237,33 @@ QtObject {
         activeBackend.rawData.updateGammaBinWidth2D(selectedBinWidthIndexValue)
     }
 
-    function rawDataGenerateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth) {
-        activeBackend.rawData.generateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth)
+    function rawDataGenerateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        activeBackend.rawData.generateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
-    function rawDataUpdateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth) {
-        activeBackend.rawData.updateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth)
+    function rawDataUpdateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
+        activeBackend.rawData.updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth)
     }
 
-    function rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        activeBackend.rawData.generatePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    function rawDataUpdateHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
+        activeBackend.rawData.updateHeatmapGammaBinWidth2D(obj, gammaBinWidth)
     }
 
-    function rawDataUpdatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        activeBackend.rawData.updatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+    function rawDataGeneratePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        activeBackend.rawData.generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
+    function rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
+        activeBackend.rawData.updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth)
+    }
+
+    function rawDataUpdatePolarHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
+        activeBackend.rawData.updatePolarHeatmapGammaBinWidth2D(obj, gammaBinWidth)
+    }
+
+    function rawDataUpdatePolarHeatmapSliderIndex2D(obj, sliderIndx) {
+        activeBackend.rawData.updatePolarHeatmapSliderIndex2D(obj, sliderIndx)
+    }
 
     // Binning 1D
     property string rawDataPlotFilepath1D: activeBackend.rawData.plotFilepath1D
@@ -307,6 +318,7 @@ QtObject {
     function rawDataUpdateLinePlotSliderIndex1D(obj, sliderIndx) {
         activeBackend.rawData.updateLinePlotSliderIndex1D(obj, sliderIndx)
     }
+
     ///////////////////
     // Corrections page
     ///////////////////

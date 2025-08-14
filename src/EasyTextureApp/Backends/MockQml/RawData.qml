@@ -295,13 +295,14 @@ QtObject {
 
 
     // Binning 2D
-    property string plotFilepath2D: '../../../../../../examples/RawData/user_voxels_2D_1.json'
+    property string plotFilepath2D: '../../../../examples/RawData/user_voxels_2D_1.json'
 
     property int twoThetaBinWidthIndex2D: 0
     property real minTwoThetaCenter2D: 45.25
     property real maxTwoThetaCenter2D: 134.75
     property real twoThetaBinWidth2D: 0.5
     property real twoThetaRingsSliderValue2D: minTwoThetaCenter2D
+    property int sliderIndx2D
 
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0
@@ -339,30 +340,87 @@ QtObject {
         }
     }
 
-    function generateHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: QML backend for generateHeatmapPlot2D. Loaded ${plotFilepath2D} by default.`)
+    function generateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        console.debug(`In ${this}: QML backend for generateHeatmap2D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
+        obj.getData2DFromJson(Qt.resolvedUrl(filepath), function(uniqueTwoTheta, uniqueGamma, countsData, customData) {
+            let heatmapPlotDict = {}
+            heatmapPlotDict['x'] = uniqueTwoTheta
+            heatmapPlotDict['y'] = uniqueGamma
+            heatmapPlotDict['z'] = countsData
+            heatmapPlotDict['hoverTemplate'] = '2\u03b8: %{x}\u00B0<br>'+
+                                               '\u03b3: %{y}\u00B0<br>'+
+                                               'Counts: %{z}'
+            obj.plotData = heatmapPlotDict
+
+            sliderIndx2D = sliderIndx
+            //updateSliderPatchData3D(obj, sliderIndx)
+        })
+        console.debug(`In ${this}: End of QML backend for generateHeatmap2D`)
     }
 
-    function updateHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth) {
-        console.debug(`In ${this}: QML backend for updateHeatmapPlot2D.`)
+    function updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateHeatmapTwoThetaBinWidth2D.`)
         let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth2D)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
-        plotFilepath2D = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        plotFilepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        generateHeatmap2D(obj, plotFilepath2D, twoThetaBinWidth, gammaBinWidth2D, 0)
+        console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth2D}).`)
     }
 
-    function generatePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: QML backend for generatePolarHeatmapPlot2D. Loaded ${plotFilepath2D} by default.`)
-    }
-
-    function updatePolarHeatmapPlot2D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
-        console.debug(`In ${this}: QML backend for updatePolarHeatmapPlot2D.`)
+    function updateHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for updateHeatmapGammaBinWidth2D.`)
         let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth2D, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
-        plotFilepath2D = '../../../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
+        plotFilepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        generateHeatmap2D(obj, plotFilepath2D, twoThetaBinWidth2D, gammaBinWidth, sliderIndx2D)
+        console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth2D}, ${gammaBinWidth}).`)
+    }
+
+    function generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        console.debug(`In ${this}: QML backend for generatePolarHeatmap2D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
+        obj.getTwoThetaRingDataFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(ringsR, ringsGamma, ringsCountsMesh, twoThetaArray) {
+            let polarHeatmapPlotDict = {}
+            polarHeatmapPlotDict['r'] = ringsR
+            polarHeatmapPlotDict['theta'] = ringsGamma
+            polarHeatmapPlotDict['z'] = ringsCountsMesh[sliderIndx]
+            polarHeatmapPlotDict['customData'] = twoThetaArray
+            polarHeatmapPlotDict['hoverTemplate'] = '2\u03b8: %{customdata}\u00B0<br>'+
+                                                    '\u03b3: %{theta}<br>'+
+                                                    'Counts: %{marker.color}'
+            obj.plotData = polarHeatmapPlotDict
+
+            sliderIndx2D = sliderIndx
+            //updateSliderPatchData3D(obj, sliderIndx)
+        })
+        console.debug(`In ${this}: End of QML backend for generatePolarHeatmap2D`)
+    }
+
+    function updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
+        console.debug(`In ${this}: QML backend for updatePolarHeatmapTwoThetaBinWidth2D.`)
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth2D)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
+        plotFilepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        generatePolarHeatmap2D(obj, plotFilepath2D, twoThetaBinWidth, gammaBinWidth2D, 0)
+        console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth2D}).`)
+    }
+
+    function updatePolarHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
+        console.debug(`In ${this}: QML backend for updatePolarHeatmapGammaBinWidth2D.`)
+        let twoThetaIndex, gammaIndex
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth2D, gammaBinWidth)
+        let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
+        plotFilepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
+        generatePolarHeatmap2D(obj, plotFilepath2D, twoThetaBinWidth2D, gammaBinWidth, sliderIndx2D)
+        console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth2D}, ${gammaBinWidth}).`)
+    }
+
+    function updatePolarHeatmapSliderIndex2D(obj, sliderIndex) {
+        console.debug(`In ${this}: QML backend for updatePolarHeatmapSliderIndex2D.`)
+        generatePolarHeatmap2D(obj, plotFilepath2D, twoThetaBinWidth2D, gammaBinWidth2D, sliderIndex)
+        console.debug(`In ${this}: Generated PolarHeatmap with slider index = ${sliderIndex}.`)
     }
 
 

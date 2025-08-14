@@ -68,7 +68,7 @@ EaCharts.Plotly1dLine {
             let customData = result[customDataColumn]
             let countsData = extractCustomColumnByIndex(customData, 2)
             //let sliderIndxValue = getIndxByValue(uniqueTwoTheta, sliderValue)
-            let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndxValue])
+            let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndx])
 
             // sends values to your callback to wait for full completion of runJavaScript
             callback(uniqueGamma, countsData, twoThetaArray, customData)
