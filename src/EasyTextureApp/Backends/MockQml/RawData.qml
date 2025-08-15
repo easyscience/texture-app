@@ -267,7 +267,7 @@ QtObject {
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         plotFilepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
 
-        generateSurfacePlot3D(obj, plotFilepath3D, twoThetaBinWidth3D, gammaBinWidth, sliderIndx3D)
+        //generateSurfacePlot3D(obj, plotFilepath3D, twoThetaBinWidth3D, gammaBinWidth, sliderIndx3D)
 
         console.debug(`In ${this}: Loaded ${plotFilepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth3D}, ${gammaBinWidth}).`)
     }
@@ -351,9 +351,6 @@ QtObject {
                                                '\u03b3: %{y}\u00B0<br>'+
                                                'Counts: %{z}'
             obj.plotData = heatmapPlotDict
-
-            sliderIndx2D = sliderIndx
-            //updateSliderPatchData3D(obj, sliderIndx)
         })
         console.debug(`In ${this}: End of QML backend for generateHeatmap2D`)
     }
@@ -380,22 +377,61 @@ QtObject {
 
     function generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
         console.debug(`In ${this}: QML backend for generatePolarHeatmap2D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
-        obj.getTwoThetaRingDataFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(ringsR, ringsGamma, ringsCountsMesh, twoThetaArray) {
-            let polarHeatmapPlotDict = {}
-            polarHeatmapPlotDict['r'] = ringsR
-            polarHeatmapPlotDict['theta'] = ringsGamma
-            polarHeatmapPlotDict['z'] = ringsCountsMesh[sliderIndx]
-            polarHeatmapPlotDict['customData'] = twoThetaArray
-            polarHeatmapPlotDict['hoverTemplate'] = '2\u03b8: %{customdata}\u00B0<br>'+
-                                                    '\u03b3: %{theta}<br>'+
-                                                    'Counts: %{marker.color}'
-            obj.plotData = polarHeatmapPlotDict
+        obj.getData2DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(ringsR, uniqueTwoTheta, ringsGamma, ringsCountsMesh) {
+            let polarHeatmapFullDataDict = {}
+            polarHeatmapFullDataDict['r'] = ringsR
+            polarHeatmapFullDataDict['theta'] = ringsGamma
+            polarHeatmapFullDataDict['z'] = ringsCountsMesh
+            polarHeatmapFullDataDict['twoTheta'] = uniqueTwoTheta
+            obj.fullData = polarHeatmapFullDataDict
 
             sliderIndx2D = sliderIndx
-            //updateSliderPatchData3D(obj, sliderIndx)
+            updateSliceData2D(obj, sliderIndx)
         })
         console.debug(`In ${this}: End of QML backend for generatePolarHeatmap2D`)
     }
+
+    function updateSliceData2D(obj, sliderIndx) {
+        console.debug(`In ${this}: QML backend for updateSliceData2D.`)
+
+        let polarHeatmapPlotDict = {}
+        let ringR = obj.fullData.r
+        let ringGamma = obj.fullData.theta
+        let ringCountsMesh = obj.fullData.z[sliderIndx]
+        let twoTheta = obj.fullData.twoTheta[sliderIndx]
+        let twoThetaArray = Array(ringCountsMesh.length).fill(twoTheta)
+
+        polarHeatmapPlotDict['r'] = ringR
+        polarHeatmapPlotDict['theta'] = ringGamma
+        polarHeatmapPlotDict['z'] = ringCountsMesh
+        polarHeatmapPlotDict['customData'] = twoThetaArray
+        polarHeatmapPlotDict['hoverTemplate'] = '2\u03b8: %{customdata}\u00B0<br>'+
+                                        '\u03b3: %{theta}<br>'+
+                                        'Counts: %{marker.color}'
+
+        obj.plotData = polarHeatmapPlotDict
+
+        console.debug(`In ${this}: Updated plotData to slice index ${sliderIndx}.`)
+    }
+
+    // function generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+    //     console.debug(`In ${this}: QML backend for generatePolarHeatmap2D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
+    //     obj.getTwoThetaRingDataFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(ringsR, ringsGamma, ringsCountsMesh, twoThetaArray) {
+    //         let polarHeatmapPlotDict = {}
+    //         polarHeatmapPlotDict['r'] = ringsR
+    //         polarHeatmapPlotDict['theta'] = ringsGamma
+    //         polarHeatmapPlotDict['z'] = ringsCountsMesh[sliderIndx]
+    //         polarHeatmapPlotDict['customData'] = twoThetaArray
+    //         polarHeatmapPlotDict['hoverTemplate'] = '2\u03b8: %{customdata}\u00B0<br>'+
+    //                                                 '\u03b3: %{theta}<br>'+
+    //                                                 'Counts: %{marker.color}'
+    //         obj.plotData = polarHeatmapPlotDict
+
+    //         sliderIndx2D = sliderIndx
+    //         //updateSliderPatchData3D(obj, sliderIndx)
+    //     })
+    //     console.debug(`In ${this}: End of QML backend for generatePolarHeatmap2D`)
+    // }
 
     function updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
         console.debug(`In ${this}: QML backend for updatePolarHeatmapTwoThetaBinWidth2D.`)
@@ -417,11 +453,11 @@ QtObject {
         console.debug(`In ${this}: Loaded ${plotFilepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth2D}, ${gammaBinWidth}).`)
     }
 
-    function updatePolarHeatmapSliderIndex2D(obj, sliderIndex) {
-        console.debug(`In ${this}: QML backend for updatePolarHeatmapSliderIndex2D.`)
-        generatePolarHeatmap2D(obj, plotFilepath2D, twoThetaBinWidth2D, gammaBinWidth2D, sliderIndex)
-        console.debug(`In ${this}: Generated PolarHeatmap with slider index = ${sliderIndex}.`)
-    }
+    // function updateSliderIndex2D(obj, sliderIndex) {
+    //     console.debug(`In ${this}: QML backend for updateSliderIndex2D.`)
+    //     generatePolarHeatmap2D(obj, plotFilepath2D, twoThetaBinWidth2D, gammaBinWidth2D, sliderIndex)
+    //     console.debug(`In ${this}: Generated PolarHeatmap with slider index = ${sliderIndex}.`)
+    // }
 
 
     // Binning 1D

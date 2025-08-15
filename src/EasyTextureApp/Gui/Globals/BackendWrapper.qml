@@ -261,8 +261,12 @@ QtObject {
         activeBackend.rawData.updatePolarHeatmapGammaBinWidth2D(obj, gammaBinWidth)
     }
 
-    function rawDataUpdatePolarHeatmapSliderIndex2D(obj, sliderIndx) {
-        activeBackend.rawData.updatePolarHeatmapSliderIndex2D(obj, sliderIndx)
+    // function rawDataUpdateSliderIndex2D(obj, sliderIndx) {
+    //     activeBackend.rawData.updateSliderIndex2D(obj, sliderIndx)
+    // }
+
+    function rawDataUpdateSliceData2D(obj, sliderIndx) {
+        activeBackend.rawData.updateSliceData2D(obj, sliderIndx)
     }
 
     // Binning 1D

@@ -19,7 +19,7 @@ EaCharts.Plotly2dPolarHeatmap {
 
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
+    //property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D
     property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
@@ -57,11 +57,12 @@ EaCharts.Plotly2dPolarHeatmap {
 
     onSliderIndxValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdatePolarHeatmapSliderIndex2D(polarHeatmap2dRawData, sliderIndxValue)
+            //Globals.BackendWrapper.rawDataUpdateSliderIndex2D(polarHeatmap2dRawData, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateSliceData2D(polarHeatmap2dRawData, sliderIndxValue)
         }
     }
 
-    function getTwoThetaRingDataFromJson(jsonFilename, sliderIndx, callback) {
+    function getData2DFromJson(jsonFilename, sliderIndx, callback) {
         console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
@@ -73,12 +74,31 @@ EaCharts.Plotly2dPolarHeatmap {
             let countsData = extractCustomColumnByIndex(customData, 2)
             let ringsCountsMesh = cleanUpCounts(countsData)
             //let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
-            let twoThetaArray = Array(ringsCountsMesh[sliderIndx].length).fill(uniqueTwoTheta[sliderIndx])
+            //let twoThetaArray = Array(ringsCountsMesh[sliderIndx].length).fill(uniqueTwoTheta[sliderIndx])
 
             // sends values to your callback to wait for full completion of runJavaScript
-            callback(ringsR, ringsGamma, ringsCountsMesh, twoThetaArray)
+            callback(ringsR, uniqueTwoTheta, ringsGamma, ringsCountsMesh)
         })
     }
+
+    // function getTwoThetaRingDataFromJson(jsonFilename, sliderIndx, callback) {
+    //     console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
+    //     runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
+    //         let uniqueTwoTheta = result[twoThetaColumn]
+    //         let uniqueGamma = result[gammaColumn]
+    //         let customData = result[customDataColumn]
+
+    //         let ringsGamma = cleanUpGamma(uniqueGamma, 270) //removes 270 and 2 neighbors
+    //         let ringsR = Array(ringsGamma.length).fill(800)
+    //         let countsData = extractCustomColumnByIndex(customData, 2)
+    //         let ringsCountsMesh = cleanUpCounts(countsData)
+    //         //let sliderIndx = getIndxByValue(uniqueTwoTheta, sliderValue)
+    //         let twoThetaArray = Array(ringsCountsMesh[sliderIndx].length).fill(uniqueTwoTheta[sliderIndx])
+
+    //         // sends values to your callback to wait for full completion of runJavaScript
+    //         callback(ringsR, ringsGamma, ringsCountsMesh, twoThetaArray)
+    //     })
+    // }
 
     function getIndxByValue(object, value) {
         return Object.keys(object).filter(indx => object[indx] === value)
