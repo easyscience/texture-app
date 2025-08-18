@@ -20,7 +20,7 @@ EaCharts.Plotly3dSurface {
 
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath3D
     property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
-    property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue3D
+    //property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue3D
     property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaSliderValue3D - Globals.BackendWrapper.rawDataMinTwoThetaCenter3D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth3D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth3D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth3D

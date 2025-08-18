@@ -19,7 +19,7 @@ QtObject {
             //updateLinePlot1D(twoThetaBinWidth3D, gammaBinWidth3D)
             // gammaBinWidth2D = gammaBinWidth3D
             // twoThetaBinWidth2D = twoThetaBinWidth3D
-            // twoThetaRingsSliderValue2D = twoThetaSliderValue3D
+            // twoThetaSliderValue2D = twoThetaSliderValue3D
 
             // gammaBinWidth1D = gammaBinWidth3D
             // twoThetaBinWidth1D = twoThetaBinWidth3D
@@ -31,11 +31,11 @@ QtObject {
             //updateLinePlot1D(twoThetaBinWidth2D, gammaBinWidth2D)
             // gammaBinWidth1D = gammaBinWidth2D
             // twoThetaBinWidth1D = twoThetaBinWidth2D
-            // twoThetaSliderValue1D = twoThetaRingsSliderValue2D
+            // twoThetaSliderValue1D = twoThetaSliderValue2D
 
             // gammaBinWidth3D = gammaBinWidth2D
             // twoThetaBinWidth3D = twoThetaBinWidth2D
-            // twoThetaSliderValue3D = twoThetaRingsSliderValue2D
+            // twoThetaSliderValue3D = twoThetaSliderValue2D
         } else if (selectedTabIndex === 3) { //1D view
             console.debug(`QML backend: sync tabs to 1D values.`)
             //updateSurfacePlot3D(twoThetaBinWidth1D, gammaBinWidth1D)
@@ -46,7 +46,7 @@ QtObject {
 
             // gammaBinWidth2D = gammaBinWidth1D
             // twoThetaBinWidth2D = twoThetaBinWidth1D
-            // twoThetaRingsSliderValue2D = twoThetaSliderValue1D
+            // twoThetaSliderValue2D = twoThetaSliderValue1D
         } else {
             console.debug(`QML backend: wrong tab index.`)
         }
@@ -267,8 +267,6 @@ QtObject {
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         plotFilepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
 
-        //generateSurfacePlot3D(obj, plotFilepath3D, twoThetaBinWidth3D, gammaBinWidth, sliderIndx3D)
-
         console.debug(`In ${this}: Loaded ${plotFilepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth3D}, ${gammaBinWidth}).`)
     }
 
@@ -279,7 +277,8 @@ QtObject {
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth3D)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         plotFilepath3D = '../../../../examples/RawData/user_voxels_3D_%1.json'.arg(mockBinningIndex)
-        generateSurfacePlot3D(obj, plotFilepath3D, twoThetaBinWidth, gammaBinWidth3D, 0)
+        sliderIndx3D = 0
+        //generateSurfacePlot3D(obj, plotFilepath3D, twoThetaBinWidth, gammaBinWidth3D, 0)
 
         console.debug(`In ${this}: Loaded ${plotFilepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth3D}).`)
     }
@@ -301,7 +300,7 @@ QtObject {
     property real minTwoThetaCenter2D: 45.25
     property real maxTwoThetaCenter2D: 134.75
     property real twoThetaBinWidth2D: 0.5
-    property real twoThetaRingsSliderValue2D: minTwoThetaCenter2D
+    property real twoThetaSliderValue2D: minTwoThetaCenter2D
     property int sliderIndx2D
 
     property int gammaBinWidthIndex2D: 0
@@ -326,8 +325,8 @@ QtObject {
             maxTwoThetaCenter2D = null
             console.debug(`WARNING: update2DTwoThetaSliderData for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
         }
-        twoThetaRingsSliderValue2D = minTwoThetaCenter2D
-        console.debug(`twoThetaRingsSliderValue2D is changed to ${twoThetaRingsSliderValue2D}`)
+        twoThetaSliderValue2D = minTwoThetaCenter2D
+        console.debug(`twoThetaSliderValue2D is changed to ${twoThetaSliderValue2D}`)
     }
 
     function updateGammaBinWidth2D(gammaBinWidthIndx) {
@@ -411,7 +410,7 @@ QtObject {
 
         obj.plotData = polarHeatmapPlotDict
 
-        console.debug(`In ${this}: Updated plotData to slice index ${sliderIndx}.`)
+        console.debug(`In ${this}: Updated 2D two theta ring plotData to slice index ${sliderIndx}.`)
     }
 
     // function generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {

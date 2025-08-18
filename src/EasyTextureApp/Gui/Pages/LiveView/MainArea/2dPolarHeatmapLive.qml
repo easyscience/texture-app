@@ -19,7 +19,7 @@ EaCharts.Plotly2dPolarHeatmap {
 
     property string plotFilepath: Globals.BackendWrapper.liveViewPlotFilepath2D
     property real minTwoTheta: Globals.BackendWrapper.liveViewMinTwoThetaCenter2D
-    property real sliderValue: Globals.BackendWrapper.liveViewTwoThetaRingsSliderValue2D
+    property real sliderValue: Globals.BackendWrapper.liveViewTwoThetaSliderValue2D
     property real gammaBinWidthValue: Globals.BackendWrapper.liveViewGammaBinWidth2D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.liveViewTwoThetaBinWidth2D
 
@@ -67,7 +67,7 @@ EaCharts.Plotly2dPolarHeatmap {
 
     function generatePolarHeatmap(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta) {
         console.debug(`In ${this}: generatePolarHeatmap started`)
-        Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
+        //Globals.BackendWrapper.rawDataGeneratePolarHeatmapPlot2D(filepath, twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getTwoThetaRingDataFromJson(Qt.resolvedUrl(plotFilepath), currentTwoTheta)
             polarHeatmap2dRawDataLive.setColorbarTitle()

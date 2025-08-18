@@ -38,7 +38,7 @@ EaComponents.ContentPage {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
                     if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                         Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
                     console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -49,7 +49,7 @@ EaComponents.ContentPage {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
                     if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                         Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaRingsSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
                     }
                     console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }

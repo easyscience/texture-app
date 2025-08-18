@@ -85,7 +85,7 @@ EaCharts.Plotly3dSurface {
 
     function generateSurfacePlot(filepath, twoThetaBinWidth, gammaBinWidth) {
         console.debug(`In ${this}: generateSurfacePlot started...`)
-        Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
+        //Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth)
         if (Object.values(Globals.BackendWrapper.activeBackend.toString().includes("QMLTYPE"))) {
             getData3DFromJson(Qt.resolvedUrl(plotFilepath))
             surface3dRawDataLive.setScene()
