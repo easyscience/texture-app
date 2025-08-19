@@ -57,7 +57,7 @@ EaCharts.Plotly1dLine {
 
     onSliderIndxValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateLinePlotSliderIndex1D(line1dRawData, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateSliceData1D(line1dRawData, sliderIndxValue)
         }
     }
 
@@ -67,11 +67,9 @@ EaCharts.Plotly1dLine {
             let uniqueGamma = result[gammaColumn]
             let customData = result[customDataColumn]
             let countsData = extractCustomColumnByIndex(customData, 2)
-            //let sliderIndxValue = getIndxByValue(uniqueTwoTheta, sliderValue)
-            let twoThetaArray = Array(uniqueGamma.length).fill(uniqueTwoTheta[sliderIndx])
 
             // sends values to your callback to wait for full completion of runJavaScript
-            callback(uniqueGamma, countsData, twoThetaArray, customData)
+            callback(uniqueTwoTheta, uniqueGamma, countsData)
         })
     }
 
@@ -82,9 +80,5 @@ EaCharts.Plotly1dLine {
         let customColumn = extractedCustomColumn[0].map((_, colIndex) => extractedCustomColumn.map(row => row[colIndex]))
         return customColumn
     }
-
-    // function getIndxByValue(object, value) {
-    //     return Object.keys(object).filter(indx => object[indx] === value)
-    // }
 
 }

@@ -323,6 +323,10 @@ QtObject {
         activeBackend.rawData.updateLinePlotSliderIndex1D(obj, sliderIndx)
     }
 
+    function rawDataUpdateSliceData1D(obj, sliderIndx) {
+        activeBackend.rawData.updateSliceData1D(obj, sliderIndx)
+    }
+
     ///////////////////
     // Corrections page
     ///////////////////

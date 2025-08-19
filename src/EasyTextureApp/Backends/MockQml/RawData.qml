@@ -507,19 +507,36 @@ QtObject {
 
     function generateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
         console.debug(`In ${this}: QML backend for generateLinePlot1D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
-        obj.getData1DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(uniqueGamma, countsData, twoThetaArray, customData) {
-            let linePlotDict = {}
-            linePlotDict['x'] = uniqueGamma
-            linePlotDict['y'] = countsData[sliderIndx]
-            linePlotDict['customData'] = twoThetaArray
-            linePlotDict['hoverTemplate'] = '2\u03b8: %{customdata}\u00B0<br>'+
-                                            '\u03b3: %{x}\u00B0<br>'+
-                                            'Counts: %{y}'
-            obj.plotData = linePlotDict
+        obj.getData1DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(uniqueTwoTheta, uniqueGamma, countsData) {
+            let linePlotFullDataDict = {}
+            linePlotFullDataDict['twoTheta'] = uniqueTwoTheta
+            linePlotFullDataDict['gamma'] = uniqueGamma
+            linePlotFullDataDict['counts'] = countsData
+            obj.fullData = linePlotFullDataDict
 
             sliderIndex1D = sliderIndx
+            updateSliceData1D(obj, sliderIndx)
         })
         console.debug(`In ${this}: End of QML backend for generateLinePlot1D`)
+    }
+
+    function updateSliceData1D(obj, sliderIndex) {
+        console.debug(`In ${this}: QML backend for updateSliceData1D.`)
+
+        let linePlotDict = {}
+        let sliceGamma = obj.fullData.gamma
+        let sliceCounts = obj.fullData.counts[sliderIndex]
+        let sliceTwoTheta = obj.fullData.twoTheta
+        let sliceTwoThetaArray = Array(sliceGamma.length).fill(sliceTwoTheta[sliderIndex])
+        linePlotDict['x'] = sliceGamma
+        linePlotDict['y'] = sliceCounts
+        linePlotDict['customData'] = sliceTwoThetaArray
+        linePlotDict['hoverTemplate'] = '2\u03b8: %{customdata}\u00B0<br>'+
+                                        '\u03b3: %{x}\u00B0<br>'+
+                                        'Counts: %{y}'
+        obj.plotData = linePlotDict
+
+        console.debug(`In ${this}: Updated plotData in LinePlot1D to slice index = ${sliderIndex}.`)
     }
 
     function updateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth) {
