@@ -171,6 +171,8 @@ QtObject {
     onRawDataTwoThetaBinWidth3DChanged: activeBackend.rawData.twoThetaBinWidth3D = rawDataTwoThetaBinWidth3D
     property real rawDataTwoThetaSliderValue3D: activeBackend.rawData.twoThetaSliderValue3D
     onRawDataTwoThetaSliderValue3DChanged: activeBackend.rawData.twoThetaSliderValue3D = rawDataTwoThetaSliderValue3D
+    property int rawDataTwoThetaSliderIndex3D: activeBackend.rawData.twoThetaSliderIndex3D
+    onRawDataTwoThetaSliderIndex3DChanged: activeBackend.rawData.twoThetaSliderIndex3D = rawDataTwoThetaSliderIndex3D
 
     property int rawDataGammaBinWidthIndex3D: activeBackend.rawData.gammaBinWidthIndex3D
     onRawDataGammaBinWidthIndex3DChanged: activeBackend.rawData.gammaBinWidthIndex3D = rawDataGammaBinWidthIndex3D
@@ -209,6 +211,10 @@ QtObject {
         activeBackend.rawData.updateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth)
     }
 
+    function rawDataUpdateTTSliderIndex3D() {
+        activeBackend.rawData.updateTTSliderIndex3D()
+    }
+
     // Binning 2D
     property string rawDataPlotFilepath2D: activeBackend.rawData.plotFilepath2D
     onRawDataPlotFilepath2DChanged: activeBackend.rawData.plotFilepath2D = rawDataPlotFilepath2D
@@ -223,6 +229,8 @@ QtObject {
     onRawDataTwoThetaBinWidth2DChanged: activeBackend.rawData.twoThetaBinWidth2D = rawDataTwoThetaBinWidth2D
     property real rawDataTwoThetaSliderValue2D: activeBackend.rawData.twoThetaSliderValue2D
     onRawDataTwoThetaSliderValue2DChanged: activeBackend.rawData.twoThetaSliderValue2D = rawDataTwoThetaSliderValue2D
+    property int rawDataTwoThetaSliderIndex2D: activeBackend.rawData.twoThetaSliderIndex2D
+    onRawDataTwoThetaSliderIndex2DChanged: activeBackend.rawData.twoThetaSliderIndex2D = rawDataTwoThetaSliderIndex2D
 
     property int rawDataGammaBinWidthIndex2D: activeBackend.rawData.gammaBinWidthIndex2D
     onRawDataGammaBinWidthIndex2DChanged: activeBackend.rawData.gammaBinWidthIndex2D = rawDataGammaBinWidthIndex2D
@@ -269,6 +277,10 @@ QtObject {
         activeBackend.rawData.updateSliceData2D(obj, sliderIndx)
     }
 
+    function rawDataUpdateTTSliderIndex2D() {
+        activeBackend.rawData.updateTTSliderIndex2D()
+    }
+
     // Binning 1D
     property string rawDataPlotFilepath1D: activeBackend.rawData.plotFilepath1D
     onRawDataPlotFilepath1DChanged: activeBackend.rawData.plotFilepath1D = rawDataPlotFilepath1D
@@ -281,6 +293,8 @@ QtObject {
     onRawDataMinTwoThetaCenter1DChanged: activeBackend.rawData.minTwoThetaCenter1D = rawDataMinTwoThetaCenter1D
     property real rawDataMaxTwoThetaCenter1D: activeBackend.rawData.maxTwoThetaCenter1D
     onRawDataMaxTwoThetaCenter1DChanged: activeBackend.rawData.maxTwoThetaCenter1D = rawDataMaxTwoThetaCenter1D
+    property int rawDataTwoThetaSliderIndex1D: activeBackend.rawData.twoThetaSliderIndex1D
+    onRawDataTwoThetaSliderIndex1DChanged: activeBackend.rawData.twoThetaSliderIndex1D = rawDataTwoThetaSliderIndex1D
 
     property int rawDataGammaBinWidthIndex1D: activeBackend.rawData.gammaBinWidthIndex1D
     onRawDataGammaBinWidthIndex1DChanged: activeBackend.rawData.gammaBinWidthIndex1D = rawDataGammaBinWidthIndex1D
@@ -325,6 +339,10 @@ QtObject {
 
     function rawDataUpdateSliceData1D(obj, sliderIndx) {
         activeBackend.rawData.updateSliceData1D(obj, sliderIndx)
+    }
+
+    function rawDataUpdateTTSliderIndex1D() {
+        activeBackend.rawData.updateTTSliderIndex1D()
     }
 
     ///////////////////

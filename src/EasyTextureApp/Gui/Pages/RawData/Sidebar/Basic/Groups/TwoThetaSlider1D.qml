@@ -63,7 +63,13 @@ Grid {
 
             onValueChanged: {
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
+                Globals.BackendWrapper.rawDataUpdateTTSliderIndex1D()
+
                 if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
+                    // Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
+                    // Globals.BackendWrapper.rawDataUpdateTTSliderIndex2D()
+                    // Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
+                    // Globals.BackendWrapper.rawDataUpdateTTSliderIndex3D()
                     Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
                     console.debug(`In ${this}: 1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
                 } else {

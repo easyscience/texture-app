@@ -19,17 +19,15 @@ EaCharts.Plotly1dLine {
     property string customDataColumn: 'custom_data'
 
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath1D
-    property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
-    //property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
-    property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaSliderValue1D - Globals.BackendWrapper.rawDataMinTwoThetaCenter1D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
-
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth1D
+    property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D //(Globals.BackendWrapper.rawDataTwoThetaSliderValue1D - Globals.BackendWrapper.rawDataMinTwoThetaCenter1D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
+
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setXAxisTitle()
             setYAxisTitle()
         } else {
@@ -51,7 +49,7 @@ EaCharts.Plotly1dLine {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
         }
     }
 
