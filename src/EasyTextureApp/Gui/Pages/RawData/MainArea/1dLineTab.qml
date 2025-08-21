@@ -21,8 +21,7 @@ EaCharts.Plotly1dLine {
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath1D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth1D
-    property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D //(Globals.BackendWrapper.rawDataTwoThetaSliderValue1D - Globals.BackendWrapper.rawDataMinTwoThetaCenter1D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
-
+    property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {

@@ -62,19 +62,25 @@ Grid {
             }
 
             onValueChanged: {
+                // Makes sure not to update the slider while the javascript calculation is ongoing
+                // (on bin two theta width change). The slider will be updated on its own in as
+                // a result of that calculation.
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
-                Globals.BackendWrapper.rawDataUpdateTTSliderIndex1D()
+                if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff1D) {
+                    Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
+                }
 
                 if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
                     // Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
                     // Globals.BackendWrapper.rawDataUpdateTTSliderIndex2D()
                     // Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
-                    // Globals.BackendWrapper.rawDataUpdateTTSliderIndex3D()
+                    // Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
                     Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
-                    console.debug(`In ${this}: 1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
+                    console.debug(`1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
                 } else {
-                    console.debug(`In ${this}: 1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue1D} degrees.`)
+                    console.debug(`1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue1D} degrees.`)
                 }
+
             }
 
             Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider = slider

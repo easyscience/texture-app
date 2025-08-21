@@ -304,6 +304,9 @@ QtObject {
     property real rawDataTwoThetaSliderValue1D: activeBackend.rawData.twoThetaSliderValue1D
     onRawDataTwoThetaSliderValue1DChanged: activeBackend.rawData.twoThetaSliderValue1D = rawDataTwoThetaSliderValue1D
 
+    property bool rawDataRunJavaScriptIsOff1D: activeBackend.rawData.runJavaScriptIsOff1D
+    onRawDataRunJavaScriptIsOff1DChanged: activeBackend.rawData.runJavaScriptIsOff1D = rawDataRunJavaScriptIsOff1D
+
     function rawDataUpdateTwoThetaSliderData1D(selectedBinWidthIndexValue) {
         activeBackend.rawData.updateTwoThetaSliderData1D(selectedBinWidthIndexValue)
     }
@@ -333,16 +336,12 @@ QtObject {
         activeBackend.rawData.updateLinePlotGammaBinWidth1D(obj, gammaBinWidth)
     }
 
-    function rawDataUpdateLinePlotSliderIndex1D(obj, sliderIndx) {
-        activeBackend.rawData.updateLinePlotSliderIndex1D(obj, sliderIndx)
-    }
-
     function rawDataUpdateSliceData1D(obj, sliderIndx) {
         activeBackend.rawData.updateSliceData1D(obj, sliderIndx)
     }
 
-    function rawDataUpdateTTSliderIndex1D() {
-        activeBackend.rawData.updateTTSliderIndex1D()
+    function rawDataUpdateTwoThetaSliderIndex1D() {
+        activeBackend.rawData.updateTwoThetaSliderIndex1D()
     }
 
     ///////////////////
