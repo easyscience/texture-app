@@ -46,8 +46,10 @@ Grid {
                             Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
                             Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
                             if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
-                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = currentIndex
-                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData1D(currentIndex)
+                                //Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
+                                //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
                             }
                         }
 
@@ -77,8 +79,8 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth2D(currentIndex)
                             if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
-                                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = currentIndex
-                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
+                                //Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = currentIndex
+                                //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
                             }
                         }
 

@@ -21,11 +21,9 @@ EaCharts.Plotly2dHeatmap {
     property string customDataColumn: 'custom_data'
 
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath2D
-    property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter2D
-    //property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue2D
-    property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaSliderValue2D - Globals.BackendWrapper.rawDataMinTwoThetaCenter2D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
+    property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D
 
     shapes: [{
         'type': 'rect',
@@ -44,7 +42,7 @@ EaCharts.Plotly2dHeatmap {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setShape()
             setXAxisTitle()
             setYAxisTitle()
@@ -56,7 +54,7 @@ EaCharts.Plotly2dHeatmap {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setXAxisTitle()
             setYAxisTitle()
             setColorbarTitle()
@@ -80,7 +78,6 @@ EaCharts.Plotly2dHeatmap {
     }
 
     function getData2DFromJson(jsonFilename, callback) {
-        console.debug(`${this} getDataFromJson from file ${jsonFilename}`)
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
             let uniqueTwoTheta = result[twoThetaColumn]
             let uniqueGamma = result[gammaColumn]
@@ -97,17 +94,17 @@ EaCharts.Plotly2dHeatmap {
         })
     }
 
-    function onlyUnique(value, index, array) {
-        return array.indexOf(value) === index
-    }
+    // function onlyUnique(value, index, array) {
+    //     return array.indexOf(value) === index
+    // }
 
-    function getIndxByValue(object, value) {
-        return Object.keys(object).filter(indx => object[indx] === value)
-    }
+    // function getIndxByValue(object, value) {
+    //     return Object.keys(object).filter(indx => object[indx] === value)
+    // }
 
-    function getValueByIndex(valueArray, indxArray) {
-        return indxArray.map(indx => valueArray[indx])
-    }
+    // function getValueByIndex(valueArray, indxArray) {
+    //     return indxArray.map(indx => valueArray[indx])
+    // }
 
     function extractCustomColumnByIndex(customData, i) {
         // extract the i-th element from each sub-array in customData

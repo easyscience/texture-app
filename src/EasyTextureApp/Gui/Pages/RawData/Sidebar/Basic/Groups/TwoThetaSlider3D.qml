@@ -61,7 +61,18 @@ Grid {
 
             onValueChanged: {
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
+                // Makes sure not to update the slider while the javascript calculation is ongoing
+                // (on bin two theta width change). The slider will be updated on its own in as
+                // a result of that calculation.
+                if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff3D) {
+                    Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
+                }
+
                 if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
+                    //Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
+                    //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
+                    //Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
+                    //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
                     Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
                     console.debug(`In ${this}: 3D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
                 } else {

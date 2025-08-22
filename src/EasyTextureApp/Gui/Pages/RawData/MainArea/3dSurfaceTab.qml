@@ -19,11 +19,9 @@ EaCharts.Plotly3dSurface {
     property string customDataColumn: 'custom_data'
 
     property string plotFilepath: Globals.BackendWrapper.rawDataPlotFilepath3D
-    property real minTwoTheta: Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
-    //property real sliderValue: Globals.BackendWrapper.rawDataTwoThetaSliderValue3D
-    property real sliderIndxValue: (Globals.BackendWrapper.rawDataTwoThetaSliderValue3D - Globals.BackendWrapper.rawDataMinTwoThetaCenter3D) / Globals.BackendWrapper.rawDataTwoThetaBinWidth3D
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth3D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth3D
+    property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D
 
     scene: {
         'xaxis': {
@@ -54,7 +52,7 @@ EaCharts.Plotly3dSurface {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(surface3dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(surface3dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setScene()
             setColorbarTitle()
         } else {
@@ -78,7 +76,7 @@ EaCharts.Plotly3dSurface {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(surface3dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(surface3dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setColorbarTitle()
         }
     }

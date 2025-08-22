@@ -179,12 +179,11 @@ QtObject {
     property int rawDataGammaBinWidth3D: activeBackend.rawData.gammaBinWidth3D
     onRawDataGammaBinWidth3DChanged: activeBackend.rawData.gammaBinWidth3D = rawDataGammaBinWidth3D
 
+    property bool rawDataRunJavaScriptIsOff3D: activeBackend.rawData.runJavaScriptIsOff3D
+    onRawDataRunJavaScriptIsOff3DChanged: activeBackend.rawData.runJavaScriptIsOff3D = rawDataRunJavaScriptIsOff3D
+
     function rawDataUpdateTwoThetaSliderData3D(selectedBinWidthIndexValue) {
         activeBackend.rawData.updateTwoThetaSliderData3D(selectedBinWidthIndexValue)
-    }
-
-    function rawDataUpdateTwoThetaBinWidth3D(selectedBinWidthIndexValue) {
-        activeBackend.rawData.updateTwoThetaBinWidth3D(selectedBinWidthIndexValue)
     }
 
     function rawDataUpdateGammaBinWidth3D(selectedBinWidthIndexValue) {
@@ -199,20 +198,16 @@ QtObject {
         activeBackend.rawData.updateSliderPatchData3D(obj, sliderIndx)
     }
 
-    function rawDataUpdateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth) {
-        activeBackend.rawData.updateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth)
-    }
-
     function rawDataUpdateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth) {
         activeBackend.rawData.updateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth)
     }
 
-    function rawDataUpdateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth) {
-        activeBackend.rawData.updateSurfacePlot3D(twoThetaBinWidth, gammaBinWidth)
+    function rawDataUpdateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth) {
+        activeBackend.rawData.updateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth)
     }
 
-    function rawDataUpdateTTSliderIndex3D() {
-        activeBackend.rawData.updateTTSliderIndex3D()
+    function rawDataUpdateTwoThetaSliderIndex3D() {
+        activeBackend.rawData.updateTwoThetaSliderIndex3D()
     }
 
     // Binning 2D
@@ -236,6 +231,9 @@ QtObject {
     onRawDataGammaBinWidthIndex2DChanged: activeBackend.rawData.gammaBinWidthIndex2D = rawDataGammaBinWidthIndex2D
     property real rawDataGammaBinWidth2D: activeBackend.rawData.gammaBinWidth2D
     onRawDataGammaBinWidth2DChanged: activeBackend.rawData.gammaBinWidth2D = rawDataGammaBinWidth2D
+
+    property bool rawDataRunJavaScriptIsOff2D: activeBackend.rawData.runJavaScriptIsOff2D
+    onRawDataRunJavaScriptIsOff2DChanged: activeBackend.rawData.runJavaScriptIsOff2D = rawDataRunJavaScriptIsOff2D
 
     function rawDataUpdateTwoThetaSliderData2D(selectedBinWidthIndexValue) {
         activeBackend.rawData.updateTwoThetaSliderData2D(selectedBinWidthIndexValue)
@@ -277,8 +275,8 @@ QtObject {
         activeBackend.rawData.updateSliceData2D(obj, sliderIndx)
     }
 
-    function rawDataUpdateTTSliderIndex2D() {
-        activeBackend.rawData.updateTTSliderIndex2D()
+    function rawDataUpdateTwoThetaSliderIndex2D() {
+        activeBackend.rawData.updateTwoThetaSliderIndex2D()
     }
 
     // Binning 1D
