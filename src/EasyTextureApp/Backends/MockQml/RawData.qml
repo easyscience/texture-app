@@ -9,7 +9,8 @@ import QtQuick
 QtObject {
     property bool loaded: false
     property int selectedTabIndex: 0
-    property bool syncTabsBinningsSliders: true
+    property bool syncTabsSlidersData: true
+    property bool calculateViewsAtOnce: false
 
     function synchronizeBinningsAndSliders() {
         if (selectedTabIndex === 0) { //3D view
@@ -91,6 +92,8 @@ QtObject {
     property real gammaHoleHighCenter: 315.0
 
     property real twoThetaSliderValueSync: 45.25
+    property int twoThetaBinWidthIndexSync: 0
+    property int gammaBinWidthIndexSync: 0
 
     // Binning 3D
     property string plotFilepath3D: '../../../../examples/RawData/user_voxels_3D_1.json'
@@ -109,6 +112,7 @@ QtObject {
 
     function updateTwoThetaSliderData3D(twoThetaBinWidthIndx) {
         console.debug(`QML backend for updateTwoThetaSliderData3D`)
+        twoThetaBinWidthIndexSync = twoThetaBinWidthIndx
         if (twoThetaBinWidthIndx === 0) {
             // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
             minTwoThetaCenter3D = 45.25 //centers[0]
@@ -136,6 +140,7 @@ QtObject {
         } else {
             gammaBinWidth3D = null
         }
+        gammaBinWidthIndexSync = gammaBinWidthIndx
     }
 
     function generateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
@@ -258,6 +263,7 @@ QtObject {
     property bool runJavaScriptIsOff2D: true
 
     function updateTwoThetaSliderData2D(twoThetaBinWidthIndx) {
+        twoThetaBinWidthIndexSync = twoThetaBinWidthIndx
         console.debug(`QML backend for updateTwoThetaSliderData2D`)
         if (twoThetaBinWidthIndx === 0) {
             // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
@@ -286,6 +292,7 @@ QtObject {
         } else {
             gammaBinWidth2D = null
         }
+        gammaBinWidthIndexSync = gammaBinWidthIndx
     }
 
     function generateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
@@ -421,6 +428,7 @@ QtObject {
 
     function updateTwoThetaSliderData1D(twoThetaBinWidthIndx) {
         console.debug(`QML backend for updateTwoThetaSliderData1D.`)
+        twoThetaBinWidthIndexSync = twoThetaBinWidthIndx
         if (twoThetaBinWidthIndx === 0) {
             // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
             minTwoThetaCenter1D = 45.25 //centers[0]
@@ -448,6 +456,7 @@ QtObject {
         } else {
             gammaBinWidth1D = null
         }
+        gammaBinWidthIndexSync = gammaBinWidthIndx
     }
 
     function generateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {

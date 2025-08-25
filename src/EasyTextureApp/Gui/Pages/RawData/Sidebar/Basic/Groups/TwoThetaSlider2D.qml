@@ -68,11 +68,25 @@ Grid {
                     Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
                 }
 
-                if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
+                if (Globals.BackendWrapper.rawDataSyncTabsSlidersData) {
                     //Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
                     //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
                     //Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
                     //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
+                    // if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                    //     Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
+                    //     Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
+                    // }
+                    if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
+                        if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff3D) {
+                            Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
+                        }
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
+                        if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff1D) {
+                            Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
+                        }
+                    }
                     Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
                     console.debug(`In ${this}: 2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
                 } else {

@@ -107,20 +107,28 @@ QtObject {
     // RawData page
     ///////////////
 
-    property bool rawDataSyncTabsBinningsSliders: activeBackend.rawData.syncTabsBinningsSliders
-    onRawDataSyncTabsBinningsSlidersChanged: {
-        activeBackend.rawData.syncTabsBinningsSliders = rawDataSyncTabsBinningsSliders
-        if (rawDataSyncTabsBinningsSliders) {
+    property bool rawDataSyncTabsSlidersData: activeBackend.rawData.syncTabsSlidersData
+    onRawDataSyncTabsSlidersDataChanged: {
+        activeBackend.rawData.syncTabsSlidersData = rawDataSyncTabsSlidersData
+        if (rawDataSyncTabsSlidersData) {
             rawDataSynchronizeBinningsAndSliders()
         }
-        console.debug(`Raw data synchronisation of binning and sliders changed to ${activeBackend.rawData.syncTabsBinningsSliders}.`)
+        console.debug(`Raw data synchronisation of binning and sliders changed to ${activeBackend.rawData.syncTabsSlidersData}.`)
     }
     function rawDataSynchronizeBinningsAndSliders() {
         activeBackend.rawData.synchronizeBinningsAndSliders()
     }
-    readonly property bool rawDataSyncViewsCalculations: true
+
+    property bool rawDataCalculateViewsAtOnce: activeBackend.rawData.calculateViewsAtOnce
+    onRawDataCalculateViewsAtOnceChanged: activeBackend.rawData.calculateViewsAtOnce = rawDataCalculateViewsAtOnce
+
     property real rawDataTwoThetaSliderValueSync: activeBackend.rawData.twoThetaSliderValueSync
     onRawDataTwoThetaSliderValueSyncChanged: activeBackend.rawData.twoThetaSliderValueSync = rawDataTwoThetaSliderValueSync
+    property int rawDataGammaBinWidthIndexSync: activeBackend.rawData.gammaBinWidthIndexSync
+    onRawDataGammaBinWidthIndexSyncChanged: activeBackend.rawData.gammaBinWidthIndexSync = rawDataGammaBinWidthIndexSync
+    property int rawDataTwoThetaBinWidthIndexSync: activeBackend.rawData.twoThetaBinWidthIndexSync
+    onRawDataTwoThetaBinWidthIndexSyncChanged: activeBackend.rawData.twoThetaBinWidthIndexSync = rawDataTwoThetaBinWidthIndexSync
+
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
     onRawDataLoadedChanged: {

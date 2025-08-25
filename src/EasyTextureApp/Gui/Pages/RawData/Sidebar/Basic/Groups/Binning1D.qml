@@ -43,12 +43,12 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData1D(currentIndex)
                             Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter1D
-                            // if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
-                            //     //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
-                            //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = currentIndex
-                            //     //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
-                            //     Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
-                            // }
+                            if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && Globals.BackendWrapper.calculateViewsAtOnce) {
+                                //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                                //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex.currentIndex = currentIndex
+                            }
                         }
 
                         Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex = twoThetaBinWidthIndexSelector1D
@@ -76,9 +76,9 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth1D(currentIndex)
-                            if (Globals.BackendWrapper.rawDataSyncTabsBinningsSliders) {
-                                //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = currentIndex
-                                //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
+                            if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && Globals.BackendWrapper.calculateViewsAtOnce) {
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = currentIndex
+                                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex.currentIndex = currentIndex
                             }
                         }
 
