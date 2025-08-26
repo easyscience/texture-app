@@ -46,7 +46,7 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData3D(currentIndex)
                             Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
-                            if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && Globals.BackendWrapper.calculateViewsAtOnce) {
+                            if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                                 //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData1D(currentIndex)
                                 Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = currentIndex
                                 //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
@@ -79,7 +79,7 @@ Grid {
 
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth3D(currentIndex)
-                            if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && Globals.BackendWrapper.calculateViewsAtOnce) {
+                            if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                                 Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = currentIndex
                                 Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = currentIndex
                             }
