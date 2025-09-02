@@ -12,25 +12,28 @@ import Gui.Globals as Globals
 
 Row {
 
-    EaElements.RadioButton {
-        id: yesButton
-        checked: Globals.BackendWrapper.rawDataSyncTabsBinningsSliders
-        //enabled: false
-        text: 'Yes'
-        onClicked: {
-            Globals.BackendWrapper.rawDataSyncTabsBinningsSliders = true
-        }
-    }
+    // EaElements.RadioButton {
+    //     id: yesButton
+    //     checked: Globals.BackendWrapper.rawDataSyncTabsSlidersData
+    //     //enabled: false
+    //     text: 'Yes'
+    //     onClicked: {
+    //         Globals.BackendWrapper.rawDataSyncTabsSlidersData = true
+    //         immediate.enabled = true
+    //     }
+    // }
 
-    EaElements.RadioButton {
-        id: noButton
-        checked: !Globals.BackendWrapper.rawDataSyncTabsBinningsSliders
-        //enabled: false
-        text: 'No'
-        onClicked: {
-            Globals.BackendWrapper.rawDataSyncTabsBinningsSliders = false
-        }
-    }
+    // EaElements.RadioButton {
+    //     id: noButton
+    //     checked: !Globals.BackendWrapper.rawDataSyncTabsSlidersData
+    //     //enabled: false
+    //     text: 'No'
+    //     onClicked: {
+    //         Globals.BackendWrapper.rawDataSyncTabsSlidersData = false
+    //         Globals.BackendWrapper.rawDataCalculateViewsAtOnce = false
+    //         immediate.enabled = false
+    //     }
+    // }
 
 }
 

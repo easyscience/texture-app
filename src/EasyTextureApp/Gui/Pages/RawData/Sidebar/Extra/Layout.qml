@@ -30,6 +30,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
+        id: immediate
         title: qsTr('Immediate calculation of 3D, 2D, and 1D views')
         icon: 'rocket'
         collapsible: false
