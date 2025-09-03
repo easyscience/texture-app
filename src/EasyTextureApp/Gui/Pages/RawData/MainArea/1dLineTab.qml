@@ -29,6 +29,7 @@ EaCharts.Plotly1dLine {
             Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setXAxisTitle()
             setYAxisTitle()
+            //Globals.References.pages.rawData.mainArea.tabLinePlot1d = line1dRawData
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -52,11 +53,11 @@ EaCharts.Plotly1dLine {
         }
     }
 
-    onSliderIndxValueChanged: {
-        if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateSliceData1D(line1dRawData, sliderIndxValue)
-        }
-    }
+    // onSliderIndxValueChanged: {
+    //     if (loadSucceededStatus) {
+    //         Globals.BackendWrapper.rawDataUpdateSliceData1D(line1dRawData, sliderIndxValue)
+    //     }
+    // }
 
     function getData1DFromJson(jsonFilename, sliderIndx, callback) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
@@ -76,6 +77,10 @@ EaCharts.Plotly1dLine {
         // reshape the array to match the expected structure (transpose the 2D array)
         let customColumn = extractedCustomColumn[0].map((_, colIndex) => extractedCustomColumn.map(row => row[colIndex]))
         return customColumn
+    }
+
+    Component.onCompleted: {
+        Globals.References.pages.rawData.mainArea.tabLinePlot1d = line1dRawData
     }
 
 }

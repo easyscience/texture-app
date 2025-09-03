@@ -81,11 +81,11 @@ EaCharts.Plotly3dSurface {
         }
     }
 
-    onSliderIndxValueChanged: {
-        if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(surface3dRawData, sliderIndxValue)
-        }
-    }
+    // onSliderIndxValueChanged: {
+    //     if (loadSucceededStatus) {
+    //         Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(surface3dRawData, sliderIndxValue)
+    //     }
+    // }
 
     function getData3DFromJson(jsonFilename, sliderIndx, callback) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){
@@ -108,5 +108,7 @@ EaCharts.Plotly3dSurface {
       let customColumn = extractedCustomColumn[0].map((_, colIndex) => extractedCustomColumn.map(row => row[colIndex]))
       return customColumn
     }
+
+    Component.onCompleted: Globals.References.pages.rawData.mainArea.tabSurfacePlot3d = surface3dRawData
 
 }

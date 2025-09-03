@@ -37,6 +37,12 @@ QtObject {
             }
         },
         'rawData': {
+            'mainArea': {
+                'tabLinePlot1d': {},
+                'tabHeatmapPlot2d': {},
+                'tabPolarHeatmapPlot2d': {},
+                'tabSurfacePlot3d': {}
+            },
             'sidebar': {
                 'basic': {
                     'groups': {
