@@ -29,7 +29,6 @@ EaCharts.Plotly1dLine {
             Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setXAxisTitle()
             setYAxisTitle()
-            //Globals.References.pages.rawData.mainArea.tabLinePlot1d = line1dRawData
         } else {
             console.debug('WebEngineView not ready yet.')
         }
@@ -38,12 +37,18 @@ EaCharts.Plotly1dLine {
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
             Globals.BackendWrapper.rawDataUpdateLinePlotTwoThetaBinWidth1D(line1dRawData, twoThetaBinWidthValue)
+            if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
+            }
         }
     }
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
             Globals.BackendWrapper.rawDataUpdateLinePlotGammaBinWidth1D(line1dRawData, gammaBinWidthValue)
+            if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
+            }
         }
     }
 

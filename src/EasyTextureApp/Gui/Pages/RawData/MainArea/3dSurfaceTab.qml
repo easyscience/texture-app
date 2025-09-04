@@ -64,6 +64,9 @@ EaCharts.Plotly3dSurface {
         if (loadSucceededStatus) {
             Globals.BackendWrapper.rawDataUpdateSurfacePlotTwoThetaBinWidth3D(surface3dRawData, twoThetaBinWidthValue)
             setColorbarTitle()
+            if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D
+            }
         }
     }
 
@@ -71,6 +74,9 @@ EaCharts.Plotly3dSurface {
         if (loadSucceededStatus) {
             Globals.BackendWrapper.rawDataUpdateSurfacePlotGammaBinWidth3D(surface3dRawData, gammaBinWidthValue)
             setColorbarTitle()
+            if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = Globals.BackendWrapper.rawDataGammaBinWidthIndex3D
+            }
         }
     }
 
