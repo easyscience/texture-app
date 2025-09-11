@@ -206,8 +206,8 @@ QtObject {
         console.debug(`End of QML backend for updateSurfacePlotGammaBinWidth3D. Loaded ${filepath3D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function updateTwoThetaSliderIndex3D() {
-        console.debug(`QML backend for updateTwoThetaSliderIndex3D.`)
+    function getTwoThetaSliderIndex3D() {
+        console.debug(`QML backend for getTwoThetaSliderIndex3D.`)
         let sliderIndex = (twoThetaSliderValue3D - minTwoThetaCenter3D) / twoThetaBinWidth3D
         twoThetaSliderIndexSync = sliderIndex
         return sliderIndex
@@ -490,8 +490,8 @@ QtObject {
         console.debug(`End of QML backend for updateLinePlotGammaBinWidth1D. Loaded ${filepath1D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function updateTwoThetaSliderIndex1D() {
-        console.debug(`QML backend for updateTwoThetaSliderIndex1D.`)
+    function getTwoThetaSliderIndex1D() {
+        console.debug(`QML backend for getTwoThetaSliderIndex1D.`)
         let sliderIndex = (twoThetaSliderValue1D - minTwoThetaCenter1D) / twoThetaBinWidth1D
         twoThetaSliderIndexSync = sliderIndex
         return sliderIndex

@@ -210,8 +210,8 @@ QtObject {
         activeBackend.rawData.updateSurfacePlotGammaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateTwoThetaSliderIndex3D() {
-        return activeBackend.rawData.updateTwoThetaSliderIndex3D()
+    function rawDataGetTwoThetaSliderIndex3D() {
+        return activeBackend.rawData.getTwoThetaSliderIndex3D()
     }
 
     // Binning 2D
@@ -342,8 +342,8 @@ QtObject {
         activeBackend.rawData.updateSliceData1D(obj, sliderIndx)
     }
 
-    function rawDataUpdateTwoThetaSliderIndex1D() {
-        return activeBackend.rawData.updateTwoThetaSliderIndex1D()
+    function rawDataGetTwoThetaSliderIndex1D() {
+        return activeBackend.rawData.getTwoThetaSliderIndex1D()
     }
 
     ///////////////////
