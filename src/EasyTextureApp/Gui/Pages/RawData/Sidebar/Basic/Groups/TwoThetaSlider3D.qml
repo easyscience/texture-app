@@ -61,29 +61,37 @@ Grid {
 
             onValueChanged: {
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
-                // Makes sure not to update the slider while the javascript calculation is ongoing
-                // (on bin two theta width change). The slider will be updated on its own in as
-                // a result of that calculation.
-                if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff3D) {
-                    Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
-                    // makes sure to update slider data only then when the object has already created a dictionary
-                    // with data. Blocks warning on the launch of the interface, when onValueChanged signal is emitted
-                    // due to property binding without the actual data have been loaded and changed.
-                    if (Object.keys(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d.plotData).length > 0) {
-                        Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D)
+                Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
+
+                if (Globals.BackendWrapper.rawDataResetTwoThetaSlider) {
+                    // Makes sure not to update the slider while the javascript calculation is ongoing
+                    // (on bin two theta width change). The slider will be updated on its own in as
+                    // a result of that calculation.
+                    if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff3D) {
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D = Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
+                        // makes sure to update slider data only then when the object has already created a dictionary
+                        // with data. Blocks warning on the launch of the interface, when onValueChanged signal is emitted
+                        // due to property binding without the actual data have been loaded and changed.
+                        if (Object.keys(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d.plotData).length > 0) {
+                            Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D)
+                        }
+                    }
+
+                    if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                        //Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
+                        //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = slider.value.toFixed(2)
+                        //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
+                        //Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
+
+                        //Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
+                        console.debug(`3D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
+                    } else {
+                        console.debug(`rawDataTwoThetaSliderValue3D was set to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue3D} degrees.`)
                     }
                 }
-                //
-                // if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                //     //Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
-                //     //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
-                //     //Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
-                //     //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
-                //     //Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValue3D //slider.value.toFixed(2)
-                //     console.debug(`3D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
-                // } else {
-                //     console.debug(`rawDataTwoThetaSliderValue3D was set to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue3D} degrees.`)
-                // }
             }
 
             Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider = slider

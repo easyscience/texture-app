@@ -22,6 +22,7 @@ EaCharts.Plotly1dLine {
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth1D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth1D
     property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D
+    property bool resetSlider: Globals.BackendWrapper.rawDataResetTwoThetaSlider
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -36,7 +37,14 @@ EaCharts.Plotly1dLine {
 
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateLinePlotTwoThetaBinWidth1D(line1dRawData, twoThetaBinWidthValue)
+            // slider not-reset flag is needed when the calculation is activated on tab change and then
+            // the reset of slider on bin width is not necessary
+            if (resetSlider) {
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D = 0
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = 0
+            }
+            Globals.BackendWrapper.rawDataUpdateLinePlotTwoThetaBinWidth1D(line1dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                 Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
             }
@@ -45,9 +53,11 @@ EaCharts.Plotly1dLine {
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateLinePlotGammaBinWidth1D(line1dRawData, gammaBinWidthValue)
+            Globals.BackendWrapper.rawDataUpdateLinePlotGammaBinWidth1D(line1dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
+                //Globals.BackendWrapper.rawDataUpdateSliceData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, sliderIndxValue)
+                //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
             }
         }
     }
@@ -58,11 +68,6 @@ EaCharts.Plotly1dLine {
         }
     }
 
-    // onSliderIndxValueChanged: {
-    //     if (loadSucceededStatus) {
-    //         Globals.BackendWrapper.rawDataUpdateSliceData1D(line1dRawData, sliderIndxValue)
-    //     }
-    // }
 
     function getData1DFromJson(jsonFilename, sliderIndx, callback) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){

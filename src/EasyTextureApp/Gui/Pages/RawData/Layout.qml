@@ -25,17 +25,25 @@ EaComponents.ContentPage {
                 text: qsTr('3D View: Detector Inner Surface')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 0
-                    if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && !Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = sliderValueSync
-                        if (Globals.BackendWrapper.rawDataGammaBinWidthIndex3D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        }
-                        if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        }
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = sliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = sliderValueSync
+                    if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                        // set the flag not to reset the slider on tab change
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = false
+
+                        let tempSl = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        let tempSlInd = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
+                        let tempT = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        let tempG = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+
+                        // change selected two theta and gamma bin widths
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D = tempSlInd
+                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = tempT
+                        Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = tempG
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = tempSl
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = tempSl
+                        Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
+
+                        // turn off the flag to its default value
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
                     }
                     console.debug(`3D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -45,16 +53,19 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
                     if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && !Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        if (Globals.BackendWrapper.rawDataGammaBinWidthIndex2D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        }
-                        if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        }
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                        // let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                        // if (Globals.BackendWrapper.rawDataGammaBinWidthIndex2D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
+                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+                        //     //Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+                        // }
+                        // if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
+                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        //     //Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        // }
+                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                        // Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                        // Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
                     }
                     console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -64,16 +75,19 @@ EaComponents.ContentPage {
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
                     if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && !Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        if (Globals.BackendWrapper.rawDataGammaBinWidthIndex2D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        }
-                        if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        }
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                        // let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                        // if (Globals.BackendWrapper.rawDataGammaBinWidthIndex2D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
+                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+                        //     //Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+                        // }
+                        // if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
+                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        //     //Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        // }
+                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                        // Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                        // Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
                     }
                     console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -82,18 +96,26 @@ EaComponents.ContentPage {
                 text: qsTr('1D View: γ(2θ)')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 3
-                    if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && !Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = sliderValueSync
-                        if (Globals.BackendWrapper.rawDataGammaBinWidthIndex1D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        }
-                        if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
-                            Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        }
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = sliderValueSync
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = sliderValueSync
-                    }
+                    if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                        // set the flag not to reset the slider on tab change
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = false
+
+                        let tempSl = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        let tempSlInd = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
+                        let tempT = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        let tempG = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+
+                        // change selected two theta and gamma bin widths
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D = tempSlInd
+                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = tempT
+                        Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = tempG
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = tempSl
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = tempSl
+                        Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
+
+                        // turn off the flag to its default value
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
+                   }
                     console.debug(`1D View tab is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
             }

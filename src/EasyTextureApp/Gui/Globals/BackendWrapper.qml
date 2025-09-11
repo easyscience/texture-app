@@ -107,27 +107,21 @@ QtObject {
     // RawData page
     ///////////////
 
-    property bool rawDataSyncTabsSlidersData: activeBackend.rawData.syncTabsSlidersData
-    onRawDataSyncTabsSlidersDataChanged: {
-        activeBackend.rawData.syncTabsSlidersData = rawDataSyncTabsSlidersData
-        if (rawDataSyncTabsSlidersData) {
-            rawDataSynchronizeBinningsAndSliders()
-        }
-        console.debug(`Raw data synchronisation of binning and sliders changed to ${activeBackend.rawData.syncTabsSlidersData}.`)
-    }
-    function rawDataSynchronizeBinningsAndSliders() {
-        activeBackend.rawData.synchronizeBinningsAndSliders()
-    }
-
     property bool rawDataCalculateViewsAtOnce: activeBackend.rawData.calculateViewsAtOnce
     onRawDataCalculateViewsAtOnceChanged: activeBackend.rawData.calculateViewsAtOnce = rawDataCalculateViewsAtOnce
 
-    property real rawDataTwoThetaSliderValueSync: activeBackend.rawData.twoThetaSliderValueSync
-    onRawDataTwoThetaSliderValueSyncChanged: activeBackend.rawData.twoThetaSliderValueSync = rawDataTwoThetaSliderValueSync
-    property int rawDataGammaBinWidthIndexSync: activeBackend.rawData.gammaBinWidthIndexSync
-    onRawDataGammaBinWidthIndexSyncChanged: activeBackend.rawData.gammaBinWidthIndexSync = rawDataGammaBinWidthIndexSync
+    property real rawDataTwoThetaBinWidthValueSync: activeBackend.rawData.twoThetaBinWidthValueSync
+    onRawDataTwoThetaBinWidthValueSyncChanged: activeBackend.rawData.twoThetaBinWidthValueSync = rawDataTwoThetaBinWidthValueSync
     property int rawDataTwoThetaBinWidthIndexSync: activeBackend.rawData.twoThetaBinWidthIndexSync
     onRawDataTwoThetaBinWidthIndexSyncChanged: activeBackend.rawData.twoThetaBinWidthIndexSync = rawDataTwoThetaBinWidthIndexSync
+    property real rawDataGammaBinWidthValueSync: activeBackend.rawData.gammaBinWidthValueSync
+    onRawDataGammaBinWidthValueSyncChanged: activeBackend.rawData.gammaBinWidthValueSync = rawDataGammaBinWidthValueSync
+    property int rawDataGammaBinWidthIndexSync: activeBackend.rawData.gammaBinWidthIndexSync
+    onRawDataGammaBinWidthIndexSyncChanged: activeBackend.rawData.gammaBinWidthIndexSync = rawDataGammaBinWidthIndexSync
+    property real rawDataTwoThetaSliderValueSync: activeBackend.rawData.twoThetaSliderValueSync
+    onRawDataTwoThetaSliderValueSyncChanged: activeBackend.rawData.twoThetaSliderValueSync = rawDataTwoThetaSliderValueSync
+    property int rawDataTwoThetaSliderIndexSync: activeBackend.rawData.twoThetaSliderIndexSync
+    onRawDataTwoThetaSliderIndexSyncChanged: activeBackend.rawData.twoThetaSliderIndexSync = rawDataTwoThetaSliderIndexSync
 
 
     property bool rawDataLoaded: activeBackend.rawData.loaded
@@ -141,8 +135,10 @@ QtObject {
         }
     }
     property int rawDataSelectedTabIndex: activeBackend.rawData.selectedTabIndex
-    onRawDataSelectedTabIndexChanged: activeBackend.rawData.selectedTabIndex= rawDataSelectedTabIndex
+    onRawDataSelectedTabIndexChanged: activeBackend.rawData.selectedTabIndex = rawDataSelectedTabIndex
 
+    property int rawDataResetTwoThetaSlider: activeBackend.rawData.resetTwoThetaSlider
+    onRawDataResetTwoThetaSliderChanged: activeBackend.rawData.resetTwoThetaSlider = rawDataResetTwoThetaSlider
     // Load measurements group
     readonly property var rawDataMeasurements: activeBackend.rawData.measurements
 
@@ -206,16 +202,16 @@ QtObject {
         activeBackend.rawData.updateSliderPatchData3D(obj, sliderIndx)
     }
 
-    function rawDataUpdateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth) {
-        activeBackend.rawData.updateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth)
+    function rawDataUpdateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth) {
-        activeBackend.rawData.updateSurfacePlotGammaBinWidth3D(obj, gammaBinWidth)
+    function rawDataUpdateSurfacePlotGammaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updateSurfacePlotGammaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
     function rawDataUpdateTwoThetaSliderIndex3D() {
-        activeBackend.rawData.updateTwoThetaSliderIndex3D()
+        return activeBackend.rawData.updateTwoThetaSliderIndex3D()
     }
 
     // Binning 2D
@@ -334,12 +330,12 @@ QtObject {
         activeBackend.rawData.updateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
-    function rawDataUpdateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth) {
-        activeBackend.rawData.updateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth)
+    function rawDataUpdateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateLinePlotGammaBinWidth1D(obj, gammaBinWidth) {
-        activeBackend.rawData.updateLinePlotGammaBinWidth1D(obj, gammaBinWidth)
+    function rawDataUpdateLinePlotGammaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updateLinePlotGammaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
     function rawDataUpdateSliceData1D(obj, sliderIndx) {
@@ -347,7 +343,7 @@ QtObject {
     }
 
     function rawDataUpdateTwoThetaSliderIndex1D() {
-        activeBackend.rawData.updateTwoThetaSliderIndex1D()
+        return activeBackend.rawData.updateTwoThetaSliderIndex1D()
     }
 
     ///////////////////
