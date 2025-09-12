@@ -29,17 +29,18 @@ EaComponents.ContentPage {
                         // set the flag not to reset the slider on tab change
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = false
 
-                        let tempSl = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        let tempSlInd = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
-                        let tempT = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        let tempG = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+                        // save global data values before they are modified on changing binning data 3D
+                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        let sliderIndexSync = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
+                        let twoThetaBinWidthIndexSync = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        let gammaBinWidthIndexSync = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
 
                         // change selected two theta and gamma bin widths
-                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D = tempSlInd
-                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = tempT
-                        Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = tempG
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = tempSl
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = tempSl
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D = sliderIndexSync
+                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = twoThetaBinWidthIndexSync
+                        Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = gammaBinWidthIndexSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = sliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = sliderValueSync
                         Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
 
                         // turn off the flag to its default value
@@ -100,17 +101,18 @@ EaComponents.ContentPage {
                         // set the flag not to reset the slider on tab change
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = false
 
-                        let tempSl = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        let tempSlInd = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
-                        let tempT = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        let tempG = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+                        // save global data values before they are modified on changing binning data 1D
+                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        let sliderIndexSync = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
+                        let twoThetaBinWidthIndexSync = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        let gammaBinWidthIndexSync = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
 
                         // change selected two theta and gamma bin widths
-                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D = tempSlInd
-                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = tempT
-                        Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = tempG
-                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = tempSl
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = tempSl
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D = sliderIndexSync
+                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = twoThetaBinWidthIndexSync
+                        Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = gammaBinWidthIndexSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = sliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = sliderValueSync
                         Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
 
                         // turn off the flag to its default value

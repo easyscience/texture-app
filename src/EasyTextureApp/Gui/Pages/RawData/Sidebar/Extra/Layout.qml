@@ -22,14 +22,6 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr('Synchronize binnings and sliders accross the tabs')
-        icon: 'rocket'
-        collapsible: false
-
-        Loader { source: 'Groups/BinningsSlidersSync.qml' }
-    }
-
-    EaElements.GroupBox {
         id: immediate
         title: qsTr('Immediate calculation of 3D, 2D, and 1D views')
         icon: 'rocket'
