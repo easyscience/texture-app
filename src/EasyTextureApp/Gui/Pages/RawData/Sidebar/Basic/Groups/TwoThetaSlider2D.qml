@@ -61,36 +61,32 @@ Grid {
 
             onValueChanged: {
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
-                // Makes sure not to update the slider while the javascript calculation is ongoing
-                // (on bin two theta width change). The slider will be updated on its own in as
-                // a result of that calculation.
-                if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff2D) {
-                    Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
-                }
+                Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValue2D
 
-                if (Globals.BackendWrapper.rawDataSyncTabsSlidersData) {
-                    //Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
-                    //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
-                    //Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
-                    //Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
-                    // if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                    //     Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
-                    //     Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
-                    // }
-                    if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
-                        if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff3D) {
-                            Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex3D()
-                        }
-                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
-                        if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff1D) {
-                            Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex1D()
+                if (Globals.BackendWrapper.rawDataResetTwoThetaSlider) {
+                    // Makes sure not to update the slider while the javascript calculation is ongoing
+                    // (on two theta bin width change). The slider will be updated on its own in as
+                    // a result of that calculation.
+                    if (Globals.BackendWrapper.rawDataRunJavaScriptIsOff2D) {
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = Globals.BackendWrapper.rawDataGetTwoThetaSliderIndex2D()
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D
+                        // makes sure to update slider data only then when the object has already created a dictionary
+                        // with data. Blocks warning on the launch of the interface, when onValueChanged signal is emitted
+                        // due to property binding without the actual data have been loaded and changed.
+                        if (Object.keys(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d.fullData).length > 0) {
+                            Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D)
                         }
                     }
-                    Globals.BackendWrapper.rawDataTwoThetaSliderValueSync = slider.value.toFixed(2)
-                    console.debug(`In ${this}: 2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
-                } else {
-                    console.debug(`In ${this}: 2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue2D} degrees.`)
+
+                    if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = slider.value.toFixed(2)
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = slider.value.toFixed(2)
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = slider.value.toFixed(2)
+                        console.debug(`2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
+                    } else {
+                        console.debug(`2D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue2D} degrees.`)
+                    }
                 }
             }
 

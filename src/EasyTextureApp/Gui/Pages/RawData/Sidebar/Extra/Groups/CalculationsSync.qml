@@ -33,19 +33,44 @@ Row {
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = gammaBinWidthIndexSync
                 Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = sliderValueSync
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = sliderValueSync
-                Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
+                Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, sliderIndexSync)
                 // syncing 2D values to global values specified in 3D view
-                // todo
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = sliderIndexSync
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = twoThetaBinWidthIndexSync
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = gammaBinWidthIndexSync
+                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, sliderIndexSync)
             } else if (Globals.BackendWrapper.rawDataSelectedTabIndex === 3) { // in 1D view
+                // syncing 2D values to global values specified in 1D view
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = sliderIndexSync
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = twoThetaBinWidthIndexSync
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = gammaBinWidthIndexSync
+                Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, sliderIndexSync)
                 // syncing 3D values to global values specified in 1D view
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D = sliderIndexSync
                 Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = twoThetaBinWidthIndexSync
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = gammaBinWidthIndexSync
                 Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = sliderValueSync
                 Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = sliderValueSync
-                Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D)
-                // syncing 2D values to global values specified in 1D view
-                // todo
+                Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, sliderIndexSync)
+            } else if (Globals.BackendWrapper.rawDataSelectedTabIndex === 1 || Globals.BackendWrapper.rawDataSelectedTabIndex === 2) { // 2D view
+                // syncing 1D values to global values specified in 2D view
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D = sliderIndexSync
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = twoThetaBinWidthIndexSync
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = gammaBinWidthIndexSync
+                Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = sliderValueSync
+                Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = sliderValueSync
+                Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, sliderIndexSync)
+                // syncing 3D values to global values specified in 2D view
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D = sliderIndexSync
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = twoThetaBinWidthIndexSync
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = gammaBinWidthIndexSync
+                Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = sliderValueSync
+                Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = sliderValueSync
+                Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, sliderIndexSync)
             } else {
                 console.debug(`WARNING: unsupported value for rawDataSelectedTabIndex: ${Globals.BackendWrapper.rawDataSelectedTabIndex}.`)
             }

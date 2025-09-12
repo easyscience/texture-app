@@ -21,6 +21,7 @@ EaCharts.Plotly2dPolarHeatmap {
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
     property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D
+    property bool resetSlider: Globals.BackendWrapper.rawDataResetTwoThetaSlider
 
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
@@ -32,6 +33,35 @@ EaCharts.Plotly2dPolarHeatmap {
         }
     }
 
+    onTwoThetaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            // slider not-reset flag is needed when the calculation is activated on tab change and then
+            // the reset of slider on bin width is not necessary
+            if (resetSlider) {
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = 0
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = 0
+            }
+            Globals.BackendWrapper.rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(polarHeatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            setColorbarTitle()
+            if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
+            }
+        }
+    }
+
+    onGammaBinWidthValueChanged: {
+        if (loadSucceededStatus) {
+            Globals.BackendWrapper.rawDataUpdatePolarHeatmapGammaBinWidth2D(polarHeatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            setColorbarTitle()
+            if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataGammaBinWidthIndex2D
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = Globals.BackendWrapper.rawDataGammaBinWidthIndex2D
+            }
+        }
+    }
+
+    // to be tested with python backend
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
             Globals.BackendWrapper.rawDataGeneratePolarHeatmap2D(polarHeatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
@@ -39,25 +69,11 @@ EaCharts.Plotly2dPolarHeatmap {
         }
     }
 
-    onTwoThetaBinWidthValueChanged: {
-        if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(polarHeatmap2dRawData, twoThetaBinWidthValue)
-            setColorbarTitle()
-        }
-    }
-
-    onGammaBinWidthValueChanged: {
-        if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdatePolarHeatmapGammaBinWidth2D(polarHeatmap2dRawData, gammaBinWidthValue)
-            setColorbarTitle()
-        }
-    }
-
-    onSliderIndxValueChanged: {
-        if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateSliceData2D(polarHeatmap2dRawData, sliderIndxValue)
-        }
-    }
+    // onSliderIndxValueChanged: {
+    //     if (loadSucceededStatus) {
+    //         Globals.BackendWrapper.rawDataUpdateSliceData2D(polarHeatmap2dRawData, sliderIndxValue)
+    //     }
+    // }
 
     function getData2DFromJson(jsonFilename, sliderIndx, callback) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
@@ -108,5 +124,9 @@ EaCharts.Plotly2dPolarHeatmap {
 
     function cleanUpCounts(arr) {
         return arr.map(row => row.filter(value => value !== undefined))
+    }
+
+    Component.onCompleted: {
+        Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d = polarHeatmap2dRawData
     }
 }

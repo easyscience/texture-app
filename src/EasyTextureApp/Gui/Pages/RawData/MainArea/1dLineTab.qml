@@ -46,6 +46,7 @@ EaCharts.Plotly1dLine {
             Globals.BackendWrapper.rawDataUpdateLinePlotTwoThetaBinWidth1D(line1dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
 
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
                 Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
             }
         }
@@ -55,19 +56,18 @@ EaCharts.Plotly1dLine {
         if (loadSucceededStatus) {
             Globals.BackendWrapper.rawDataUpdateLinePlotGammaBinWidth1D(line1dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
-                //Globals.BackendWrapper.rawDataUpdateSliceData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, sliderIndxValue)
-                //Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataTwoThetaSliderValue1D
             }
         }
     }
 
+    // to be tested with python backend
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
             Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
         }
     }
-
 
     function getData1DFromJson(jsonFilename, sliderIndx, callback) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result){

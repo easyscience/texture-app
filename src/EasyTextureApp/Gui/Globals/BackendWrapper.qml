@@ -251,24 +251,24 @@ QtObject {
         activeBackend.rawData.generateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
-    function rawDataUpdateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
-        activeBackend.rawData.updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth)
+    function rawDataUpdateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
-        activeBackend.rawData.updateHeatmapGammaBinWidth2D(obj, gammaBinWidth)
+    function rawDataUpdateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
     function rawDataGeneratePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
         activeBackend.rawData.generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
-    function rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
-        activeBackend.rawData.updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth)
+    function rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdatePolarHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
-        activeBackend.rawData.updatePolarHeatmapGammaBinWidth2D(obj, gammaBinWidth)
+    function rawDataUpdatePolarHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        activeBackend.rawData.updatePolarHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
     // function rawDataUpdateSliderIndex2D(obj, sliderIndx) {
@@ -279,8 +279,8 @@ QtObject {
         activeBackend.rawData.updateSliceData2D(obj, sliderIndx)
     }
 
-    function rawDataUpdateTwoThetaSliderIndex2D() {
-        activeBackend.rawData.updateTwoThetaSliderIndex2D()
+    function rawDataGetTwoThetaSliderIndex2D() {
+        return activeBackend.rawData.getTwoThetaSliderIndex2D()
     }
 
     // Binning 1D

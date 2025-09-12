@@ -48,12 +48,6 @@ Grid {
                             if (Globals.BackendWrapper.rawDataResetTwoThetaSlider) {
                                 Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = Globals.BackendWrapper.rawDataMinTwoThetaCenter3D
                             }
-                            // if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                            //     Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData1D(currentIndex)
-                            //     Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaBinWidthIndex.currentIndex = currentIndex
-                            //     Globals.BackendWrapper.rawDataUpdateTwoThetaSliderData2D(currentIndex)
-                            //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = currentIndex
-                            // }
                         }
 
                         Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaBinWidthIndex = twoThetaBinWidthIndexSelector3D
@@ -82,10 +76,6 @@ Grid {
                         onCurrentIndexChanged: {
                             Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = currentIndex
                             Globals.BackendWrapper.rawDataUpdateGammaBinWidth3D(currentIndex)
-                            // if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                            //     Globals.References.pages.rawData.sidebar.basic.groups.binning1d.gammaBinWidthIndex.currentIndex = currentIndex
-                            //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = currentIndex
-                            // }
                         }
 
                         Component.onCompleted: Globals.References.pages.rawData.sidebar.basic.groups.binning3d.gammaBinWidthIndex = gammaBinWidthIndexSelector3D

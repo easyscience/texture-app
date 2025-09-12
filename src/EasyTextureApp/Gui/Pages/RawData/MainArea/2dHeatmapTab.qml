@@ -24,6 +24,7 @@ EaCharts.Plotly2dHeatmap {
     property real twoThetaBinWidthValue: Globals.BackendWrapper.rawDataTwoThetaBinWidth2D
     property real gammaBinWidthValue: Globals.BackendWrapper.rawDataGammaBinWidth2D
     property real sliderIndxValue: Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D
+    property bool resetSlider: Globals.BackendWrapper.rawDataResetTwoThetaSlider
 
     shapes: [{
         'type': 'rect',
@@ -52,18 +53,15 @@ EaCharts.Plotly2dHeatmap {
         }
     }
 
-    onPlotFilepathChanged: {
-        if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
-            setXAxisTitle()
-            setYAxisTitle()
-            setColorbarTitle()
-        }
-    }
-
     onTwoThetaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateHeatmapTwoThetaBinWidth2D(heatmap2dRawData, twoThetaBinWidthValue)
+            // slider not-reset flag is needed when the calculation is activated on tab change and then
+            // the reset of slider on bin width is not necessary
+            if (resetSlider) {
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = 0
+                Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = 0
+            }
+            Globals.BackendWrapper.rawDataUpdateHeatmapTwoThetaBinWidth2D(heatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setXAxisTitle()
             setColorbarTitle()
         }
@@ -71,7 +69,17 @@ EaCharts.Plotly2dHeatmap {
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateHeatmapGammaBinWidth2D(heatmap2dRawData, gammaBinWidthValue)
+            Globals.BackendWrapper.rawDataUpdateHeatmapGammaBinWidth2D(heatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            setYAxisTitle()
+            setColorbarTitle()
+        }
+    }
+
+    // to be tested with python backend
+    onPlotFilepathChanged: {
+        if (loadSucceededStatus) {
+            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            setXAxisTitle()
             setYAxisTitle()
             setColorbarTitle()
         }

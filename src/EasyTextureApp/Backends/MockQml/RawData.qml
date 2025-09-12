@@ -221,8 +221,8 @@ QtObject {
     property real minTwoThetaCenter2D: 45.25
     property real maxTwoThetaCenter2D: 134.75
     property real twoThetaBinWidth2D: 0.5
-    property real twoThetaSliderValue2D: minTwoThetaCenter2D
-    property int twoThetaSliderIndex2D
+    property real twoThetaSliderValue2D: 45.25
+    property int twoThetaSliderIndex2D: 0
 
     property int gammaBinWidthIndex2D: 0
     property real gammaBinWidth2D: 1.0
@@ -230,41 +230,47 @@ QtObject {
     property bool runJavaScriptIsOff2D: true
 
     function updateTwoThetaSliderData2D(twoThetaBinWidthIndx) {
-        twoThetaBinWidthIndexSync = twoThetaBinWidthIndx
         console.debug(`QML backend for updateTwoThetaSliderData2D`)
+        twoThetaBinWidthIndexSync = twoThetaBinWidthIndx
         if (twoThetaBinWidthIndx === 0) {
             // centers, edges = bins_two_theta(min_two_theta, max_two_theta, bin_width, drop_incomplete=True)
-            minTwoThetaCenter2D = 45.25 //centers[0]
-            maxTwoThetaCenter2D = 134.75 //centers[-1]
-            twoThetaBinWidth2D = 0.5
+            minTwoThetaCenter = 45.25 //centers[0]
+            maxTwoThetaCenter = 134.75 //centers[-1]
+            twoThetaBinWidthValueSync = 0.5
             console.debug(`Updated 2D twoTheta slider data to bin_width=${twoThetaBinWidth2D}, and slider edges to (min=${minTwoThetaCenter2D}, max=${maxTwoThetaCenter2D})`)
         } else if (twoThetaBinWidthIndx === 1) {
-            minTwoThetaCenter2D = 45.5 //centers[0]
-            maxTwoThetaCenter2D = 134.5 //centers[-1]
-            twoThetaBinWidth2D = 1
+            minTwoThetaCenter = 45.5 //centers[0]
+            maxTwoThetaCenter = 134.5 //centers[-1]
+            twoThetaBinWidthValueSync = 1
             console.debug(`Updated 2D twoTheta slider data to bin_width=${twoThetaBinWidth2D}, and slider edges to (min=${minTwoThetaCenter2D}, max=${maxTwoThetaCenter2D})`)
         } else {
-            minTwoThetaCenter2D = null
-            maxTwoThetaCenter2D = null
-            twoThetaBinWidth2D = null
+            minTwoThetaCenter = null
+            maxTwoThetaCenter = null
+            twoThetaBinWidthValueSync = null
             console.debug(`WARNING: Update 2D twoTheta slider data for two theta bin width index ${twoThetaBinWidthIndx} is not implemented.`)
         }
+        minTwoThetaCenter2D = minTwoThetaCenter
+        maxTwoThetaCenter2D = maxTwoThetaCenter
+        twoThetaBinWidth2D = twoThetaBinWidthValueSync
     }
 
     function updateGammaBinWidth2D(gammaBinWidthIndx) {
-        if (gammaBinWidthIndx === 0) {
-            gammaBinWidth2D = 1.0
-        } else if (gammaBinWidthIndx === 1) {
-            gammaBinWidth2D = 2.0
-        } else {
-            gammaBinWidth2D = null
-        }
+        console.debug(`QML backend for updateGammaBinWidth2D.`)
         gammaBinWidthIndexSync = gammaBinWidthIndx
+        if (gammaBinWidthIndx === 0) {
+            gammaBinWidthValueSync = 1.0
+        } else if (gammaBinWidthIndx === 1) {
+            gammaBinWidthValueSync = 2.0
+        } else {
+            gammaBinWidthValueSync = null
+        }
+        gammaBinWidth2D = gammaBinWidthValueSync
     }
 
     function generateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
         console.debug(`QML backend for generateHeatmap2D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
         runJavaScriptIsOff2D = false
+
         obj.getData2DFromJson(Qt.resolvedUrl(filepath), function(uniqueTwoTheta, uniqueGamma, countsData, customData) {
             let heatmapPlotDict = {}
             heatmapPlotDict['x'] = uniqueTwoTheta
@@ -279,28 +285,28 @@ QtObject {
         })
     }
 
-    function updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
+    function updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
         console.debug(`QML backend for updateHeatmapTwoThetaBinWidth2D.`)
 
         let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth2D)
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         let filepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        generateHeatmap2D(obj, filepath2D, twoThetaBinWidth, gammaBinWidth2D, 0)
+        generateHeatmap2D(obj, filepath2D, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
 
-        console.debug(`End of QML backend for updateHeatmapTwoThetaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth2D}).`)
+        console.debug(`End of QML backend for updateHeatmapTwoThetaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function updateHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
+    function updateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
         console.debug(`QML backend for updateHeatmapGammaBinWidth2D.`)
 
         let twoThetaIndex, gammaIndex
         [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth2D, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         let filepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        generateHeatmap2D(obj, filepath2D, twoThetaBinWidth2D, gammaBinWidth, twoThetaSliderIndex2D)
+        generateHeatmap2D(obj, filepath2D, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
 
-        console.debug(`End of QML backend for updateHeatmapGammaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth2D}, ${gammaBinWidth}).`)
+        console.debug(`End of QML backend for updateHeatmapGammaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
     // Polar Heatmap
@@ -315,12 +321,13 @@ QtObject {
             polarHeatmapFullDataDict['z'] = ringsCountsMesh
             polarHeatmapFullDataDict['twoTheta'] = uniqueTwoTheta
             obj.fullData = polarHeatmapFullDataDict
+            updateSliceData2D(obj, sliderIndx)
             // When gamma width is changed, the slider index remains unchanged, so we want to update the view
-            if (twoThetaSliderIndex2D === sliderIndx) {
-                updateSliceData2D(obj, sliderIndx)
-            } else { // When two theta width is changed, we just change the slider index and the view updates through call in TwoThetaSlider1D.qml
-                updateTwoThetaSliderIndex2D()
-            }
+            // if (twoThetaSliderIndex2D === sliderIndx) {
+            //     updateSliceData2D(obj, sliderIndx)
+            // } else { // When two theta width is changed, we just change the slider index and the view updates through call in TwoThetaSlider1D.qml
+            //     getTwoThetaSliderIndex2D()
+            // }
             runJavaScriptIsOff2D = true
             console.debug(`End of QML backend for generatePolarHeatmap2D: slider index ${twoThetaSliderIndex2D} at ${twoThetaSliderValue2D}. `)
         })
@@ -349,34 +356,37 @@ QtObject {
         console.debug(`Updated 2D PolarHeatmap plotData to slice index ${sliderIndx}.`)
     }
 
-    function updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth) {
+    function updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
         console.debug(`QML backend for updatePolarHeatmapTwoThetaBinWidth2D.`)
 
         let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth2D)
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         let filepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        generatePolarHeatmap2D(obj, filepath2D, twoThetaBinWidth, gammaBinWidth2D, 0)
+        generatePolarHeatmap2D(obj, filepath2D, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
 
-        console.debug(`End of QML backend for updatePolarHeatmapTwoThetaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth2D}).`)
+        console.debug(`End of QML backend for updatePolarHeatmapTwoThetaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function updatePolarHeatmapGammaBinWidth2D(obj, gammaBinWidth) {
+    function updatePolarHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
         console.debug(`QML backend for updatePolarHeatmapGammaBinWidth2D.`)
 
         let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth2D, gammaBinWidth)
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         let filepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
-        generatePolarHeatmap2D(obj, filepath2D, twoThetaBinWidth2D, gammaBinWidth, twoThetaSliderIndex2D)
+        generatePolarHeatmap2D(obj, filepath2D, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
 
-        console.debug(`End of QML backend for updatePolarHeatmapGammaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth2D}, ${gammaBinWidth}).`)
+        console.debug(`End of QML backend for updatePolarHeatmapGammaBinWidth2D. Loaded ${filepath2D} for (twoThetaBinWidth, gammaBinWidth) = (${twoThetaBinWidth}, ${gammaBinWidth}).`)
     }
 
-    function updateTwoThetaSliderIndex2D() {
-        console.debug(`QML backend for updateTwoThetaSliderIndex2D.`)
-        twoThetaSliderIndex2D = (twoThetaSliderValue2D - minTwoThetaCenter2D) / twoThetaBinWidth2D
+    function getTwoThetaSliderIndex2D() {
+        console.debug(`QML backend for getTwoThetaSliderIndex2D.`)
+        let sliderIndex = (twoThetaSliderValue2D - minTwoThetaCenter2D) / twoThetaBinWidth2D
+        twoThetaSliderIndexSync = sliderIndex
+        return sliderIndex
     }
+
 
     // Binning 1D
     property string plotFilepath1D: '../../../../examples/RawData/user_voxels_2D_1.json'

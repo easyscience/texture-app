@@ -41,7 +41,7 @@ EaComponents.ContentPage {
                         Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = gammaBinWidthIndexSync
                         Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = sliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = sliderValueSync
-                        Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
+                        Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, sliderIndexSync)
 
                         // turn off the flag to its default value
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
@@ -53,20 +53,26 @@ EaComponents.ContentPage {
                 text: qsTr('2D View: γ-2θ')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
-                    if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && !Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        // let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        // if (Globals.BackendWrapper.rawDataGammaBinWidthIndex2D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
-                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        //     //Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        // }
-                        // if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
-                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        //     //Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        // }
-                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        // Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
-                        // Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
+                    if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                        // set the flag not to reset the slider on tab change
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = false
+
+                        // save global data values before they are modified on changing binning data 2D
+                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        let sliderIndexSync = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
+                        let twoThetaBinWidthIndexSync = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        let gammaBinWidthIndexSync = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+
+                        // change selected two theta and gamma bin widths
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = sliderIndexSync
+                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = twoThetaBinWidthIndexSync
+                        Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = gammaBinWidthIndexSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                        //Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, sliderIndexSync)
+
+                        // turn off the flag to its default value
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
                     }
                     console.debug(`2D View tab (γ-2θ) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -75,20 +81,26 @@ EaComponents.ContentPage {
                 text: qsTr('2D View: 2θ Rings')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
-                    if (Globals.BackendWrapper.rawDataSyncTabsSlidersData && !Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        // let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
-                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        // if (Globals.BackendWrapper.rawDataGammaBinWidthIndex2D !== Globals.BackendWrapper.rawDataGammaBinWidthIndexSync) {
-                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.gammaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        //     //Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
-                        // }
-                        // if (Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D !== Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync) {
-                        //     Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaBinWidthIndex.currentIndex = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        //     //Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
-                        // }
-                        // //Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
-                        // Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
-                        // Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
+                    if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
+                        // set the flag not to reset the slider on tab change
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = false
+
+                        // save global data values before they are modified on changing binning data 2D
+                        let sliderValueSync = Globals.BackendWrapper.rawDataTwoThetaSliderValueSync
+                        let sliderIndexSync = Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync
+                        let twoThetaBinWidthIndexSync = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndexSync
+                        let gammaBinWidthIndexSync = Globals.BackendWrapper.rawDataGammaBinWidthIndexSync
+
+                        // change selected two theta and gamma bin widths
+                        Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = sliderIndexSync
+                        Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = twoThetaBinWidthIndexSync
+                        Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = gammaBinWidthIndexSync
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
+                        Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, sliderIndexSync)
+
+                        // turn off the flag to its default value
+                        Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
                     }
                     console.debug(`2D View tab (2θ rings) is selected ::: ${this}. Selected tab index changed to ${Globals.BackendWrapper.rawDataSelectedTabIndex}`)
                 }
@@ -113,7 +125,7 @@ EaComponents.ContentPage {
                         Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = gammaBinWidthIndexSync
                         Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = sliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = sliderValueSync
-                        Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
+                        Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, sliderIndexSync)
 
                         // turn off the flag to its default value
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = true

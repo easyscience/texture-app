@@ -81,12 +81,10 @@ Grid {
                     }
 
                     if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
-                        //Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
-                        // Globals.BackendWrapper.rawDataUpdateTwoThetaSliderIndex2D()
+                        Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = slider.value.toFixed(2)
+                        Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = slider.value.toFixed(2)
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = slider.value.toFixed(2)
                         Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = slider.value.toFixed(2)
-                        //Globals.BackendWrapper.rawDataGetTwoThetaSliderIndex3D()
-                        //Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D)
                         console.debug(`1D slider moved to ${Globals.BackendWrapper.rawDataTwoThetaSliderValueSync} degrees.`)
                     } else {
                         console.debug(`rawDataTwoThetaSliderValue1D was set to ${Globals.BackendWrapper.rawDataTwoThetaSliderValue1D} degrees.`)
