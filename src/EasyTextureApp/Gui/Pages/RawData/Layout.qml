@@ -69,7 +69,6 @@ EaComponents.ContentPage {
                         Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = gammaBinWidthIndexSync
                         Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
-                        //Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, sliderIndexSync)
 
                         // turn off the flag to its default value
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = true

@@ -9,7 +9,7 @@ import QtQuick
 QtObject {
     property bool loaded: false
     property int selectedTabIndex: 0
-    property bool calculateViewsAtOnce: false
+    property bool calculateViewsAtOnce: true
 
     // Load measurements group
     property var measurements: []
@@ -115,6 +115,7 @@ QtObject {
     function generateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
         console.debug(`QML backend for generateSurfacePlot3D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
         runJavaScriptIsOff3D = false
+
         obj.getData3DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(xData, yData, zData, countsData, customData) {
             let surfacePlotDict = {}
             surfacePlotDict['x'] = xData
@@ -128,7 +129,6 @@ QtObject {
                                                'Counts: %{customdata[3]}'
             obj.plotData = surfacePlotDict
             updateSliderPatchData3D(obj, sliderIndx)
-
             runJavaScriptIsOff3D = true
             console.debug(`End of QML backend for generateSurfacePlot3D: slider index ${twoThetaSliderIndex3D} at ${twoThetaSliderValue3D}.`)
         })
@@ -301,7 +301,7 @@ QtObject {
         console.debug(`QML backend for updateHeatmapGammaBinWidth2D.`)
 
         let twoThetaIndex, gammaIndex
-        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth2D, gammaBinWidth)
+        [twoThetaIndex, gammaIndex] = getBinningIndices(twoThetaBinWidth, gammaBinWidth)
         let mockBinningIndex = 2 * twoThetaIndex + gammaIndex + 1
         let filepath2D = '../../../../examples/RawData/user_voxels_2D_%1.json'.arg(mockBinningIndex)
         generateHeatmap2D(obj, filepath2D, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
@@ -314,6 +314,7 @@ QtObject {
     function generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
         console.debug(`QML backend for generatePolarHeatmap2D. Data will be loaded from ${Qt.resolvedUrl(filepath)}.`)
         runJavaScriptIsOff2D = false
+
         obj.getData2DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(ringsR, uniqueTwoTheta, ringsGamma, ringsCountsMesh) {
             let polarHeatmapFullDataDict = {}
             polarHeatmapFullDataDict['r'] = ringsR
@@ -322,12 +323,6 @@ QtObject {
             polarHeatmapFullDataDict['twoTheta'] = uniqueTwoTheta
             obj.fullData = polarHeatmapFullDataDict
             updateSliceData2D(obj, sliderIndx)
-            // When gamma width is changed, the slider index remains unchanged, so we want to update the view
-            // if (twoThetaSliderIndex2D === sliderIndx) {
-            //     updateSliceData2D(obj, sliderIndx)
-            // } else { // When two theta width is changed, we just change the slider index and the view updates through call in TwoThetaSlider1D.qml
-            //     getTwoThetaSliderIndex2D()
-            // }
             runJavaScriptIsOff2D = true
             console.debug(`End of QML backend for generatePolarHeatmap2D: slider index ${twoThetaSliderIndex2D} at ${twoThetaSliderValue2D}. `)
         })
@@ -444,6 +439,7 @@ QtObject {
     function generateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
         console.debug(`QML backend for generateLinePlot1D. Data will be loaded from ${Qt.resolvedUrl(filepath)} for ${sliderIndx}.`)
         runJavaScriptIsOff1D = false
+
         obj.getData1DFromJson(Qt.resolvedUrl(filepath), sliderIndx, function(uniqueTwoTheta, uniqueGamma, countsData) {
             let linePlotFullDataDict = {}
             linePlotFullDataDict['twoTheta'] = uniqueTwoTheta
@@ -451,7 +447,6 @@ QtObject {
             linePlotFullDataDict['counts'] = countsData
             obj.fullData = linePlotFullDataDict
             updateSliceData1D(obj, sliderIndx)
-
             runJavaScriptIsOff1D = true
             console.debug(`End of QML backend for generateLinePlot1D: slider index ${twoThetaSliderIndex1D} at ${twoThetaSliderValue1D}.`)
         })

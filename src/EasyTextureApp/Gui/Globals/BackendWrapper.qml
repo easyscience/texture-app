@@ -255,7 +255,7 @@ QtObject {
         activeBackend.rawData.updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
         activeBackend.rawData.updateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
