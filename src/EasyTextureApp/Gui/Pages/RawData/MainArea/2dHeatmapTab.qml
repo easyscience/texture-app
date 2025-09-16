@@ -43,7 +43,7 @@ EaCharts.Plotly2dHeatmap {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGenerateHeatmap2D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setShape()
             setXAxisTitle()
             setYAxisTitle()
@@ -61,7 +61,7 @@ EaCharts.Plotly2dHeatmap {
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = 0
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = 0
             }
-            Globals.BackendWrapper.rawDataUpdateHeatmapTwoThetaBinWidth2D(heatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateHeatmapTwoThetaBinWidth2D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setXAxisTitle()
             setColorbarTitle()
         }
@@ -69,7 +69,7 @@ EaCharts.Plotly2dHeatmap {
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateHeatmapGammaBinWidth2D(heatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateHeatmapGammaBinWidth2D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setYAxisTitle()
             setColorbarTitle()
         }
@@ -78,7 +78,7 @@ EaCharts.Plotly2dHeatmap {
     // to be tested with python backend
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGenerateHeatmap2D(heatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGenerateHeatmap2D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setXAxisTitle()
             setYAxisTitle()
             setColorbarTitle()
@@ -102,22 +102,14 @@ EaCharts.Plotly2dHeatmap {
         })
     }
 
-    // function onlyUnique(value, index, array) {
-    //     return array.indexOf(value) === index
-    // }
-
-    // function getIndxByValue(object, value) {
-    //     return Object.keys(object).filter(indx => object[indx] === value)
-    // }
-
-    // function getValueByIndex(valueArray, indxArray) {
-    //     return indxArray.map(indx => valueArray[indx])
-    // }
-
     function extractCustomColumnByIndex(customData, i) {
         // extract the i-th element from each sub-array in customData
         let extractedCustomColumn = customData.map(row => row.map(arr => arr[i]))
         return extractedCustomColumn
+    }
+
+    Component.onCompleted: {
+        Globals.References.pages.rawData.mainArea.tabHeatmapPlot2d = heatmap2dRawData
     }
 
 }

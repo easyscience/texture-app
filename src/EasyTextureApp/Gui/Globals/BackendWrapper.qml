@@ -11,7 +11,7 @@ import QtQuick
 // If ‘PyBackend’ is not defined, then 'MockBackend' from directory 'Backends' is used.
 // It is needed to run the GUI frontend via the qml runtime tool without any Python backend.
 import Backends as Backends
-
+import Gui.Globals as Globals
 
 QtObject {
 
@@ -194,25 +194,30 @@ QtObject {
         activeBackend.rawData.updateGammaBinWidth3D(selectedBinWidthIndexValue)
     }
 
-    function rawDataGenerateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+    function rawDataGenerateSurfacePlot3D(filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        let obj = Globals.References.pages.rawData.mainArea.tabSurfacePlot3d
         activeBackend.rawData.generateSurfacePlot3D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
-    function rawDataUpdateSliderPatchData3D(obj, sliderIndx) {
+    function rawDataUpdateSliderPatchData3D(sliderIndx) {
+        let obj = Globals.References.pages.rawData.mainArea.tabSurfacePlot3d
         activeBackend.rawData.updateSliderPatchData3D(obj, sliderIndx)
     }
 
-    function rawDataUpdateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdateSurfacePlotTwoThetaBinWidth3D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabSurfacePlot3d
         activeBackend.rawData.updateSurfacePlotTwoThetaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateSurfacePlotGammaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdateSurfacePlotGammaBinWidth3D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabSurfacePlot3d
         activeBackend.rawData.updateSurfacePlotGammaBinWidth3D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
     function rawDataGetTwoThetaSliderIndex3D() {
         return activeBackend.rawData.getTwoThetaSliderIndex3D()
     }
+
 
     // Binning 2D
     property string rawDataPlotFilepath2D: activeBackend.rawData.plotFilepath2D
@@ -247,41 +252,45 @@ QtObject {
         activeBackend.rawData.updateGammaBinWidth2D(selectedBinWidthIndexValue)
     }
 
-    function rawDataGenerateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+    function rawDataGenerateHeatmap2D(filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        let obj = Globals.References.pages.rawData.mainArea.tabHeatmapPlot2d
         activeBackend.rawData.generateHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
-    function rawDataUpdateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdateHeatmapTwoThetaBinWidth2D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabHeatmapPlot2d
         activeBackend.rawData.updateHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdateHeatmapGammaBinWidth2D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabHeatmapPlot2d
         activeBackend.rawData.updateHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataGeneratePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+    function rawDataGeneratePolarHeatmap2D(filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        let obj = Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d
         activeBackend.rawData.generatePolarHeatmap2D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
-    function rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d
         activeBackend.rawData.updatePolarHeatmapTwoThetaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdatePolarHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdatePolarHeatmapGammaBinWidth2D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d
         activeBackend.rawData.updatePolarHeatmapGammaBinWidth2D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    // function rawDataUpdateSliderIndex2D(obj, sliderIndx) {
-    //     activeBackend.rawData.updateSliderIndex2D(obj, sliderIndx)
-    // }
-
-    function rawDataUpdateSliceData2D(obj, sliderIndx) {
+    function rawDataUpdateSliceData2D(sliderIndx) {
+        let obj = Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d
         activeBackend.rawData.updateSliceData2D(obj, sliderIndx)
     }
 
     function rawDataGetTwoThetaSliderIndex2D() {
         return activeBackend.rawData.getTwoThetaSliderIndex2D()
     }
+
 
     // Binning 1D
     property string rawDataPlotFilepath1D: activeBackend.rawData.plotFilepath1D
@@ -322,7 +331,8 @@ QtObject {
         return gammaBinsList
     }
 
-    function rawDataGenerateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+    function rawDataGenerateLinePlot1D(filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx) {
+        let obj = Globals.References.pages.rawData.mainArea.tabLinePlot1d
         activeBackend.rawData.generateLinePlot1D(obj, filepath, twoThetaBinWidth, gammaBinWidth, sliderIndx)
     }
 
@@ -330,21 +340,25 @@ QtObject {
         activeBackend.rawData.updateLinePlot1D(twoThetaBinWidth, gammaBinWidth, currentTwoTheta)
     }
 
-    function rawDataUpdateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdateLinePlotTwoThetaBinWidth1D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabLinePlot1d
         activeBackend.rawData.updateLinePlotTwoThetaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateLinePlotGammaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+    function rawDataUpdateLinePlotGammaBinWidth1D(twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex) {
+        let obj = Globals.References.pages.rawData.mainArea.tabLinePlot1d
         activeBackend.rawData.updateLinePlotGammaBinWidth1D(obj, twoThetaBinWidth, gammaBinWidth, twoThetaSliderIndex)
     }
 
-    function rawDataUpdateSliceData1D(obj, sliderIndx) {
+    function rawDataUpdateSliceData1D(sliderIndx) {
+        let obj = Globals.References.pages.rawData.mainArea.tabLinePlot1d
         activeBackend.rawData.updateSliceData1D(obj, sliderIndx)
     }
 
     function rawDataGetTwoThetaSliderIndex1D() {
         return activeBackend.rawData.getTwoThetaSliderIndex1D()
     }
+
 
     ///////////////////
     // Corrections page

@@ -76,7 +76,7 @@ Grid {
                         // with data. Blocks warning on the launch of the interface, when onValueChanged signal is emitted
                         // due to property binding without the actual data have been loaded and changed.
                         if (Object.keys(Globals.References.pages.rawData.mainArea.tabLinePlot1d.fullData).length > 0) {
-                            Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
+                            Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D)
                         }
                     }
 

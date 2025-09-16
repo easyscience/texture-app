@@ -26,7 +26,7 @@ EaCharts.Plotly2dPolarHeatmap {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            Globals.BackendWrapper.rawDataGeneratePolarHeatmap2D(polarHeatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGeneratePolarHeatmap2D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setColorbarTitle()
         } else {
             console.debug('WebEngineView not ready yet.')
@@ -41,7 +41,7 @@ EaCharts.Plotly2dPolarHeatmap {
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D = 0
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = 0
             }
-            Globals.BackendWrapper.rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(polarHeatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdatePolarHeatmapTwoThetaBinWidth2D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setColorbarTitle()
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                 Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex3D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D
@@ -52,7 +52,7 @@ EaCharts.Plotly2dPolarHeatmap {
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdatePolarHeatmapGammaBinWidth2D(polarHeatmap2dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdatePolarHeatmapGammaBinWidth2D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setColorbarTitle()
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataGammaBinWidthIndex2D
@@ -64,16 +64,10 @@ EaCharts.Plotly2dPolarHeatmap {
     // to be tested with python backend
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGeneratePolarHeatmap2D(polarHeatmap2dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGeneratePolarHeatmap2D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setColorbarTitle()
         }
     }
-
-    // onSliderIndxValueChanged: {
-    //     if (loadSucceededStatus) {
-    //         Globals.BackendWrapper.rawDataUpdateSliceData2D(polarHeatmap2dRawData, sliderIndxValue)
-    //     }
-    // }
 
     function getData2DFromJson(jsonFilename, sliderIndx, callback) {
         runJavaScript(`getDataFromJson(${JSON.stringify(jsonFilename)})`, function(result) {
@@ -90,10 +84,6 @@ EaCharts.Plotly2dPolarHeatmap {
             callback(ringsR, uniqueTwoTheta, ringsGamma, ringsCountsMesh)
         })
     }
-
-    // function getIndxByValue(object, value) {
-    //     return Object.keys(object).filter(indx => object[indx] === value)
-    // }
 
     function cleanUpGamma(gammaArray, target) {
         let index = gammaArray.indexOf(target)
@@ -129,4 +119,5 @@ EaCharts.Plotly2dPolarHeatmap {
     Component.onCompleted: {
         Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d = polarHeatmap2dRawData
     }
+
 }

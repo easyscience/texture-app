@@ -74,7 +74,7 @@ Grid {
                         // with data. Blocks warning on the launch of the interface, when onValueChanged signal is emitted
                         // due to property binding without the actual data have been loaded and changed.
                         if (Object.keys(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d.fullData).length > 0) {
-                            Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D)
+                            Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.BackendWrapper.rawDataTwoThetaSliderIndex2D)
                         }
                     }
 

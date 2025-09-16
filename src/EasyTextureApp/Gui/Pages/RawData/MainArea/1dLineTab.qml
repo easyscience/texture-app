@@ -27,7 +27,7 @@ EaCharts.Plotly1dLine {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGenerateLinePlot1D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setXAxisTitle()
             setYAxisTitle()
         } else {
@@ -43,7 +43,7 @@ EaCharts.Plotly1dLine {
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndex1D = 0
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = 0
             }
-            Globals.BackendWrapper.rawDataUpdateLinePlotTwoThetaBinWidth1D(line1dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateLinePlotTwoThetaBinWidth1D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
 
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                 Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex2D = Globals.BackendWrapper.rawDataTwoThetaBinWidthIndex1D
@@ -54,7 +54,7 @@ EaCharts.Plotly1dLine {
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateLinePlotGammaBinWidth1D(line1dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateLinePlotGammaBinWidth1D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = Globals.BackendWrapper.rawDataGammaBinWidthIndex1D
@@ -65,7 +65,7 @@ EaCharts.Plotly1dLine {
     // to be tested with python backend
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGenerateLinePlot1D(line1dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGenerateLinePlot1D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
         }
     }
 

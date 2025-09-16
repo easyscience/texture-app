@@ -53,7 +53,7 @@ EaCharts.Plotly3dSurface {
     onLoadSucceededStatusChanged: {
         if (loadSucceededStatus) {
             console.debug('WebEngineView Loaded! Now loading JSON...')
-            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(surface3dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setScene()
             setColorbarTitle()
         } else {
@@ -69,7 +69,7 @@ EaCharts.Plotly3dSurface {
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndex3D = 0
                 Globals.BackendWrapper.rawDataTwoThetaSliderIndexSync = 0
             }
-            Globals.BackendWrapper.rawDataUpdateSurfacePlotTwoThetaBinWidth3D(surface3dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateSurfacePlotTwoThetaBinWidth3D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setColorbarTitle()
 
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
@@ -81,7 +81,7 @@ EaCharts.Plotly3dSurface {
 
     onGammaBinWidthValueChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataUpdateSurfacePlotGammaBinWidth3D(surface3dRawData, twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
+            Globals.BackendWrapper.rawDataUpdateSurfacePlotGammaBinWidth3D(twoThetaBinWidthValue, gammaBinWidthValue, sliderIndxValue)
             setColorbarTitle()
             if (Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
                 Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = Globals.BackendWrapper.rawDataGammaBinWidthIndex3D
@@ -92,7 +92,7 @@ EaCharts.Plotly3dSurface {
 
     onPlotFilepathChanged: {
         if (loadSucceededStatus) {
-            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(surface3dRawData, plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
+            Globals.BackendWrapper.rawDataGenerateSurfacePlot3D(plotFilepath, twoThetaBinWidthValue, gammaBinWidthValue, 0)
             setColorbarTitle()
         }
     }

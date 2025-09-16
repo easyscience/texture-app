@@ -41,7 +41,7 @@ EaComponents.ContentPage {
                         Globals.BackendWrapper.rawDataGammaBinWidthIndex3D = gammaBinWidthIndexSync
                         Globals.References.pages.rawData.sidebar.basic.groups.binning3d.twoThetaSlider.value = sliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue3D = sliderValueSync
-                        Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(Globals.References.pages.rawData.mainArea.tabSurfacePlot3d, sliderIndexSync)
+                        Globals.BackendWrapper.rawDataUpdateSliderPatchData3D(sliderIndexSync)
 
                         // turn off the flag to its default value
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
@@ -96,7 +96,7 @@ EaComponents.ContentPage {
                         Globals.BackendWrapper.rawDataGammaBinWidthIndex2D = gammaBinWidthIndexSync
                         Globals.References.pages.rawData.sidebar.basic.groups.binning2d.twoThetaSlider.value = sliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue2D = sliderValueSync
-                        Globals.BackendWrapper.rawDataUpdateSliceData2D(Globals.References.pages.rawData.mainArea.tabPolarHeatmapPlot2d, sliderIndexSync)
+                        Globals.BackendWrapper.rawDataUpdateSliceData2D(sliderIndexSync)
 
                         // turn off the flag to its default value
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
@@ -124,7 +124,7 @@ EaComponents.ContentPage {
                         Globals.BackendWrapper.rawDataGammaBinWidthIndex1D = gammaBinWidthIndexSync
                         Globals.References.pages.rawData.sidebar.basic.groups.binning1d.twoThetaSlider.value = sliderValueSync
                         Globals.BackendWrapper.rawDataTwoThetaSliderValue1D = sliderValueSync
-                        Globals.BackendWrapper.rawDataUpdateSliceData1D(Globals.References.pages.rawData.mainArea.tabLinePlot1d, sliderIndexSync)
+                        Globals.BackendWrapper.rawDataUpdateSliceData1D(sliderIndexSync)
 
                         // turn off the flag to its default value
                         Globals.BackendWrapper.rawDataResetTwoThetaSlider = true
