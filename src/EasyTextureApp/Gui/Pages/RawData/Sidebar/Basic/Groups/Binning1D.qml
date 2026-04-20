@@ -32,7 +32,7 @@ Grid {
                         text: qsTr('2θ bin size')
                     }
 
-                    ComboBox {
+                    EaElements.ComboBox {
                         id: twoThetaBinWidthIndexSelector1D
                         // currentIndex: 2
                         // model: ['0.1°', '0.25°', '0.5°', '0.75°', '1°', '2°', '5°', '10°'] // default value should be 0.5
@@ -64,7 +64,7 @@ Grid {
                         text: qsTr('γ bin size')
                     }
 
-                    ComboBox {
+                    EaElements.ComboBox {
                         id: gammaBinWidthIndexSelector1D
                         //values for gamma_bin_width_1D
                         // model: ['1°', '2°', '5°', '10°']// default value should be 1

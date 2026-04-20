@@ -34,7 +34,7 @@ Grid {
                         text: qsTr('2θ bin size')
                     }
 
-                    ComboBox {
+                    EaElements.ComboBox {
                         id: twoThetaBinWidthIndexSelector3D
                         //values for two_theta_bin_width_3D
                         // currentIndex: 2
@@ -66,7 +66,7 @@ Grid {
                         text: qsTr('γ bin size')
                     }
 
-                    ComboBox {
+                    EaElements.ComboBox {
                         id: gammaBinWidthIndexSelector3D
                         //values for gamma_bin_width_3D
                         // model: ['1°', '2°', '5°', '10°']
