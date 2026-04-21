@@ -13,15 +13,15 @@ import EasyApp.Gui.Components as EaComponents
 import Gui.Globals as Globals
 
 
-Grid {
-    rows: 2
-    rowSpacing: 15
+Column {
+    property int radioButtonWidth: (EaStyle.Sizes.sideBarContentWidth - spacing) / 2
+
+    spacing: EaStyle.Sizes.fontPixelSize / 2
 
     Row {
         EaElements.RadioButton {
-            id: noCalibration
             text: qsTr('No vanadium correction')
-            width: EaStyle.Sizes.fontPixelSize * 15
+            width: radioButtonWidth
             checked: true
 
             onClicked: {
@@ -32,7 +32,7 @@ Grid {
         EaElements.RadioButton {
             id: calibration
             text: qsTr('Use vanadium measurement')
-            width: EaStyle.Sizes.fontPixelSize * 15
+            width: radioButtonWidth
 
             onClicked: {
                 Globals.BackendWrapper.correctionsLoadVanadium = true
@@ -40,45 +40,35 @@ Grid {
         }
     }
 
-    // Location
-    Row {
-        spacing: EaStyle.Sizes.fontPixelSize * 0.5
 
-        EaElements.Label {
-            id: locationLabel
-            text: qsTr('File')
-            enabled: Globals.BackendWrapper.correctionsLoadVanadium
-            anchors.verticalCenter: parent.verticalCenter
-        }
+    EaElements.TextField {
+        id: reportLocationField
+        placeholderText: qsTr('Enter vanadium measurement filename here')
+        enabled: Globals.BackendWrapper.correctionsLoadVanadium
 
-        EaElements.TextField {
-            id: reportLocationField
-            placeholderText: qsTr('Enter vanadium measurement filename here')
-            enabled: Globals.BackendWrapper.correctionsLoadVanadium
+        width: EaStyle.Sizes.sideBarContentWidth
+        rightPadding: chooseButton.width
+        horizontalAlignment: TextInput.AlignLeft
 
-            width: EaStyle.Sizes.sideBarContentWidth - locationLabel.width - EaStyle.Sizes.fontPixelSize * 0.5
-            rightPadding: chooseButton.width
-            horizontalAlignment: TextInput.AlignLeft
+        EaElements.ToolButton {
+            id: chooseButton
 
-            EaElements.ToolButton {
-                id: chooseButton
+            anchors.right: parent.right
 
-                anchors.right: parent.right
+            showBackground: false
+            fontIcon: 'folder-open'
+            ToolTip.text: qsTr('Choose vanadium measurement file here')
 
-                showBackground: false
-                fontIcon: 'folder-open'
-                ToolTip.text: qsTr('Choose vanadium measurement file here')
+            onClicked: {
+                console.debug(`Clicking load vanadium measurement file button ::: ${this}`)
+                Globals.References.pages.corrections.sidebar.basic.popups.loadVanadiumMeasurementFile.open()
+            }
 
-                onClicked: {
-                    console.debug(`Clicking load vanadium measurement file button ::: ${this}`)
-                    Globals.References.pages.corrections.sidebar.basic.popups.loadVanadiumMeasurementFile.open()
-                }
-
-                Loader {
-                    source: '../Popups/LoadVanadiumMeasurementFile.qml'
-                }
+            Loader {
+                source: '../Popups/LoadVanadiumMeasurementFile.qml'
             }
         }
     }
+
 
 }
