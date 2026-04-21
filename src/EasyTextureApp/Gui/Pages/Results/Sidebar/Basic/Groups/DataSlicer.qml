@@ -17,7 +17,7 @@ Column {
 
 
     EaElements.Label {
-        text: qsTr('γ-Slice Range: ') + Globals.BackendWrapper.getGammaSliceRange(Globals.BackendWrapper.resultsRingIndexSliderValue)
+        text: qsTr('γ-slice range: ') + Globals.BackendWrapper.getGammaSliceRange(Globals.BackendWrapper.resultsRingIndexSliderValue)
     }
 
 

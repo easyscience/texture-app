@@ -22,14 +22,14 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        title: qsTr('Select γ-slice width')
+        title: qsTr('γ-slice width')
         icon: 'arrows-alt'
 
         Loader { source: 'Groups/GammaSliceSelector.qml' }
     }
 
     EaElements.GroupBox {
-        title: qsTr('Select 2θ ring')
+        title: qsTr('2θ ring')
         icon: 'microscope'
 
         Loader { source: 'Groups/TwoThetaSlider.qml' }
