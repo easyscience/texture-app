@@ -12,37 +12,21 @@ import EasyApp.Gui.Components as EaComponents
 import Gui.Globals as Globals
 
 
-Grid{
-    rows: 2
-    rowSpacing: 20
-    property alias sliderItem: slider
+Column {
+    spacing: EaStyle.Sizes.fontPixelSize
 
-    Row {
 
-        Grid {
-            columns: 2
-            readonly property int commonSpacing: EaStyle.Sizes.fontPixelSize * 1.5
-
-            EaElements.Label {
-                text: qsTr('γ-Slice Range: ')
-            }
-
-            EaElements.Label {
-                text: Globals.BackendWrapper.getGammaSliceRange(Globals.BackendWrapper.resultsRingIndexSliderValue)
-            }
-        }
-
+    EaElements.Label {
+        text: qsTr('γ-Slice Range: ') + Globals.BackendWrapper.getGammaSliceRange(Globals.BackendWrapper.resultsRingIndexSliderValue)
     }
 
+
     Row {
-        id: slideRow
-
         width: EaStyle.Sizes.sideBarContentWidth
-        height: 50 //parent.height
-        spacing: 10
+        spacing: EaStyle.Sizes.fontPixelSize
 
+        // Left label
         EaElements.Label {
-            id: sliderFromLabel
             text: slider.from
         }
 
@@ -73,8 +57,8 @@ Grid{
             Component.onCompleted: Globals.References.pages.results.sidebar.basic.groups.slicer = slider
         }
 
+        // Right label
         EaElements.Label {
-            id: sliderToLabel
             text: slider.to
         }
     }
