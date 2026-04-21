@@ -14,7 +14,7 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr('Measurement file')
+        title: qsTr('Measurements')
         icon: 'layer-group'
         collapsible: false
 
