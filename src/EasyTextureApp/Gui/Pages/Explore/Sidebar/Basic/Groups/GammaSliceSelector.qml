@@ -11,78 +11,75 @@ import EasyApp.Gui.Components as EaComponents
 
 import Gui.Globals as Globals
 
+
 Grid {
-    rows: 2
-    rowSpacing: 30
+    columns: 4
+    columnSpacing: EaStyle.Sizes.fontPixelSize
 
-    Row {
-        Grid {
-            columns: 4
-            columnSpacing: EaStyle.Sizes.fontPixelSize
+    EaElements.RadioButton {
+        id: oneDegreeButton
 
-            EaElements.RadioButton {
-                id: oneDegreeButton
-                topPadding: 0
-                checked: true
-                text: '1°'
+        checked: true
+        text: '1°'
 
-                onClicked: {
-                    Globals.BackendWrapper.exploreGammaBinWidth = 1.0
-                    //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
-                    console.debug(`In ${this}: gamma bin width 1 selected`)
-                }
+        onClicked: {
+            Globals.BackendWrapper.exploreGammaBinWidth = 1.0
+            //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
+            console.debug(`In ${this}: gamma bin width 1 selected`)
+        }
 
-            }
+    }
 
-            EaElements.RadioButton {
-                id: twoDegreeButton
-                topPadding: 0
-                text: '2°'
+    EaElements.RadioButton {
+        id: twoDegreeButton
 
-                onClicked: {
-                    Globals.BackendWrapper.exploreGammaBinWidth = 2.0
-                    //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
-                    console.debug(`In ${this}: gamma bin width 2 selected`)
-                }
+        text: '2°'
 
-            }
+        onClicked: {
+            Globals.BackendWrapper.exploreGammaBinWidth = 2.0
+            //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
+            console.debug(`In ${this}: gamma bin width 2 selected`)
+        }
 
-            EaElements.RadioButton {
-                id: fiveDegreeButton
-                topPadding: 0
-                text: '5°'
-                enabled: false
-                contentItem: Text {
-                    text: fiveDegreeButton.text
-                    color: 'grey'
-                    leftPadding: fiveDegreeButton.indicator.width + fiveDegreeButton.spacing
-                }
+    }
 
-                onClicked: {
-                    Globals.BackendWrapper.exploreGammaBinWidth = 5.0
-                    //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
-                    console.debug(`In ${this}: gamma bin width 5 selected`)
-                }
+    EaElements.RadioButton {
+        id: fiveDegreeButton
 
-            }
+        enabled: false
+        text: '5°'
 
-            EaElements.RadioButton {
-                id: tenDegreeButton
-                topPadding: 0
-                text: '10°'
-                enabled: false
-                contentItem: Text {
-                    text: tenDegreeButton.text
-                    color: 'grey'
-                    leftPadding: tenDegreeButton.indicator.width + tenDegreeButton.spacing
-                }
+        contentItem: Text {
+            text: fiveDegreeButton.text
+            color: 'grey'
+            leftPadding: fiveDegreeButton.indicator.width + fiveDegreeButton.spacing
+        }
 
-                onClicked: {
-                    Globals.BackendWrapper.exploreGammaBinWidth = 10.0
-                    //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
-                    console.debug(`In ${this}: gamma bin width 10 selected`)
-                }
-            }
+        onClicked: {
+            Globals.BackendWrapper.exploreGammaBinWidth = 5.0
+            //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
+            console.debug(`In ${this}: gamma bin width 5 selected`)
+        }
+
+    }
+
+    EaElements.RadioButton {
+        id: tenDegreeButton
+
+        enabled: false
+        text: '10°'
+
+        contentItem: Text {
+            text: tenDegreeButton.text
+            color: 'grey'
+            leftPadding: tenDegreeButton.indicator.width + tenDegreeButton.spacing
+        }
+
+        onClicked: {
+            Globals.BackendWrapper.exploreGammaBinWidth = 10.0
+            //Globals.References.pages.results.sidebar.basic.groups.slicer.value = 1
+            console.debug(`In ${this}: gamma bin width 10 selected`)
         }
     }
 }
+

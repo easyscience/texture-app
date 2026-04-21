@@ -13,17 +13,12 @@ import Gui.Globals as Globals
 
 
 Row {
-    id: slideRow
-
     width: EaStyle.Sizes.sideBarContentWidth
-    height: 50 //parent.height
+    spacing: EaStyle.Sizes.fontPixelSize
 
-    spacing: 10
-
-
+    // Left label
     EaElements.Label {
-        id: sliderFromLabel
-        text: slider.from.toFixed(2)  + '°'
+        text: slider.from.toFixed(2) + '°'
     }
 
     // Slider
@@ -50,8 +45,8 @@ Row {
         }
     }
 
+    // Right label
     EaElements.Label {
-        id: sliderToLabel
         text: slider.to.toFixed(2) + '°'
     }
 
