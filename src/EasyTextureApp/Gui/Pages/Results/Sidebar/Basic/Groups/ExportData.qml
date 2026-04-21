@@ -15,19 +15,23 @@ import Gui.Globals as Globals
 Column {
     spacing: EaStyle.Sizes.fontPixelSize
 
+
     Row {
         EaElements.CheckBox {
             id: dSpacingCheckBox
+
             text: 'd-spacing'
         }
 
         EaElements.CheckBox {
             id: twoThetaCheckBox
+
             text: '2θ'
         }
 
         EaElements.CheckBox {
             id: twoThetaIntegratedCheckBox
+
             text: '2θ integrated'
         }
     }

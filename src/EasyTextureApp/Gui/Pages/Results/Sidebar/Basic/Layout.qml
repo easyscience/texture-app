@@ -14,7 +14,7 @@ EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
         id: slicerGroupBox
-        title: Globals.BackendWrapper.resultsSelectedTabIndex === 0 ? qsTr('Slicer: d-spacing patterns') : qsTr('Slicer: 2\u03b8 patterns')
+        title: qsTr('Slicer')
         collapsible: false
         visible: !(Globals.BackendWrapper.resultsSelectedTabIndex === 2)
         icon: 'microscope'
@@ -23,9 +23,7 @@ EaComponents.SideBarColumn {
     }
 
     EaElements.GroupBox {
-        //enabled: Globals.Proxies.main.project.isCreated
         title: qsTr('Export data')
-        collapsible: false
         icon: 'download'
         last: true
 

@@ -28,13 +28,13 @@ Project {
     // Include Module Definition Files (qmldir), as well as .ts and .qrc
     // from specified directory and its subdirectories
     Files {
-        filter: "qmldir;*.ts;*.qrc;*.html;*.png"
         directory: "EasyTextureApp"
+        filter: "qmldir;*.ts;*.qrc;*.html;*.png"
         recursive: true
     }
     Files {
-        filter: "qmldir;*.ts;*.qrc;*.html"
         directory: "../../EasyApp/src/EasyApp"
+        filter: "qmldir;*.ts;*.qrc;*.html"
         recursive: true
     }
 }

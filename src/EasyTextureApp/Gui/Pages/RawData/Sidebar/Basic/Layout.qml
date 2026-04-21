@@ -14,9 +14,10 @@ import Gui.Globals as Globals
 EaComponents.SideBarColumn {
 
     EaElements.GroupBox {
-        title: qsTr('Measurement file')
+        title: qsTr('Measurements')
         icon: 'layer-group'
         collapsible: false
+        last: !Globals.BackendWrapper.rawDataLoaded
 
         Loader { source: 'Groups/MeasurementFile.qml' }
     }
@@ -26,7 +27,6 @@ EaComponents.SideBarColumn {
         icon: 'arrows-alt'
         collapsible: false
         visible: Globals.BackendWrapper.rawDataLoaded && Globals.BackendWrapper.rawDataSelectedTabIndex == 0
-        last: false
 
         Loader { source: 'Groups/Binning3D.qml' }
     }
