@@ -22,7 +22,7 @@ EaComponents.ContentPage {
     mainView: EaComponents.MainContent {
         tabs: [
             EaElements.TabButton {
-                text: qsTr('3D View: Detector Inner Surface')
+                text: qsTr('3D Detector View')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 0
                     if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
@@ -50,7 +50,7 @@ EaComponents.ContentPage {
                 }
             },
             EaElements.TabButton {
-                text: qsTr('2D View: γ-2θ')
+                text: qsTr('2D View (γ-2θ)')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 1
                     if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
@@ -77,7 +77,7 @@ EaComponents.ContentPage {
                 }
             },
             EaElements.TabButton {
-                text: qsTr('2D View: 2θ Rings')
+                text: qsTr('2θ Rings')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 2
                     if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
@@ -105,7 +105,7 @@ EaComponents.ContentPage {
                 }
             },
             EaElements.TabButton {
-                text: qsTr('1D View: γ(2θ)')
+                text: qsTr('γ-slices')
                 onClicked: {
                     Globals.BackendWrapper.rawDataSelectedTabIndex = 3
                     if (!Globals.BackendWrapper.rawDataCalculateViewsAtOnce) {
